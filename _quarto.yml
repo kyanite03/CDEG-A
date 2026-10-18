@@ -1,0 +1,80 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "**/*.qmd"
+  resources:
+    - data/
+    - assets/vendor/
+
+website:
+  title: "CDEG in Australia · 成都环境集团·澳洲"
+  search: true
+  page-navigation: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: "Home · 首页"
+      - text: "A · Business models · 商业模式"
+        menu:
+          - href: part-a/index.qmd
+            text: "Part A: Business models · 第一部分：商业模式"
+          - href: part-a/wte.qmd
+            text: "Waste-to-energy · 垃圾焚烧发电"
+          - href: part-a/sludge-water.qmd
+            text: "Sludge, biosolids and wastewater O&M · 污泥与污水运营"
+          - href: part-a/organics.qmd
+            text: "Food organics and anaerobic digestion · 厨余垃圾与厌氧消化"
+          - href: part-a/meters.qmd
+            text: "Smart water meters · 智能水表"
+          - href: part-a/chemicals.qmd
+            text: "Water-treatment chemicals · 水处理药剂"
+      - text: "B · Compliance · 合规"
+        menu:
+          - href: part-b/index.qmd
+            text: "Part B: Compliance · 第二部分：合规"
+          - href: part-b/pathways.qmd
+            text: "Approval pathways · 审批路径"
+          - href: part-b/shortcuts.qmd
+            text: "Shortcuts and fast tracks · 审批捷径"
+          - href: part-b/approval-experience.qmd
+            text: "Who has done it before · 谁有审批经验"
+          - href: part-b/china-comparison.qmd
+            text: "Australia vs China regulation · 中澳监管对比"
+      - text: "Models · 模型"
+        menu:
+          - href: models/index.qmd
+            text: "Interactive models · 互动模型"
+          - href: models/wte-payback.qmd
+            text: "WtE project payback · 垃圾发电项目回收期"
+          - href: models/om-contract.qmd
+            text: "O&M contract model · 委托运营模型"
+          - href: models/meter-distributor.qmd
+            text: "Meter distributor model · 水表代理模型"
+          - href: models/partner-ranking.qmd
+            text: "Partner ranking · 合作方排名"
+      - text: "Appendix · 附录"
+        menu:
+          - href: appendix/sources.qmd
+            text: "Sources · 资料来源"
+          - href: appendix/assumptions.qmd
+            text: "Assumptions register · 假设参数"
+          - href: appendix/glossary.qmd
+            text: "Glossary · 术语表"
+  page-footer:
+    center: "[NexStar 2026 · CDEG–A team · Draft: figures marked “to verify” are not final]{.en}[NexStar 2026 · CDEG–A小组 · 草稿：标注“待核实”的数据尚未确定]{.zh}"
+
+format:
+  html:
+    theme: [cosmo, assets/theme.scss]
+    css: assets/lang.css
+    include-in-header: assets/lang-toggle.html
+    toc: true
+    toc-depth: 3
+    smooth-scroll: true
+    link-external-newwindow: true
+    link-external-icon: true
+    # No web fonts, MathJax or external CDNs, so the site loads inside mainland China
+    html-math-method: plain
+lang: en

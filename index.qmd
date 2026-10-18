@@ -1,0 +1,35 @@
+---
+title: "[Chengdu Environment Group in Australia]{.en}[成都环境集团澳洲市场研究]{.zh}"
+subtitle: "[Market research, compliance guide and interactive models]{.en}[市场调研、合规指南与互动模型]{.zh}"
+toc: false
+---
+
+::: {.en}
+**Draft outline.** Yellow boxes are placeholders. Use the 中文 / English button in the top bar to switch language.
+
+This site is the CDEG–A team's report for the NexStar 2026 Melbourne–Chengdu Sprint. It has three parts:
+
+- **[Part A: Business models](part-a/index.qmd).** How each business line makes money in Australia, who the major players are, and what things cost, compared with China.
+- **[Part B: Compliance](part-b/index.qmd).** The permits, licences and approvals each business line needs, the shortcuts, and who has done it before. Every step links to the official source.
+- **[Models](models/index.qmd).** Interactive models: change inflation, unit costs, prices or investment rounds and see when a project pays back.
+
+::: {.placeholder}
+- Executive summary: 5–6 key findings and the recommended entry route
+- One-line answer for CDEG: where to start, with whom, and why
+:::
+:::
+
+::: {.zh}
+**草稿大纲。** 黄色框为待补充内容。点击顶部的 English / 中文 按钮切换语言。
+
+本网站是CDEG–A小组为NexStar 2026墨尔本–成都项目撰写的报告，分为三部分：
+
+- **[第一部分：商业模式](part-a/index.qmd)**：各业务在澳洲的盈利方式、主要参与方及成本价格，并与中国对比。
+- **[第二部分：合规](part-b/index.qmd)**：各业务所需的许可、执照和审批，可用的捷径，以及谁有相关经验。每一步都附官方链接。
+- **[模型](models/index.qmd)**：互动模型——调整通胀、单位成本、价格或投资轮次，查看项目何时回本。
+
+::: {.placeholder}
+- 执行摘要：5–6条主要发现和建议的进入路径
+- 给集团的一句话结论：从哪里开始、与谁合作、为什么
+:::
+:::

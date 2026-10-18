@@ -1,0 +1,25 @@
+# Quarto build output (GitHub Actions rebuilds it on every push)
+/.quarto/
+/_site/
+*_files/
+*.quarto_ipynb
+
+# Local zips / previews
+*.zip
+
+# Secrets — never commit
+.env
+*.pem
+*.key
+
+# OS / OneDrive junk
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+
+# Editors
+.vscode/
+.idea/
+.Rproj.user/
+*.Rproj
