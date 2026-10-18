@@ -1,0 +1,19 @@
+---
+title: "[Glossary]{.en}[术语表]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Everyone</span><span class="zh">负责人：全体成员</span></p>
+
+## [Terms]{.en}[术语]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Gate fee 处理费 · Landfill levy 填埋税 · Cap licence 配额许可 · O&M 委托运营 · EES 环境影响报告 · FIRB 外国投资审查委员会 · NMI 国家计量院 · TEEP 可行性测试 …
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- Gate fee 处理费 · Landfill levy 填埋税 · Cap licence 配额许可 · O&M 委托运营 · EES 环境影响报告 · FIRB 外国投资审查委员会 · NMI 国家计量院 · TEEP 可行性测试 …
+:::
+:::

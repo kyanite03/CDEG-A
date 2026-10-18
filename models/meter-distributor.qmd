@@ -1,0 +1,21 @@
+---
+title: "[Meter distributor model]{.en}[水表代理模型]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+## [Model]{.en}[模型]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Inputs: ex-works price, freight/duty, agent margin, test cost (RMB ~200k), NMI fee, volumes → break-even units
+- Toggle: Chinese lab report accepted by NMI
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 输入：出厂价、运费/关税、代理利润、国内检测费（约20万元）、NMI费用、销量 → 盈亏平衡销量
+- 开关：NMI采信国内检测报告
+:::
+:::

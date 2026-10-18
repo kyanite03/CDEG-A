@@ -1,0 +1,14 @@
+/* Bilingual toggle: content is written in ::: {.en} and ::: {.zh} blocks */
+html[data-lang="en"] .zh { display: none !important; }
+html[data-lang="zh"] .en { display: none !important; }
+#lang-toggle { margin-left: .75rem; border: 1px solid rgba(255,255,255,.6); background: transparent; color: inherit; border-radius: 6px; padding: 2px 10px; font-size: .9rem; cursor: pointer; }
+.placeholder { border: 2px dashed #c8a400; background: #fffbea; border-radius: 8px; padding: .6rem .9rem; margin: .8rem 0; color: #5c4a00; }
+.placeholder::before { content: "PLACEHOLDER · 待补充"; display: block; font-weight: 700; font-size: .8rem; letter-spacing: .04em; margin-bottom: .25rem; }
+.owner { font-size: .85rem; color: #57606a; }
+.verify { background: #fff1f0; color: #a40e26; padding: 0 4px; border-radius: 4px; font-size: .85em; }
+#lang-toggle { white-space: nowrap; }
+/* Wider labels for the model sliders */
+form[class*="oi-"] { --label-width: 260px; --input-width: 320px; }
+html[data-lang="zh"] .placeholder::before { content: "待补充"; }
+html[data-lang="en"] .placeholder::before { content: "PLACEHOLDER"; }
+.navbar .nav-link { white-space: nowrap; }

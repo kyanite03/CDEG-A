@@ -1,0 +1,5 @@
+id,name,name_zh,business_line,role,cap_licence,epa_licence,planning,firb,grid,nmi,evidence_url,notes
+melbourne_water,Melbourne Water,墨尔本水务,wte;sludge,owner,yes,yes,in progress,,,,https://www.epa.vic.gov.au/waste-energy-scheme-licences,450 kt cap; biosolids EOI 2025
+cleanaway,Cleanaway,,wte,owner/operator,yes,in progress,in progress,,,,https://www.epa.vic.gov.au/waste-energy-scheme-licences,760 kt cap; open technology procurement
+trility,TRILITY (BEWG),北控水务TRILITY,sludge;water,operator,,yes,,yes,,,https://trility.com.au/project/barwon-water-biosolids-management-project/,Barwon biosolids O&M
+avnet,Avnet,安富利,meters,distributor,,,,,,yes,https://www.bindt.org/News/january-2025/avnet-to-support-mass-digital-meter-deployment/,Huizhong exclusive agent; Melbourne test lab

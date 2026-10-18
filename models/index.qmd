@@ -1,0 +1,19 @@
+---
+title: "[Interactive models]{.en}[互动模型]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+## [How to use]{.en}[使用说明]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Adjust inputs; defaults come from data/assumptions.csv; presets for typical projects; all figures indicative
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 调整参数即可；默认值来自 data/assumptions.csv；提供典型项目预设；所有结果仅供参考
+:::
+:::

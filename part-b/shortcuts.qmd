@@ -1,0 +1,25 @@
+---
+title: "[Shortcuts and fast tracks]{.en}[审批捷径]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+## [By business line]{.en}[按业务线]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Table: shortcut · approval it shortens/avoids · conditions · catch · evidence (confirmed / to verify) · link
+- WtE: partner with cap holder; coal site with grid connection; co-locate at treatment plant; biosolids-only plant (exempt waste); service-only role; state fast-track planning [to verify]
+- Meters: Chinese ISO 17025 / OIML-CS lab report accepted by NMI; distributor with test lab; non-billing trial meters [to verify]
+- Chemicals: chemicals already on AICIS inventory [to verify]; distributor already on supply panels
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 表格：捷径 · 可缩短/免除的审批 · 条件 · 风险 · 证据等级 · 链接
+- 垃圾发电：与配额持有方合作；利用已有并网的燃煤电厂旧址；与污水厂共址；纯污泥焚烧（豁免废物）；仅提供服务；州政府快速审批【待核实】
+- 水表：国内ISO 17025/OIML认可实验室报告供NMI采信；与有检测实验室的代理商合作；非计费试点表【待核实】
+- 药剂：已列入AICIS名录的化学品【待核实】；与已入围供应商名录的代理商合作
+:::
+:::

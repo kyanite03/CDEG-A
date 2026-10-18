@@ -1,0 +1,75 @@
+---
+title: "[Approval pathways]{.en}[审批路径]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+## [Waste-to-energy]{.en}[垃圾焚烧发电]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Clickable flowchart: cap licence → EPA development licence → planning / EES → EPBC → grid connection → EPA operating licence; ash approval; 10c container rule. Each step links to the official page
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 可点击流程图：配额许可 → EPA开发许可 → 规划/环评 → EPBC → 并网 → EPA运营许可；炉渣审批；押金容器规定。每步链接至官方页面
+:::
+:::
+
+## [Sludge, water and organics]{.en}[污泥、水务与厨余]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- EPA permission tiers, exempt waste (biosolids), water-corporation procurement
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- EPA许可等级、豁免废物（污泥）、水务公司采购流程
+:::
+:::
+
+## [Smart meters]{.en}[智能水表]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- NMI pattern approval (NMI R 49), AS 3565.1, AS/NZS 4020, WaterMark
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- NMI型式批准（NMI R 49）、AS 3565.1、AS/NZS 4020、WaterMark
+:::
+:::
+
+## [Chemicals]{.en}[水处理药剂]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- AICIS, dangerous goods, utility panel approval
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- AICIS化学品登记、危险品运输、水务公司准入
+:::
+:::
+
+## [Cross-cutting: investment approvals]{.en}[通用：投资审批]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- FIRB (Australia) and NDRC / MOFCOM / SAFE / SASAC filings (China); service contracts vs equity
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- FIRB（澳洲）及发改委/商务部/外汇局/国资委备案（中国）；服务合同与股权投资的区别
+:::
+:::

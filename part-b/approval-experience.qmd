@@ -1,0 +1,33 @@
+---
+title: "[Who has done it before]{.en}[谁有审批经验]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+## [Approval-experience matrix]{.en}[审批经验矩阵]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Players × approval steps; each tick links to evidence (data/players.csv)
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 参与方 × 审批环节；每个勾选链接至证据（data/players.csv）
+:::
+:::
+
+## [Partner shortlist]{.en}[合作方候选]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Top candidates per business line, linking to the interactive ranking in Models
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 各业务线首选合作方，链接至模型部分的互动排名
+:::
+:::

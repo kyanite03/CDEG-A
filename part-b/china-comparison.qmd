@@ -1,0 +1,19 @@
+---
+title: "[Australia vs China regulation]{.en}[中澳监管对比]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Christine</span><span class="zh">负责人：江坤彤</span></p>
+
+## [Comparison table]{.en}[对比表]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Emission standards (EU vs GB 18485), licensing, waste classification, project approval, payment model; a link in each cell
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 排放标准（欧盟 vs GB 18485）、许可制度、废物分类、项目审批、收费模式；每格附链接
+:::
+:::

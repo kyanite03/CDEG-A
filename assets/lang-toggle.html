@@ -1,0 +1,32 @@
+<script>
+(function () {
+  var KEY = "cdeg-lang";
+  function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  var lang = get() || ((navigator.language || "").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+  document.documentElement.setAttribute("data-lang", lang);
+  document.addEventListener("DOMContentLoaded", function () {
+    var nav = document.querySelector(".navbar-collapse") || document.querySelector(".navbar");
+    if (!nav) return;
+    var btn = document.createElement("button");
+    btn.id = "lang-toggle"; btn.type = "button";
+    function label() { btn.textContent = document.documentElement.getAttribute("data-lang") === "zh" ? "English" : "中文"; }
+    label();
+    btn.addEventListener("click", function () {
+      var next = document.documentElement.getAttribute("data-lang") === "zh" ? "en" : "zh";
+      document.documentElement.setAttribute("data-lang", next); set(next); label(); retitle();
+    });
+    // Browser tab title: use the visible language only
+    function retitle() {
+      var h = document.querySelector("h1.title");
+      var cls = document.documentElement.getAttribute("data-lang") === "zh" ? ".zh" : ".en";
+      var part = h && h.querySelector(cls);
+      if (part) document.title = part.textContent;
+      var toc = document.getElementById("toc-title");
+      if (toc) toc.textContent = cls === ".zh" ? "本页目录" : "On this page";
+    }
+    retitle();
+    nav.appendChild(btn);
+  });
+})();
+</script>

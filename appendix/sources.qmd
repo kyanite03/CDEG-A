@@ -1,0 +1,19 @@
+---
+title: "[Sources]{.en}[资料来源]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Everyone</span><span class="zh">负责人：全体成员</span></p>
+
+## [Source register]{.en}[来源登记]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Rendered from data/sources.csv: ID, title, publisher, date, URL, evidence type
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 来自 data/sources.csv：编号、标题、发布方、日期、链接、证据类型
+:::
+:::

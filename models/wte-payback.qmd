@@ -1,0 +1,92 @@
+---
+title: "[WtE project payback]{.en}[垃圾发电项目回收期]{.zh}"
+include-in-header:
+  text: |
+    <!-- Libraries are bundled locally (no CDN) so the model works inside mainland China -->
+    <link rel="stylesheet" href="../assets/vendor/inputs.css">
+    <script src="../assets/vendor/d3.min.js"></script>
+    <script src="../assets/vendor/plot.umd.min.js"></script>
+    <script src="../assets/vendor/htl.min.js"></script>
+    <script src="../assets/vendor/inputs.min.js"></script>
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+::: {.en}
+::: {.placeholder}
+Working prototype with **illustrative numbers only** — not yet linked to data/assumptions.csv. To add: debt/equity and investment rounds, construction years, LGCs, metals revenue, presets (Kwinana-like, Melbourne Water 450 kt), shortcut toggles (brownfield site, partner holds cap).
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+可运行的原型，**数字仅为示意**，尚未连接 data/assumptions.csv。待添加：债务/股权及投资轮次、建设年限、绿证、金属收入、预设方案（类Kwinana、Melbourne Water 45万吨）、捷径开关（旧址、合作方持有配额）。
+:::
+:::
+
+```{ojs}
+//| echo: false
+//| output: false
+// Use the locally bundled libraries instead of Observable's CDN defaults
+Inputs = window.Inputs
+Plot = window.Plot
+html = window.htl.html
+// Label that switches with the language button (CSS shows one span)
+L = (en, zh) => html`<span class="en">${en}</span><span class="zh">${zh}</span>`
+// Current language, updated when the button is pressed (for chart text)
+lang = Generators.observe(notify => {
+  const f = () => notify(document.documentElement.getAttribute("data-lang") || "en");
+  f();
+  const mo = new MutationObserver(f);
+  mo.observe(document.documentElement, {attributes: true, attributeFilter: ["data-lang"]});
+  return () => mo.disconnect();
+})
+T = (en, zh) => lang === "zh" ? zh : en
+```
+
+```{ojs}
+//| echo: false
+viewof capacity = Inputs.range([150000, 800000], {value: 450000, step: 10000, label: L("Capacity (t/yr)", "处理量（吨/年）")})
+viewof capexPerT = Inputs.range([1000, 2600], {value: 1850, step: 50, label: L("Capex per t/yr (A$)", "单位投资（澳元）")})
+viewof gateFee = Inputs.range([80, 250], {value: 150, step: 5, label: L("Gate fee (A$/t)", "处理费（澳元/吨）")})
+viewof powerKwh = Inputs.range([400, 800], {value: 600, step: 10, label: L("Power exported (kWh/t)", "上网电量（千瓦时/吨）")})
+viewof powerPrice = Inputs.range([30, 120], {value: 70, step: 5, label: L("Power price (A$/MWh)", "电价（澳元/兆瓦时）")})
+viewof opexPerT = Inputs.range([30, 120], {value: 70, step: 5, label: L("Opex (A$/t)", "运营成本（澳元/吨）")})
+viewof availability = Inputs.range([0.7, 0.95], {value: 0.9, step: 0.01, label: L("Availability", "可用率")})
+viewof inflation = Inputs.range([0, 0.06], {value: 0.025, step: 0.005, label: L("Inflation", "通胀率")})
+viewof discount = Inputs.range([0.03, 0.12], {value: 0.07, step: 0.005, label: L("Discount rate", "折现率")})
+```
+
+```{ojs}
+//| echo: false
+years = 25
+capex = capacity * capexPerT
+rows = {
+  let cum = -capex, out = [{year: 0, cash: -capex, cumulative: cum}];
+  for (let y = 1; y <= years; y++) {
+    const t = capacity * availability, g = Math.pow(1 + inflation, y - 1);
+    const rev = t * gateFee * g + t * powerKwh / 1000 * powerPrice * g;
+    const cash = rev - t * opexPerT * g;
+    cum += cash;
+    out.push({year: y, cash, cumulative: cum});
+  }
+  return out;
+}
+payback = rows.find(r => r.year > 0 && r.cumulative >= 0)?.year
+npv = rows.reduce((s, r) => s + r.cash / Math.pow(1 + discount, r.year), 0)
+```
+
+```{ojs}
+//| echo: false
+html`<p><b>${T("Capex", "投资")}:</b> A$${(capex/1e6).toFixed(0)}m · <b>${T("Payback", "回收期")}:</b> ${payback ? payback + T(" years", " 年") : T("not within 25 years", "25年内未回本")} · <b>${T("NPV", "净现值")}:</b> A$${(npv/1e6).toFixed(0)}m</p>`
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 320, marginLeft: 60,
+  y: {label: T("Cumulative cash (A$m)", "累计现金流（百万澳元）"), grid: true, transform: d => d / 1e6},
+  x: {label: T("Year", "年")},
+  marks: [Plot.ruleY([0]), Plot.areaY(rows, {x: "year", y: "cumulative", fillOpacity: 0.15}), Plot.lineY(rows, {x: "year", y: "cumulative"})]
+})
+```

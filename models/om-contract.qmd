@@ -1,0 +1,19 @@
+---
+title: "[O&M contract model]{.en}[委托运营模型]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+## [Model]{.en}[模型]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Inputs: tonnes or m³ per year, fee per unit, staffing, maintenance, margin, contract years → annual profit and NPV
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 输入：年处理量、单价、人员、维护、利润率、合同年限 → 年利润和净现值
+:::
+:::

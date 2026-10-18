@@ -1,0 +1,21 @@
+---
+title: "[Part A: Business models]{.en}[第一部分：商业模式]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+## [Overview]{.en}[概述]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- How the five business lines compare: revenue model, contract length, capital needed, fit with CDEG
+- Summary table + link to each line
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 五条业务线对比：收入模式、合同期限、资金需求、与集团契合度
+- 汇总表及各业务线链接
+:::
+:::

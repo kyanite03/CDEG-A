@@ -1,0 +1,19 @@
+---
+title: "[Assumptions register]{.en}[假设参数]{.zh}"
+---
+
+<p class="owner"><span class="en">Owner: Everyone</span><span class="zh">负责人：全体成员</span></p>
+
+## [All model inputs]{.en}[所有模型参数]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Rendered from data/assumptions.csv: every default, its range, source and status
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 来自 data/assumptions.csv：默认值、范围、来源和状态
+:::
+:::
