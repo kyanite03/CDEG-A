@@ -1,0 +1,36 @@
+# Save as .github/workflows/deploy.yml in the repo root
+name: Build and deploy to Aliyun OSS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # adds a manual "Run workflow" button in the Actions tab
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true  # if two pushes land close together, only the latest deploys
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render site
+        run: quarto render
+
+      - name: Deploy to OSS
+        # Third-party action: pin to a commit SHA rather than @master (see notes)
+        uses: doggycool/ossutil-github-action@master
+        with:
+          ossArgs: "cp -r -f _site/ oss://cdeg-a/"
+          accessKey: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          accessSecret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+          endpoint: oss-cn-hongkong.aliyuncs.com
