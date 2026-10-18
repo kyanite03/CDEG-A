@@ -18,7 +18,7 @@ website:
         text: "Home · 首页"
       - text: "A · Business models · 商业模式"
         menu:
-          - href: part-a/index.qmd
+          - href: part-a/overview.qmd
             text: "Part A: Business models · 第一部分：商业模式"
           - href: part-a/wte.qmd
             text: "Waste-to-energy · 垃圾焚烧发电"
@@ -32,7 +32,7 @@ website:
             text: "Water-treatment chemicals · 水处理药剂"
       - text: "B · Compliance · 合规"
         menu:
-          - href: part-b/index.qmd
+          - href: part-b/overview.qmd
             text: "Part B: Compliance · 第二部分：合规"
           - href: part-b/pathways.qmd
             text: "Approval pathways · 审批路径"
@@ -44,7 +44,7 @@ website:
             text: "Australia vs China regulation · 中澳监管对比"
       - text: "Models · 模型"
         menu:
-          - href: models/index.qmd
+          - href: models/overview.qmd
             text: "Interactive models · 互动模型"
           - href: models/wte-payback.qmd
             text: "WtE project payback · 垃圾发电项目回收期"
