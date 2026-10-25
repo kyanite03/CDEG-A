@@ -49,7 +49,9 @@ lang = Generators.observe(notify => {
   return () => mo.disconnect();
 })
 T = (en, zh) => lang === "zh" ? zh : en
-councilsRaw = fetch("../data/councils.csv").then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
+// Cache-busting: Cloudflare caches data files for hours; the page's Last-Modified changes on every deploy
+V = "?v=" + encodeURIComponent(document.lastModified)
+councilsRaw = fetch("../data/councils.csv" + V).then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
 // Guard against an out-of-date councils.csv: fill safe defaults and report what is missing
 NEEDED = ["cv_mj_kg", "organics_service", "organics_coverage", "rail_only", "port_km", "sea_km"]
 missingCols = NEEDED.filter(k => !councilsRaw.columns.includes(k))
@@ -57,11 +59,11 @@ councils = councilsRaw.map(c => ({...c,
   cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : 10.9,
   organics_service: c.organics_service ?? "go", organics_coverage: c.organics_coverage ?? 1,
   rail_only: c.rail_only ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
-geo = fetch("../data/councils.geojson").then(r => r.json())
-levyHist = fetch("../data/levy_history.csv").then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
+geo = fetch("../data/councils.geojson" + V).then(r => r.json())
+levyHist = fetch("../data/levy_history.csv" + V).then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
 levy2027 = Object.fromEntries(levyHist.filter(d => d.year === 2027).map(d => [d.zone, d.levy]))
 HUB = ({name: "Morwell", lon: 146.395, lat: -38.235})
-routes = fetch("../data/freight_routes.geojson").then(r => r.json())
+routes = fetch("../data/freight_routes.geojson" + V).then(r => r.json())
 PORTS = [{name: "Port Botany", lon: 151.215, lat: -33.97}, {name: "Port Kembla", lon: 150.905, lat: -34.465}, {name: "Port of Newcastle", lon: 151.785, lat: -32.92},
          {name: "Port Adelaide (Outer Harbor)", lon: 138.49, lat: -34.78}, {name: "Port of Melbourne", lon: 144.91, lat: -37.84}]
 routeColor = ({rail_interstate: "#6250d6", rail_gippsland: "#0b0b0b", rail_regional: "#9a9890", sea: "#1baf7a"})
@@ -341,7 +343,7 @@ Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.index
 - **Gate fees excluding levy** are set by contract and are not published per council. The defaults are benchmarks you can adjust: City of Geelong reports that levy plus GST is 61% of its landfill cost, which implies a gate fee of about A\$100–110/t excluding levy and GST.
 - **Transport is costed per container, then converted to per tonne for each council.** A sealed 20 ft waste container holds about 33 m³, up to 24 t. Compacted density is tied to energy content: wetter, food-rich waste is denser, at about 0.60 t/m³ at 11 MJ/kg and 0.05 t/m³ more for each MJ/kg less. So a council with no organics bin fills about 22 t per box and a FOGO council about 17.5 t. Per-container costs are adjustable estimates, not quotes: road A\$3.50/km plus A\$150 loading; rail A\$1.40/km plus A\$400 for first mile and lifts, plus A\$150 to change trains in Melbourne (interstate lines are standard gauge, the Gippsland line to Morwell is broad gauge); sea A\$1.10/km plus A\$350 port charges at each end, a truck to the origin port, and rail (default) or truck from the Port of Melbourne to Morwell. Each council uses the cheapest allowed mode. Road distance is straight-line × 1.3 near Melbourne and Gippsland and routed via Melbourne elsewhere; councils already pay to haul about 30 km to their local landfill, so only the extra road distance counts. Rail and sea distances are approximate; check against real rates and routes before quoting.
 - **Tonnage** counts council kerbside garbage (red bin) only: EPA Victoria 2023–24 for Victoria, and population × 0.162 t per person for NSW, SA and the ACT. It excludes C&I waste, hard waste and transfer-station drop-offs.
-- **Energy content** of each council's red bin = typical bin composition × energy per material. Composition comes from the NSW EPA red-bin audits 2011–19, which give separate profiles for councils with a food-and-garden (FOGO), garden-only or no organics service. Each Victorian council's profile is blended by the share of homes that have its organics bin (EPA Victoria 2023–24); NSW, SA and ACT councils are assumed to be garden-only. Energy per material is the typical as-discarded value (Tchobanoglous et al. 1993): food 4.7, garden 6.5, paper incl. nappies 15, other organics 16, plastics 32.6 MJ/kg; glass and metal 0; other 3.
+- **Energy content** of each council's red bin = typical bin composition × energy per material. Composition comes from the NSW EPA red-bin audits 2011–19, which give separate profiles for councils with a food-and-garden (FOGO), garden-only or no organics service. Each Victorian council's profile is blended by the share of homes that have its organics bin (EPA Victoria 2023–24). NSW councils use the NSW EPA's FOGO services list (October 2026; councils only planning FOGO count as garden-only). Holdfast Bay runs weekly FOGO for 73% of homes. Other SA councils and the ACT (where FOGO is still a pilot) are treated as garden-only. Energy per material is the typical as-discarded value (Tchobanoglous et al. 1993): food 4.7, garden 6.5, paper incl. nappies 15, other organics 16, plastics 32.6 MJ/kg; glass and metal 0; other 3.
 - **On the fence** = cheaper than landfill but by less than the switching margin.
 - **Interstate capitals**: Sydney, Hunter and Illawarra councils pay the NSW metro levy (A\$180.20/t) and metro Adelaide pays A\$171/t, so landfill is dear there. NSW's proximity principle stops waste being trucked more than 150 km from where it was made unless it goes to one of the two nearest lawful facilities, so these councils are modelled as **rail only**: about 1,000–1,200 km via Melbourne. Sydney already railed putrescible waste 250 km to Veolia's Woodlawn bioreactor, so long-haul rail of rubbish has a local precedent. Before quoting, check whether NSW levy liability, interstate waste-tracking rules or Victoria's waste-to-energy licence conditions restrict interstate waste.
 :::
@@ -351,7 +353,7 @@ Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.index
 - **不含税处理费**由合同确定，各市政未公开；默认值为可调整的基准。吉朗市称填埋税加GST占其填埋成本的61%，推算不含税和GST的处理费约为100–110澳元/吨。
 - **运费按集装箱计算，再按各市政折算为每吨。**20英尺密封垃圾箱约33立方米，最大载重24吨。压实密度与热值挂钩：含水多、厨余多的垃圾更密实，11兆焦/千克时约0.60吨/立方米，每低1兆焦/千克增加0.05。因此无有机桶市政每箱约22吨，FOGO市政约17.5吨。每箱费用为可调整估算值（非报价）：公路每公里3.50澳元加装箱150澳元；铁路每公里1.40澳元加短驳及装卸400澳元，另加墨尔本换装150澳元（州际线为标准轨，至Morwell的吉普斯兰线为宽轨）；海运每公里1.10澳元，两端港口费各350澳元，加至起运港卡车费及墨尔本港至Morwell的铁路（默认）或卡车。各市政采用可用方式中最便宜者。公路距离在墨尔本及吉普斯兰按直线×1.3，其余经墨尔本绕行；各市政已承担约30公里本地运距，只计额外公路距离。铁路和海运距离为近似值，报价前需按实际费率和线路核实。
 - **吨位**仅为市政路边红桶垃圾：维州为环保局2023–24年度数据，新州、南澳和首都领地按人口×0.162吨估算；不含工商业垃圾、大件垃圾及转运站自送垃圾。
-- **热值**：各市政红桶垃圾热值 = 典型成分 × 各成分热值。成分来自新州环保局2011–19年红桶审计，分别给出FOGO、仅园林及无有机桶三类市政的数据；维州各市政按其有机垃圾桶覆盖住户比例加权（维州环保局2023–24），新州、南澳及首都领地假设为仅园林。各成分热值取典型丢弃状态值（Tchobanoglous等，1993）：厨余4.7、园林6.5、纸（含尿布）15、其他有机物16、塑料32.6兆焦/千克，玻璃金属0，其他3。
+- **热值**：各市政红桶垃圾热值 = 典型成分 × 各成分热值。成分来自新州环保局2011–19年红桶审计，分别给出FOGO、仅园林及无有机桶三类市政的数据；维州各市政按其有机垃圾桶覆盖住户比例加权（维州环保局2023–24）；新州市政采用新州环保局FOGO服务名单（2026年10月，仅计划实施的按仅园林计）；Holdfast Bay每周FOGO覆盖73%住户；其他南澳市政及首都领地（FOGO仍为试点）按仅园林计。各成分热值取典型丢弃状态值（Tchobanoglous等，1993）：厨余4.7、园林6.5、纸（含尿布）15、其他有机物16、塑料32.6兆焦/千克，玻璃金属0，其他3。
 - **观望中**：比填埋便宜但幅度不足转换门槛。
 - **州外首府**：悉尼、猎人谷和伊拉瓦拉市政缴纳新州大都市填埋税（180.20澳元/吨），阿德莱德大都市为171澳元/吨，填埋成本高。新州“就近原则”禁止将垃圾通过公路运至产生地150公里以外（除非运往最近的两处合法设施），因此这些市政按**仅铁路**计算：经墨尔本约1000–1200公里。悉尼已有通过铁路将生活垃圾运往250公里外Veolia Woodlawn生物反应器的先例。报价前需核实新州填埋税责任、跨州垃圾追踪规定及维州焚烧许可条件是否限制州外垃圾。
 :::

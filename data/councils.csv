@@ -1,74 +1,74 @@
 port,port_km,sea_km,rail_only,name,state,zone,garbage_t,tonnage_source,road_km,rail_km,lon,lat,service_note,organics_service,organics_coverage,cv_mj_kg,food_share,plastics_share
-,,,0,ACT,ACT,ACT,73629,estimate: population x 0.162 t/person,556,,149.002,-35.489,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Albury,NSW,NSW_NOLEVY,9078,estimate: population x 0.162 t/person,486,486,146.97,-36.027,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Balranald,NSW,NSW_NOLEVY,358,estimate: population x 0.162 t/person,705,,143.612,-33.95,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,6,1050,1,Bayside (NSW),NSW,NSW_MLA,28522,estimate: population x 0.162 t/person,1034,1069,151.167,-33.95,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Bega Valley,NSW,NSW_NOLEVY,5793,estimate: population x 0.162 t/person,482,,149.718,-36.826,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Berrigan,NSW,NSW_NOLEVY,1395,estimate: population x 0.162 t/person,450,,145.711,-35.734,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,54,1050,1,Blacktown,NSW,NSW_MLA,64753,estimate: population x 0.162 t/person,1026,1061,150.864,-33.741,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,18,1050,1,Burwood,NSW,NSW_MLA,6544,estimate: population x 0.162 t/person,1034,1069,151.103,-33.884,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,59,1050,1,Camden,NSW,NSW_MLA,19432,estimate: population x 0.162 t/person,989,1023,150.724,-34.009,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,47,1050,1,Campbelltown (NSW),NSW,NSW_MLA,28786,estimate: population x 0.162 t/person,993,1027,150.846,-34.083,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,21,1050,1,Canada Bay,NSW,NSW_MLA,14526,estimate: population x 0.162 t/person,1037,1073,151.115,-33.854,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,22,1050,1,Canterbury-Bankstown,NSW,NSW_MLA,60316,estimate: population x 0.162 t/person,1024,1059,151.037,-33.924,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Carrathool,NSW,NSW_NOLEVY,465,estimate: population x 0.162 t/person,736,,145.496,-33.609,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port of Newcastle,82,1200,1,Central Coast (NSW),NSW,NSW_MLA,56437,estimate: population x 0.162 t/person,1102,1141,151.286,-33.308,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port of Newcastle,68,1200,1,Cessnock,NSW,NSW_MLA,10381,estimate: population x 0.162 t/person,1134,1174,151.225,-32.925,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Cootamundra-Gundagai,NSW,NSW_NOLEVY,1845,estimate: population x 0.162 t/person,692,,148.094,-34.853,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,33,1050,1,Cumberland,NSW,NSW_MLA,38393,estimate: population x 0.162 t/person,1027,1062,150.986,-33.842,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Edward River,NSW,NSW_NOLEVY,1367,estimate: population x 0.162 t/person,515,,144.942,-35.173,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Eurobodalla,NSW,NSW_NOLEVY,6553,estimate: population x 0.162 t/person,587,,149.947,-35.945,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,41,1050,1,Fairfield,NSW,NSW_MLA,33863,estimate: population x 0.162 t/person,1017,1052,150.896,-33.866,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Federation,NSW,NSW_NOLEVY,2077,estimate: population x 0.162 t/person,504,,146.271,-35.497,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,15,1050,1,Georges River,NSW,NSW_MLA,24738,estimate: population x 0.162 t/person,1025,1060,151.087,-33.971,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Goulburn Mulwaree,NSW,NSW_NOLEVY,5206,estimate: population x 0.162 t/person,699,,149.813,-34.876,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Greater Hume,NSW,NSW_NOLEVY,1799,estimate: population x 0.162 t/person,529,,147.172,-35.75,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Griffith,NSW,NSW_NOLEVY,4403,estimate: population x 0.162 t/person,651,,146.004,-34.3,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,106,1050,1,Hawkesbury,NSW,NSW_MLA,10948,estimate: population x 0.162 t/person,1057,1093,150.773,-33.335,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Hay,NSW,NSW_NOLEVY,467,estimate: population x 0.162 t/person,635,,144.684,-34.316,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Hilltops,NSW,NSW_NOLEVY,3113,estimate: population x 0.162 t/person,776,,148.501,-34.352,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,58,1050,1,Hornsby,NSW,NSW_MLA,24660,estimate: population x 0.162 t/person,1060,1096,151.089,-33.584,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,21,1050,1,Hunters Hill,NSW,NSW_MLA,2202,estimate: population x 0.162 t/person,1042,1078,151.145,-33.833,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,13,1050,1,Inner West,NSW,NSW_MLA,29771,estimate: population x 0.162 t/person,1038,1073,151.155,-33.891,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Junee,NSW,NSW_NOLEVY,1045,estimate: population x 0.162 t/person,666,,147.669,-34.817,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Kembla,36,1000,1,Kiama,NSW,NSW_MLA,3720,estimate: population x 0.162 t/person,935,966,150.756,-34.679,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,35,1050,1,Ku-ring-gai,NSW,NSW_MLA,20195,estimate: population x 0.162 t/person,1051,1087,151.151,-33.735,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port of Newcastle,35,1200,1,Lake Macquarie,NSW,NSW_MLA,34663,estimate: population x 0.162 t/person,1149,1189,151.53,-33.039,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,22,1050,1,Lane Cove,NSW,NSW_MLA,6415,estimate: population x 0.162 t/person,1045,1081,151.167,-33.82,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Leeton,NSW,NSW_NOLEVY,1860,estimate: population x 0.162 t/person,630,,146.302,-34.532,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,47,1050,1,Liverpool,NSW,NSW_MLA,37968,estimate: population x 0.162 t/person,1005,1039,150.825,-33.936,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Lockhart,NSW,NSW_NOLEVY,539,estimate: population x 0.162 t/person,551,,146.775,-35.331,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port of Newcastle,42,1200,1,Maitland,NSW,NSW_MLA,14670,estimate: population x 0.162 t/person,1182,1223,151.55,-32.711,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,21,1050,1,Mosman,NSW,NSW_MLA,4611,estimate: population x 0.162 t/person,1051,1087,151.245,-33.829,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Murray River,NSW,NSW_NOLEVY,2070,estimate: population x 0.162 t/person,503,,144.212,-35.325,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Murrumbidgee,NSW,NSW_NOLEVY,577,estimate: population x 0.162 t/person,556,,145.729,-34.95,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Narrandera,NSW,NSW_NOLEVY,928,estimate: population x 0.162 t/person,631,,146.58,-34.611,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port of Newcastle,12,1200,1,Newcastle,NSW,NSW_MLA,27429,estimate: population x 0.162 t/person,1178,1219,151.696,-32.88,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,20,1050,1,North Sydney,NSW,NSW_MLA,11253,estimate: population x 0.162 t/person,1048,1084,151.212,-33.833,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,41,1050,1,Northern Beaches,NSW,NSW_MLA,42846,estimate: population x 0.162 t/person,1064,1101,151.25,-33.69,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,33,1050,1,Parramatta,NSW,NSW_MLA,41847,estimate: population x 0.162 t/person,1035,1070,151.029,-33.799,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,67,1050,1,Penrith,NSW,NSW_MLA,35502,estimate: population x 0.162 t/person,1011,1045,150.718,-33.765,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port of Newcastle,30,1200,1,Port Stephens,NSW,NSW_MLA,12196,estimate: population x 0.162 t/person,1206,1248,151.845,-32.722,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Queanbeyan-Palerang,NSW,NSW_NOLEVY,10265,estimate: population x 0.162 t/person,616,,149.627,-35.423,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,5,1050,1,Randwick,NSW,NSW_MLA,21915,estimate: population x 0.162 t/person,1041,1076,151.24,-33.943,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,28,1050,1,Ryde,NSW,NSW_MLA,21023,estimate: population x 0.162 t/person,1042,1078,151.11,-33.799,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Kembla,23,1000,1,Shellharbour,NSW,NSW_MLA,12384,estimate: population x 0.162 t/person,944,976,150.774,-34.583,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Kembla,111,1000,1,Shoalhaven,NSW,NSW_MLA,17577,estimate: population x 0.162 t/person,866,895,150.373,-35.094,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Snowy Monaro,NSW,NSW_NOLEVY,3509,estimate: population x 0.162 t/person,443,,148.959,-36.396,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Snowy Valleys,NSW,NSW_NOLEVY,2414,estimate: population x 0.162 t/person,619,,148.249,-35.734,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,21,1050,1,Strathfield,NSW,NSW_MLA,7441,estimate: population x 0.162 t/person,1032,1067,151.077,-33.881,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,25,1050,1,Sutherland,NSW,NSW_MLA,37406,estimate: population x 0.162 t/person,1012,1047,151.051,-34.075,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,12,1050,1,Sydney,NSW,NSW_MLA,34806,estimate: population x 0.162 t/person,1042,1078,151.203,-33.889,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,63,1050,1,The Hills,NSW,NSW_MLA,31186,estimate: population x 0.162 t/person,1048,1084,150.962,-33.588,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Upper Lachlan,NSW,NSW_NOLEVY,1376,estimate: population x 0.162 t/person,733,,149.456,-34.418,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Wagga Wagga,NSW,NSW_NOLEVY,10993,estimate: population x 0.162 t/person,603,603,147.366,-35.197,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,13,1050,1,Waverley,NSW,NSW_MLA,11241,estimate: population x 0.162 t/person,1048,1084,151.267,-33.89,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Wentworth,NSW,NSW_NOLEVY,1213,estimate: population x 0.162 t/person,811,,142.243,-33.57,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,25,1050,1,Willoughby,NSW,NSW_MLA,12318,estimate: population x 0.162 t/person,1049,1085,151.196,-33.801,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Kembla,65,1000,1,Wingecarribee,NSW,NSW_MLA,8498,estimate: population x 0.162 t/person,915,946,150.356,-34.477,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Kembla,16,1000,1,Wollongong,NSW,NSW_MLA,34774,estimate: population x 0.162 t/person,968,1000,150.837,-34.369,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Botany,15,1050,1,Woollahra,NSW,NSW_MLA,8730,estimate: population x 0.162 t/person,1049,1084,151.257,-33.872,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Yass Valley,NSW,NSW_NOLEVY,2792,estimate: population x 0.162 t/person,619,,148.885,-34.954,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,ACT,ACT,ACT,73629,estimate: population x 0.162 t/person,556,,149.002,-35.489,"garden bins; FOGO only a pilot (~6,500 households)",go,1.0,10.88,0.376,0.127
+,,,0,Albury,NSW,NSW_NOLEVY,9078,estimate: population x 0.162 t/person,486,486,146.97,-36.027,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Balranald,NSW,NSW_NOLEVY,358,estimate: population x 0.162 t/person,705,,143.612,-33.95,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
+Port Botany,6,1050,1,Bayside (NSW),NSW,NSW_MLA,28522,estimate: population x 0.162 t/person,1034,1069,151.167,-33.95,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Bega Valley,NSW,NSW_NOLEVY,5793,estimate: population x 0.162 t/person,482,,149.718,-36.826,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Berrigan,NSW,NSW_NOLEVY,1395,estimate: population x 0.162 t/person,450,,145.711,-35.734,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,54,1050,1,Blacktown,NSW,NSW_MLA,64753,estimate: population x 0.162 t/person,1026,1061,150.864,-33.741,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,18,1050,1,Burwood,NSW,NSW_MLA,6544,estimate: population x 0.162 t/person,1034,1069,151.103,-33.884,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,59,1050,1,Camden,NSW,NSW_MLA,19432,estimate: population x 0.162 t/person,989,1023,150.724,-34.009,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,47,1050,1,Campbelltown (NSW),NSW,NSW_MLA,28786,estimate: population x 0.162 t/person,993,1027,150.846,-34.083,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,21,1050,1,Canada Bay,NSW,NSW_MLA,14526,estimate: population x 0.162 t/person,1037,1073,151.115,-33.854,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,22,1050,1,Canterbury-Bankstown,NSW,NSW_MLA,60316,estimate: population x 0.162 t/person,1024,1059,151.037,-33.924,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Carrathool,NSW,NSW_NOLEVY,465,estimate: population x 0.162 t/person,736,,145.496,-33.609,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
+Port of Newcastle,82,1200,1,Central Coast (NSW),NSW,NSW_MLA,56437,estimate: population x 0.162 t/person,1102,1141,151.286,-33.308,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port of Newcastle,68,1200,1,Cessnock,NSW,NSW_MLA,10381,estimate: population x 0.162 t/person,1134,1174,151.225,-32.925,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Cootamundra-Gundagai,NSW,NSW_NOLEVY,1845,estimate: population x 0.162 t/person,692,,148.094,-34.853,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,33,1050,1,Cumberland,NSW,NSW_MLA,38393,estimate: population x 0.162 t/person,1027,1062,150.986,-33.842,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Edward River,NSW,NSW_NOLEVY,1367,estimate: population x 0.162 t/person,515,,144.942,-35.173,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Eurobodalla,NSW,NSW_NOLEVY,6553,estimate: population x 0.162 t/person,587,,149.947,-35.945,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,41,1050,1,Fairfield,NSW,NSW_MLA,33863,estimate: population x 0.162 t/person,1017,1052,150.896,-33.866,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Federation,NSW,NSW_NOLEVY,2077,estimate: population x 0.162 t/person,504,,146.271,-35.497,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,15,1050,1,Georges River,NSW,NSW_MLA,24738,estimate: population x 0.162 t/person,1025,1060,151.087,-33.971,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Goulburn Mulwaree,NSW,NSW_NOLEVY,5206,estimate: population x 0.162 t/person,699,,149.813,-34.876,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Greater Hume,NSW,NSW_NOLEVY,1799,estimate: population x 0.162 t/person,529,,147.172,-35.75,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Griffith,NSW,NSW_NOLEVY,4403,estimate: population x 0.162 t/person,651,,146.004,-34.3,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,106,1050,1,Hawkesbury,NSW,NSW_MLA,10948,estimate: population x 0.162 t/person,1057,1093,150.773,-33.335,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Hay,NSW,NSW_NOLEVY,467,estimate: population x 0.162 t/person,635,,144.684,-34.316,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Hilltops,NSW,NSW_NOLEVY,3113,estimate: population x 0.162 t/person,776,,148.501,-34.352,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,58,1050,1,Hornsby,NSW,NSW_MLA,24660,estimate: population x 0.162 t/person,1060,1096,151.089,-33.584,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,21,1050,1,Hunters Hill,NSW,NSW_MLA,2202,estimate: population x 0.162 t/person,1042,1078,151.145,-33.833,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,13,1050,1,Inner West,NSW,NSW_MLA,29771,estimate: population x 0.162 t/person,1038,1073,151.155,-33.891,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Junee,NSW,NSW_NOLEVY,1045,estimate: population x 0.162 t/person,666,,147.669,-34.817,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Kembla,36,1000,1,Kiama,NSW,NSW_MLA,3720,estimate: population x 0.162 t/person,935,966,150.756,-34.679,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,35,1050,1,Ku-ring-gai,NSW,NSW_MLA,20195,estimate: population x 0.162 t/person,1051,1087,151.151,-33.735,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port of Newcastle,35,1200,1,Lake Macquarie,NSW,NSW_MLA,34663,estimate: population x 0.162 t/person,1149,1189,151.53,-33.039,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,22,1050,1,Lane Cove,NSW,NSW_MLA,6415,estimate: population x 0.162 t/person,1045,1081,151.167,-33.82,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Leeton,NSW,NSW_NOLEVY,1860,estimate: population x 0.162 t/person,630,,146.302,-34.532,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,47,1050,1,Liverpool,NSW,NSW_MLA,37968,estimate: population x 0.162 t/person,1005,1039,150.825,-33.936,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Lockhart,NSW,NSW_NOLEVY,539,estimate: population x 0.162 t/person,551,,146.775,-35.331,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port of Newcastle,42,1200,1,Maitland,NSW,NSW_MLA,14670,estimate: population x 0.162 t/person,1182,1223,151.55,-32.711,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,21,1050,1,Mosman,NSW,NSW_MLA,4611,estimate: population x 0.162 t/person,1051,1087,151.245,-33.829,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Murray River,NSW,NSW_NOLEVY,2070,estimate: population x 0.162 t/person,503,,144.212,-35.325,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Murrumbidgee,NSW,NSW_NOLEVY,577,estimate: population x 0.162 t/person,556,,145.729,-34.95,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Narrandera,NSW,NSW_NOLEVY,928,estimate: population x 0.162 t/person,631,,146.58,-34.611,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
+Port of Newcastle,12,1200,1,Newcastle,NSW,NSW_MLA,27429,estimate: population x 0.162 t/person,1178,1219,151.696,-32.88,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,20,1050,1,North Sydney,NSW,NSW_MLA,11253,estimate: population x 0.162 t/person,1048,1084,151.212,-33.833,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,41,1050,1,Northern Beaches,NSW,NSW_MLA,42846,estimate: population x 0.162 t/person,1064,1101,151.25,-33.69,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,33,1050,1,Parramatta,NSW,NSW_MLA,41847,estimate: population x 0.162 t/person,1035,1070,151.029,-33.799,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,67,1050,1,Penrith,NSW,NSW_MLA,35502,estimate: population x 0.162 t/person,1011,1045,150.718,-33.765,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port of Newcastle,30,1200,1,Port Stephens,NSW,NSW_MLA,12196,estimate: population x 0.162 t/person,1206,1248,151.845,-32.722,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Queanbeyan-Palerang,NSW,NSW_NOLEVY,10265,estimate: population x 0.162 t/person,616,,149.627,-35.423,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,5,1050,1,Randwick,NSW,NSW_MLA,21915,estimate: population x 0.162 t/person,1041,1076,151.24,-33.943,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,28,1050,1,Ryde,NSW,NSW_MLA,21023,estimate: population x 0.162 t/person,1042,1078,151.11,-33.799,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Kembla,23,1000,1,Shellharbour,NSW,NSW_MLA,12384,estimate: population x 0.162 t/person,944,976,150.774,-34.583,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Kembla,111,1000,1,Shoalhaven,NSW,NSW_MLA,17577,estimate: population x 0.162 t/person,866,895,150.373,-35.094,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Snowy Monaro,NSW,NSW_NOLEVY,3509,estimate: population x 0.162 t/person,443,,148.959,-36.396,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Snowy Valleys,NSW,NSW_NOLEVY,2414,estimate: population x 0.162 t/person,619,,148.249,-35.734,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,21,1050,1,Strathfield,NSW,NSW_MLA,7441,estimate: population x 0.162 t/person,1032,1067,151.077,-33.881,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,25,1050,1,Sutherland,NSW,NSW_MLA,37406,estimate: population x 0.162 t/person,1012,1047,151.051,-34.075,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,12,1050,1,Sydney,NSW,NSW_MLA,34806,estimate: population x 0.162 t/person,1042,1078,151.203,-33.889,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,63,1050,1,The Hills,NSW,NSW_MLA,31186,estimate: population x 0.162 t/person,1048,1084,150.962,-33.588,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Upper Lachlan,NSW,NSW_NOLEVY,1376,estimate: population x 0.162 t/person,733,,149.456,-34.418,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Wagga Wagga,NSW,NSW_NOLEVY,10993,estimate: population x 0.162 t/person,603,603,147.366,-35.197,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,13,1050,1,Waverley,NSW,NSW_MLA,11241,estimate: population x 0.162 t/person,1048,1084,151.267,-33.89,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,Wentworth,NSW,NSW_NOLEVY,1213,estimate: population x 0.162 t/person,811,,142.243,-33.57,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,25,1050,1,Willoughby,NSW,NSW_MLA,12318,estimate: population x 0.162 t/person,1049,1085,151.196,-33.801,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Kembla,65,1000,1,Wingecarribee,NSW,NSW_MLA,8498,estimate: population x 0.162 t/person,915,946,150.356,-34.477,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Kembla,16,1000,1,Wollongong,NSW,NSW_MLA,34774,estimate: population x 0.162 t/person,968,1000,150.837,-34.369,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,15,1050,1,Woollahra,NSW,NSW_MLA,8730,estimate: population x 0.162 t/person,1049,1084,151.257,-33.872,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,Yass Valley,NSW,NSW_NOLEVY,2792,estimate: population x 0.162 t/person,619,,148.885,-34.954,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
 Port Adelaide (Outer Harbor),24,950,0,Adelaide,SA,SA_METRO,4231,estimate: population x 0.162 t/person,962,995,138.599,-34.922,assumed garden-only service,go,1.0,10.88,0.376,0.127
 ,,,0,Alexandrina,SA,SA_NONMETRO,4824,estimate: population x 0.162 t/person,905,,138.878,-35.352,assumed garden-only service,go,1.0,10.88,0.376,0.127
 ,,,0,Berri Barmera,SA,SA_NONMETRO,1736,estimate: population x 0.162 t/person,849,,140.489,-34.266,assumed garden-only service,go,1.0,10.88,0.376,0.127
@@ -78,7 +78,7 @@ Port Adelaide (Outer Harbor),16,950,0,Charles Sturt,SA,SA_METRO,20235,estimate: 
 ,,,0,Coorong,SA,SA_NONMETRO,902,estimate: population x 0.162 t/person,793,,139.761,-35.714,assumed garden-only service,go,1.0,10.88,0.376,0.127
 Port Adelaide (Outer Harbor),37,950,0,Gawler,SA,SA_METRO,4232,estimate: population x 0.162 t/person,973,1005,138.73,-34.622,assumed garden-only service,go,1.0,10.88,0.376,0.127
 ,,,0,Grant,SA,SA_NONMETRO,1446,estimate: population x 0.162 t/person,611,,140.725,-37.846,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),32,950,0,Holdfast Bay,SA,SA_METRO,6166,estimate: population x 0.162 t/person,964,997,138.521,-35.001,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),32,950,0,Holdfast Bay,SA,SA_METRO,6166,estimate: population x 0.162 t/person,964,997,138.521,-35.001,"weekly FOGO, 73% of households (InDaily 2025)",fogo,0.73,11.63,0.238,0.15
 ,,,0,Karoonda East Murray,SA,SA_NONMETRO,167,estimate: population x 0.162 t/person,826,,140.02,-34.95,assumed garden-only service,go,1.0,10.88,0.376,0.127
 ,,,0,Kingston (SA),SA,SA_NONMETRO,387,estimate: population x 0.162 t/person,715,,140.026,-36.644,assumed garden-only service,go,1.0,10.88,0.376,0.127
 ,,,0,Loxton Waikerie,SA,SA_NONMETRO,1932,estimate: population x 0.162 t/person,837,,140.352,-34.508,assumed garden-only service,go,1.0,10.88,0.376,0.127

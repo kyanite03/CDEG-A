@@ -39,15 +39,17 @@ lang = Generators.observe(notify => {
   return () => mo.disconnect();
 })
 T = (en, zh) => lang === "zh" ? zh : en
+// Cache-busting: Cloudflare caches data files for hours; the page's Last-Modified changes on every deploy
+V = "?v=" + encodeURIComponent(document.lastModified)
 csv = path => fetch(path).then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
-wasteHist = csv("../data/vic_waste_history.csv")
-levyHist = csv("../data/levy_history.csv")
-scen = csv("../data/scenarios.csv")
-councilsRaw = csv("../data/councils.csv")
+wasteHist = csv("../data/vic_waste_history.csv" + V)
+levyHist = csv("../data/levy_history.csv" + V)
+scen = csv("../data/scenarios.csv" + V)
+councilsRaw = csv("../data/councils.csv" + V)
 // Safe defaults in case data/councils.csv is older than this page
 councils = councilsRaw.map(c => ({...c, cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : 10.9, rail_only: c.rail_only ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
-comps = csv("../data/waste_components.csv")
-compData = csv("../data/vic_waste_components.csv")
+comps = csv("../data/waste_components.csv" + V)
+compData = csv("../data/vic_waste_components.csv" + V)
 C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890"})
 fmtM = v => (v / 1e6).toFixed(0)
 kt = v => (v / 1e3).toFixed(0)
