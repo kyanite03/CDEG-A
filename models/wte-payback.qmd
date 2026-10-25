@@ -43,7 +43,9 @@ csv = path => fetch(path).then(r => r.text()).then(t => d3.csvParse(t, d3.autoTy
 wasteHist = csv("../data/vic_waste_history.csv")
 levyHist = csv("../data/levy_history.csv")
 scen = csv("../data/scenarios.csv")
-councils = csv("../data/councils.csv")
+councilsRaw = csv("../data/councils.csv")
+// Safe defaults in case data/councils.csv is older than this page
+councils = councilsRaw.map(c => ({...c, cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : 10.9, rail_only: c.rail_only ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
 comps = csv("../data/waste_components.csv")
 compData = csv("../data/vic_waste_components.csv")
 C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890"})
@@ -70,16 +72,12 @@ Victoria caps waste-to-energy at **2.5 Mt a year**. In August 2025 seven licence
 ```{ojs}
 //| echo: false
 viewof capMt = Inputs.range([2.5, 5], {value: 2.5, step: 0.1, label: L("WtE cap (Mt/yr)", "焚烧上限（百万吨/年）")})
+// Option labels avoid T() so switching language does not rebuild (and reset) the controls
 viewof partner = Inputs.select(new Map([
-  [T("Melbourne Water (450 kt)", "Melbourne Water（45万吨）"), 450000],
-  [T("Recovered Energy (280 kt)", "Recovered Energy（28万吨）"), 280000],
-  [T("HiQ (750 kt)", "HiQ（75万吨）"), 750000],
-  [T("Cleanaway (760 kt)", "Cleanaway（76万吨）"), 760000],
-  [T("No partner", "无合作方"), 0]
+  ["Melbourne Water (450 kt)", 450000], ["Recovered Energy (280 kt)", 280000], ["HiQ (750 kt)", 750000], ["Cleanaway (760 kt)", 760000], ["— / 无", 0]
 ]), {value: 450000, label: L("Licence partner", "许可合作方")})
-viewof wasteScen = Inputs.radio(new Map([
-  [T("Base: each material's 2020–25 trend", "基准：各成分2020–25趋势"), "base"], [T("Low: 2 pts/yr below trend", "低：比趋势每年低2个百分点"), "low"], [T("High: 2 pts/yr above trend", "高：比趋势每年高2个百分点"), "high"]
-]), {value: "base", label: L("Waste trend", "垃圾量趋势")})
+viewof wasteScen = Inputs.radio(["base", "low", "high"], {value: "base", label: L("Waste trend", "垃圾量趋势"),
+  format: k => ({base: L("Base: each material's 2020–25 trend", "基准：各成分2020–25趋势"), low: L("Low: 2 pts/yr below trend", "低：比趋势每年低2个百分点"), high: L("High: 2 pts/yr above trend", "高：比趋势每年高2个百分点")})[k]})
 ```
 :::
 
@@ -155,7 +153,7 @@ Plot.plot({
 }
 ```
 
-<p class="figure-note"><span class="en">Burnable household and commercial waste landfilled in Victoria, by material, 2015–16 to 2024–25 (solid), with projections (faded). Energy content uses typical as-discarded values per material (food 4.7, garden 6.5, biosolids 2.0, paper 16.5, textiles 18, timber 18.6, plastics 32.6 MJ/kg). Sources: DCCEEW NWRR 2026; Tchobanoglous, Theisen & Vigil, <i>Integrated Solid Waste Management</i> (1993), Table 4-16.</span><span class="zh">维州填埋的可燃生活及工商业垃圾（按成分），2015–16至2024–25年度（实色）及预测（浅色）。热值采用各成分典型丢弃状态值（厨余4.7、园林6.5、污泥2.0、纸16.5、纺织18、木材18.6、塑料32.6兆焦/千克）。来源：国家废物数据库2026；Tchobanoglous等《Integrated Solid Waste Management》(1993) 表4-16。</span></p>
+<p class="figure-note"><span class="en"><b>This is the furnace's feedstock, not the whole market.</b> In 2023–24 Victoria generated about 14.2 Mt of waste: 9.9 Mt was recovered (mostly rubble, metals and organics) and 4.3 Mt went to landfill. Of that, 1.0 Mt was construction rubble and 3.3 Mt was household and commercial waste, and about 2.5 Mt of the 3.3 Mt is material that can burn. Burnable household and commercial waste landfilled in Victoria, by material, 2015–16 to 2024–25 (solid), with projections (faded). Energy content uses typical as-discarded values per material (food 4.7, garden 6.5, biosolids 2.0, paper 16.5, textiles 18, timber 18.6, plastics 32.6 MJ/kg). Sources: DCCEEW NWRR 2026; Tchobanoglous, Theisen & Vigil, <i>Integrated Solid Waste Management</i> (1993), Table 4-16.</span><span class="zh"><b>此图为焚烧原料，而非整个市场。</b>2023–24年度维州共产生约1420万吨垃圾：990万吨被回收（主要为建筑废料、金属和有机物），430万吨填埋；其中100万吨为建筑废料，330万吨为生活及工商业垃圾，其中约250万吨为可燃物。维州填埋的可燃生活及工商业垃圾（按成分），2015–16至2024–25年度（实色）及预测（浅色）。热值采用各成分典型丢弃状态值（厨余4.7、园林6.5、污泥2.0、纸16.5、纺织18、木材18.6、塑料32.6兆焦/千克）。来源：国家废物数据库2026；Tchobanoglous等《Integrated Solid Waste Management》(1993) 表4-16。</span></p>
 
 
 ## [2 · Price: who will send us their waste]{.en}[2 · 价格：谁会把垃圾交给我们]{.zh}
@@ -175,9 +173,8 @@ A customer only switches if our gate fee **plus transport** to the Latrobe Valle
 viewof gateFee = Inputs.range([60, 260], {value: 150, step: 5, label: L("Our gate fee, 2027 (A$/t)", "我方处理费，2027（澳元/吨）")})
 viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving needed to switch", "转换所需节省比例")})
 viewof passThrough = Inputs.range([0, 1], {value: 0.5, step: 0.05, label: L("Levy rises passed into our fee", "填埋税涨幅计入处理费比例")})
-viewof levyScen = Inputs.radio(new Map([
-  [T("Base +5%/yr", "基准 每年+5%"), "base"], [T("Low +2.5%/yr", "低 每年+2.5%"), "low"], [T("High +10%/yr", "高 每年+10%"), "high"]
-]), {value: "base", label: L("Levy trend", "填埋税趋势")})
+viewof levyScen = Inputs.radio(["base", "low", "high"], {value: "base", label: L("Levy trend", "填埋税趋势"),
+  format: k => ({base: L("Base +5%/yr", "基准 每年+5%"), low: L("Low +2.5%/yr", "低 每年+2.5%"), high: L("High +10%/yr", "高 每年+10%")})[k]})
 viewof lfGate = Inputs.range([40, 160], {value: 95, step: 5, label: L("Metro landfill gate fee excl. levy", "大都市填埋处理费（不含税）")})
 ```
 :::
@@ -218,7 +215,8 @@ Plot.plot({
 //| echo: false
 viewof tpd = Inputs.range([300, 750], {value: 500, step: 50, label: L("Furnace size (t/day)", "单炉规模（吨/日）")})
 viewof availability = Inputs.range([0.75, 0.95], {value: 0.9, step: 0.01, label: L("Availability", "可用率")})
-viewof furnaces = Inputs.range([1, maxFurnaces], {value: Math.min(this?.value ?? 3, maxFurnaces), step: 1, label: L(`Furnaces (max ${maxFurnaces} under licence)`, `焚烧炉数量（许可下最多${maxFurnaces}台）`)})
+// Remember the last furnace count (outside OJS) so changing the licence keeps it where possible
+viewof furnaces = Inputs.range([1, maxFurnaces], {value: Math.min(window.__lastFurnaces ?? 3, maxFurnaces), step: 1, label: L(`Furnaces (max ${maxFurnaces} under licence)`, `焚烧炉数量（许可下最多${maxFurnaces}台）`)})
 viewof capexSite = Inputs.range([50, 400], {value: 200, step: 10, label: L("Shared site capex (A$m)", "公共设施投资（百万澳元）")})
 viewof capexFurnace = Inputs.range([100, 350], {value: 210, step: 10, label: L("Capex per furnace (A$m)", "单炉投资（百万澳元）")})
 viewof fixedFurnace = Inputs.range([2, 12], {value: 5, step: 0.5, label: L("Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
@@ -320,6 +318,7 @@ Plot.plot({
 ```{ojs}
 //| echo: false
 //| output: false
+rememberFurnaces = { window.__lastFurnaces = furnaces; return furnaces; }
 // ---------- Model ----------
 // Feedstock by material: each material follows its own 2020-25 trend, shifted by the scenario
 scenAdj = ({base: 0, low: -0.02, high: 0.02})

@@ -49,7 +49,14 @@ lang = Generators.observe(notify => {
   return () => mo.disconnect();
 })
 T = (en, zh) => lang === "zh" ? zh : en
-councils = fetch("../data/councils.csv").then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
+councilsRaw = fetch("../data/councils.csv").then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
+// Guard against an out-of-date councils.csv: fill safe defaults and report what is missing
+NEEDED = ["cv_mj_kg", "organics_service", "organics_coverage", "rail_only", "port_km", "sea_km"]
+missingCols = NEEDED.filter(k => !councilsRaw.columns.includes(k))
+councils = councilsRaw.map(c => ({...c,
+  cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : 10.9,
+  organics_service: c.organics_service ?? "go", organics_coverage: c.organics_coverage ?? 1,
+  rail_only: c.rail_only ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
 geo = fetch("../data/councils.geojson").then(r => r.json())
 levyHist = fetch("../data/levy_history.csv").then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
 levy2027 = Object.fromEntries(levyHist.filter(d => d.year === 2027).map(d => [d.zone, d.levy]))
@@ -71,13 +78,20 @@ fmt = v => `A$${v.toFixed(0)}`
 rich = s => { const p = document.createElement("p"); p.className = "kpi-note"; p.innerHTML = s; return p; }
 ```
 
+```{ojs}
+//| echo: false
+missingCols.length || geoOnly.length ? html`<div class="placeholder" style="border-color:#e34948;background:#fff1f0;color:#a40e26">${T(
+  `Data check: data/councils.csv is out of date${missingCols.length ? ` (missing columns: ${missingCols.join(", ")})` : ""}${geoOnly.length ? `; ${geoOnly.length} map areas have no matching row (e.g. ${geoOnly.slice(0, 3).join(", ")})` : ""}. Copy the latest data/councils.csv and data/councils.geojson together.`,
+  `数据检查：data/councils.csv 不是最新版本${missingCols.length ? `（缺少列：${missingCols.join("、")}）` : ""}${geoOnly.length ? `；${geoOnly.length}个地图区域无对应数据（如${geoOnly.slice(0, 3).join("、")}）` : ""}。请同时复制最新的 data/councils.csv 和 data/councils.geojson。`)}</div>` : html``
+```
+
 :::: {.columns .model-row}
 ::: {.column width="36%"}
 ```{ojs}
 //| echo: false
 viewof gateFee = Inputs.range([60, 260], {value: 150, step: 5, label: L("Our gate fee (A$/t)", "我方处理费（澳元/吨）")})
 viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving needed to switch", "转换所需节省比例")})
-viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => modeLabel[m]})
+viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
 ```
 
 <details><summary><span class="en">Container and freight assumptions</span><span class="zh">集装箱与运费假设</span></summary>
@@ -95,7 +109,7 @@ viewof railFix = Inputs.range([200, 900], {value: 400, step: 25, label: L("Rail 
 viewof melbLift = Inputs.range([0, 400], {value: 150, step: 10, label: L("Melbourne transfer lift A$/container", "墨尔本换装 澳元/箱")})
 viewof seaPerKm = Inputs.range([0.3, 2.5], {value: 1.1, step: 0.05, label: L("Sea A$ per container-km", "海运 澳元/箱公里")})
 viewof portFix = Inputs.range([100, 800], {value: 350, step: 25, label: L("Port charges per end A$/container", "每端港口费 澳元/箱")})
-viewof seaLast = Inputs.radio(new Map([[T("Rail", "铁路"), "rail"], [T("Truck", "卡车"), "road"]]), {value: "rail", label: L("Port of Melbourne → Morwell", "墨尔本港→Morwell")})
+viewof seaLast = Inputs.radio(["rail", "road"], {value: "rail", format: k => k === "rail" ? L("Rail", "铁路") : L("Truck", "卡车"), label: L("Port of Melbourne → Morwell", "墨尔本港→Morwell")})
 viewof gVicMetro = Inputs.range([40, 180], {value: 95, step: 5, label: L("Landfill fee excl. levy: Vic metro", "填埋费（不含税）：维州大都市")})
 viewof gVicRural = Inputs.range([40, 180], {value: 110, step: 5, label: L("… Vic rural", "……维州乡村")})
 viewof gNSW = Inputs.range([40, 200], {value: 130, step: 5, label: L("… southern NSW", "……新州南部")})
@@ -111,7 +125,7 @@ viewof gACT = Inputs.range([60, 220], {value: 111, step: 1, label: L("… ACT al
 ::: {.column width="64%"}
 ```{ojs}
 //| echo: false
-viewof colourBy = Inputs.radio(new Map([[T("Offer status", "报价状态"), "status"], [T("Energy content", "热值"), "cv"]]), {value: "status", label: L("Colour by", "着色依据")})
+viewof colourBy = Inputs.radio(["status", "cv"], {value: "status", format: k => k === "status" ? L("Offer status", "报价状态") : L("Energy content", "热值"), label: L("Colour by", "着色依据")})
 ```
 
 ```{ojs}
@@ -121,13 +135,13 @@ viewof showRoutes = Inputs.toggle({label: L("Show freight routes", "显示货运
 
 ```{ojs}
 //| echo: false
-viewof view = Inputs.radio(new Map([[T("South-east Australia", "澳洲东南部"), "all"], [T("Victoria + borders", "维州及周边"), "vic"], [T("Melbourne + Gippsland", "墨尔本+吉普斯兰"), "metro"]]), {value: "all", label: L("Map view", "地图范围")})
+viewof view = Inputs.radio(["all", "vic", "metro"], {value: "all", format: k => ({all: L("South-east Australia", "澳洲东南部"), vic: L("Victoria + borders", "维州及周边"), metro: L("Melbourne + Gippsland", "墨尔本+吉普斯兰")})[k], label: L("Map view", "地图范围")})
 ```
 
 ```{ojs}
 //| echo: false
 {
-  const feats = geo.features.map(f => ({...f, properties: {...f.properties, ...byName.get(f.properties.name)}}));
+  const feats = geo.features.filter(f => byName.has(f.properties.name)).map(f => ({...f, properties: {...f.properties, ...byName.get(f.properties.name)}}));
   const domainFeats = view === "all" ? feats : view === "vic" ? feats.filter(f => !["NSW_MLA", "SA_METRO"].includes(f.properties.zone)) : feats.filter(f => f.properties.zone === "VIC_METRO" && f.properties.lon > 144.4 && f.properties.lat < -37.4 || ["Latrobe", "Baw Baw", "Cardinia", "Casey", "South Gippsland", "Bass Coast"].includes(f.properties.name));
   const color = colourBy === "status"
     ? {type: "ordinal", domain: STATUS, range: STATUS.map(s => statusColor[s]), legend: true, tickFormat: s => statusLabel[s]}
@@ -209,6 +223,7 @@ rows = councils.map(c => {
   return {...c, current, levy: levyZ[c.zone], density, tpc, box, perT: Object.fromEntries(options.map(o => [o.m, o.perT])), how: best.m, delivery, offer, status, maxGate: current * (1 - threshold) - delivery};
 })
 byName = new Map(rows.map(d => [d.name, d]))
+geoOnly = geo.features.map(f => f.properties.name).filter(n => !byName.has(n))
 sumT = list => d3.sum(list, d => d.garbage_t)
 mixCV = list => sumT(list) ? d3.sum(list, d => d.garbage_t * d.cv_mj_kg) / sumT(list) : 0
 won = rows.filter(d => d.status === "win")
@@ -239,8 +254,10 @@ html`<div class="kpi-row">
     return {d, rate: (d.box.rail - nonSea) / d.sea_km}; };
   const syd = be("Sydney"), adl = be("Adelaide");
   const inter = rows.filter(d => d.sea_km);
+  if (!syd || !adl) return rich(T("<b>Sea or rail?</b> Tick both rail and sea (and make sure councils.csv includes the Sydney and Adelaide councils) to compare them.",
+                                  "<b>海运还是铁路？</b>请同时勾选铁路和海运（并确保 councils.csv 含悉尼和阿德莱德市政）以进行比较。"));
   const seaWins = inter.filter(d => d.box.sea !== null && d.box.rail !== null && d.box.sea < d.box.rail);
-  const f = x => x === null ? "—" : `A$${x.rate.toFixed(2)}`;
+  const f = x => `A$${x.rate.toFixed(2)}`;
   return rich(T(
     `<b>Sea or rail?</b> From Sydney a container costs about A$${syd.d.box.rail.toFixed(0)} by rail against A$${syd.d.box.sea.toFixed(0)} by sea (A$${(syd.d.box.rail/syd.d.tpc).toFixed(0)} vs A$${(syd.d.box.sea/syd.d.tpc).toFixed(0)} per tonne); from Adelaide A$${adl.d.box.rail.toFixed(0)} vs A$${adl.d.box.sea.toFixed(0)}. Shipping pays port charges at both ends plus the leg from the Port of Melbourne to Morwell, so at A$${seaPerKm.toFixed(2)} per container-km it is cheapest for ${seaWins.length} of ${inter.length} interstate councils. Sea beats rail once coastal freight falls below about <b>${f(syd)}</b> per container-km from Sydney and <b>${f(adl)}</b> from Adelaide.`,
     `<b>海运还是铁路？</b>悉尼每箱铁路约${syd.d.box.rail.toFixed(0)}澳元，海运约${syd.d.box.sea.toFixed(0)}澳元（每吨${(syd.d.box.rail/syd.d.tpc).toFixed(0)}对${(syd.d.box.sea/syd.d.tpc).toFixed(0)}澳元）；阿德莱德${adl.d.box.rail.toFixed(0)}对${adl.d.box.sea.toFixed(0)}澳元。海运需支付两端港口费及墨尔本港至Morwell的运输，因此在每箱公里${seaPerKm.toFixed(2)}澳元时，${inter.length}个州外市政中有${seaWins.length}个海运最便宜。当沿海运费低于悉尼约<b>${f(syd)}</b>、阿德莱德约<b>${f(adl)}</b>每箱公里时，海运才优于铁路。`));
