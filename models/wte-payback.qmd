@@ -47,7 +47,7 @@ levyHist = csv("../data/levy_history.csv" + V)
 scen = csv("../data/scenarios.csv" + V)
 councilsRaw = csv("../data/councils.csv" + V)
 // Safe defaults in case data/councils.csv is older than this page
-councils = councilsRaw.map(c => ({...c, cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : 10.9, rail_only: c.rail_only ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
+councils = councilsRaw.map(c => ({...c, cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : 10.9, rail_only: c.rail_only ?? 0, bass_strait: c.bass_strait ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
 comps = csv("../data/waste_components.csv" + V)
 compData = csv("../data/vic_waste_components.csv" + V)
 C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890"})
@@ -361,15 +361,15 @@ capex = (capexSite + capexFurnace * furnaces) * 1e6
 fixedTotal = (fixedFurnace * furnaces + fixedSite) * 1e6
 limitName = ({supply: T("customers at this price", "此价格下的客源"), capacity: T("furnace capacity", "焚烧炉产能"), licence: T("the licence", "许可配额")})
 // Landfill gate fees excl. levy by zone (2027), matching the council map defaults
-gateLF = ({VIC_METRO: lfGate, VIC_RURAL: lfGate + 15, NSW_MLA: lfGate + 25, SA_METRO: lfGate - 5, NSW_NOLEVY: lfGate + 35, SA_NONMETRO: lfGate + 15, ACT: 111})
+gateLF = ({VIC_METRO: lfGate, VIC_RURAL: lfGate + 15, NSW_MLA: lfGate + 25, SA_METRO: lfGate - 5, NSW_NOLEVY: lfGate + 35, SA_NONMETRO: lfGate + 15, ACT: 111, TAS: 135})
 // Transport to Morwell, 2027 A$/t (cheapest of road and rail), same as the map defaults
 // Transport to Morwell, 2027 A$/t: per 20 ft container (cheapest of road, rail, sea), divided by
 // tonnes per container from each council's density (same defaults as the council price map)
 councilDelivery = new Map(councils.map(c => {
   const tpc = Math.min(24, 33 * Math.max(0.35, Math.min(0.8, 0.60 + 0.05 * (11 - c.cv_mj_kg))));
-  const road = c.rail_only ? Infinity : 150 + 3.5 * Math.max(0, c.road_km - 30);
+  const road = (c.rail_only || c.bass_strait) ? Infinity : 150 + 3.5 * Math.max(0, c.road_km - 30);
   const rail = c.rail_km ? 400 + 1.4 * c.rail_km + (c.rail_km > 200 ? 150 : 0) : Infinity;
-  const sea = c.sea_km ? 150 + 3.5 * c.port_km + 2 * 350 + 1.1 * c.sea_km + (150 + 1.4 * 150 + 100) : Infinity;
+  const sea = c.sea_km ? 150 + 3.5 * c.port_km + 2 * 350 + (c.bass_strait ? 1000 : 1.1 * c.sea_km) + (150 + 1.4 * 150 + 100) : Infinity;
   return [c.name, Math.min(road, rail, sea) / tpc];
 }))
 ciPool2025 = (wasteHist.find(d => d.year === 2025).combustible_landfill_mt - 0.995) * 1e6
@@ -377,7 +377,7 @@ ciPool2025 = (wasteHist.find(d => d.year === 2025).combustible_landfill_mt - 0.9
 supplyAt = (gf, y) => {
   const g = Math.pow(1 + inflation, y - startYear), lev = levyAt(levyScen, y), sc = wasteScale(y);
   const fee = gf * g + passThrough * (lev - levy0 * g);
-  const levyZ = {VIC_METRO: lev, VIC_RURAL: levy2027.VIC_RURAL * lev / levy0, NSW_MLA: levy2027.NSW_MLA * g, SA_METRO: levy2027.SA_METRO * g, NSW_NOLEVY: 0, SA_NONMETRO: levy2027.SA_NONMETRO * g, ACT: 0};
+  const levyZ = {TAS: 70.56 * g, VIC_METRO: lev, VIC_RURAL: levy2027.VIC_RURAL * lev / levy0, NSW_MLA: levy2027.NSW_MLA * g, SA_METRO: levy2027.SA_METRO * g, NSW_NOLEVY: 0, SA_NONMETRO: levy2027.SA_NONMETRO * g, ACT: 0};
   let kerb = 0, kerbMJ = 0, n = 0, far = 0;
   for (const c of councils) {
     const landfill = gateLF[c.zone] * g + levyZ[c.zone];

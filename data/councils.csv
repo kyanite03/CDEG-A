@@ -1,185 +1,212 @@
-port,port_km,sea_km,rail_only,name,state,zone,garbage_t,tonnage_source,road_km,rail_km,lon,lat,service_note,organics_service,organics_coverage,cv_mj_kg,food_share,plastics_share
-,,,0,ACT,ACT,ACT,73629,estimate: population x 0.162 t/person,556,,149.002,-35.489,"garden bins; FOGO only a pilot (~6,500 households)",go,1.0,10.88,0.376,0.127
-,,,0,Albury,NSW,NSW_NOLEVY,9078,estimate: population x 0.162 t/person,486,486,146.97,-36.027,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Balranald,NSW,NSW_NOLEVY,358,estimate: population x 0.162 t/person,705,,143.612,-33.95,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
-Port Botany,6,1050,1,Bayside (NSW),NSW,NSW_MLA,28522,estimate: population x 0.162 t/person,1034,1069,151.167,-33.95,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Bega Valley,NSW,NSW_NOLEVY,5793,estimate: population x 0.162 t/person,482,,149.718,-36.826,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Berrigan,NSW,NSW_NOLEVY,1395,estimate: population x 0.162 t/person,450,,145.711,-35.734,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,54,1050,1,Blacktown,NSW,NSW_MLA,64753,estimate: population x 0.162 t/person,1026,1061,150.864,-33.741,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,18,1050,1,Burwood,NSW,NSW_MLA,6544,estimate: population x 0.162 t/person,1034,1069,151.103,-33.884,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,59,1050,1,Camden,NSW,NSW_MLA,19432,estimate: population x 0.162 t/person,989,1023,150.724,-34.009,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,47,1050,1,Campbelltown (NSW),NSW,NSW_MLA,28786,estimate: population x 0.162 t/person,993,1027,150.846,-34.083,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,21,1050,1,Canada Bay,NSW,NSW_MLA,14526,estimate: population x 0.162 t/person,1037,1073,151.115,-33.854,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,22,1050,1,Canterbury-Bankstown,NSW,NSW_MLA,60316,estimate: population x 0.162 t/person,1024,1059,151.037,-33.924,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Carrathool,NSW,NSW_NOLEVY,465,estimate: population x 0.162 t/person,736,,145.496,-33.609,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
-Port of Newcastle,82,1200,1,Central Coast (NSW),NSW,NSW_MLA,56437,estimate: population x 0.162 t/person,1102,1141,151.286,-33.308,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port of Newcastle,68,1200,1,Cessnock,NSW,NSW_MLA,10381,estimate: population x 0.162 t/person,1134,1174,151.225,-32.925,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Cootamundra-Gundagai,NSW,NSW_NOLEVY,1845,estimate: population x 0.162 t/person,692,,148.094,-34.853,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,33,1050,1,Cumberland,NSW,NSW_MLA,38393,estimate: population x 0.162 t/person,1027,1062,150.986,-33.842,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Edward River,NSW,NSW_NOLEVY,1367,estimate: population x 0.162 t/person,515,,144.942,-35.173,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Eurobodalla,NSW,NSW_NOLEVY,6553,estimate: population x 0.162 t/person,587,,149.947,-35.945,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,41,1050,1,Fairfield,NSW,NSW_MLA,33863,estimate: population x 0.162 t/person,1017,1052,150.896,-33.866,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Federation,NSW,NSW_NOLEVY,2077,estimate: population x 0.162 t/person,504,,146.271,-35.497,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,15,1050,1,Georges River,NSW,NSW_MLA,24738,estimate: population x 0.162 t/person,1025,1060,151.087,-33.971,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Goulburn Mulwaree,NSW,NSW_NOLEVY,5206,estimate: population x 0.162 t/person,699,,149.813,-34.876,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Greater Hume,NSW,NSW_NOLEVY,1799,estimate: population x 0.162 t/person,529,,147.172,-35.75,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Griffith,NSW,NSW_NOLEVY,4403,estimate: population x 0.162 t/person,651,,146.004,-34.3,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,106,1050,1,Hawkesbury,NSW,NSW_MLA,10948,estimate: population x 0.162 t/person,1057,1093,150.773,-33.335,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Hay,NSW,NSW_NOLEVY,467,estimate: population x 0.162 t/person,635,,144.684,-34.316,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Hilltops,NSW,NSW_NOLEVY,3113,estimate: population x 0.162 t/person,776,,148.501,-34.352,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,58,1050,1,Hornsby,NSW,NSW_MLA,24660,estimate: population x 0.162 t/person,1060,1096,151.089,-33.584,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,21,1050,1,Hunters Hill,NSW,NSW_MLA,2202,estimate: population x 0.162 t/person,1042,1078,151.145,-33.833,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,13,1050,1,Inner West,NSW,NSW_MLA,29771,estimate: population x 0.162 t/person,1038,1073,151.155,-33.891,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Junee,NSW,NSW_NOLEVY,1045,estimate: population x 0.162 t/person,666,,147.669,-34.817,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Kembla,36,1000,1,Kiama,NSW,NSW_MLA,3720,estimate: population x 0.162 t/person,935,966,150.756,-34.679,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,35,1050,1,Ku-ring-gai,NSW,NSW_MLA,20195,estimate: population x 0.162 t/person,1051,1087,151.151,-33.735,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port of Newcastle,35,1200,1,Lake Macquarie,NSW,NSW_MLA,34663,estimate: population x 0.162 t/person,1149,1189,151.53,-33.039,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,22,1050,1,Lane Cove,NSW,NSW_MLA,6415,estimate: population x 0.162 t/person,1045,1081,151.167,-33.82,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Leeton,NSW,NSW_NOLEVY,1860,estimate: population x 0.162 t/person,630,,146.302,-34.532,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,47,1050,1,Liverpool,NSW,NSW_MLA,37968,estimate: population x 0.162 t/person,1005,1039,150.825,-33.936,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Lockhart,NSW,NSW_NOLEVY,539,estimate: population x 0.162 t/person,551,,146.775,-35.331,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port of Newcastle,42,1200,1,Maitland,NSW,NSW_MLA,14670,estimate: population x 0.162 t/person,1182,1223,151.55,-32.711,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,21,1050,1,Mosman,NSW,NSW_MLA,4611,estimate: population x 0.162 t/person,1051,1087,151.245,-33.829,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Murray River,NSW,NSW_NOLEVY,2070,estimate: population x 0.162 t/person,503,,144.212,-35.325,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Murrumbidgee,NSW,NSW_NOLEVY,577,estimate: population x 0.162 t/person,556,,145.729,-34.95,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Narrandera,NSW,NSW_NOLEVY,928,estimate: population x 0.162 t/person,631,,146.58,-34.611,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
-Port of Newcastle,12,1200,1,Newcastle,NSW,NSW_MLA,27429,estimate: population x 0.162 t/person,1178,1219,151.696,-32.88,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,20,1050,1,North Sydney,NSW,NSW_MLA,11253,estimate: population x 0.162 t/person,1048,1084,151.212,-33.833,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,41,1050,1,Northern Beaches,NSW,NSW_MLA,42846,estimate: population x 0.162 t/person,1064,1101,151.25,-33.69,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,33,1050,1,Parramatta,NSW,NSW_MLA,41847,estimate: population x 0.162 t/person,1035,1070,151.029,-33.799,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,67,1050,1,Penrith,NSW,NSW_MLA,35502,estimate: population x 0.162 t/person,1011,1045,150.718,-33.765,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port of Newcastle,30,1200,1,Port Stephens,NSW,NSW_MLA,12196,estimate: population x 0.162 t/person,1206,1248,151.845,-32.722,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Queanbeyan-Palerang,NSW,NSW_NOLEVY,10265,estimate: population x 0.162 t/person,616,,149.627,-35.423,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,5,1050,1,Randwick,NSW,NSW_MLA,21915,estimate: population x 0.162 t/person,1041,1076,151.24,-33.943,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,28,1050,1,Ryde,NSW,NSW_MLA,21023,estimate: population x 0.162 t/person,1042,1078,151.11,-33.799,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Kembla,23,1000,1,Shellharbour,NSW,NSW_MLA,12384,estimate: population x 0.162 t/person,944,976,150.774,-34.583,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Kembla,111,1000,1,Shoalhaven,NSW,NSW_MLA,17577,estimate: population x 0.162 t/person,866,895,150.373,-35.094,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Snowy Monaro,NSW,NSW_NOLEVY,3509,estimate: population x 0.162 t/person,443,,148.959,-36.396,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Snowy Valleys,NSW,NSW_NOLEVY,2414,estimate: population x 0.162 t/person,619,,148.249,-35.734,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,21,1050,1,Strathfield,NSW,NSW_MLA,7441,estimate: population x 0.162 t/person,1032,1067,151.077,-33.881,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,25,1050,1,Sutherland,NSW,NSW_MLA,37406,estimate: population x 0.162 t/person,1012,1047,151.051,-34.075,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Botany,12,1050,1,Sydney,NSW,NSW_MLA,34806,estimate: population x 0.162 t/person,1042,1078,151.203,-33.889,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,63,1050,1,The Hills,NSW,NSW_MLA,31186,estimate: population x 0.162 t/person,1048,1084,150.962,-33.588,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Upper Lachlan,NSW,NSW_NOLEVY,1376,estimate: population x 0.162 t/person,733,,149.456,-34.418,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Wagga Wagga,NSW,NSW_NOLEVY,10993,estimate: population x 0.162 t/person,603,603,147.366,-35.197,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,13,1050,1,Waverley,NSW,NSW_MLA,11241,estimate: population x 0.162 t/person,1048,1084,151.267,-33.89,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-,,,0,Wentworth,NSW,NSW_NOLEVY,1213,estimate: population x 0.162 t/person,811,,142.243,-33.57,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,25,1050,1,Willoughby,NSW,NSW_MLA,12318,estimate: population x 0.162 t/person,1049,1085,151.196,-33.801,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Kembla,65,1000,1,Wingecarribee,NSW,NSW_MLA,8498,estimate: population x 0.162 t/person,915,946,150.356,-34.477,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Kembla,16,1000,1,Wollongong,NSW,NSW_MLA,34774,estimate: population x 0.162 t/person,968,1000,150.837,-34.369,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-Port Botany,15,1050,1,Woollahra,NSW,NSW_MLA,8730,estimate: population x 0.162 t/person,1049,1084,151.257,-33.872,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
-,,,0,Yass Valley,NSW,NSW_NOLEVY,2792,estimate: population x 0.162 t/person,619,,148.885,-34.954,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),24,950,0,Adelaide,SA,SA_METRO,4231,estimate: population x 0.162 t/person,962,995,138.599,-34.922,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Alexandrina,SA,SA_NONMETRO,4824,estimate: population x 0.162 t/person,905,,138.878,-35.352,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Berri Barmera,SA,SA_NONMETRO,1736,estimate: population x 0.162 t/person,849,,140.489,-34.266,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),31,950,0,Burnside,SA,SA_METRO,7564,estimate: population x 0.162 t/person,955,987,138.66,-34.94,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),27,950,0,Campbelltown (SA),SA,SA_METRO,9074,estimate: population x 0.162 t/person,957,989,138.682,-34.884,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),16,950,0,Charles Sturt,SA,SA_METRO,20235,estimate: population x 0.162 t/person,972,1005,138.523,-34.89,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Coorong,SA,SA_NONMETRO,902,estimate: population x 0.162 t/person,793,,139.761,-35.714,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),37,950,0,Gawler,SA,SA_METRO,4232,estimate: population x 0.162 t/person,973,1005,138.73,-34.622,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Grant,SA,SA_NONMETRO,1446,estimate: population x 0.162 t/person,611,,140.725,-37.846,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),32,950,0,Holdfast Bay,SA,SA_METRO,6166,estimate: population x 0.162 t/person,964,997,138.521,-35.001,"weekly FOGO, 73% of households (InDaily 2025)",fogo,0.73,11.63,0.238,0.15
-,,,0,Karoonda East Murray,SA,SA_NONMETRO,167,estimate: population x 0.162 t/person,826,,140.02,-34.95,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Kingston (SA),SA,SA_NONMETRO,387,estimate: population x 0.162 t/person,715,,140.026,-36.644,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Loxton Waikerie,SA,SA_NONMETRO,1932,estimate: population x 0.162 t/person,837,,140.352,-34.508,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),37,950,0,Marion,SA,SA_METRO,15659,estimate: population x 0.162 t/person,960,993,138.54,-35.032,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Mid Murray,SA,SA_NONMETRO,1525,estimate: population x 0.162 t/person,919,,139.461,-34.45,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),36,950,0,Mitcham,SA,SA_METRO,11081,estimate: population x 0.162 t/person,954,987,138.622,-35.004,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Mount Gambier,SA,SA_NONMETRO,4499,estimate: population x 0.162 t/person,604,,140.782,-37.825,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Murray Bridge,SA,SA_NONMETRO,3654,estimate: population x 0.162 t/person,877,,139.302,-35.159,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Naracoorte Lucindale,SA,SA_NONMETRO,1446,estimate: population x 0.162 t/person,646,,140.547,-36.977,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),25,950,0,Norwood Payneham and St Peters,SA,SA_METRO,6156,estimate: population x 0.162 t/person,960,992,138.637,-34.908,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),58,950,0,Onkaparinga,SA,SA_METRO,28924,estimate: population x 0.162 t/person,948,979,138.569,-35.179,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),24,950,0,Playford,SA,SA_METRO,16754,estimate: population x 0.162 t/person,974,1007,138.663,-34.689,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),12,950,0,Port Adelaide Enfield,SA,SA_METRO,22007,estimate: population x 0.162 t/person,972,1005,138.562,-34.841,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),20,950,0,Prospect,SA,SA_METRO,3684,estimate: population x 0.162 t/person,965,998,138.598,-34.884,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Renmark Paringa,SA,SA_NONMETRO,1627,estimate: population x 0.162 t/person,833,,140.814,-34.182,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Robe,SA,SA_NONMETRO,256,estimate: population x 0.162 t/person,701,,139.979,-37.188,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),14,950,0,Salisbury,SA,SA_METRO,23976,estimate: population x 0.162 t/person,972,1005,138.611,-34.773,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Southern Mallee,SA,SA_NONMETRO,326,estimate: population x 0.162 t/person,739,,140.574,-35.394,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Tatiara,SA,SA_NONMETRO,1140,estimate: population x 0.162 t/person,678,,140.584,-36.228,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),27,950,0,Tea Tree Gully,SA,SA_METRO,16632,estimate: population x 0.162 t/person,960,992,138.718,-34.805,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),29,950,0,Unley,SA,SA_METRO,6332,estimate: population x 0.162 t/person,960,992,138.604,-34.955,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Victor Harbor,SA,SA_NONMETRO,2709,estimate: population x 0.162 t/person,928,,138.546,-35.513,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),22,950,0,Walkerville,SA,SA_METRO,1325,estimate: population x 0.162 t/person,963,995,138.617,-34.893,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Wattle Range,SA,SA_NONMETRO,1970,estimate: population x 0.162 t/person,637,,140.519,-37.47,assumed garden-only service,go,1.0,10.88,0.376,0.127
-Port Adelaide (Outer Harbor),24,950,0,West Torrens,SA,SA_METRO,10223,estimate: population x 0.162 t/person,966,999,138.544,-34.941,assumed garden-only service,go,1.0,10.88,0.376,0.127
-,,,0,Alpine,VIC,VIC_RURAL,1280,EPA Vic council data 2023-24,412,,146.974,-36.854,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Ararat,VIC,VIC_RURAL,2105,EPA Vic council data 2023-24,383,,142.843,-37.473,EPA Vic 2023-24,go,1.0,10.88,0.376,0.127
-,,,0,Ballarat,VIC,VIC_METRO,21962,EPA Vic council data 2023-24,282,282,143.781,-37.493,EPA Vic 2023-24,go,0.85,10.69,0.36,0.122
-,,,0,Banyule,VIC,VIC_METRO,15621,EPA Vic council data 2023-24,166,170,145.085,-37.73,EPA Vic 2023-24,fogo,0.94,12.21,0.23,0.167
-,,,0,Bass Coast,VIC,VIC_RURAL,6100,EPA Vic council data 2023-24,103,95,145.558,-38.507,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Baw Baw,VIC,VIC_RURAL,11476,EPA Vic council data 2023-24,47,43,146.132,-37.984,EPA Vic 2023-24,go,1.0,10.88,0.376,0.127
-,,,0,Bayside,VIC,VIC_METRO,11413,EPA Vic council data 2023-24,162,172,145.018,-37.942,EPA Vic 2023-24,fogo,0.83,11.91,0.234,0.158
-,,,0,Benalla,VIC,VIC_RURAL,2296,EPA Vic council data 2023-24,358,,146.024,-36.587,EPA Vic 2023-24,fogo,0.96,12.26,0.229,0.169
-,,,0,Boroondara,VIC,VIC_METRO,17120,EPA Vic council data 2023-24,163,165,145.063,-37.819,EPA Vic 2023-24,fogo,0.77,11.74,0.237,0.153
-,,,0,Brimbank,VIC,VIC_METRO,41807,EPA Vic council data 2023-24,195,164,144.803,-37.747,EPA Vic 2023-24,fogo,0.62,11.33,0.243,0.141
-,,,0,Buloke,VIC,VIC_RURAL,2277,EPA Vic council data 2023-24,488,,143.005,-35.912,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Campaspe,VIC,VIC_RURAL,7651,EPA Vic council data 2023-24,353,,144.716,-36.345,EPA Vic 2023-24,fogo,0.79,11.8,0.236,0.155
-,,,0,Cardinia,VIC,VIC_METRO,22964,EPA Vic council data 2023-24,96,89,145.573,-38.083,EPA Vic 2023-24,fogo,0.73,11.63,0.238,0.15
-,,,0,Casey,VIC,VIC_METRO,69226,EPA Vic council data 2023-24,125,115,145.309,-38.104,EPA Vic 2023-24,fogo,0.9,12.1,0.231,0.164
-,,,0,Central Goldfields,VIC,VIC_RURAL,2344,EPA Vic council data 2023-24,323,,143.714,-37.007,EPA Vic 2023-24,fogo,0.32,10.5,0.256,0.117
-,,,0,Colac Otway,VIC,VIC_RURAL,3997,EPA Vic council data 2023-24,321,,143.595,-38.452,EPA Vic 2023-24,fogo,0.94,12.21,0.23,0.167
-,,,0,Corangamite,VIC,VIC_RURAL,1991,EPA Vic council data 2023-24,347,,143.199,-38.204,EPA Vic 2023-24,fogo,0.93,12.18,0.23,0.166
-,,,0,Darebin,VIC,VIC_METRO,23602,EPA Vic council data 2023-24,173,163,145.014,-37.733,EPA Vic 2023-24,fogo,0.93,12.18,0.23,0.166
-,,,0,East Gippsland,VIC,VIC_RURAL,8536,EPA Vic council data 2023-24,250,230,148.292,-37.378,EPA Vic 2023-24,go,0.72,10.53,0.346,0.117
-,,,0,Frankston,VIC,VIC_METRO,25735,EPA Vic council data 2023-24,140,202,145.174,-38.135,EPA Vic 2023-24,fogo,0.78,11.77,0.236,0.154
-,,,0,Gannawarra,VIC,VIC_RURAL,2303,EPA Vic council data 2023-24,461,,143.804,-35.751,EPA Vic 2023-24,go,0.39,10.11,0.311,0.105
-,,,0,Glen Eira,VIC,VIC_METRO,20582,EPA Vic council data 2023-24,161,169,145.043,-37.901,EPA Vic 2023-24,fogo,0.85,11.96,0.233,0.16
-,,,0,Glenelg,VIC,VIC_RURAL,3534,EPA Vic council data 2023-24,538,,141.386,-37.871,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Golden Plains,VIC,VIC_METRO,5037,EPA Vic council data 2023-24,269,264,143.842,-37.882,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Greater Bendigo,VIC,VIC_METRO,20445,EPA Vic council data 2023-24,308,308,144.423,-36.734,EPA Vic 2023-24,fogo,0.97,12.29,0.228,0.17
-,,,0,Greater Dandenong,VIC,VIC_METRO,28785,EPA Vic council data 2023-24,141,190,145.19,-38.006,EPA Vic 2023-24,fogo,0.83,11.91,0.234,0.158
-,,,0,Greater Geelong,VIC,VIC_METRO,56331,EPA Vic council data 2023-24,226,217,144.417,-38.069,EPA Vic 2023-24,go,1.0,10.88,0.376,0.127
-,,,0,Greater Shepparton,VIC,VIC_RURAL,10777,EPA Vic council data 2023-24,352,352,145.386,-36.397,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Hepburn,VIC,VIC_RURAL,2854,EPA Vic council data 2023-24,266,,144.058,-37.317,EPA Vic 2023-24,fogo,0.8,11.82,0.235,0.156
-,,,0,Hindmarsh,VIC,VIC_RURAL,1720,EPA Vic council data 2023-24,578,,141.752,-36.051,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Hobsons Bay,VIC,VIC_METRO,17119,EPA Vic council data 2023-24,186,162,144.83,-37.855,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Horsham,VIC,VIC_RURAL,3794,EPA Vic council data 2023-24,491,491,142.09,-36.826,EPA Vic 2023-24,fogo,0.87,12.02,0.232,0.161
-,,,0,Hume,VIC,VIC_METRO,54231,EPA Vic council data 2023-24,202,180,144.825,-37.589,EPA Vic 2023-24,fogo,0.5,11.0,0.248,0.132
-,,,0,Indigo,VIC,VIC_RURAL,2237,EPA Vic council data 2023-24,447,,146.723,-36.225,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Kingston,VIC,VIC_METRO,27049,EPA Vic council data 2023-24,151,182,145.105,-37.989,EPA Vic 2023-24,fogo,0.79,11.8,0.236,0.155
-,,,0,Knox,VIC,VIC_METRO,16566,EPA Vic council data 2023-24,139,188,145.259,-37.889,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Latrobe,VIC,VIC_RURAL,16282,EPA Vic council data 2023-24,8,7,146.438,-38.275,EPA Vic 2023-24,go,0.92,10.78,0.367,0.124
-,,,0,Loddon,VIC,VIC_RURAL,1903,EPA Vic council data 2023-24,381,,143.867,-36.364,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Macedon Ranges,VIC,VIC_RURAL,6143,EPA Vic council data 2023-24,223,,144.617,-37.336,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Manningham,VIC,VIC_METRO,11062,EPA Vic council data 2023-24,154,179,145.188,-37.762,EPA Vic 2023-24,fogo,0.89,12.07,0.232,0.163
-,,,0,Mansfield,VIC,VIC_RURAL,2573,EPA Vic council data 2023-24,315,,146.207,-37.2,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Maribyrnong,VIC,VIC_METRO,16675,EPA Vic council data 2023-24,184,154,144.878,-37.795,EPA Vic 2023-24,fogo,0.53,11.08,0.247,0.134
-,,,0,Maroondah,VIC,VIC_METRO,17864,EPA Vic council data 2023-24,143,186,145.265,-37.805,EPA Vic 2023-24,fogo,0.98,12.32,0.228,0.17
-,,,0,Melbourne,VIC,VIC_METRO,29495,EPA Vic council data 2023-24,176,153,144.944,-37.811,EPA Vic 2023-24,fogo,0.2,10.17,0.261,0.107
-,,,0,Melton,VIC,VIC_METRO,37669,EPA Vic council data 2023-24,216,184,144.626,-37.693,EPA Vic 2023-24,fogo,0.74,11.66,0.238,0.151
-,,,0,Merri-bek,VIC,VIC_METRO,26431,EPA Vic council data 2023-24,180,160,144.949,-37.73,EPA Vic 2023-24,fogo,0.9,12.1,0.231,0.164
-,,,0,Mildura,VIC,VIC_RURAL,5782,EPA Vic council data 2023-24,695,695,141.683,-34.869,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Mitchell,VIC,VIC_RURAL,10754,EPA Vic council data 2023-24,243,,145.002,-37.138,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Moira,VIC,VIC_RURAL,4326,EPA Vic council data 2023-24,402,,145.55,-36.062,EPA Vic 2023-24,fogo,0.97,12.29,0.228,0.17
-,,,0,Monash,VIC,VIC_METRO,23545,EPA Vic council data 2023-24,151,177,145.144,-37.897,EPA Vic 2023-24,fogo,0.85,11.96,0.233,0.16
-,,,0,Moonee Valley,VIC,VIC_METRO,22719,EPA Vic council data 2023-24,185,157,144.896,-37.75,EPA Vic 2023-24,fogo,0.71,11.58,0.239,0.149
-,,,0,Moorabool,VIC,VIC_RURAL,7343,EPA Vic council data 2023-24,231,,144.216,-37.633,EPA Vic 2023-24,go,0.45,10.19,0.317,0.107
-,,,0,Mornington Peninsula,VIC,VIC_METRO,29934,EPA Vic council data 2023-24,155,223,145.035,-38.342,EPA Vic 2023-24,fogo,0.62,11.33,0.243,0.141
-,,,0,Mount Alexander,VIC,VIC_RURAL,3289,EPA Vic council data 2023-24,281,,144.193,-37.051,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Moyne,VIC,VIC_RURAL,2272,EPA Vic council data 2023-24,420,,142.49,-38.122,EPA Vic 2023-24,fogo,0.98,12.32,0.228,0.17
-,,,0,Murrindindi,VIC,VIC_RURAL,2884,EPA Vic council data 2023-24,254,,145.63,-37.311,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Nillumbik,VIC,VIC_METRO,6685,EPA Vic council data 2023-24,159,191,145.237,-37.623,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Northern Grampians,VIC,VIC_RURAL,2572,EPA Vic council data 2023-24,408,,142.92,-36.845,EPA Vic 2023-24,fogo,0.23,10.25,0.259,0.11
-,,,0,Port Phillip,VIC,VIC_METRO,18170,EPA Vic council data 2023-24,172,158,144.966,-37.852,EPA Vic 2023-24,fogo,0.69,11.52,0.24,0.147
-,,,0,Pyrenees,VIC,VIC_RURAL,1258,EPA Vic council data 2023-24,333,,143.375,-37.316,EPA Vic 2023-24,go,0.68,10.48,0.342,0.115
-,,,0,Queenscliffe,VIC,VIC_RURAL,740,EPA Vic council data 2023-24,221,,144.648,-38.264,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,South Gippsland,VIC,VIC_RURAL,4487,EPA Vic council data 2023-24,67,61,146.076,-38.621,EPA Vic 2023-24,go,0.6,10.38,0.333,0.113
-,,,0,Southern Grampians,VIC,VIC_RURAL,2245,EPA Vic council data 2023-24,470,,142.033,-37.537,EPA Vic 2023-24,fogo,0.98,12.32,0.228,0.17
-,,,0,Stonnington,VIC,VIC_METRO,18920,EPA Vic council data 2023-24,164,164,145.034,-37.858,EPA Vic 2023-24,fogo,0.26,10.34,0.258,0.112
-,,,0,Strathbogie,VIC,VIC_RURAL,1097,EPA Vic council data 2023-24,305,,145.435,-36.76,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Surf Coast,VIC,VIC_RURAL,4864,EPA Vic council data 2023-24,269,,144.053,-38.312,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Swan Hill,VIC,VIC_RURAL,5303,EPA Vic council data 2023-24,573,,143.125,-35.12,EPA Vic 2023-24,go,0.24,9.92,0.295,0.1
-,,,0,Towong,VIC,VIC_RURAL,821,EPA Vic council data 2023-24,509,,147.599,-36.354,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Wangaratta,VIC,VIC_RURAL,4741,EPA Vic council data 2023-24,387,,146.428,-36.588,EPA Vic 2023-24,fogo,0.88,12.04,0.232,0.162
-,,,0,Warrnambool,VIC,VIC_RURAL,4776,EPA Vic council data 2023-24,425,425,142.512,-38.371,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Wellington,VIC,VIC_RURAL,7748,EPA Vic council data 2023-24,77,71,146.919,-37.894,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,West Wimmera,VIC,VIC_RURAL,1024,EPA Vic council data 2023-24,582,,141.279,-36.676,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Whitehorse,VIC,VIC_METRO,24773,EPA Vic council data 2023-24,153,175,145.155,-37.83,EPA Vic 2023-24,fogo,0.69,11.52,0.24,0.147
-,,,0,Whittlesea,VIC,VIC_METRO,45776,EPA Vic council data 2023-24,180,188,145.078,-37.547,EPA Vic 2023-24,fogo,0.66,11.44,0.241,0.144
-,,,0,Wodonga,VIC,VIC_RURAL,5062,EPA Vic council data 2023-24,466,466,146.882,-36.15,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Wyndham,VIC,VIC_METRO,59296,EPA Vic council data 2023-24,208,184,144.618,-37.887,EPA Vic 2023-24,fogo,0.43,10.8,0.251,0.126
-,,,0,Yarra,VIC,VIC_METRO,13066,EPA Vic council data 2023-24,171,158,144.999,-37.802,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
-,,,0,Yarra Ranges,VIC,VIC_METRO,21464,EPA Vic council data 2023-24,110,233,145.697,-37.714,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
-,,,0,Yarriambiack,VIC,VIC_RURAL,1800,EPA Vic council data 2023-24,525,,142.419,-35.99,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+port,port_km,sea_km,rail_only,bass_strait,name,state,zone,garbage_t,tonnage_source,road_km,rail_km,lon,lat,service_note,organics_service,organics_coverage,cv_mj_kg,food_share,plastics_share
+,,,0,0,ACT,ACT,ACT,64462,ACT 2022 kerbside waste audit (estimated annual general waste),556.0,,149.002,-35.489,"garden bins; FOGO only a pilot (~6,500 households)",go,1.0,10.88,0.376,0.127
+,,,0,0,Albury,NSW,NSW_NOLEVY,6630,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),486.0,486,146.97,-36.027,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Balranald,NSW,NSW_NOLEVY,350,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),705.0,,143.612,-33.95,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
+Port Botany,6,1050,1,0,Bayside (NSW),NSW,NSW_MLA,43769,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1034.0,1069,151.167,-33.95,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Bega Valley,NSW,NSW_NOLEVY,6672,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),482.0,,149.718,-36.826,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Berrigan,NSW,NSW_NOLEVY,1736,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),450.0,,145.711,-35.734,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,54,1050,1,0,Blacktown,NSW,NSW_MLA,112498,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1026.0,1061,150.864,-33.741,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,18,1050,1,0,Burwood,NSW,NSW_MLA,8368,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1034.0,1069,151.103,-33.884,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,59,1050,1,0,Camden,NSW,NSW_MLA,27255,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),989.0,1023,150.724,-34.009,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,47,1050,1,0,Campbelltown (NSW),NSW,NSW_MLA,37696,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),993.0,1027,150.846,-34.083,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,21,1050,1,0,Canada Bay,NSW,NSW_MLA,18760,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1037.0,1073,151.115,-33.854,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,22,1050,1,0,Canterbury-Bankstown,NSW,NSW_MLA,85221,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1024.0,1059,151.037,-33.924,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Carrathool,NSW,NSW_NOLEVY,755,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),736.0,,145.496,-33.609,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
+Port of Newcastle,82,1200,1,0,Central Coast (NSW),NSW,NSW_MLA,79073,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1102.0,1141,151.286,-33.308,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port of Newcastle,68,1200,1,0,Cessnock,NSW,NSW_MLA,15170,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1134.0,1174,151.225,-32.925,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Cootamundra-Gundagai,NSW,NSW_NOLEVY,2255,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),692.0,,148.094,-34.853,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,33,1050,1,0,Cumberland,NSW,NSW_MLA,69065,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1027.0,1062,150.986,-33.842,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Edward River,NSW,NSW_NOLEVY,2901,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),515.0,,144.942,-35.173,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Eurobodalla,NSW,NSW_NOLEVY,6742,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),587.0,,149.947,-35.945,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,41,1050,1,0,Fairfield,NSW,NSW_MLA,64261,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1017.0,1052,150.896,-33.866,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Federation,NSW,NSW_NOLEVY,1929,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),504.0,,146.271,-35.497,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,15,1050,1,0,Georges River,NSW,NSW_MLA,30977,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1025.0,1060,151.087,-33.971,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Goulburn Mulwaree,NSW,NSW_NOLEVY,8788,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),699.0,,149.813,-34.876,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Greater Hume,NSW,NSW_NOLEVY,2586,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),529.0,,147.172,-35.75,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Griffith,NSW,NSW_NOLEVY,7140,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),651.0,,146.004,-34.3,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,106,1050,1,0,Hawkesbury,NSW,NSW_MLA,19265,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1057.0,1093,150.773,-33.335,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Hay,NSW,NSW_NOLEVY,1335,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),635.0,,144.684,-34.316,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Hilltops,NSW,NSW_NOLEVY,11796,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),776.0,,148.501,-34.352,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,58,1050,1,0,Hornsby,NSW,NSW_MLA,29612,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1060.0,1096,151.089,-33.584,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,21,1050,1,0,Hunters Hill,NSW,NSW_MLA,3072,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1042.0,1078,151.145,-33.833,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,13,1050,1,0,Inner West,NSW,NSW_MLA,30539,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1038.0,1073,151.155,-33.891,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Junee,NSW,NSW_NOLEVY,871,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),666.0,,147.669,-34.817,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Kembla,36,1000,1,0,Kiama,NSW,NSW_MLA,3720,estimate: reported 212 t looked incomplete; population x 0.162 t/person,935.0,966,150.756,-34.679,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,35,1050,1,0,Ku-ring-gai,NSW,NSW_MLA,21726,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1051.0,1087,151.151,-33.735,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port of Newcastle,35,1200,1,0,Lake Macquarie,NSW,NSW_MLA,36988,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1149.0,1189,151.53,-33.039,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,22,1050,1,0,Lane Cove,NSW,NSW_MLA,7229,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1045.0,1081,151.167,-33.82,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Leeton,NSW,NSW_NOLEVY,2909,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),630.0,,146.302,-34.532,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,47,1050,1,0,Liverpool,NSW,NSW_MLA,55406,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1005.0,1039,150.825,-33.936,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Lockhart,NSW,NSW_NOLEVY,530,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),551.0,,146.775,-35.331,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port of Newcastle,42,1200,1,0,Maitland,NSW,NSW_MLA,24586,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1182.0,1223,151.55,-32.711,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,21,1050,1,0,Mosman,NSW,NSW_MLA,6035,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1051.0,1087,151.245,-33.829,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Murray River,NSW,NSW_NOLEVY,2469,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),503.0,,144.212,-35.325,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Murrumbidgee,NSW,NSW_NOLEVY,420,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),556.0,,145.729,-34.95,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Narrandera,NSW,NSW_NOLEVY,1653,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),631.0,,146.58,-34.611,NSW EPA FOGO services list (Oct 2026),none,0.0,9.62,0.269,0.091
+Port of Newcastle,12,1200,1,0,Newcastle,NSW,NSW_MLA,36918,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1178.0,1219,151.696,-32.88,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,20,1050,1,0,North Sydney,NSW,NSW_MLA,12077,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1048.0,1084,151.212,-33.833,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,41,1050,1,0,Northern Beaches,NSW,NSW_MLA,46802,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1064.0,1101,151.25,-33.69,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,33,1050,1,0,Parramatta,NSW,NSW_MLA,50239,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1035.0,1070,151.029,-33.799,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,67,1050,1,0,Penrith,NSW,NSW_MLA,33891,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1011.0,1045,150.718,-33.765,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port of Newcastle,30,1200,1,0,Port Stephens,NSW,NSW_MLA,21589,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1206.0,1248,151.845,-32.722,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Queanbeyan-Palerang,NSW,NSW_NOLEVY,8822,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),616.0,,149.627,-35.423,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,5,1050,1,0,Randwick,NSW,NSW_MLA,21076,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1041.0,1076,151.24,-33.943,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,28,1050,1,0,Ryde,NSW,NSW_MLA,25629,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1042.0,1078,151.11,-33.799,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Kembla,23,1000,1,0,Shellharbour,NSW,NSW_MLA,13738,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),944.0,976,150.774,-34.583,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Kembla,111,1000,1,0,Shoalhaven,NSW,NSW_MLA,28896,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),866.0,895,150.373,-35.094,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Snowy Monaro,NSW,NSW_NOLEVY,4204,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),443.0,,148.959,-36.396,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Snowy Valleys,NSW,NSW_NOLEVY,3190,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),619.0,,148.249,-35.734,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,21,1050,1,0,Strathfield,NSW,NSW_MLA,14038,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1032.0,1067,151.077,-33.881,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,25,1050,1,0,Sutherland,NSW,NSW_MLA,46147,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1012.0,1047,151.051,-34.075,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Botany,12,1050,1,0,Sydney,NSW,NSW_MLA,41204,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1042.0,1078,151.203,-33.889,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,63,1050,1,0,The Hills,NSW,NSW_MLA,43004,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1048.0,1084,150.962,-33.588,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Upper Lachlan,NSW,NSW_NOLEVY,3323,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),733.0,,149.456,-34.418,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Wagga Wagga,NSW,NSW_NOLEVY,8062,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),603.0,603,147.366,-35.197,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,13,1050,1,0,Waverley,NSW,NSW_MLA,13808,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1048.0,1084,151.267,-33.89,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+,,,0,0,Wentworth,NSW,NSW_NOLEVY,2558,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),811.0,,142.243,-33.57,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,25,1050,1,0,Willoughby,NSW,NSW_MLA,14143,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1049.0,1085,151.196,-33.801,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Kembla,65,1000,1,0,Wingecarribee,NSW,NSW_MLA,9005,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),915.0,946,150.356,-34.477,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Kembla,16,1000,1,0,Wollongong,NSW,NSW_MLA,37816,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),968.0,1000,150.837,-34.369,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+Port Botany,15,1050,1,0,Woollahra,NSW,NSW_MLA,10365,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),1049.0,1084,151.257,-33.872,NSW EPA FOGO services list (Oct 2026),fogo,1.0,12.37,0.227,0.172
+,,,0,0,Yass Valley,NSW,NSW_NOLEVY,961,NSW EPA Local Government Waste Data Survey 2023-24 (red bin collected),619.0,,148.885,-34.954,NSW EPA FOGO services list (Oct 2026),go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),24,950,0,0,Adelaide,SA,SA_METRO,5006,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),962.0,995,138.599,-34.922,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Alexandrina,SA,SA_NONMETRO,4824,estimate: population x 0.162 t/person,905.0,,138.878,-35.352,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Berri Barmera,SA,SA_NONMETRO,1736,estimate: population x 0.162 t/person,849.0,,140.489,-34.266,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),31,950,0,0,Burnside,SA,SA_METRO,8950,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),955.0,987,138.66,-34.94,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),27,950,0,0,Campbelltown (SA),SA,SA_METRO,10736,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),957.0,989,138.682,-34.884,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),16,950,0,0,Charles Sturt,SA,SA_METRO,23941,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),972.0,1005,138.523,-34.89,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Coorong,SA,SA_NONMETRO,902,estimate: population x 0.162 t/person,793.0,,139.761,-35.714,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),37,950,0,0,Gawler,SA,SA_METRO,5007,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),973.0,1005,138.73,-34.622,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Grant,SA,SA_NONMETRO,1446,estimate: population x 0.162 t/person,611.0,,140.725,-37.846,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),32,950,0,0,Holdfast Bay,SA,SA_METRO,7295,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),964.0,997,138.521,-35.001,"weekly FOGO, 73% of households (InDaily 2025)",fogo,0.73,11.63,0.238,0.15
+,,,0,0,Karoonda East Murray,SA,SA_NONMETRO,167,estimate: population x 0.162 t/person,826.0,,140.02,-34.95,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Kingston (SA),SA,SA_NONMETRO,387,estimate: population x 0.162 t/person,715.0,,140.026,-36.644,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Loxton Waikerie,SA,SA_NONMETRO,1932,estimate: population x 0.162 t/person,837.0,,140.352,-34.508,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),37,950,0,0,Marion,SA,SA_METRO,18527,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),960.0,993,138.54,-35.032,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Mid Murray,SA,SA_NONMETRO,1525,estimate: population x 0.162 t/person,919.0,,139.461,-34.45,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),36,950,0,0,Mitcham,SA,SA_METRO,13111,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),954.0,987,138.622,-35.004,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Mount Gambier,SA,SA_NONMETRO,4499,estimate: population x 0.162 t/person,604.0,,140.782,-37.825,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Murray Bridge,SA,SA_NONMETRO,3654,estimate: population x 0.162 t/person,877.0,,139.302,-35.159,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Naracoorte Lucindale,SA,SA_NONMETRO,1446,estimate: population x 0.162 t/person,646.0,,140.547,-36.977,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),25,950,0,0,Norwood Payneham and St Peters,SA,SA_METRO,7284,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),960.0,992,138.637,-34.908,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),58,950,0,0,Onkaparinga,SA,SA_METRO,34222,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),948.0,979,138.569,-35.179,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),24,950,0,0,Playford,SA,SA_METRO,19823,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),974.0,1007,138.663,-34.689,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),12,950,0,0,Port Adelaide Enfield,SA,SA_METRO,26038,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),972.0,1005,138.562,-34.841,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),20,950,0,0,Prospect,SA,SA_METRO,4359,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),965.0,998,138.598,-34.884,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Renmark Paringa,SA,SA_NONMETRO,1627,estimate: population x 0.162 t/person,833.0,,140.814,-34.182,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Robe,SA,SA_NONMETRO,256,estimate: population x 0.162 t/person,701.0,,139.979,-37.188,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),14,950,0,0,Salisbury,SA,SA_METRO,28368,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),972.0,1005,138.611,-34.773,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Southern Mallee,SA,SA_NONMETRO,326,estimate: population x 0.162 t/person,739.0,,140.574,-35.394,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Tatiara,SA,SA_NONMETRO,1140,estimate: population x 0.162 t/person,678.0,,140.584,-36.228,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),27,950,0,0,Tea Tree Gully,SA,SA_METRO,19678,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),960.0,992,138.718,-34.805,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),29,950,0,0,Unley,SA,SA_METRO,7492,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),960.0,992,138.604,-34.955,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Victor Harbor,SA,SA_NONMETRO,2709,estimate: population x 0.162 t/person,928.0,,138.546,-35.513,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),22,950,0,0,Walkerville,SA,SA_METRO,1568,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),963.0,995,138.617,-34.893,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Wattle Range,SA,SA_NONMETRO,1970,estimate: population x 0.162 t/person,637.0,,140.519,-37.47,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Port Adelaide (Outer Harbor),24,950,0,0,West Torrens,SA,SA_METRO,12096,estimate: population x 0.192 t/person (GISA metro Adelaide 2023-24 average),966.0,999,138.544,-34.941,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,187,430,0,1,Break O'Day,TAS,TAS,1136,estimate: population x 0.162 t/person,,,148.05,-41.425,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,243,430,0,1,Brighton,TAS,TAS,3189,estimate: population x 0.162 t/person,,,147.261,-42.719,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Burnie,27,470,0,1,Burnie,TAS,TAS,3321,estimate: population x 0.162 t/person,,,145.806,-41.216,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Burnie,36,470,0,1,Central Coast (Tas.),TAS,TAS,3784,estimate: population x 0.162 t/person,,,146.04,-41.281,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,152,430,0,1,Central Highlands (Tas.),TAS,TAS,419,estimate: population x 0.162 t/person,,,146.646,-42.212,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Burnie,98,470,0,1,Circular Head,TAS,TAS,1358,estimate: population x 0.162 t/person,,,145.015,-41.079,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,266,430,0,1,Clarence,TAS,TAS,10228,estimate: population x 0.162 t/person,,,147.434,-42.837,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,236,430,0,1,Derwent Valley,TAS,TAS,1823,estimate: population x 0.162 t/person,,,146.421,-42.813,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,7,430,0,1,Devonport,TAS,TAS,4369,estimate: population x 0.162 t/person,,,146.312,-41.209,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,148,430,0,1,Dorset,TAS,TAS,1138,estimate: population x 0.162 t/person,,,147.709,-41.072,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,73,430,0,1,George Town,TAS,TAS,1180,estimate: population x 0.162 t/person,,,147.026,-41.102,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,234,430,0,1,Glamorgan-Spring Bay,TAS,TAS,841,estimate: population x 0.162 t/person,,,147.965,-42.269,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,257,430,0,1,Glenorchy,TAS,TAS,8275,estimate: population x 0.162 t/person,,,147.22,-42.839,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,268,430,0,1,Hobart,TAS,TAS,9079,estimate: population x 0.162 t/person,,,147.287,-42.898,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,301,430,0,1,Huon Valley,TAS,TAS,3114,estimate: population x 0.162 t/person,,,146.597,-43.251,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,44,430,0,1,Kentish,TAS,TAS,1103,estimate: population x 0.162 t/person,,,146.184,-41.454,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,306,430,0,1,Kingborough,TAS,TAS,6639,estimate: population x 0.162 t/person,,,147.262,-43.189,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,24,430,0,1,Latrobe (Tas.),TAS,TAS,2094,estimate: population x 0.162 t/person,,,146.56,-41.244,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,106,430,0,1,Launceston,TAS,TAS,11661,estimate: population x 0.162 t/person,,,147.306,-41.361,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,66,430,0,1,Meander Valley,TAS,TAS,3462,estimate: population x 0.162 t/person,,,146.485,-41.627,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,153,430,0,1,Northern Midlands,TAS,TAS,2291,estimate: population x 0.162 t/person,,,147.46,-41.84,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,272,430,0,1,Sorell,TAS,TAS,2824,estimate: population x 0.162 t/person,,,147.696,-42.779,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,213,430,0,1,Southern Midlands,TAS,TAS,1116,estimate: population x 0.162 t/person,,,147.401,-42.435,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,314,430,0,1,Tasman,TAS,TAS,433,estimate: population x 0.162 t/person,,,147.835,-43.055,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Burnie,66,470,0,1,Waratah-Wynyard,TAS,TAS,2381,estimate: population x 0.162 t/person,,,145.495,-41.383,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,179,430,0,1,West Coast,TAS,TAS,706,estimate: population x 0.162 t/person,,,145.637,-42.298,assumed garden-only service,go,1.0,10.88,0.376,0.127
+Devonport,57,430,0,1,West Tamar,TAS,TAS,4205,estimate: population x 0.162 t/person,,,146.864,-41.282,assumed garden-only service,go,1.0,10.88,0.376,0.127
+,,,0,0,Alpine,VIC,VIC_RURAL,1280,EPA Vic council data 2023-24,412.0,,146.974,-36.854,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Ararat,VIC,VIC_RURAL,2105,EPA Vic council data 2023-24,383.0,383,142.843,-37.473,EPA Vic 2023-24,go,1.0,10.88,0.376,0.127
+,,,0,0,Ballarat,VIC,VIC_METRO,21962,EPA Vic council data 2023-24,282.0,282,143.781,-37.493,EPA Vic 2023-24,go,0.85,10.69,0.36,0.122
+,,,0,0,Banyule,VIC,VIC_METRO,15621,EPA Vic council data 2023-24,166.0,170,145.085,-37.73,EPA Vic 2023-24,fogo,0.94,12.21,0.23,0.167
+,,,0,0,Bass Coast,VIC,VIC_RURAL,6100,EPA Vic council data 2023-24,103.0,,145.558,-38.507,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Baw Baw,VIC,VIC_RURAL,11476,EPA Vic council data 2023-24,47.0,43,146.132,-37.984,EPA Vic 2023-24,go,1.0,10.88,0.376,0.127
+,,,0,0,Bayside,VIC,VIC_METRO,11413,EPA Vic council data 2023-24,162.0,172,145.018,-37.942,EPA Vic 2023-24,fogo,0.83,11.91,0.234,0.158
+,,,0,0,Benalla,VIC,VIC_RURAL,2296,EPA Vic council data 2023-24,358.0,358,146.024,-36.587,EPA Vic 2023-24,fogo,0.96,12.26,0.229,0.169
+,,,0,0,Boroondara,VIC,VIC_METRO,17120,EPA Vic council data 2023-24,163.0,165,145.063,-37.819,EPA Vic 2023-24,fogo,0.77,11.74,0.237,0.153
+,,,0,0,Brimbank,VIC,VIC_METRO,41807,EPA Vic council data 2023-24,195.0,164,144.803,-37.747,EPA Vic 2023-24,fogo,0.62,11.33,0.243,0.141
+,,,0,0,Buloke,VIC,VIC_RURAL,2277,EPA Vic council data 2023-24,488.0,488,143.005,-35.912,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Campaspe,VIC,VIC_RURAL,7651,EPA Vic council data 2023-24,353.0,353,144.716,-36.345,EPA Vic 2023-24,fogo,0.79,11.8,0.236,0.155
+,,,0,0,Cardinia,VIC,VIC_METRO,22964,EPA Vic council data 2023-24,96.0,89,145.573,-38.083,EPA Vic 2023-24,fogo,0.73,11.63,0.238,0.15
+,,,0,0,Casey,VIC,VIC_METRO,69226,EPA Vic council data 2023-24,125.0,115,145.309,-38.104,EPA Vic 2023-24,fogo,0.9,12.1,0.231,0.164
+,,,0,0,Central Goldfields,VIC,VIC_RURAL,2344,EPA Vic council data 2023-24,323.0,323,143.714,-37.007,EPA Vic 2023-24,fogo,0.32,10.5,0.256,0.117
+,,,0,0,Colac Otway,VIC,VIC_RURAL,3997,EPA Vic council data 2023-24,321.0,321,143.595,-38.452,EPA Vic 2023-24,fogo,0.94,12.21,0.23,0.167
+,,,0,0,Corangamite,VIC,VIC_RURAL,1991,EPA Vic council data 2023-24,347.0,347,143.199,-38.204,EPA Vic 2023-24,fogo,0.93,12.18,0.23,0.166
+,,,0,0,Darebin,VIC,VIC_METRO,23602,EPA Vic council data 2023-24,173.0,163,145.014,-37.733,EPA Vic 2023-24,fogo,0.93,12.18,0.23,0.166
+,,,0,0,East Gippsland,VIC,VIC_RURAL,8536,EPA Vic council data 2023-24,250.0,230,148.292,-37.378,EPA Vic 2023-24,go,0.72,10.53,0.346,0.117
+,,,0,0,Frankston,VIC,VIC_METRO,25735,EPA Vic council data 2023-24,140.0,202,145.174,-38.135,EPA Vic 2023-24,fogo,0.78,11.77,0.236,0.154
+,,,0,0,Gannawarra,VIC,VIC_RURAL,2303,EPA Vic council data 2023-24,461.0,461,143.804,-35.751,EPA Vic 2023-24,go,0.39,10.11,0.311,0.105
+,,,0,0,Glen Eira,VIC,VIC_METRO,20582,EPA Vic council data 2023-24,161.0,169,145.043,-37.901,EPA Vic 2023-24,fogo,0.85,11.96,0.233,0.16
+,,,0,0,Glenelg,VIC,VIC_RURAL,3534,EPA Vic council data 2023-24,538.0,538,141.386,-37.871,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Golden Plains,VIC,VIC_METRO,5037,EPA Vic council data 2023-24,269.0,264,143.842,-37.882,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Greater Bendigo,VIC,VIC_METRO,20445,EPA Vic council data 2023-24,308.0,308,144.423,-36.734,EPA Vic 2023-24,fogo,0.97,12.29,0.228,0.17
+,,,0,0,Greater Dandenong,VIC,VIC_METRO,28785,EPA Vic council data 2023-24,141.0,190,145.19,-38.006,EPA Vic 2023-24,fogo,0.83,11.91,0.234,0.158
+,,,0,0,Greater Geelong,VIC,VIC_METRO,56331,EPA Vic council data 2023-24,226.0,217,144.417,-38.069,EPA Vic 2023-24,go,1.0,10.88,0.376,0.127
+,,,0,0,Greater Shepparton,VIC,VIC_RURAL,10777,EPA Vic council data 2023-24,352.0,352,145.386,-36.397,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Hepburn,VIC,VIC_RURAL,2854,EPA Vic council data 2023-24,266.0,,144.058,-37.317,EPA Vic 2023-24,fogo,0.8,11.82,0.235,0.156
+,,,0,0,Hindmarsh,VIC,VIC_RURAL,1720,EPA Vic council data 2023-24,578.0,578,141.752,-36.051,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Hobsons Bay,VIC,VIC_METRO,17119,EPA Vic council data 2023-24,186.0,162,144.83,-37.855,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Horsham,VIC,VIC_RURAL,3794,EPA Vic council data 2023-24,491.0,491,142.09,-36.826,EPA Vic 2023-24,fogo,0.87,12.02,0.232,0.161
+,,,0,0,Hume,VIC,VIC_METRO,54231,EPA Vic council data 2023-24,202.0,180,144.825,-37.589,EPA Vic 2023-24,fogo,0.5,11.0,0.248,0.132
+,,,0,0,Indigo,VIC,VIC_RURAL,2237,EPA Vic council data 2023-24,447.0,447,146.723,-36.225,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Kingston,VIC,VIC_METRO,27049,EPA Vic council data 2023-24,151.0,182,145.105,-37.989,EPA Vic 2023-24,fogo,0.79,11.8,0.236,0.155
+,,,0,0,Knox,VIC,VIC_METRO,16566,EPA Vic council data 2023-24,139.0,188,145.259,-37.889,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Latrobe,VIC,VIC_RURAL,16282,EPA Vic council data 2023-24,8.0,7,146.438,-38.275,EPA Vic 2023-24,go,0.92,10.78,0.367,0.124
+,,,0,0,Loddon,VIC,VIC_RURAL,1903,EPA Vic council data 2023-24,381.0,381,143.867,-36.364,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Macedon Ranges,VIC,VIC_RURAL,6143,EPA Vic council data 2023-24,223.0,223,144.617,-37.336,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Manningham,VIC,VIC_METRO,11062,EPA Vic council data 2023-24,154.0,179,145.188,-37.762,EPA Vic 2023-24,fogo,0.89,12.07,0.232,0.163
+,,,0,0,Mansfield,VIC,VIC_RURAL,2573,EPA Vic council data 2023-24,315.0,,146.207,-37.2,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Maribyrnong,VIC,VIC_METRO,16675,EPA Vic council data 2023-24,184.0,154,144.878,-37.795,EPA Vic 2023-24,fogo,0.53,11.08,0.247,0.134
+,,,0,0,Maroondah,VIC,VIC_METRO,17864,EPA Vic council data 2023-24,143.0,186,145.265,-37.805,EPA Vic 2023-24,fogo,0.98,12.32,0.228,0.17
+,,,0,0,Melbourne,VIC,VIC_METRO,29495,EPA Vic council data 2023-24,176.0,153,144.944,-37.811,EPA Vic 2023-24,fogo,0.2,10.17,0.261,0.107
+,,,0,0,Melton,VIC,VIC_METRO,37669,EPA Vic council data 2023-24,216.0,184,144.626,-37.693,EPA Vic 2023-24,fogo,0.74,11.66,0.238,0.151
+,,,0,0,Merri-bek,VIC,VIC_METRO,26431,EPA Vic council data 2023-24,180.0,160,144.949,-37.73,EPA Vic 2023-24,fogo,0.9,12.1,0.231,0.164
+,,,0,0,Mildura,VIC,VIC_RURAL,5782,EPA Vic council data 2023-24,695.0,695,141.683,-34.869,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Mitchell,VIC,VIC_RURAL,10754,EPA Vic council data 2023-24,243.0,243,145.002,-37.138,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Moira,VIC,VIC_RURAL,4326,EPA Vic council data 2023-24,402.0,402,145.55,-36.062,EPA Vic 2023-24,fogo,0.97,12.29,0.228,0.17
+,,,0,0,Monash,VIC,VIC_METRO,23545,EPA Vic council data 2023-24,151.0,177,145.144,-37.897,EPA Vic 2023-24,fogo,0.85,11.96,0.233,0.16
+,,,0,0,Moonee Valley,VIC,VIC_METRO,22719,EPA Vic council data 2023-24,185.0,157,144.896,-37.75,EPA Vic 2023-24,fogo,0.71,11.58,0.239,0.149
+,,,0,0,Moorabool,VIC,VIC_RURAL,7343,EPA Vic council data 2023-24,231.0,231,144.216,-37.633,EPA Vic 2023-24,go,0.45,10.19,0.317,0.107
+,,,0,0,Mornington Peninsula,VIC,VIC_METRO,29934,EPA Vic council data 2023-24,155.0,223,145.035,-38.342,EPA Vic 2023-24,fogo,0.62,11.33,0.243,0.141
+,,,0,0,Mount Alexander,VIC,VIC_RURAL,3289,EPA Vic council data 2023-24,281.0,281,144.193,-37.051,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Moyne,VIC,VIC_RURAL,2272,EPA Vic council data 2023-24,420.0,,142.49,-38.122,EPA Vic 2023-24,fogo,0.98,12.32,0.228,0.17
+,,,0,0,Murrindindi,VIC,VIC_RURAL,2884,EPA Vic council data 2023-24,254.0,,145.63,-37.311,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Nillumbik,VIC,VIC_METRO,6685,EPA Vic council data 2023-24,159.0,191,145.237,-37.623,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Northern Grampians,VIC,VIC_RURAL,2572,EPA Vic council data 2023-24,408.0,408,142.92,-36.845,EPA Vic 2023-24,fogo,0.23,10.25,0.259,0.11
+,,,0,0,Port Phillip,VIC,VIC_METRO,18170,EPA Vic council data 2023-24,172.0,158,144.966,-37.852,EPA Vic 2023-24,fogo,0.69,11.52,0.24,0.147
+,,,0,0,Pyrenees,VIC,VIC_RURAL,1258,EPA Vic council data 2023-24,333.0,333,143.375,-37.316,EPA Vic 2023-24,go,0.68,10.48,0.342,0.115
+,,,0,0,Queenscliffe,VIC,VIC_RURAL,740,EPA Vic council data 2023-24,221.0,,144.648,-38.264,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,South Gippsland,VIC,VIC_RURAL,4487,EPA Vic council data 2023-24,67.0,,146.076,-38.621,EPA Vic 2023-24,go,0.6,10.38,0.333,0.113
+,,,0,0,Southern Grampians,VIC,VIC_RURAL,2245,EPA Vic council data 2023-24,470.0,470,142.033,-37.537,EPA Vic 2023-24,fogo,0.98,12.32,0.228,0.17
+,,,0,0,Stonnington,VIC,VIC_METRO,18920,EPA Vic council data 2023-24,164.0,164,145.034,-37.858,EPA Vic 2023-24,fogo,0.26,10.34,0.258,0.112
+,,,0,0,Strathbogie,VIC,VIC_RURAL,1097,EPA Vic council data 2023-24,305.0,305,145.435,-36.76,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Surf Coast,VIC,VIC_RURAL,4864,EPA Vic council data 2023-24,269.0,,144.053,-38.312,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Swan Hill,VIC,VIC_RURAL,5303,EPA Vic council data 2023-24,573.0,573,143.125,-35.12,EPA Vic 2023-24,go,0.24,9.92,0.295,0.1
+,,,0,0,Towong,VIC,VIC_RURAL,821,EPA Vic council data 2023-24,509.0,,147.599,-36.354,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Wangaratta,VIC,VIC_RURAL,4741,EPA Vic council data 2023-24,387.0,387,146.428,-36.588,EPA Vic 2023-24,fogo,0.88,12.04,0.232,0.162
+,,,0,0,Warrnambool,VIC,VIC_RURAL,4776,EPA Vic council data 2023-24,425.0,425,142.512,-38.371,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Wellington,VIC,VIC_RURAL,7748,EPA Vic council data 2023-24,77.0,71,146.919,-37.894,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,West Wimmera,VIC,VIC_RURAL,1024,EPA Vic council data 2023-24,582.0,582,141.279,-36.676,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Whitehorse,VIC,VIC_METRO,24773,EPA Vic council data 2023-24,153.0,175,145.155,-37.83,EPA Vic 2023-24,fogo,0.69,11.52,0.24,0.147
+,,,0,0,Whittlesea,VIC,VIC_METRO,45776,EPA Vic council data 2023-24,180.0,188,145.078,-37.547,EPA Vic 2023-24,fogo,0.66,11.44,0.241,0.144
+,,,0,0,Wodonga,VIC,VIC_RURAL,5062,EPA Vic council data 2023-24,466.0,466,146.882,-36.15,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Wyndham,VIC,VIC_METRO,59296,EPA Vic council data 2023-24,208.0,184,144.618,-37.887,EPA Vic 2023-24,fogo,0.43,10.8,0.251,0.126
+,,,0,0,Yarra,VIC,VIC_METRO,13066,EPA Vic council data 2023-24,171.0,158,144.999,-37.802,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091
+,,,0,0,Yarra Ranges,VIC,VIC_METRO,21464,EPA Vic council data 2023-24,110.0,233,145.697,-37.714,EPA Vic 2023-24,fogo,1.0,12.37,0.227,0.172
+,,,0,0,Yarriambiack,VIC,VIC_RURAL,1800,EPA Vic council data 2023-24,525.0,525,142.419,-35.99,EPA Vic 2023-24,none,0.0,9.62,0.269,0.091

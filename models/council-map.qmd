@@ -58,19 +58,19 @@ missingCols = NEEDED.filter(k => !councilsRaw.columns.includes(k))
 councils = councilsRaw.map(c => ({...c,
   cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : 10.9,
   organics_service: c.organics_service ?? "go", organics_coverage: c.organics_coverage ?? 1,
-  rail_only: c.rail_only ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
+  rail_only: c.rail_only ?? 0, bass_strait: c.bass_strait ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
 geo = fetch("../data/councils.geojson" + V).then(r => r.json())
 levyHist = fetch("../data/levy_history.csv" + V).then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
 levy2027 = Object.fromEntries(levyHist.filter(d => d.year === 2027).map(d => [d.zone, d.levy]))
 HUB = ({name: "Morwell", lon: 146.395, lat: -38.235})
 routes = fetch("../data/freight_routes.geojson" + V).then(r => r.json())
-PORTS = [{name: "Port Botany", lon: 151.215, lat: -33.97}, {name: "Port Kembla", lon: 150.905, lat: -34.465}, {name: "Port of Newcastle", lon: 151.785, lat: -32.92},
+PORTS = [{name: "Devonport", lon: 146.36, lat: -41.18}, {name: "Burnie", lon: 145.91, lat: -41.05}, {name: "Port Botany", lon: 151.215, lat: -33.97}, {name: "Port Kembla", lon: 150.905, lat: -34.465}, {name: "Port of Newcastle", lon: 151.785, lat: -32.92},
          {name: "Port Adelaide (Outer Harbor)", lon: 138.49, lat: -34.78}, {name: "Port of Melbourne", lon: 144.91, lat: -37.84}]
 routeColor = ({rail_interstate: "#6250d6", rail_gippsland: "#0b0b0b", rail_regional: "#9a9890", sea: "#1baf7a"})
 modeLabel = ({road: T("Road", "公路"), rail: T("Rail", "铁路"), sea: T("Sea", "海运")})
 zoneLabel = ({
   VIC_METRO: T("Vic metro levy zone", "维州大都市税区"), VIC_RURAL: T("Vic rural levy zone", "维州乡村税区"),
-  NSW_MLA: T("NSW metro levy area (Sydney, Hunter, Illawarra)", "新州大都市征税区（悉尼、猎人谷、伊拉瓦拉）"), SA_METRO: T("Metro Adelaide", "阿德莱德大都市"), NSW_NOLEVY: T("NSW, outside levy area", "新州非征税区"), SA_NONMETRO: T("SA non-metro", "南澳非大都市"), ACT: T("ACT (Mugga Lane)", "首都领地")
+  NSW_MLA: T("NSW metro levy area (Sydney, Hunter, Illawarra)", "新州大都市征税区（悉尼、猎人谷、伊拉瓦拉）"), SA_METRO: T("Metro Adelaide", "阿德莱德大都市"), NSW_NOLEVY: T("NSW, outside levy area", "新州非征税区"), SA_NONMETRO: T("SA non-metro", "南澳非大都市"), ACT: T("ACT (Mugga Lane)", "首都领地"), TAS: T("Tasmania (state levy A$70.56)", "塔斯马尼亚（州税70.56澳元）")
 })
 serviceLabel = ({fogo: T("food + garden (FOGO)", "厨余+园林（FOGO）"), go: T("garden only", "仅园林"), none: T("no organics bin", "无有机垃圾桶")})
 STATUS = ["win", "fence", "lose"]
@@ -110,6 +110,7 @@ viewof railPerKm = Inputs.range([0.6, 3], {value: 1.4, step: 0.1, label: L("Rail
 viewof railFix = Inputs.range([200, 900], {value: 400, step: 25, label: L("Rail first mile + lifts A$/container", "铁路短驳及装卸 澳元/箱")})
 viewof melbLift = Inputs.range([0, 400], {value: 150, step: 10, label: L("Melbourne transfer lift A$/container", "墨尔本换装 澳元/箱")})
 viewof seaPerKm = Inputs.range([0.3, 2.5], {value: 1.1, step: 0.05, label: L("Sea A$ per container-km", "海运 澳元/箱公里")})
+viewof bassRate = Inputs.range([300, 2000], {value: 1000, step: 50, label: L("Bass Strait sea freight A$/container", "巴斯海峡海运 澳元/箱")})
 viewof portFix = Inputs.range([100, 800], {value: 350, step: 25, label: L("Port charges per end A$/container", "每端港口费 澳元/箱")})
 viewof seaLast = Inputs.radio(["rail", "road"], {value: "rail", format: k => k === "rail" ? L("Rail", "铁路") : L("Truck", "卡车"), label: L("Port of Melbourne → Morwell", "墨尔本港→Morwell")})
 viewof gVicMetro = Inputs.range([40, 180], {value: 95, step: 5, label: L("Landfill fee excl. levy: Vic metro", "填埋费（不含税）：维州大都市")})
@@ -119,6 +120,7 @@ viewof gNSWm = Inputs.range([40, 200], {value: 120, step: 5, label: L("… Sydne
 viewof gSAm = Inputs.range([40, 180], {value: 90, step: 5, label: L("… metro Adelaide", "……阿德莱德大都市")})
 viewof gSA = Inputs.range([40, 180], {value: 110, step: 5, label: L("… SA non-metro", "……南澳非大都市")})
 viewof gACT = Inputs.range([60, 220], {value: 111, step: 1, label: L("… ACT all-in", "……首都领地（全包）")})
+viewof gTAS = Inputs.range([60, 220], {value: 135, step: 5, label: L("… Tasmania", "……塔斯马尼亚")})
 ```
 
 </details>
@@ -144,7 +146,7 @@ viewof view = Inputs.radio(["all", "vic", "metro"], {value: "all", format: k => 
 //| echo: false
 {
   const feats = geo.features.filter(f => byName.has(f.properties.name)).map(f => ({...f, properties: {...f.properties, ...byName.get(f.properties.name)}}));
-  const domainFeats = view === "all" ? feats : view === "vic" ? feats.filter(f => !["NSW_MLA", "SA_METRO"].includes(f.properties.zone)) : feats.filter(f => f.properties.zone === "VIC_METRO" && f.properties.lon > 144.4 && f.properties.lat < -37.4 || ["Latrobe", "Baw Baw", "Cardinia", "Casey", "South Gippsland", "Bass Coast"].includes(f.properties.name));
+  const domainFeats = view === "all" ? feats : view === "vic" ? feats.filter(f => !["NSW_MLA", "SA_METRO", "TAS"].includes(f.properties.zone)) : feats.filter(f => f.properties.zone === "VIC_METRO" && f.properties.lon > 144.4 && f.properties.lat < -37.4 || ["Latrobe", "Baw Baw", "Cardinia", "Casey", "South Gippsland", "Bass Coast"].includes(f.properties.name));
   const color = colourBy === "status"
     ? {type: "ordinal", domain: STATUS, range: STATUS.map(s => statusColor[s]), legend: true, tickFormat: s => statusLabel[s]}
     : {type: "linear", domain: [9.5, 12.5], range: ["#cde2fb", "#104281"], clamp: true, legend: true, label: T("Red-bin energy content (MJ/kg)", "红桶垃圾热值（兆焦/千克）"), width: 320};
@@ -203,8 +205,8 @@ viewof view = Inputs.radio(["all", "vic", "metro"], {value: "all", format: k => 
 ```{ojs}
 //| echo: false
 //| output: false
-gateLF = ({VIC_METRO: gVicMetro, VIC_RURAL: gVicRural, NSW_MLA: gNSWm, SA_METRO: gSAm, NSW_NOLEVY: gNSW, SA_NONMETRO: gSA, ACT: gACT})
-levyZ = ({VIC_METRO: levy2027.VIC_METRO, VIC_RURAL: levy2027.VIC_RURAL, NSW_MLA: levy2027.NSW_MLA, SA_METRO: levy2027.SA_METRO, NSW_NOLEVY: 0, SA_NONMETRO: levy2027.SA_NONMETRO, ACT: 0})
+gateLF = ({VIC_METRO: gVicMetro, VIC_RURAL: gVicRural, NSW_MLA: gNSWm, SA_METRO: gSAm, NSW_NOLEVY: gNSW, SA_NONMETRO: gSA, ACT: gACT, TAS: gTAS})
+levyZ = ({VIC_METRO: levy2027.VIC_METRO, VIC_RURAL: levy2027.VIC_RURAL, NSW_MLA: levy2027.NSW_MLA, SA_METRO: levy2027.SA_METRO, NSW_NOLEVY: 0, SA_NONMETRO: levy2027.SA_NONMETRO, ACT: 0, TAS: 70.56})
 rows = councils.map(c => {
   const current = gateLF[c.zone] + levyZ[c.zone];
   // Tonnes per 20 ft container: wetter, low-energy waste compacts denser
@@ -213,9 +215,9 @@ rows = councils.map(c => {
   // Cost per container by mode (A$), then per tonne
   const lastRail = melbLift + railPerKm * 150 + 100;
   const box = {
-    road: c.rail_only ? null : roadFix + roadPerKm * Math.max(0, c.road_km - localKm),   // NSW proximity principle: no long road haul from Sydney region
+    road: (c.rail_only || c.bass_strait) ? null : roadFix + roadPerKm * Math.max(0, c.road_km - localKm),   // NSW proximity principle: no long road haul from Sydney region
     rail: c.rail_km ? railFix + railPerKm * c.rail_km + (c.rail_km > 200 ? melbLift : 0) : null,
-    sea: c.sea_km ? roadFix + roadPerKm * c.port_km + 2 * portFix + seaPerKm * c.sea_km + (seaLast === "rail" ? lastRail : roadPerKm * 150) : null
+    sea: c.sea_km ? roadFix + roadPerKm * c.port_km + 2 * portFix + (c.bass_strait ? bassRate : seaPerKm * c.sea_km) + (seaLast === "rail" ? lastRail : roadPerKm * 150) : null
   };
   const options = modes.filter(m => box[m] !== null).map(m => ({m, perT: box[m] / tpc}));
   const best = options.length ? options.reduce((a, b) => b.perT < a.perT ? b : a) : {m: null, perT: Infinity};
@@ -255,7 +257,7 @@ html`<div class="kpi-row">
     const nonSea = roadFix + roadPerKm * d.port_km + 2 * portFix + (seaLast === "rail" ? lastRail : roadPerKm * 150);
     return {d, rate: (d.box.rail - nonSea) / d.sea_km}; };
   const syd = be("Sydney"), adl = be("Adelaide");
-  const inter = rows.filter(d => d.sea_km);
+  const inter = rows.filter(d => d.sea_km && !d.bass_strait);
   if (!syd || !adl) return rich(T("<b>Sea or rail?</b> Tick both rail and sea (and make sure councils.csv includes the Sydney and Adelaide councils) to compare them.",
                                   "<b>海运还是铁路？</b>请同时勾选铁路和海运（并确保 councils.csv 含悉尼和阿德莱德市政）以进行比较。"));
   const seaWins = inter.filter(d => d.box.sea !== null && d.box.rail !== null && d.box.sea < d.box.rail);
@@ -345,6 +347,8 @@ Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.index
 - **Tonnage** counts council kerbside garbage (red bin) only: EPA Victoria 2023–24 for Victoria, and population × 0.162 t per person for NSW, SA and the ACT. It excludes C&I waste, hard waste and transfer-station drop-offs.
 - **Energy content** of each council's red bin = typical bin composition × energy per material. Composition comes from the NSW EPA red-bin audits 2011–19, which give separate profiles for councils with a food-and-garden (FOGO), garden-only or no organics service. Each Victorian council's profile is blended by the share of homes that have its organics bin (EPA Victoria 2023–24). NSW councils use the NSW EPA's FOGO services list (October 2026; councils only planning FOGO count as garden-only). Holdfast Bay runs weekly FOGO for 73% of homes. Other SA councils and the ACT (where FOGO is still a pilot) are treated as garden-only. Energy per material is the typical as-discarded value (Tchobanoglous et al. 1993): food 4.7, garden 6.5, paper incl. nappies 15, other organics 16, plastics 32.6 MJ/kg; glass and metal 0; other 3.
 - **On the fence** = cheaper than landfill but by less than the switching margin.
+- **Tasmania** can only reach Morwell by sea: truck to Devonport or Burnie, Bass Strait shipping (about A\$1,000 per 20 ft container, in line with the A\$600–1,200 range in the Tasmanian Government's freight paper, adjustable), then rail from the Port of Melbourne. Its landfill price is the 2026–27 state levy (A\$70.56/t) plus a gate fee of about A\$135/t, consistent with Hobart's and Launceston's published tip prices (A\$223 and A\$240/t incl. GST and levy).
+- **Where tonnages come from:** Victoria – EPA Victoria council data 2023–24 (actual). NSW – NSW EPA Local Government Waste Data Survey 2023–24, red bins collected (actual; Kiama's reported 212 t looked incomplete and is replaced by an estimate). ACT – the ACT's 2022 kerbside audit estimate (64,462 t). Metro Adelaide – the Green Industries SA 2023–24 metro total (253,500 t) shared out by population. Regional SA and Tasmania – population × Victoria's 0.162 t per person (estimate).
 - **Interstate capitals**: Sydney, Hunter and Illawarra councils pay the NSW metro levy (A\$180.20/t) and metro Adelaide pays A\$171/t, so landfill is dear there. NSW's proximity principle stops waste being trucked more than 150 km from where it was made unless it goes to one of the two nearest lawful facilities, so these councils are modelled as **rail only**: about 1,000–1,200 km via Melbourne. Sydney already railed putrescible waste 250 km to Veolia's Woodlawn bioreactor, so long-haul rail of rubbish has a local precedent. Before quoting, check whether NSW levy liability, interstate waste-tracking rules or Victoria's waste-to-energy licence conditions restrict interstate waste.
 :::
 
@@ -355,5 +359,7 @@ Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.index
 - **吨位**仅为市政路边红桶垃圾：维州为环保局2023–24年度数据，新州、南澳和首都领地按人口×0.162吨估算；不含工商业垃圾、大件垃圾及转运站自送垃圾。
 - **热值**：各市政红桶垃圾热值 = 典型成分 × 各成分热值。成分来自新州环保局2011–19年红桶审计，分别给出FOGO、仅园林及无有机桶三类市政的数据；维州各市政按其有机垃圾桶覆盖住户比例加权（维州环保局2023–24）；新州市政采用新州环保局FOGO服务名单（2026年10月，仅计划实施的按仅园林计）；Holdfast Bay每周FOGO覆盖73%住户；其他南澳市政及首都领地（FOGO仍为试点）按仅园林计。各成分热值取典型丢弃状态值（Tchobanoglous等，1993）：厨余4.7、园林6.5、纸（含尿布）15、其他有机物16、塑料32.6兆焦/千克，玻璃金属0，其他3。
 - **观望中**：比填埋便宜但幅度不足转换门槛。
+- **塔斯马尼亚**只能经海运到达Morwell：卡车运至德文港或伯尼港，巴斯海峡海运（每20英尺箱约1000澳元，与塔州政府货运文件中600–1200澳元区间一致，可调整），再由墨尔本港铁路转运。其填埋价格为2026–27年度州税70.56澳元/吨加约135澳元/吨处理费，与霍巴特和朗塞斯顿公布的价格（含GST及税223和240澳元/吨）一致。
+- **吨位来源**：维州为维州环保局2023–24市政数据（实际）；新州为新州环保局2023–24地方政府垃圾数据调查红桶收运量（实际；Kiama报告的212吨明显不完整，改用估算）；首都领地为2022年路边垃圾审计估算（64,462吨）；阿德莱德大都市按南澳绿色产业局2023–24总量（253,500吨）按人口分摊；南澳其他地区及塔州按人口×维州人均0.162吨估算。
 - **州外首府**：悉尼、猎人谷和伊拉瓦拉市政缴纳新州大都市填埋税（180.20澳元/吨），阿德莱德大都市为171澳元/吨，填埋成本高。新州“就近原则”禁止将垃圾通过公路运至产生地150公里以外（除非运往最近的两处合法设施），因此这些市政按**仅铁路**计算：经墨尔本约1000–1200公里。悉尼已有通过铁路将生活垃圾运往250公里外Veolia Woodlawn生物反应器的先例。报价前需核实新州填埋税责任、跨州垃圾追踪规定及维州焚烧许可条件是否限制州外垃圾。
 :::
