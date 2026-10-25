@@ -13,8 +13,8 @@ table.council-table td.num, table.council-table th.num { text-align: right; font
 /* Controls beside their chart */
 .model-row { display: flex; gap: 1.25rem; align-items: flex-start; margin-bottom: 1rem; }
 .model-row > .column:first-child { background: #f7f7f5; border: 1px solid #e3e2de; border-radius: 8px; padding: .5rem .75rem; }
-.model-row .column form[class*="oi-"] { --label-width: 118px; --input-width: 170px; margin: .35rem 0; font-size: .85rem; }
-.model-row .column form[class*="oi-"] label { line-height: 1.2; }
+.model-row .column form[class*="inputs-"] { --label-width: 118px; --input-width: 170px; margin: .35rem 0; font-size: .85rem; }
+.model-row .column form[class*="inputs-"] label { line-height: 1.2; }
 .model-row .column select { max-width: 100%; }
 @media (max-width: 820px) {
   .model-row { flex-direction: column; }
@@ -28,6 +28,7 @@ table.council-table td.num, table.council-table th.num { text-align: right; font
 .rb-value { font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; color: #0b0b0b; }
 body:has(.results-bar) { padding-bottom: 4.5rem; }
 
-.model-row .column form[class*="oi-"] input[type=number] { width: 4.2em; }
+.model-row .column form[class*="inputs-"] input[type=number] { width: 5.4em !important; min-width: 5.4em !important; flex-shrink: 0 !important; }
 .chart-pair { display: flex; gap: 1.25rem; margin-bottom: .5rem; }
 @media (max-width: 820px) { .chart-pair { flex-direction: column; } .chart-pair > .column { width: 100% !important; } }
+.model-row .column:last-child form[class*="inputs-"] { --label-width: 80px; --input-width: 420px; margin: 0 0 .2rem; }

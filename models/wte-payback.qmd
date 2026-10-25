@@ -245,7 +245,7 @@ Plot.plot({
     Plot.text([ops[ops.length - 1]], {x: "year", y: d => Math.min(d.supply, Math.max(capacity, licence) * 1.75), text: () => T("Customers would send", "客户愿送量"), dy: -8, textAnchor: "end", fontSize: 11, fill: "#52514e"}),
     Plot.text([ops[0]], {x: "year", y: () => capacity, text: () => T("Furnace capacity", "焚烧炉产能"), dy: 10, dx: 4, textAnchor: "start", fontSize: 11, fill: "#0b0b0b"}),
     Plot.text([ops[0]], {x: "year", y: () => licence, text: () => T("Licence", "许可配额"), dy: -7, dx: 4, textAnchor: "start", fontSize: 11, fill: "#b4471b"}),
-    Plot.tip(ops, Plot.pointerX({x: "year", y: "tonnes", title: d => `${d.year}\n${T("Burned", "处理量")}: ${kt(d.tonnes)} kt (${(d.util*100).toFixed(0)}% ${T("of capacity", "负荷率")})\n${T("Per furnace", "每台炉")}: ${kt(d.tonnes / furnaces)} kt\n${T("Customers would send", "客户愿送")}: ${kt(d.supply)} kt\n${T("Limited by", "限制因素")}: ${limitName[d.limit]}\n${T("Gate fee", "处理费")}: A$${d.fee.toFixed(0)}/t`}))
+    Plot.tip(ops, Plot.pointerX({x: "year", y: "tonnes", title: d => `${d.year}\n${T("Burned", "处理量")}: ${kt(d.tonnes)} kt (${(d.util*100).toFixed(0)}% ${T("of capacity", "负荷率")})\n${T("Per furnace", "每台炉")}: ${kt(d.tonnes / furnaces)} kt\n${T("Customers would send", "客户愿送")}: ${kt(d.supply)} kt\n${T("Limited by", "限制因素")}: ${limitName[d.limit]}\n${T("Energy content", "热值")}: ${d.cv.toFixed(1)} MJ/kg\n${T("Gate fee", "处理费")}: A$${d.fee.toFixed(0)}/t`}))
   ]
 })
 ```
@@ -253,8 +253,8 @@ Plot.plot({
 ```{ojs}
 //| echo: false
 rich(T(
-  `${furnaces} × ${tpd} t/day furnaces = ${kt(capacity)} kt/yr. In ${cod} the plant receives ${kt(first.tonnes)} kt, about ${kt(first.tonnes / furnaces)} kt per furnace, so it runs at <b>${(first.util*100).toFixed(0)}% of capacity</b> (limited by ${limitName[first.limit]}). Fixed costs are A$${(fixedTotal/1e6).toFixed(0)}m/yr whether the furnaces are full or not: <b>A$${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}/t</b> at this load. About ${first.stations} transfer station${first.stations === 1 ? "" : "s"} (150 kt each) would be needed for council waste from more than 100 km away.`,
-  `${furnaces}台 × ${tpd}吨/日 = ${kt(capacity)}千吨/年。${cod}年接收${kt(first.tonnes)}千吨，每台约${kt(first.tonnes / furnaces)}千吨，<b>负荷率${(first.util*100).toFixed(0)}%</b>（受${limitName[first.limit]}限制）。无论是否满负荷，固定成本均为每年${(fixedTotal/1e6).toFixed(0)}百万澳元，在此负荷下为<b>每吨${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}澳元</b>。100公里以外的市政垃圾约需${first.stations}座转运站（每座15万吨）。`))
+  `${furnaces} × ${tpd} t/day furnaces = ${kt(capacity)} kt/yr. In ${cod} the plant receives ${kt(first.tonnes)} kt, about ${kt(first.tonnes / furnaces)} kt per furnace, so it runs at <b>${(first.util*100).toFixed(0)}% of capacity</b> (limited by ${limitName[first.limit]}). The mix averages <b>${first.cv.toFixed(1)} MJ/kg</b>, giving about ${first.kwh.toFixed(0)} kWh of electricity per tonne. Fixed costs are A$${(fixedTotal/1e6).toFixed(0)}m/yr whether the furnaces are full or not: <b>A$${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}/t</b> at this load. About ${first.stations} transfer station${first.stations === 1 ? "" : "s"} (150 kt each) would be needed for council waste from more than 100 km away.`,
+  `${furnaces}台 × ${tpd}吨/日 = ${kt(capacity)}千吨/年。${cod}年接收${kt(first.tonnes)}千吨，每台约${kt(first.tonnes / furnaces)}千吨，<b>负荷率${(first.util*100).toFixed(0)}%</b>（受${limitName[first.limit]}限制）。混合垃圾平均热值<b>${first.cv.toFixed(1)}兆焦/千克</b>，每吨约发电${first.kwh.toFixed(0)}千瓦时。无论是否满负荷，固定成本均为每年${(fixedTotal/1e6).toFixed(0)}百万澳元，在此负荷下为<b>每吨${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}澳元</b>。100公里以外的市政垃圾约需${first.stations}座转运站（每座15万吨）。`))
 ```
 :::
 ::::
@@ -267,7 +267,7 @@ rich(T(
 //| echo: false
 viewof buildYears = Inputs.range([2, 4], {value: 3, step: 1, label: L("Construction years", "建设期（年）")})
 viewof effElec = Inputs.range([0.15, 0.30], {value: 0.20, step: 0.01, label: L("Net electrical efficiency", "净发电效率")})
-viewof nonComb = Inputs.range([0, 0.5], {value: 0.30, step: 0.05, label: L("Non-burnable share of delivered waste", "进厂垃圾中不可燃比例")})
+viewof nonComb = Inputs.range([0, 0.5], {value: 0.30, step: 0.05, label: L("Non-burnable share of commercial waste", "工商业垃圾中不可燃比例")})
 viewof powerPrice = Inputs.range([30, 150], {value: 80, step: 5, label: L("Power price, 2027 (A$/MWh)", "电价，2027（澳元/兆瓦时）")})
 viewof ashShare = Inputs.range([0, 0.25], {value: 0.15, step: 0.01, label: L("Ash landfilled (% of input)", "灰渣填埋比例")})
 viewof inflation = Inputs.range([0, 0.06], {value: 0.025, step: 0.005, label: L("Inflation", "通胀率")})
@@ -342,7 +342,10 @@ wasteBaseYear = 2025
 wasteBase = totalBy.get(2025).mt
 wasteScale = y => totalBy.get(Math.min(y, 2055)).mt / wasteBase
 // Electricity per tonne delivered follows the energy content of that year's waste
-kwhPerT = y => totalBy.get(Math.min(y, 2055)).cv * (1 - nonComb) * effElec / 3.6 * 1000
+cvTrend = y => totalBy.get(Math.min(y, 2055)).cv / totalBy.get(2025).cv
+// Energy content of what we actually receive: each council's own red-bin value plus commercial waste
+mixCV = (s, y) => s.total ? (s.kerbMJ * cvTrend(y) + s.ci * totalBy.get(Math.min(y, 2055)).cv * (1 - nonComb)) / s.total : 0
+kwhPerMJ = effElec / 3.6 * 1000
 levyRate = Object.fromEntries(scen.filter(d => d.driver === "levy").map(d => [d.scenario, d.annual_change]))
 levy2027 = Object.fromEntries(levyHist.filter(d => d.year === 2027).map(d => [d.zone, d.levy]))
 levy0 = levy2027.VIC_METRO
@@ -370,15 +373,15 @@ supplyAt = (gf, y) => {
   const g = Math.pow(1 + inflation, y - startYear), lev = levyAt(levyScen, y), sc = wasteScale(y);
   const fee = gf * g + passThrough * (lev - levy0 * g);
   const levyZ = {VIC_METRO: lev, VIC_RURAL: levy2027.VIC_RURAL * lev / levy0, NSW_NOLEVY: 0, SA_NONMETRO: levy2027.SA_NONMETRO * g, ACT: 0};
-  let kerb = 0, n = 0, far = 0;
+  let kerb = 0, kerbMJ = 0, n = 0, far = 0;
   for (const c of councils) {
     const landfill = gateLF[c.zone] * g + levyZ[c.zone];
-    if (fee + councilDelivery.get(c.name) * g <= landfill * (1 - threshold)) { kerb += c.garbage_t * sc; n++; if (c.road_km > 100) far += c.garbage_t * sc; }
+    if (fee + councilDelivery.get(c.name) * g <= landfill * (1 - threshold)) { kerb += c.garbage_t * sc; kerbMJ += c.garbage_t * sc * c.cv_mj_kg; n++; if (c.road_km > 100) far += c.garbage_t * sc; }
   }
   const Lm = lfGate * g + lev, offer = (fee + 34 * g) / (1 - threshold);
   const ciFrac = Math.max(0, Math.min(1, (1.25 * Lm - offer) / (0.5 * Lm)));
   const ci = ciPool2025 * sc * ciFrac;
-  return {kerb, ci, total: kerb + ci, nCouncils: n, far, fee, landfill: Lm};
+  return {kerb, kerbMJ, ci, total: kerb + ci, nCouncils: n, far, fee, landfill: Lm};
 }
 model = (gf) => {
   const dep = capex / opYears;
@@ -393,13 +396,14 @@ model = (gf) => {
       const s = supplyAt(gf, y);
       const tonnes = Math.min(s.total, capacity, licence);
       const limit = tonnes === s.total ? "supply" : tonnes === capacity ? "capacity" : "licence";
-      const revenue = tonnes * s.fee + tonnes * kwhPerT(y) / 1000 * powerPrice * g;
+      const cv = mixCV(s, y), kwh = cv * kwhPerMJ;
+      const revenue = tonnes * s.fee + tonnes * kwh / 1000 * powerPrice * g;
       const fixed = fixedTotal * g;
       const variable = tonnes * (varOpex + sortCost) * g + tonnes * ashShare * s.landfill;
       const ebitda = revenue - fixed - variable;
       let taxable = ebitda - dep - lossCF; lossCF = taxable < 0 ? -taxable : 0;
       const tax = Math.max(0, taxable) * taxRate;
-      Object.assign(row, {tonnes, supply: s.total, util: tonnes / capacity, limit, fee: s.fee, revenue, fixed, variable,
+      Object.assign(row, {tonnes, cv, kwh, supply: s.total, util: tonnes / capacity, limit, fee: s.fee, revenue, fixed, variable,
         stations: Math.ceil(Math.min(s.far, tonnes) / 150000), cash: ebitda - tax});
     }
     cum += row.cash; dcum += row.cash * df;
@@ -446,6 +450,7 @@ marketMt = Math.min(capMt, wasteBase * wasteScale(cod))
 ::: {.en}
 - **Licence** = (cap − 2.35 Mt already allocated) + the partner's licence. The number of furnaces is limited to what the licence can fill (at most 5).
 - **Tonnes burned** each year = the lowest of: what customers would send at our price, furnace capacity, and the licence. Tonnes are shared equally across furnaces.
+- **Energy of the mix we burn**: each council we win brings its own red-bin energy content (9.6–12.4 MJ/kg, see the [council price map](council-map.qmd)); commercial waste carries the burnable-mix value from section 1, less the non-burnable share. The mix sets electricity per tonne (MJ/kg × efficiency ÷ 3.6), and moves over time with the materials trend.
 - **Customer switching**: a council switches if our gate fee plus transport is at least the chosen margin below its landfill cost (zone gate fee plus levy, rising with the levy scenario). Commercial customers are 1.42 Mt of burnable C&I waste, assumed to be in Melbourne (about 150 km by road, A\$34/t) with landfill prices spread ±25% around the metro price. Other licence holders compete for the same waste; that competition is not modelled.
 - **Costs**: fixed cost per furnace (staff, maintenance, insurance) plus site overhead are paid regardless of load, so a half-empty plant loses money on every tonne it doesn't burn. Variable costs (reagents, consumables) and pre-sorting scale with tonnes. Ash goes to landfill at the metro landfill price.
 - **Default costs are benchmarks to adjust**, set so that a three-furnace plant at full load costs about A\$1.85k per tonne of annual capacity and about A\$75/t to run, in line with Kwinana and Maryvale.
@@ -455,6 +460,7 @@ marketMt = Math.min(capMt, wasteBase * wasteScale(cod))
 ::: {.zh}
 - **许可配额** =（上限 − 已分配235万吨）+ 合作方许可。焚烧炉数量受许可可支持的规模限制（最多5台）。
 - **年处理量**取三者最小值：此价格下客户愿送量、焚烧炉产能、许可配额；处理量在各炉间平均分配。
+- **混合垃圾热值**：每个争取到的市政按其红桶垃圾热值计入（9.6–12.4兆焦/千克，见[市政价格地图](council-map.qmd)）；工商业垃圾按第1部分可燃混合热值扣除不可燃比例。混合热值决定每吨发电量（兆焦/千克 × 效率 ÷ 3.6），并随成分趋势变化。
 - **客户转换**：市政在我方处理费加运费比其填埋成本（税区处理费+填埋税，随情景上涨）低出设定比例时转换。工商业客户为142万吨可燃工商业垃圾，假设位于墨尔本（公路约150公里，34澳元/吨），填埋价格在大都市价格±25%内分布。其他许可持有方也在争夺同一批原料，此竞争未纳入模型。
 - **成本**：每台炉的固定成本（人员、维护、保险）及厂区管理费用与负荷无关，因此半空运行的工厂在每一吨未处理的垃圾上都会亏损；变动成本（药剂、耗材）和预分拣成本随处理量变化；灰渣按大都市填埋价格处置。
 - **默认成本为可调整的基准**：三炉满负荷时约每年吨产能1850澳元投资、每吨约75澳元运营成本，与Kwinana和Maryvale项目相当。
