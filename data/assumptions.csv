@@ -4,3 +4,13 @@ gate_fee,WtE gate fee,垃圾处理费,150,A$/t,120,250,S9,industry estimate,Kwin
 capex_per_t,Capex per tonne of annual capacity,每年每吨处理能力投资,1850,A$/t,1700,2600,S9,calculated,Maryvale ~1850; Kwinana >2170
 min_plant_tpd,CDEG minimum plant size,集团最小设计规模,1000,t/day,1000,1500,C2,company claim,two lines
 nmi_test_cn,China test report cost (DN15-20 meters),国内水表检测费（DN15-20）,200000,RMB,,,C3,company claim,report only; NMI certificate separate
+landfill_levy_rural,Landfill levy (rural municipal 2026-27),填埋税（维州乡村生活垃圾 2026-27）,88.42,A$/t,,,S8,confirmed,
+levy_nsw_mla,NSW levy metropolitan levy area 2026-27,新州大都市征税区填埋税 2026-27,180.20,A$/t,,,S15,confirmed,southern NSW councils outside levy area pay 0
+levy_sa_metro,SA solid waste levy metro 2026-27,南澳大都市填埋税 2026-27,171.00,A$/t,,,S16,confirmed,non-metro 85.50
+act_gate_domestic,ACT landfill fee domestic 2026-27,首都领地生活垃圾填埋费 2026-27,121.75,A$/t incl GST,,,S18,confirmed,commercial 210.90
+vic_burnable_landfill,Vic burnable MSW+C&I landfilled 2024-25,维州可燃生活及工商业垃圾填埋量 2024-25,2.41,Mt,,,S10,calculated,organics+paper+plastics+textiles
+vic_kerbside_garbage,Vic council kerbside garbage 2023-24,维州市政路边垃圾 2023-24,1.11,Mt,,,S11,confirmed,
+landfill_gate_metro,Landfill gate fee excl levy (Vic metro),填埋处理费不含税（维州大都市）,95,A$/t,70,130,S20,estimate,Geelong levy+GST = 61% of landfill cost
+road_rate,Road haulage rate,公路运费,0.18,A$/t-km,0.10,0.30,,estimate,bulk walking-floor
+rail_rate,Rail haulage rate,铁路运费,0.07,A$/t-km,0.04,0.12,,estimate,plus ~A$25/t terminal lifts
+wte_cap_vic,Vic waste-to-energy licence cap,维州垃圾焚烧许可总量上限,2.0,Mt/yr,,2.5,S21,confirmed,2.5 Mt proposed 2025

@@ -1,0 +1,125 @@
+name,state,zone,garbage_t,tonnage_source,road_km,rail_km,lon,lat
+ACT,ACT,ACT,73629,estimate: population x 0.162 t/person,556,,149.002,-35.489
+Albury,NSW,NSW_NOLEVY,9078,estimate: population x 0.162 t/person,486,486,146.97,-36.027
+Balranald,NSW,NSW_NOLEVY,358,estimate: population x 0.162 t/person,705,,143.612,-33.95
+Bega Valley,NSW,NSW_NOLEVY,5793,estimate: population x 0.162 t/person,482,,149.718,-36.826
+Berrigan,NSW,NSW_NOLEVY,1395,estimate: population x 0.162 t/person,450,,145.711,-35.734
+Carrathool,NSW,NSW_NOLEVY,465,estimate: population x 0.162 t/person,736,,145.496,-33.609
+Cootamundra-Gundagai,NSW,NSW_NOLEVY,1845,estimate: population x 0.162 t/person,692,,148.094,-34.853
+Edward River,NSW,NSW_NOLEVY,1367,estimate: population x 0.162 t/person,515,,144.942,-35.173
+Eurobodalla,NSW,NSW_NOLEVY,6553,estimate: population x 0.162 t/person,587,,149.947,-35.945
+Federation,NSW,NSW_NOLEVY,2077,estimate: population x 0.162 t/person,504,,146.271,-35.497
+Goulburn Mulwaree,NSW,NSW_NOLEVY,5206,estimate: population x 0.162 t/person,699,,149.813,-34.876
+Greater Hume,NSW,NSW_NOLEVY,1799,estimate: population x 0.162 t/person,529,,147.172,-35.75
+Griffith,NSW,NSW_NOLEVY,4403,estimate: population x 0.162 t/person,651,,146.004,-34.3
+Hay,NSW,NSW_NOLEVY,467,estimate: population x 0.162 t/person,635,,144.684,-34.316
+Hilltops,NSW,NSW_NOLEVY,3113,estimate: population x 0.162 t/person,776,,148.501,-34.352
+Junee,NSW,NSW_NOLEVY,1045,estimate: population x 0.162 t/person,666,,147.669,-34.817
+Leeton,NSW,NSW_NOLEVY,1860,estimate: population x 0.162 t/person,630,,146.302,-34.532
+Lockhart,NSW,NSW_NOLEVY,539,estimate: population x 0.162 t/person,551,,146.775,-35.331
+Murray River,NSW,NSW_NOLEVY,2070,estimate: population x 0.162 t/person,503,,144.212,-35.325
+Murrumbidgee,NSW,NSW_NOLEVY,577,estimate: population x 0.162 t/person,556,,145.729,-34.95
+Narrandera,NSW,NSW_NOLEVY,928,estimate: population x 0.162 t/person,631,,146.58,-34.611
+Queanbeyan-Palerang,NSW,NSW_NOLEVY,10265,estimate: population x 0.162 t/person,616,,149.627,-35.423
+Snowy Monaro,NSW,NSW_NOLEVY,3509,estimate: population x 0.162 t/person,443,,148.959,-36.396
+Snowy Valleys,NSW,NSW_NOLEVY,2414,estimate: population x 0.162 t/person,619,,148.249,-35.734
+Upper Lachlan,NSW,NSW_NOLEVY,1376,estimate: population x 0.162 t/person,733,,149.456,-34.418
+Wagga Wagga,NSW,NSW_NOLEVY,10993,estimate: population x 0.162 t/person,603,603,147.366,-35.197
+Wentworth,NSW,NSW_NOLEVY,1213,estimate: population x 0.162 t/person,811,,142.243,-33.57
+Yass Valley,NSW,NSW_NOLEVY,2792,estimate: population x 0.162 t/person,619,,148.885,-34.954
+Alexandrina,SA,SA_NONMETRO,4824,estimate: population x 0.162 t/person,905,,138.878,-35.352
+Berri Barmera,SA,SA_NONMETRO,1736,estimate: population x 0.162 t/person,849,,140.489,-34.266
+Coorong,SA,SA_NONMETRO,902,estimate: population x 0.162 t/person,793,,139.761,-35.714
+Grant,SA,SA_NONMETRO,1446,estimate: population x 0.162 t/person,611,,140.725,-37.846
+Karoonda East Murray,SA,SA_NONMETRO,167,estimate: population x 0.162 t/person,826,,140.02,-34.95
+Kingston (SA),SA,SA_NONMETRO,387,estimate: population x 0.162 t/person,715,,140.026,-36.644
+Loxton Waikerie,SA,SA_NONMETRO,1932,estimate: population x 0.162 t/person,837,,140.352,-34.508
+Mid Murray,SA,SA_NONMETRO,1525,estimate: population x 0.162 t/person,919,,139.461,-34.45
+Mount Gambier,SA,SA_NONMETRO,4499,estimate: population x 0.162 t/person,604,,140.782,-37.825
+Murray Bridge,SA,SA_NONMETRO,3654,estimate: population x 0.162 t/person,877,,139.302,-35.159
+Naracoorte Lucindale,SA,SA_NONMETRO,1446,estimate: population x 0.162 t/person,646,,140.547,-36.977
+Renmark Paringa,SA,SA_NONMETRO,1627,estimate: population x 0.162 t/person,833,,140.814,-34.182
+Robe,SA,SA_NONMETRO,256,estimate: population x 0.162 t/person,701,,139.979,-37.188
+Southern Mallee,SA,SA_NONMETRO,326,estimate: population x 0.162 t/person,739,,140.574,-35.394
+Tatiara,SA,SA_NONMETRO,1140,estimate: population x 0.162 t/person,678,,140.584,-36.228
+Victor Harbor,SA,SA_NONMETRO,2709,estimate: population x 0.162 t/person,928,,138.546,-35.513
+Wattle Range,SA,SA_NONMETRO,1970,estimate: population x 0.162 t/person,637,,140.519,-37.47
+Alpine,VIC,VIC_RURAL,1280,EPA Vic council data 2023-24,412,,146.974,-36.854
+Ararat,VIC,VIC_RURAL,2105,EPA Vic council data 2023-24,383,,142.843,-37.473
+Ballarat,VIC,VIC_METRO,21962,EPA Vic council data 2023-24,282,282,143.781,-37.493
+Banyule,VIC,VIC_METRO,15621,EPA Vic council data 2023-24,166,170,145.085,-37.73
+Bass Coast,VIC,VIC_RURAL,6100,EPA Vic council data 2023-24,103,95,145.558,-38.507
+Baw Baw,VIC,VIC_RURAL,11476,EPA Vic council data 2023-24,47,43,146.132,-37.984
+Bayside,VIC,VIC_METRO,11413,EPA Vic council data 2023-24,162,172,145.018,-37.942
+Benalla,VIC,VIC_RURAL,2296,EPA Vic council data 2023-24,358,,146.024,-36.587
+Boroondara,VIC,VIC_METRO,17120,EPA Vic council data 2023-24,163,165,145.063,-37.819
+Brimbank,VIC,VIC_METRO,41807,EPA Vic council data 2023-24,195,164,144.803,-37.747
+Buloke,VIC,VIC_RURAL,2277,EPA Vic council data 2023-24,488,,143.005,-35.912
+Campaspe,VIC,VIC_RURAL,7651,EPA Vic council data 2023-24,353,,144.716,-36.345
+Cardinia,VIC,VIC_METRO,22964,EPA Vic council data 2023-24,96,89,145.573,-38.083
+Casey,VIC,VIC_METRO,69226,EPA Vic council data 2023-24,125,115,145.309,-38.104
+Central Goldfields,VIC,VIC_RURAL,2344,EPA Vic council data 2023-24,323,,143.714,-37.007
+Colac Otway,VIC,VIC_RURAL,3997,EPA Vic council data 2023-24,321,,143.595,-38.452
+Corangamite,VIC,VIC_RURAL,1991,EPA Vic council data 2023-24,347,,143.199,-38.204
+Darebin,VIC,VIC_METRO,23602,EPA Vic council data 2023-24,173,163,145.014,-37.733
+East Gippsland,VIC,VIC_RURAL,8536,EPA Vic council data 2023-24,250,230,148.292,-37.378
+Frankston,VIC,VIC_METRO,25735,EPA Vic council data 2023-24,140,202,145.174,-38.135
+Gannawarra,VIC,VIC_RURAL,2303,EPA Vic council data 2023-24,461,,143.804,-35.751
+Glen Eira,VIC,VIC_METRO,20582,EPA Vic council data 2023-24,161,169,145.043,-37.901
+Glenelg,VIC,VIC_RURAL,3534,EPA Vic council data 2023-24,538,,141.386,-37.871
+Golden Plains,VIC,VIC_METRO,5037,EPA Vic council data 2023-24,269,264,143.842,-37.882
+Greater Bendigo,VIC,VIC_METRO,20445,EPA Vic council data 2023-24,308,308,144.423,-36.734
+Greater Dandenong,VIC,VIC_METRO,28785,EPA Vic council data 2023-24,141,190,145.19,-38.006
+Greater Geelong,VIC,VIC_METRO,56331,EPA Vic council data 2023-24,226,217,144.417,-38.069
+Greater Shepparton,VIC,VIC_RURAL,10777,EPA Vic council data 2023-24,352,352,145.386,-36.397
+Hepburn,VIC,VIC_RURAL,2854,EPA Vic council data 2023-24,266,,144.058,-37.317
+Hindmarsh,VIC,VIC_RURAL,1720,EPA Vic council data 2023-24,578,,141.752,-36.051
+Hobsons Bay,VIC,VIC_METRO,17119,EPA Vic council data 2023-24,186,162,144.83,-37.855
+Horsham,VIC,VIC_RURAL,3794,EPA Vic council data 2023-24,491,491,142.09,-36.826
+Hume,VIC,VIC_METRO,54231,EPA Vic council data 2023-24,202,180,144.825,-37.589
+Indigo,VIC,VIC_RURAL,2237,EPA Vic council data 2023-24,447,,146.723,-36.225
+Kingston,VIC,VIC_METRO,27049,EPA Vic council data 2023-24,151,182,145.105,-37.989
+Knox,VIC,VIC_METRO,16566,EPA Vic council data 2023-24,139,188,145.259,-37.889
+Latrobe,VIC,VIC_RURAL,16282,EPA Vic council data 2023-24,8,7,146.438,-38.275
+Loddon,VIC,VIC_RURAL,1903,EPA Vic council data 2023-24,381,,143.867,-36.364
+Macedon Ranges,VIC,VIC_RURAL,6143,EPA Vic council data 2023-24,223,,144.617,-37.336
+Manningham,VIC,VIC_METRO,11062,EPA Vic council data 2023-24,154,179,145.188,-37.762
+Mansfield,VIC,VIC_RURAL,2573,EPA Vic council data 2023-24,315,,146.207,-37.2
+Maribyrnong,VIC,VIC_METRO,16675,EPA Vic council data 2023-24,184,154,144.878,-37.795
+Maroondah,VIC,VIC_METRO,17864,EPA Vic council data 2023-24,143,186,145.265,-37.805
+Melbourne,VIC,VIC_METRO,29495,EPA Vic council data 2023-24,176,153,144.944,-37.811
+Melton,VIC,VIC_METRO,37669,EPA Vic council data 2023-24,216,184,144.626,-37.693
+Merri-bek,VIC,VIC_METRO,26431,EPA Vic council data 2023-24,180,160,144.949,-37.73
+Mildura,VIC,VIC_RURAL,5782,EPA Vic council data 2023-24,695,695,141.683,-34.869
+Mitchell,VIC,VIC_RURAL,10754,EPA Vic council data 2023-24,243,,145.002,-37.138
+Moira,VIC,VIC_RURAL,4326,EPA Vic council data 2023-24,402,,145.55,-36.062
+Monash,VIC,VIC_METRO,23545,EPA Vic council data 2023-24,151,177,145.144,-37.897
+Moonee Valley,VIC,VIC_METRO,22719,EPA Vic council data 2023-24,185,157,144.896,-37.75
+Moorabool,VIC,VIC_RURAL,7343,EPA Vic council data 2023-24,231,,144.216,-37.633
+Mornington Peninsula,VIC,VIC_METRO,29934,EPA Vic council data 2023-24,155,223,145.035,-38.342
+Mount Alexander,VIC,VIC_RURAL,3289,EPA Vic council data 2023-24,281,,144.193,-37.051
+Moyne,VIC,VIC_RURAL,2272,EPA Vic council data 2023-24,420,,142.49,-38.122
+Murrindindi,VIC,VIC_RURAL,2884,EPA Vic council data 2023-24,254,,145.63,-37.311
+Nillumbik,VIC,VIC_METRO,6685,EPA Vic council data 2023-24,159,191,145.237,-37.623
+Northern Grampians,VIC,VIC_RURAL,2572,EPA Vic council data 2023-24,408,,142.92,-36.845
+Port Phillip,VIC,VIC_METRO,18170,EPA Vic council data 2023-24,172,158,144.966,-37.852
+Pyrenees,VIC,VIC_RURAL,1258,EPA Vic council data 2023-24,333,,143.375,-37.316
+Queenscliffe,VIC,VIC_RURAL,740,EPA Vic council data 2023-24,221,,144.648,-38.264
+South Gippsland,VIC,VIC_RURAL,4487,EPA Vic council data 2023-24,67,61,146.076,-38.621
+Southern Grampians,VIC,VIC_RURAL,2245,EPA Vic council data 2023-24,470,,142.033,-37.537
+Stonnington,VIC,VIC_METRO,18920,EPA Vic council data 2023-24,164,164,145.034,-37.858
+Strathbogie,VIC,VIC_RURAL,1097,EPA Vic council data 2023-24,305,,145.435,-36.76
+Surf Coast,VIC,VIC_RURAL,4864,EPA Vic council data 2023-24,269,,144.053,-38.312
+Swan Hill,VIC,VIC_RURAL,5303,EPA Vic council data 2023-24,573,,143.125,-35.12
+Towong,VIC,VIC_RURAL,821,EPA Vic council data 2023-24,509,,147.599,-36.354
+Wangaratta,VIC,VIC_RURAL,4741,EPA Vic council data 2023-24,387,,146.428,-36.588
+Warrnambool,VIC,VIC_RURAL,4776,EPA Vic council data 2023-24,425,425,142.512,-38.371
+Wellington,VIC,VIC_RURAL,7748,EPA Vic council data 2023-24,77,71,146.919,-37.894
+West Wimmera,VIC,VIC_RURAL,1024,EPA Vic council data 2023-24,582,,141.279,-36.676
+Whitehorse,VIC,VIC_METRO,24773,EPA Vic council data 2023-24,153,175,145.155,-37.83
+Whittlesea,VIC,VIC_METRO,45776,EPA Vic council data 2023-24,180,188,145.078,-37.547
+Wodonga,VIC,VIC_RURAL,5062,EPA Vic council data 2023-24,466,466,146.882,-36.15
+Wyndham,VIC,VIC_METRO,59296,EPA Vic council data 2023-24,208,184,144.618,-37.887
+Yarra,VIC,VIC_METRO,13066,EPA Vic council data 2023-24,171,158,144.999,-37.802
+Yarra Ranges,VIC,VIC_METRO,21464,EPA Vic council data 2023-24,110,233,145.697,-37.714
+Yarriambiack,VIC,VIC_RURAL,1800,EPA Vic council data 2023-24,525,,142.419,-35.99

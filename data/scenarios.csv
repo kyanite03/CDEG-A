@@ -1,0 +1,7 @@
+driver,scenario,annual_change,label_en,label_zh,basis
+waste,base,-0.01,Base,基准,Trend since the 2019-20 peak (2.54 Mt to 2.41 Mt in 2024-25: about -1.0% a year)
+waste,low,-0.03,Low,低,Pace needed toward Victoria's target of diverting 80% of waste from landfill by 2030
+waste,high,0.01,High,高,Log-linear trend 2015-16 to 2024-25 (+1.0% a year) resumes with population growth
+levy,base,0.05,Base,基准,CPI (2.5%) plus 2.5% a year real increases
+levy,low,0.025,Low,低,CPI indexation only (fee-unit indexation; NSW has risen about 2.9% a year since 2016-17)
+levy,high,0.10,High,高,Continued policy-driven rises (Vic metro levy rose about 18% a year from 2020-21 to 2025-26)

@@ -1,0 +1,73 @@
+year,zone,levy,status
+2016,VIC_METRO,60.8,interpolated
+2016,VIC_RURAL,30.4,interpolated
+2016,NSW_MLA,133.1,official
+2016,NSW_RLA,76.7,official
+2016,SA_METRO,62.0,official
+2016,SA_NONMETRO,31.0,official (half metro rate)
+2017,VIC_METRO,62.0,interpolated
+2017,VIC_RURAL,31.0,interpolated
+2017,NSW_MLA,135.7,official
+2017,NSW_RLA,78.2,official
+2017,SA_METRO,76.0,official
+2017,SA_NONMETRO,38.0,official (half metro rate)
+2018,VIC_METRO,63.28,VAGO 2018
+2018,VIC_RURAL,31.7,interpolated
+2018,NSW_MLA,138.2,official
+2018,NSW_RLA,79.6,official
+2018,SA_METRO,87.0,official
+2018,SA_NONMETRO,43.5,official (half metro rate)
+2019,VIC_METRO,64.6,interpolated
+2019,VIC_RURAL,32.4,interpolated
+2019,NSW_MLA,141.2,official
+2019,NSW_RLA,81.3,official
+2019,SA_METRO,100.0,official
+2019,SA_NONMETRO,50.0,official (half metro rate)
+2020,VIC_METRO,65.9,official
+2020,VIC_RURAL,33.03,official
+2020,NSW_MLA,143.6,official
+2020,NSW_RLA,82.7,official
+2020,SA_METRO,110.0,official
+2020,SA_NONMETRO,55.0,official (half metro rate)
+2021,VIC_METRO,75.9,average of two half-year rates
+2021,VIC_RURAL,37.99,average of two half-year rates
+2021,NSW_MLA,146.0,official
+2021,NSW_RLA,84.1,official
+2021,SA_METRO,140.0,official
+2021,SA_NONMETRO,70.0,official (half metro rate)
+2022,VIC_METRO,105.9,official
+2022,VIC_RURAL,52.95,official
+2022,NSW_MLA,147.1,official
+2022,NSW_RLA,84.7,official
+2022,SA_METRO,146.0,official
+2022,SA_NONMETRO,73.0,official (half metro rate)
+2023,VIC_METRO,125.9,official
+2023,VIC_RURAL,62.95,official
+2023,NSW_MLA,151.6,official
+2023,NSW_RLA,87.3,official
+2023,SA_METRO,149.0,official
+2023,SA_NONMETRO,74.5,official (half metro rate)
+2024,VIC_METRO,129.27,official
+2024,VIC_RURAL,64.55,interpolated
+2024,NSW_MLA,163.2,official
+2024,NSW_RLA,94.0,official
+2024,SA_METRO,156.0,official
+2024,SA_NONMETRO,78.0,official (half metro rate)
+2025,VIC_METRO,132.76,official
+2025,VIC_RURAL,66.3,official
+2025,NSW_MLA,170.1,official
+2025,NSW_RLA,97.9,official
+2025,SA_METRO,161.0,official
+2025,SA_NONMETRO,80.5,official (half metro rate)
+2026,VIC_METRO,169.79,official
+2026,VIC_RURAL,84.78,official
+2026,NSW_MLA,174.2,official
+2026,NSW_RLA,100.3,official
+2026,SA_METRO,166.0,official
+2026,SA_NONMETRO,83.0,official (half metro rate)
+2027,VIC_METRO,177.19,official
+2027,VIC_RURAL,88.42,official
+2027,NSW_MLA,180.2,official
+2027,NSW_RLA,103.8,official
+2027,SA_METRO,171.0,official
+2027,SA_NONMETRO,85.5,official (half metro rate)

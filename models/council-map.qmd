@@ -1,0 +1,205 @@
+---
+title: "[Council price map]{.en}[市政价格地图]{.zh}"
+include-in-header:
+  text: |
+    <!-- Libraries are bundled locally (no CDN) so the model works inside mainland China -->
+    <link rel="stylesheet" href="../assets/vendor/inputs.css">
+    <link rel="stylesheet" href="../assets/models.css">
+    <script src="../assets/vendor/d3.min.js"></script>
+    <script src="../assets/vendor/plot.umd.min.js"></script>
+    <script src="../assets/vendor/htl.min.js"></script>
+    <script src="../assets/vendor/inputs.min.js"></script>
+---
+
+<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+
+::: {.en}
+What each council pays today to landfill a tonne of garbage, compared with our gate fee plus the cost of trucking or railing it to a Latrobe Valley plant (Morwell). **Blue councils save money by sending their waste to us; orange councils are better off staying with landfill.** Move the gate fee to see where the plant is competitive and how much council kerbside waste that unlocks. It covers all 79 Victorian councils plus nearby councils in southern NSW, the ACT and south-east SA. All prices are 2026–27 A\$ per tonne, excluding GST.
+:::
+
+::: {.zh}
+各市政当前每吨垃圾的填埋成本，与我方处理费加上运至拉筹伯谷（Morwell）工厂的公路或铁路运费对比。**蓝色市政把垃圾交给我方更省钱；橙色市政继续填埋更划算。**调整处理费即可查看工厂在哪些地区有竞争力，以及可争取多少市政路边垃圾。范围包括维州全部79个市政及新州南部、首都领地和南澳东南部的邻近市政。所有价格为2026–27年度澳元/吨，不含GST。
+:::
+
+```{ojs}
+//| echo: false
+//| output: false
+Inputs = window.Inputs
+Plot = window.Plot
+d3 = window.d3
+html = window.htl.html
+L = (en, zh) => html`<span class="en">${en}</span><span class="zh">${zh}</span>`
+lang = Generators.observe(notify => {
+  const f = () => notify(document.documentElement.getAttribute("data-lang") || "en");
+  f();
+  const mo = new MutationObserver(f);
+  mo.observe(document.documentElement, {attributes: true, attributeFilter: ["data-lang"]});
+  return () => mo.disconnect();
+})
+T = (en, zh) => lang === "zh" ? zh : en
+councils = fetch("../data/councils.csv").then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
+geo = fetch("../data/councils.geojson").then(r => r.json())
+levyHist = fetch("../data/levy_history.csv").then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
+levy2027 = Object.fromEntries(levyHist.filter(d => d.year === 2027).map(d => [d.zone, d.levy]))
+HUB = ({name: "Morwell", lon: 146.395, lat: -38.235})
+zoneLabel = ({
+  VIC_METRO: T("Vic metro levy zone", "维州大都市税区"), VIC_RURAL: T("Vic rural levy zone", "维州乡村税区"),
+  NSW_NOLEVY: T("NSW, outside levy area", "新州非征税区"), SA_NONMETRO: T("SA non-metro", "南澳非大都市"), ACT: T("ACT (Mugga Lane)", "首都领地")
+})
+```
+
+## [Our offer]{.en}[我方报价]{.zh}
+
+```{ojs}
+//| echo: false
+viewof gateFee = Inputs.range([60, 260], {value: 150, step: 5, label: L("Gate fee we charge (A$/t)", "我方处理费（澳元/吨）")})
+viewof mode = Inputs.radio(new Map([
+  [T("Cheapest of road or rail", "公路或铁路取低"), "best"],
+  [T("Road only", "仅公路"), "road"]
+]), {value: "best", label: L("Transport", "运输方式")})
+viewof capacity = Inputs.range([150000, 800000], {value: 450000, step: 10000, label: L("Plant capacity (t/yr)", "工厂处理能力（吨/年）")})
+```
+
+<details><summary><span class="en">Transport and landfill price assumptions</span><span class="zh">运输与填埋价格假设</span></summary>
+
+```{ojs}
+//| echo: false
+viewof roadRate = Inputs.range([0.08, 0.35], {value: 0.18, step: 0.01, label: L("Road haulage (A$ per t-km)", "公路运费（澳元/吨公里）")})
+viewof roadFixed = Inputs.range([0, 40], {value: 12, step: 1, label: L("Road loading/transfer (A$/t)", "公路装运/转运（澳元/吨）")})
+viewof localKm = Inputs.range([0, 60], {value: 30, step: 5, label: L("Haul to local landfill already paid (km)", "现有本地填埋运距（公里）")})
+viewof railRate = Inputs.range([0.03, 0.15], {value: 0.07, step: 0.01, label: L("Rail haulage (A$ per t-km)", "铁路运费（澳元/吨公里）")})
+viewof railFixed = Inputs.range([10, 60], {value: 25, step: 1, label: L("Rail terminal lifts + first/last mile (A$/t)", "铁路场站装卸及两端短驳（澳元/吨）")})
+viewof gVicMetro = Inputs.range([40, 180], {value: 95, step: 5, label: L("Landfill gate fee excl. levy: Vic metro", "填埋处理费（不含税）：维州大都市")})
+viewof gVicRural = Inputs.range([40, 180], {value: 110, step: 5, label: L("… Vic rural", "……维州乡村")})
+viewof gNSW = Inputs.range([40, 200], {value: 130, step: 5, label: L("… southern NSW (no levy)", "……新州南部（无税）")})
+viewof gSA = Inputs.range([40, 180], {value: 110, step: 5, label: L("… SA non-metro", "……南澳非大都市")})
+viewof gACT = Inputs.range([60, 220], {value: 111, step: 1, label: L("… ACT all-in (Mugga Lane domestic)", "……首都领地（含全部费用）")})
+```
+
+</details>
+
+```{ojs}
+//| echo: false
+//| output: false
+gateLF = ({VIC_METRO: gVicMetro, VIC_RURAL: gVicRural, NSW_NOLEVY: gNSW, SA_NONMETRO: gSA, ACT: gACT})
+levyZ = ({VIC_METRO: levy2027.VIC_METRO, VIC_RURAL: levy2027.VIC_RURAL, NSW_NOLEVY: 0, SA_NONMETRO: levy2027.SA_NONMETRO, ACT: 0})
+rows = councils.map(c => {
+  const current = gateLF[c.zone] + levyZ[c.zone];
+  const road = roadFixed + roadRate * Math.max(0, c.road_km - localKm);
+  const rail = c.rail_km ? railFixed + railRate * c.rail_km : null;
+  const useRail = mode === "best" && rail !== null && rail < road;
+  const delivery = useRail ? rail : road;
+  const offer = gateFee + delivery;
+  return {...c, current, levy: levyZ[c.zone], road, rail, useRail, delivery, offer, saving: current - offer, maxGate: current - delivery};
+})
+byName = new Map(rows.map(d => [d.name, d]))
+won = rows.filter(d => d.saving > 0)
+wonT = d3.sum(won, d => d.garbage_t)
+totT = d3.sum(rows, d => d.garbage_t)
+```
+
+```{ojs}
+//| echo: false
+tile = (label, value, sub) => html`<div class="kpi"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
+html`<div class="kpi-row">
+  ${tile(T("Councils we undercut", "我方更便宜的市政"), `${won.length} / ${rows.length}`, T(`at A$${gateFee}/t`, `处理费${gateFee}澳元/吨时`))}
+  ${tile(T("Their kerbside garbage", "其路边垃圾量"), `${(wonT/1e3).toFixed(0)} kt`, T(`${(wonT/totT*100).toFixed(0)}% of the ${(totT/1e6).toFixed(2)} Mt in the map`, `占地图内${(totT/1e6).toFixed(2)}百万吨的${(wonT/totT*100).toFixed(0)}%`))}
+  ${tile(T("Share of plant capacity", "占工厂产能"), `${(wonT/capacity*100).toFixed(0)}%`, wonT >= capacity ? T(`of ${(capacity/1e3).toFixed(0)} kt/yr: more than enough to fill the plant`, `产能${(capacity/1e3).toFixed(0)}千吨/年：足以满负荷运行`) : T(`of ${(capacity/1e3).toFixed(0)} kt/yr; C&I waste fills the rest`, `产能${(capacity/1e3).toFixed(0)}千吨/年，其余由工商业垃圾补足`))}
+  ${tile(T("Average saving", "平均节省"), won.length ? `A$${(d3.sum(won, d => d.saving * d.garbage_t) / wonT).toFixed(0)}/t` : "—", T("tonnage-weighted, councils we win", "按吨位加权（我方更便宜的市政）"))}
+</div>`
+```
+
+```{ojs}
+//| echo: false
+viewof view = Inputs.radio(new Map([[T("Whole region", "全区域"), "all"], [T("Melbourne and Gippsland", "墨尔本及吉普斯兰"), "metro"]]), {value: "all", label: L("Map view", "地图范围")})
+```
+
+```{ojs}
+//| echo: false
+{
+  const feats = geo.features.map(f => ({...f, properties: {...f.properties, ...byName.get(f.properties.name)}}));
+  const domainFeats = view === "all" ? feats : feats.filter(f => f.properties.zone === "VIC_METRO" && f.properties.lon > 144.4 && f.properties.lat < -37.4 || ["Latrobe", "Baw Baw", "Cardinia", "Casey", "South Gippsland", "Bass Coast"].includes(f.properties.name));
+  const fmt = v => `A$${v.toFixed(0)}`;
+  return Plot.plot({
+    width: 900, height: view === "all" ? 560 : 520,
+    projection: {type: "mercator", domain: {type: "FeatureCollection", features: domainFeats}},
+    color: {type: "diverging", domain: [-150, 150], range: ["#d95926", "#ecebe7", "#2a78d6"], pivot: 0, clamp: true, ticks: [-100, -50, 0, 50, 100], tickFormat: d => d > 0 ? `+${d}` : String(d),
+            legend: true, label: T("Council saving if it sends waste to us (A$/t)", "市政交给我方处理每吨节省（澳元）"), width: 360},
+    marks: [
+      Plot.geo(feats, {fill: d => d.properties.saving, stroke: "white", strokeWidth: 0.6}),
+      Plot.dot([HUB], {x: "lon", y: "lat", r: 7, fill: "#0b0b0b", stroke: "white", strokeWidth: 2, symbol: "star"}),
+      Plot.text([HUB], {x: "lon", y: "lat", text: () => T("Plant (Morwell)", "工厂（Morwell）"), dx: 10, dy: -8, textAnchor: "start", fontWeight: 600, fill: "#0b0b0b", stroke: "white", strokeWidth: 3}),
+      Plot.tip(rows, Plot.pointer({x: "lon", y: "lat", maxRadius: 40, title: d =>
+        `${d.name} · ${zoneLabel[d.zone]}\n` +
+        `${T("Kerbside garbage", "路边垃圾")}: ${(d.garbage_t/1e3).toFixed(1)} kt${d.state === "VIC" ? "" : T(" (est.)", "（估算）")}\n` +
+        `${T("Landfill today", "当前填埋")}: ${fmt(d.current)} (${T("levy", "税")} ${fmt(d.levy)})\n` +
+        `${T("Our gate fee", "我方处理费")}: ${fmt(gateFee)} + ${d.useRail ? T("rail", "铁路") : T("road", "公路")} ${fmt(d.delivery)} = ${fmt(d.offer)}\n` +
+        `${d.saving >= 0 ? T("Saves", "节省") : T("Costs extra", "多付")}: ${fmt(Math.abs(d.saving))}/t\n` +
+        `${T("Highest gate fee that still wins", "仍具竞争力的最高处理费")}: ${fmt(d.maxGate)}`}))
+    ]
+  });
+}
+```
+
+<p class="figure-note"><span class="en">Hover a council for details. Boundaries: geoBoundaries ADM2 (simplified). Kerbside garbage: EPA Victoria local government waste data, 2023–24. NSW, SA and ACT tonnages are estimates (population × Victoria's 0.162 t per person).</span><span class="zh">悬停查看各市政详情。边界：geoBoundaries ADM2（已简化）。路边垃圾：维州环保局2023–24年度市政数据；新州、南澳和首都领地为估算值（人口×维州人均0.162吨）。</span></p>
+
+### [How much waste each gate fee wins]{.en}[不同处理费可争取的垃圾量]{.zh}
+
+```{ojs}
+//| echo: false
+{
+  const curve = d3.range(40, 301, 5).map(g => ({g, kt: d3.sum(rows.filter(d => d.maxGate > g), d => d.garbage_t) / 1e3}));
+  return Plot.plot({
+    height: 260, marginLeft: 60,
+    x: {label: T("Gate fee (A$/t)", "处理费（澳元/吨）")},
+    y: {label: T("Council kerbside garbage won (kt/yr)", "可争取的市政路边垃圾（千吨/年）"), grid: true},
+    marks: [
+      Plot.ruleY([0]),
+      Plot.ruleY([capacity / 1e3], {stroke: "#9a9890", strokeDasharray: "2,3"}),
+      Plot.text([capacity / 1e3], {y: d => d, frameAnchor: "right", dy: -7, textAnchor: "end", text: () => T("Plant capacity", "工厂产能"), fill: "#52514e", fontSize: 11}),
+      Plot.line(curve, {x: "g", y: "kt", stroke: "#2a78d6", strokeWidth: 2, curve: "step-after"}),
+      Plot.dot([{g: gateFee, kt: wonT / 1e3}], {x: "g", y: "kt", r: 5, fill: "#2a78d6", stroke: "white", strokeWidth: 2}),
+      Plot.tip(curve, Plot.pointerX({x: "g", y: "kt", title: d => `${T("Gate fee", "处理费")}: A$${d.g}/t\n${T("Waste won", "可争取量")}: ${d.kt.toFixed(0)} kt/yr`}))
+    ]
+  });
+}
+```
+
+::: {.en}
+Council kerbside garbage alone does not fill a 450 kt/yr plant, so commercial and industrial (C&I) waste, which is about 70% of Victoria's burnable landfill, has to make up the balance. C&I customers pay the same metro levy, so the same price logic applies to them.
+:::
+
+::: {.zh}
+仅靠市政路边垃圾无法满足45万吨/年的产能，其余需由工商业（C&I）垃圾补足；工商业垃圾约占维州可燃填埋量的70%，且同样缴纳大都市填埋税，因此定价逻辑相同。
+:::
+
+### [All councils]{.en}[全部市政]{.zh}
+
+```{ojs}
+//| echo: false
+Inputs.table(rows.slice().sort((a, b) => b.saving - a.saving), {
+  columns: ["name", "zone", "garbage_t", "current", "delivery", "offer", "saving", "maxGate"],
+  header: {name: T("Council", "市政"), state: T("State", "州"), zone: T("Levy zone", "税区"), garbage_t: T("Garbage (t)", "垃圾（吨）"),
+           current: T("Landfill A$/t", "填埋 澳元/吨"), delivery: T("Transport A$/t", "运费 澳元/吨"), offer: T("Our price A$/t", "我方价格"),
+           saving: T("Saving A$/t", "节省 澳元/吨"), maxGate: T("Max gate fee", "最高处理费")},
+  format: {zone: z => zoneLabel[z], garbage_t: v => d3.format(",")(v), current: v => v.toFixed(0), delivery: v => v.toFixed(0),
+           offer: v => v.toFixed(0), saving: v => v.toFixed(0), maxGate: v => v.toFixed(0)},
+  rows: 15, layout: "auto"
+})
+```
+
+## [Method and limits]{.en}[方法与局限]{.zh}
+
+::: {.en}
+- **Landfill price today** = landfill gate fee (excluding levy) + the 2026–27 levy for the council's zone. Victoria: A\$177.19/t in the 35 "metro" levy councils (Melbourne plus Geelong, Ballarat, Bendigo and Golden Plains) and A\$88.42/t elsewhere. SA non-metro: A\$85.50/t. Southern NSW councils sit outside the NSW levy area and pay no levy. ACT uses the Mugga Lane domestic rate (A\$121.75/t incl. GST).
+- **Gate fees excluding levy** are set by contract and are not published per council. The defaults are benchmarks you can adjust: City of Geelong reports that levy plus GST is 61% of its landfill cost, which implies a gate fee of about A\$100–110/t excluding levy and GST.
+- **Transport**: road distance is straight-line × 1.3 for Melbourne and Gippsland, routed via Melbourne for western and northern councils, and straight-line × 1.45 along the Princes Highway for the ACT and NSW south coast. Councils already pay to haul about 30 km to their local landfill, so only the extra distance counts. Rail is offered only for councils on or near a freight line and is routed via Melbourne's Dynon hub; check these distances against the rail map before quoting.
+- **Tonnage** counts council kerbside garbage only. It excludes C&I waste, hard waste and transfer-station drop-offs.
+:::
+
+::: {.zh}
+- **当前填埋价格** = 填埋处理费（不含税）+ 所在税区2026–27年度填埋税。维州35个“大都市”税区市政（墨尔本及吉朗、巴拉瑞特、本迪戈、Golden Plains）为177.19澳元/吨，其他为88.42澳元/吨；南澳非大都市为85.50澳元/吨；新州南部市政位于征税区外，无需缴税；首都领地采用Mugga Lane生活垃圾价格（121.75澳元/吨，含GST）。
+- **不含税处理费**由合同确定，各市政未公开；默认值为可调整的基准。吉朗市称填埋税加GST占其填埋成本的61%，推算不含税和GST的处理费约为100–110澳元/吨。
+- **运输**：墨尔本及吉普斯兰地区按直线距离×1.3计算；西部和北部市政经墨尔本绕行；首都领地及新州南海岸沿Princes公路按直线×1.45计算。各市政已承担约30公里至本地填埋场的运费，只计算额外距离。铁路仅适用于货运线路沿线市政，经墨尔本Dynon枢纽中转，报价前需对照铁路地图核实。
+- **吨位**仅为市政路边垃圾，不含工商业垃圾、大件垃圾及转运站自送垃圾。
+:::

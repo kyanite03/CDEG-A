@@ -48,6 +48,8 @@ website:
             text: "Interactive models · 互动模型"
           - href: models/wte-payback.qmd
             text: "WtE project payback · 垃圾发电项目回收期"
+          - href: models/council-map.qmd
+            text: "Council price map · 市政价格地图"
           - href: models/om-contract.qmd
             text: "O&M contract model · 委托运营模型"
           - href: models/meter-distributor.qmd
