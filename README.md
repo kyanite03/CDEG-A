@@ -4,7 +4,7 @@ Bilingual (EN/中文) report website for the **CDEG–A team, NexStar 2026 Melbo
 
 NexStar 2026 墨尔本–成都项目 **CDEG–A 小组**的中英双语报告网站：为成都环境集团进入澳洲市场提供市场调研、合规指南和互动回本模型。
 
-**Live site 网站：** https://cdeg.ksmarsh.net/_site
+**Live site 网站：** https://cdeg.ksmarsh.net
 
 ---
 
