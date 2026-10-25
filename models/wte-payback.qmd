@@ -44,6 +44,8 @@ wasteHist = csv("../data/vic_waste_history.csv")
 levyHist = csv("../data/levy_history.csv")
 scen = csv("../data/scenarios.csv")
 councils = csv("../data/councils.csv")
+comps = csv("../data/waste_components.csv")
+compData = csv("../data/vic_waste_components.csv")
 C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890"})
 fmtM = v => (v / 1e6).toFixed(0)
 kt = v => (v / 1e3).toFixed(0)
@@ -76,7 +78,7 @@ viewof partner = Inputs.select(new Map([
   [T("No partner", "无合作方"), 0]
 ]), {value: 450000, label: L("Licence partner", "许可合作方")})
 viewof wasteScen = Inputs.radio(new Map([
-  [T("Base −1%/yr", "基准 每年−1%"), "base"], [T("Low −3%/yr", "低 每年−3%"), "low"], [T("High +1%/yr", "高 每年+1%"), "high"]
+  [T("Base: each material's 2020–25 trend", "基准：各成分2020–25趋势"), "base"], [T("Low: 2 pts/yr below trend", "低：比趋势每年低2个百分点"), "low"], [T("High: 2 pts/yr above trend", "高：比趋势每年高2个百分点"), "high"]
 ]), {value: "base", label: L("Waste trend", "垃圾量趋势")})
 ```
 :::
@@ -84,31 +86,77 @@ viewof wasteScen = Inputs.radio(new Map([
 ::: {.column width="60%"}
 ```{ojs}
 //| echo: false
-wasteRate = Object.fromEntries(scen.filter(d => d.driver === "waste").map(d => [d.scenario, d.annual_change]))
-wasteBaseYear = 2025
-wasteBase = wasteHist.find(d => d.year === wasteBaseYear).combustible_landfill_mt
-wasteScale = y => Math.pow(1 + wasteRate[wasteScen], y - wasteBaseYear)
-wasteProj = ["base", "low", "high"].flatMap(s => d3.range(wasteBaseYear, 2037).map(y => ({scenario: s, year: y, mt: wasteBase * Math.pow(1 + wasteRate[s], y - wasteBaseYear)})))
+compOrder = comps.map(d => d.component)
+compLabel = Object.fromEntries(comps.map(d => [d.component, T(d.label_en, d.label_zh)]))
+compColor = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
 Plot.plot({
-  height: 260, marginLeft: 44, marginRight: 70,
+  height: 300, marginLeft: 44, marginRight: 20,
   x: {label: null, tickFormat: d => String(d), domain: [2016, 2036]},
-  y: {label: T("Mt per year", "百万吨/年"), grid: true, domain: [0, Math.max(3.2, capMt + 0.3)]},
-  color: {domain: ["base", "low", "high"], range: [C.base, C.low, C.high]},
+  y: {label: T("Mt per year (stacked)", "百万吨/年（堆叠）"), grid: true, domain: [0, Math.max(3.2, capMt + 0.3)]},
+  color: {legend: true, domain: compOrder, range: compColor, tickFormat: c => compLabel[c]},
   marks: [
-    Plot.ruleY([0]),
-    Plot.ruleY([capMt], {stroke: C.grey, strokeDasharray: "4,3"}),
-    Plot.text([capMt], {x: 2016, y: d => d, dy: -7, textAnchor: "start", fill: "#52514e", fontSize: 11, text: () => T(`WtE cap ${capMt} Mt`, `焚烧上限${capMt}百万吨`)}),
-    Plot.line(wasteProj, {x: "year", y: "mt", stroke: "scenario", strokeWidth: d => d.scenario === wasteScen ? 2.5 : 1.2, strokeDasharray: "5,3", strokeOpacity: d => d.scenario === wasteScen ? 1 : 0.5}),
-    Plot.line(wasteHist, {x: "year", y: "combustible_landfill_mt", stroke: C.hist, strokeWidth: 2}),
-    Plot.dot(wasteHist, {x: "year", y: "combustible_landfill_mt", fill: C.hist, r: 2.5}),
-    Plot.text(wasteProj.filter(d => d.year === 2036), {x: "year", y: "mt", text: d => ({base: T("Base", "基准"), low: T("Low", "低"), high: T("High", "高")})[d.scenario], dx: 6, textAnchor: "start", fill: "#52514e", fontSize: 11}),
-    Plot.tip(wasteHist, Plot.pointerX({x: "year", y: "combustible_landfill_mt", title: d => `${d.fy}\n${T("Burnable waste to landfill", "可燃垃圾填埋")}: ${d.combustible_landfill_mt} Mt\n${T("Council kerbside garbage", "市政路边垃圾")}: ${d.kerbside_garbage_mt ?? "–"} Mt`}))
+    Plot.areaY(compHist, {x: "year", y: "mt", fill: "component", order: compOrder, fillOpacity: 0.9}),
+    Plot.areaY(compProj.filter(d => d.scenario === wasteScen), {x: "year", y: "mt", fill: "component", order: compOrder, fillOpacity: 0.4}),
+    Plot.ruleX([2025], {stroke: "#52514e", strokeDasharray: "2,3"}),
+    Plot.text([2025], {x: d => d, frameAnchor: "top", dx: 4, dy: 4, textAnchor: "start", fontSize: 11, fill: "#52514e", text: () => T("Projection →", "预测 →")}),
+    Plot.ruleY([capMt], {stroke: "#0b0b0b", strokeDasharray: "4,3"}),
+    Plot.text([capMt], {x: 2016, y: d => d, dy: -7, textAnchor: "start", fill: "#0b0b0b", fontSize: 11, text: () => T(`WtE cap ${capMt} Mt`, `焚烧上限${capMt}百万吨`)}),
+    Plot.tip(totals, Plot.pointerX({x: "year", y: "mt", title: d => `${d.year <= 2025 ? `FY${d.year - 1}–${String(d.year).slice(2)}` : `${d.year} (${T("projection", "预测")})`}\n` +
+      compOrder.slice().reverse().map(c => `${compLabel[c]}: ${(d[c] * 1000).toFixed(0)} kt`).join("\n") + `\n${T("Total", "合计")}: ${d.mt.toFixed(2)} Mt`}))
   ]
 })
 ```
-<p class="figure-note"><span class="en">Burnable household and commercial waste landfilled in Victoria (organics, paper, plastics, textiles), 2015–16 to 2024–25, with projections. Even with a higher cap, only about 2.4 Mt a year exists to burn, and every licence holder competes for it. Sources: DCCEEW NWRR 2026; EPA Victoria.</span><span class="zh">维州填埋的可燃生活及工商业垃圾（有机物、纸、塑料、纺织品），2015–16至2024–25年度及预测。即使上限提高，可焚烧量也只有约每年240万吨，且所有许可持有方都在争夺这些原料。来源：国家废物数据库2026；维州环保局。</span></p>
 :::
 ::::
+
+:::: {.columns .chart-pair}
+::: {.column width="50%"}
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 200, marginLeft: 44,
+  x: {label: null, tickFormat: d => String(d), domain: [2016, 2036]},
+  y: {label: T("Average energy content (MJ/kg)", "平均热值（兆焦/千克）"), grid: true, domain: [0, 22]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(totals.filter(d => d.year <= 2025), {x: "year", y: "cv", stroke: "#0b0b0b", strokeWidth: 2}),
+    Plot.line(totals.filter(d => d.year >= 2025), {x: "year", y: "cv", stroke: "#0b0b0b", strokeWidth: 2, strokeDasharray: "5,3"}),
+    Plot.tip(totals, Plot.pointerX({x: "year", y: "cv", title: d => `${d.year}: ${d.cv.toFixed(1)} MJ/kg`}))
+  ]
+})
+```
+:::
+
+::: {.column width="50%"}
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 200, marginLeft: 44,
+  x: {label: null, tickFormat: d => String(d), domain: [2016, 2036]},
+  y: {label: T("Total energy in this waste (PJ/yr)", "垃圾总能量（拍焦/年）"), grid: true, domain: [0, Math.max(50, d3.max(totals, d => d.pj) * 1.1)]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(totals.filter(d => d.year <= 2025), {x: "year", y: "pj", stroke: "#0b0b0b", strokeWidth: 2}),
+    Plot.line(totals.filter(d => d.year >= 2025), {x: "year", y: "pj", stroke: "#0b0b0b", strokeWidth: 2, strokeDasharray: "5,3"}),
+    Plot.tip(totals, Plot.pointerX({x: "year", y: "pj", title: d => `${d.year}: ${d.pj.toFixed(1)} PJ (≈ ${(d.pj / 3.6 * 0.2).toFixed(1)} TWh ${T("of electricity at 20% efficiency", "电力，按20%效率")})`}))
+  ]
+})
+```
+:::
+::::
+
+```{ojs}
+//| echo: false
+{
+  const a = totals.find(d => d.year === 2016), b = totals.find(d => d.year === 2025), z = totals.find(d => d.year === 2036);
+  return rich(T(
+    `Since 2016 tonnes are up ${((b.mt / a.mt - 1) * 100).toFixed(0)}% (${a.mt.toFixed(2)} → ${b.mt.toFixed(2)} Mt) and have fallen since the 2020–21 peak, but <b>the energy in the waste is up ${((b.pj / a.pj - 1) * 100).toFixed(0)}%</b> (${a.pj.toFixed(0)} → ${b.pj.toFixed(0)} PJ). Food-and-garden bins took wet, low-energy food out of the red bin (food −${((1 - b.food / a.food) * 100).toFixed(0)}%), leaving more paper, plastics and textiles, so the average rose from ${a.cv.toFixed(1)} to ${b.cv.toFixed(1)} MJ/kg. In this scenario, 2036 has ${z.mt.toFixed(2)} Mt at ${z.cv.toFixed(1)} MJ/kg = ${z.pj.toFixed(0)} PJ.`,
+    `自2016年以来吨数增长${((b.mt / a.mt - 1) * 100).toFixed(0)}%（${a.mt.toFixed(2)} → ${b.mt.toFixed(2)}百万吨），且自2020–21年峰值后下降，但<b>垃圾所含能量增长了${((b.pj / a.pj - 1) * 100).toFixed(0)}%</b>（${a.pj.toFixed(0)} → ${b.pj.toFixed(0)}拍焦）。厨余与园林垃圾分类把含水量高、热值低的厨余从红桶中分出（厨余减少${((1 - b.food / a.food) * 100).toFixed(0)}%），纸、塑料和纺织品占比上升，平均热值由${a.cv.toFixed(1)}升至${b.cv.toFixed(1)}兆焦/千克。此情景下2036年为${z.mt.toFixed(2)}百万吨，热值${z.cv.toFixed(1)}兆焦/千克，合计${z.pj.toFixed(0)}拍焦。`));
+}
+```
+
+<p class="figure-note"><span class="en">Burnable household and commercial waste landfilled in Victoria, by material, 2015–16 to 2024–25 (solid), with projections (faded). Energy content uses typical as-discarded values per material (food 4.7, garden 6.5, biosolids 2.0, paper 16.5, textiles 18, timber 18.6, plastics 32.6 MJ/kg). Sources: DCCEEW NWRR 2026; Tchobanoglous, Theisen & Vigil, <i>Integrated Solid Waste Management</i> (1993), Table 4-16.</span><span class="zh">维州填埋的可燃生活及工商业垃圾（按成分），2015–16至2024–25年度（实色）及预测（浅色）。热值采用各成分典型丢弃状态值（厨余4.7、园林6.5、污泥2.0、纸16.5、纺织18、木材18.6、塑料32.6兆焦/千克）。来源：国家废物数据库2026；Tchobanoglous等《Integrated Solid Waste Management》(1993) 表4-16。</span></p>
+
 
 ## [2 · Price: who will send us their waste]{.en}[2 · 价格：谁会把垃圾交给我们]{.zh}
 
@@ -218,7 +266,8 @@ rich(T(
 ```{ojs}
 //| echo: false
 viewof buildYears = Inputs.range([2, 4], {value: 3, step: 1, label: L("Construction years", "建设期（年）")})
-viewof powerKwh = Inputs.range([400, 800], {value: 600, step: 10, label: L("Power exported (kWh/t)", "上网电量（千瓦时/吨）")})
+viewof effElec = Inputs.range([0.15, 0.30], {value: 0.20, step: 0.01, label: L("Net electrical efficiency", "净发电效率")})
+viewof nonComb = Inputs.range([0, 0.5], {value: 0.30, step: 0.05, label: L("Non-burnable share of delivered waste", "进厂垃圾中不可燃比例")})
 viewof powerPrice = Inputs.range([30, 150], {value: 80, step: 5, label: L("Power price, 2027 (A$/MWh)", "电价，2027（澳元/兆瓦时）")})
 viewof ashShare = Inputs.range([0, 0.25], {value: 0.15, step: 0.01, label: L("Ash landfilled (% of input)", "灰渣填埋比例")})
 viewof inflation = Inputs.range([0, 0.06], {value: 0.025, step: 0.005, label: L("Inflation", "通胀率")})
@@ -272,6 +321,28 @@ Plot.plot({
 //| echo: false
 //| output: false
 // ---------- Model ----------
+// Feedstock by material: each material follows its own 2020-25 trend, shifted by the scenario
+scenAdj = ({base: 0, low: -0.02, high: 0.02})
+cvOf = Object.fromEntries(comps.map(d => [d.component, d.mj_per_kg]))
+trendOf = Object.fromEntries(comps.map(d => [d.component, d.base_trend]))
+compHist = compData
+base2025 = Object.fromEntries(compData.filter(d => d.year === 2025).map(d => [d.component, d.mt]))
+compProj = ["base", "low", "high"].flatMap(sc => d3.range(2025, 2056).flatMap(y => comps.map(c => ({scenario: sc, year: y, component: c.component,
+  mt: base2025[c.component] * Math.pow(1 + Math.max(-0.15, trendOf[c.component] + scenAdj[sc]), y - 2025)}))))
+totals = {
+  const rows = [...compHist, ...compProj.filter(d => d.scenario === wasteScen && d.year > 2025)];
+  return d3.groups(rows, d => d.year).map(([year, list]) => {
+    const o = {year}; let mt = 0, pj = 0;
+    for (const d of list) { o[d.component] = d.mt; mt += d.mt; pj += d.mt * cvOf[d.component]; }
+    return Object.assign(o, {mt, pj, cv: pj / mt});
+  }).sort((a, b) => a.year - b.year);
+}
+totalBy = new Map(totals.map(d => [d.year, d]))
+wasteBaseYear = 2025
+wasteBase = totalBy.get(2025).mt
+wasteScale = y => totalBy.get(Math.min(y, 2055)).mt / wasteBase
+// Electricity per tonne delivered follows the energy content of that year's waste
+kwhPerT = y => totalBy.get(Math.min(y, 2055)).cv * (1 - nonComb) * effElec / 3.6 * 1000
 levyRate = Object.fromEntries(scen.filter(d => d.driver === "levy").map(d => [d.scenario, d.annual_change]))
 levy2027 = Object.fromEntries(levyHist.filter(d => d.year === 2027).map(d => [d.zone, d.levy]))
 levy0 = levy2027.VIC_METRO
@@ -322,7 +393,7 @@ model = (gf) => {
       const s = supplyAt(gf, y);
       const tonnes = Math.min(s.total, capacity, licence);
       const limit = tonnes === s.total ? "supply" : tonnes === capacity ? "capacity" : "licence";
-      const revenue = tonnes * s.fee + tonnes * powerKwh / 1000 * powerPrice * g;
+      const revenue = tonnes * s.fee + tonnes * kwhPerT(y) / 1000 * powerPrice * g;
       const fixed = fixedTotal * g;
       const variable = tonnes * (varOpex + sortCost) * g + tonnes * ashShare * s.landfill;
       const ebitda = revenue - fixed - variable;
