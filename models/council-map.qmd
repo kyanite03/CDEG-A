@@ -57,6 +57,7 @@ viewof mode = Inputs.radio(new Map([
   [T("Cheapest of road or rail", "公路或铁路取低"), "best"],
   [T("Road only", "仅公路"), "road"]
 ]), {value: "best", label: L("Transport", "运输方式")})
+viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving a council needs before it switches", "市政转换所需节省比例")})
 viewof capacity = Inputs.range([150000, 800000], {value: 450000, step: 10000, label: L("Plant capacity (t/yr)", "工厂处理能力（吨/年）")})
 ```
 
@@ -90,7 +91,7 @@ rows = councils.map(c => {
   const useRail = mode === "best" && rail !== null && rail < road;
   const delivery = useRail ? rail : road;
   const offer = gateFee + delivery;
-  return {...c, current, levy: levyZ[c.zone], road, rail, useRail, delivery, offer, saving: current - offer, maxGate: current - delivery};
+  return {...c, current, levy: levyZ[c.zone], road, rail, useRail, delivery, offer, saving: current * (1 - threshold) - offer, maxGate: current * (1 - threshold) - delivery};
 })
 byName = new Map(rows.map(d => [d.name, d]))
 won = rows.filter(d => d.saving > 0)
@@ -124,7 +125,7 @@ viewof view = Inputs.radio(new Map([[T("Whole region", "全区域"), "all"], [T(
     width: 900, height: view === "all" ? 560 : 520,
     projection: {type: "mercator", domain: {type: "FeatureCollection", features: domainFeats}},
     color: {type: "diverging", domain: [-150, 150], range: ["#d95926", "#ecebe7", "#2a78d6"], pivot: 0, clamp: true, ticks: [-100, -50, 0, 50, 100], tickFormat: d => d > 0 ? `+${d}` : String(d),
-            legend: true, label: T("Council saving if it sends waste to us (A$/t)", "市政交给我方处理每吨节省（澳元）"), width: 360},
+            legend: true, label: T("Saving beyond the switching margin (A$/t)", "超出转换门槛的每吨节省（澳元）"), width: 360},
     marks: [
       Plot.geo(feats, {fill: d => d.properties.saving, stroke: "white", strokeWidth: 0.6}),
       Plot.dot([HUB], {x: "lon", y: "lat", r: 7, fill: "#0b0b0b", stroke: "white", strokeWidth: 2, symbol: "star"}),
@@ -134,7 +135,7 @@ viewof view = Inputs.radio(new Map([[T("Whole region", "全区域"), "all"], [T(
         `${T("Kerbside garbage", "路边垃圾")}: ${(d.garbage_t/1e3).toFixed(1)} kt${d.state === "VIC" ? "" : T(" (est.)", "（估算）")}\n` +
         `${T("Landfill today", "当前填埋")}: ${fmt(d.current)} (${T("levy", "税")} ${fmt(d.levy)})\n` +
         `${T("Our gate fee", "我方处理费")}: ${fmt(gateFee)} + ${d.useRail ? T("rail", "铁路") : T("road", "公路")} ${fmt(d.delivery)} = ${fmt(d.offer)}\n` +
-        `${d.saving >= 0 ? T("Saves", "节省") : T("Costs extra", "多付")}: ${fmt(Math.abs(d.saving))}/t\n` +
+        `${T("Saves", "节省")}: ${fmt(d.current - d.offer)}/t (${((d.current - d.offer)/d.current*100).toFixed(0)}%; ${T("needs", "需")} ${(threshold*100).toFixed(0)}%)\n` +
         `${T("Highest gate fee that still wins", "仍具竞争力的最高处理费")}: ${fmt(d.maxGate)}`}))
     ]
   });
