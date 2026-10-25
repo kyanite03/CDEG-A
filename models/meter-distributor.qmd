@@ -45,10 +45,20 @@ lang = Generators.observe(notify => {
   return () => mo.disconnect();
 })
 T = (en, zh) => lang === "zh" ? zh : en
-csv = path => fetch(path).then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
-assump = csv("../data/assumptions.csv")
+// Cache-busting: Cloudflare caches data files for hours; the page's Last-Modified changes on every deploy
+V = "?v=" + encodeURIComponent(document.lastModified)
+csv = path => fetch(path).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => d3.csvParse(t, d3.autoType))
+// A failed fetch falls back to DEFAULTS (with a warning) instead of blanking the page
+assumpRes = csv("../data/assumptions.csv" + V).then(rows => ({rows, ok: true}), () => ({rows: [], ok: false}))
+assump = assumpRes.rows
+assumpFailed = !assumpRes.ok
 A = Object.fromEntries(assump.map(d => [d.id, d]))
-v = id => A[id].value
+// Fallback defaults (same values as data/assumptions.csv) so a missing row cannot blank the page
+DEFAULTS = ({m_connections: 10.0, m_life: 12, m_newconn: 0.016, m_open: 0.5, m_price: 135, m_exworks: 400, m_fx: 4.7, m_freight: 2.5, m_duty: 0, m_qa: 3, m_warranty: 0.03, m_dist: 0.15, m_factory: 0.25, m_nmi: 40000, m_watermark: 25000, m_rnd: 150000, m_bdpre: 150000, m_overhead_dist: 200000, m_overhead_direct: 650000, nmi_test_cn: 200000})
+// The CSV wins; DEFAULTS are used only when a row is missing or its value is not a finite number
+num = x => typeof x === "number" && Number.isFinite(x)
+missingIds = Object.keys(DEFAULTS).filter(id => !num(A[id]?.value)).map(id => A[id] && A[id].value != null ? `${id} (invalid)` : id)
+v = id => num(A[id]?.value) ? A[id].value : DEFAULTS[id]
 C = ({base: "#2a78d6", optimal: "#1baf7a", recession: "#eb6834", ink: "#52514e", grey: "#b5b3ab"})
 fmtA = x => {
   const s = x < 0 ? "−" : "", a = Math.abs(x);
@@ -59,6 +69,11 @@ pct = x => `${(x*100).toFixed(0)}%`
 tile = (label, value, sub) => html`<div class="kpi"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
 years = d3.range(2027, 2037)
 scenNames = ({base: T("Base", "基准"), optimal: T("Optimal market", "最优市场"), recession: T("Recession", "经济衰退")})
+```
+
+```{ojs}
+//| echo: false
+missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-weight:600">${assumpFailed ? L("Warning: data/assumptions.csv could not be loaded; built-in defaults used for all inputs.", "警告：无法加载 data/assumptions.csv，所有参数均使用内置默认值。") : html`${L("Warning: missing or not a number in data/assumptions.csv, built-in defaults used for: ", "警告：data/assumptions.csv 中以下参数缺失或不是数字，已使用内置默认值：")}${missingIds.join(", ")}`}</p>` : html``
 ```
 
 ## [1 · The market: how many meters Australia buys each year]{.en}[1 · 市场：澳洲每年采购多少只水表]{.zh}
@@ -73,11 +88,9 @@ Every metered property needs a new meter roughly every 10–15 years, because me
 
 ```{ojs}
 //| echo: false
-viewof scen = Inputs.radio(new Map([
-  [T("Base: replacement + steady digital upgrades", "基准：正常更换+稳步数字化"), "base"],
-  [T("Optimal market: national digital push, more homes, more tenders open", "最优市场：全国加速数字化、住宅增加、更多招标开放"), "optimal"],
-  [T("Recession: 2-year downturn (fewer new homes, upgrades deferred, weaker A$)", "经济衰退：两年下行（新房减少、升级推迟、澳元走弱）"), "recession"]
-]), {value: "base", label: L("Market scenario", "市场情景")})
+// Option labels avoid T() so switching language does not rebuild (and reset) the controls
+viewof scen = Inputs.radio(["base", "optimal", "recession"], {value: "base", label: L("Market scenario", "市场情景"),
+  format: k => ({base: L("Base: replacement + steady digital upgrades", "基准：正常更换+稳步数字化"), optimal: L("Optimal market: national digital push, more homes, more tenders open", "最优市场：全国加速数字化、住宅增加、更多招标开放"), recession: L("Recession: 2-year downturn (fewer new homes, upgrades deferred, weaker A$)", "经济衰退：两年下行（新房减少、升级推迟、澳元走弱）")})[k]})
 viewof connections = Inputs.range([8, 12], {value: v("m_connections"), step: 0.1, label: L("Metered connections in Australia (million)", "澳洲装表用户数（百万）")})
 viewof life = Inputs.range([8, 16], {value: v("m_life"), step: 1, label: L("Meter replacement cycle (years)", "水表更换周期（年）")})
 viewof newConn = Inputs.range([0.008, 0.025], {value: v("m_newconn"), step: 0.001, label: L("New connections per year (share of stock)", "每年新增用户（占存量比例）")})
@@ -126,7 +139,8 @@ Plot.plot({
     Plot.ruleY([0]),
     Plot.line(mkt, {x: "year", y: "total", stroke: "scenario", strokeWidth: d => d.scenario === scen ? 2.5 : 1.25, strokeOpacity: d => d.scenario === scen ? 1 : 0.5}),
     Plot.line(mNow, {x: "year", y: "open", stroke: C[scen], strokeDasharray: "5,3", strokeWidth: 2}),
-    Plot.text(mkt.filter(d => d.year === 2036), {x: "year", y: "total", text: d => scenNames[d.scenario], dx: 6, dy: d => d.scenario === "recession" ? 12 : 0, textAnchor: "start", fill: C.ink, fontSize: 11}),
+    Plot.text(mkt.filter(d => d.year === 2036 && d.scenario !== "recession"), {x: "year", y: "total", text: d => scenNames[d.scenario], dx: 6, textAnchor: "start", fill: C.ink, fontSize: 11}),
+    Plot.text(mkt.filter(d => d.year === 2036 && d.scenario === "recession"), {x: "year", y: "total", text: d => scenNames[d.scenario], dx: 6, dy: 12, textAnchor: "start", fill: C.ink, fontSize: 11}),
     Plot.text(mNow.filter(d => d.year === 2036), {x: "year", y: "open", text: () => T("Open to new supplier", "新供应商可争取"), dx: 6, textAnchor: "start", fill: C.ink, fontSize: 11}),
     Plot.tip(mNow, Plot.pointerX({x: "year", y: "total", title: d => `${d.year} · ${scenNames[d.scenario]}\n${T("Replacements", "更换")}: ${fmtK(d.replace)}\n${T("New homes", "新房")}: ${fmtK(d.fresh)}\n${T("Open to new supplier", "新供应商可争取")}: ${fmtK(d.open)}`}))
   ]
@@ -219,10 +233,8 @@ Huizhong's 2023 NSW contract works out to about A\$150 a meter, and that price a
 
 ```{ojs}
 //| echo: false
-viewof route = Inputs.radio(new Map([
-  [T("Through a local distributor", "通过本地代理商"), "dist"],
-  [T("Own Australian office", "自建澳洲团队"), "direct"]
-]), {value: "dist", label: L("Sales route", "销售渠道")})
+viewof route = Inputs.radio(["dist", "direct"], {value: "dist", label: L("Sales route", "销售渠道"),
+  format: k => ({dist: L("Through a local distributor", "通过本地代理商"), direct: L("Own Australian office", "自建澳洲团队")})[k]})
 viewof price = Inputs.range([90, 180], {value: v("m_price"), step: 1, label: L("Price to the utility, meter only (A$)", "水务公司采购价，仅表具（澳元）")})
 viewof exRMB = Inputs.range([250, 650], {value: v("m_exworks"), step: 10, label: L("Ex-works price, AU spec (RMB)", "出厂价，澳洲规格（人民币）")})
 viewof fx = Inputs.range([4.2, 5.2], {value: v("m_fx"), step: 0.05, label: L("Exchange rate (RMB per A$)", "汇率（人民币/澳元）")})
@@ -280,9 +292,9 @@ Plot.plot({
 html`<div class="map-legend">${wf.map(d => html`<span><span class="sw" style="background:${d.c}"></span>${d.k}</span>`)}</div>
 <div class="kpi-row">
   ${tile(T("Landed cost per meter", "到岸成本（每只）"), `A$${u.landed.toFixed(0)}`, T(`RMB ${exRMB} ex-works = A$${u.ex.toFixed(0)}`, `出厂价${exRMB}元=${u.ex.toFixed(0)}澳元`))}
-  ${tile(groupView ? T("Contribution per meter (group)", "每只边际贡献（集团）") : T("Contribution per meter", "每只边际贡献"), `A$${contribShown.toFixed(0)}`, T(`${pct(contribShown / price)} of the utility price`, `占采购价${pct(contribShown / price)}`))}
+  ${tile(groupView ? T("Contribution per meter (group)", "每只边际贡献（集团）") : T("Contribution per meter", "每只边际贡献"), fmtA(contribShown), T(`${pct(contribShown / price)} of the utility price`, `占采购价${pct(contribShown / price)}`))}
   ${tile(T("Break-even volume", "盈亏平衡销量"), u.contrib > 0 ? `${fmtK(overhead / u.contrib)} ${T("/yr", "只/年")}` : "—", u.contrib > 0 ? T(`to cover ${fmtA(overhead)} a year of overhead`, `覆盖每年${fmtA(overhead)}固定费用`) : T("price is below variable cost", "售价低于可变成本"))}
-  ${tile(T("Room under Huizhong", "低于汇中的空间"), `A$${(150 - price).toFixed(0)}`, T("below ~A$150 per meter (NSW, 2023)", "低于每只约150澳元（新州，2023）"))}
+  ${tile(T("Room under Huizhong", "低于汇中的空间"), fmtA(150 - price), T("below ~A$150 per meter (NSW, 2023)", "低于每只约150澳元（新州，2023）"))}
 </div>`
 ```
 
@@ -374,7 +386,8 @@ Plot.plot({
     Plot.ruleY([u.contrib > 0 ? overhead / u.contrib : 0], {stroke: "#9a9890", strokeDasharray: "2,3"}),
     Plot.text([u.contrib > 0 ? overhead / u.contrib : 0], {x: 2027, y: d => d, dy: -6, textAnchor: "start", fill: C.ink, fontSize: 10, text: () => T("Break-even volume", "盈亏平衡销量")}),
     Plot.line(all, {x: "year", y: "units", stroke: "scenario", strokeWidth: d => d.scenario === scen ? 2.5 : 1.25, strokeOpacity: d => d.scenario === scen ? 1 : 0.5}),
-    Plot.text(all.filter(d => d.year === 2036), {x: "year", y: "units", text: d => scenNames[d.scenario], dx: 6, dy: d => d.scenario === "recession" ? 12 : 0, textAnchor: "start", fill: C.ink, fontSize: 11}),
+    Plot.text(all.filter(d => d.year === 2036 && d.scenario !== "recession"), {x: "year", y: "units", text: d => scenNames[d.scenario], dx: 6, textAnchor: "start", fill: C.ink, fontSize: 11}),
+    Plot.text(all.filter(d => d.year === 2036 && d.scenario === "recession"), {x: "year", y: "units", text: d => scenNames[d.scenario], dx: 6, dy: 12, textAnchor: "start", fill: C.ink, fontSize: 11}),
     Plot.tip(rows, Plot.pointerX({x: "year", y: "units", title: d => `${d.year} · ${scenNames[d.scenario]}\n${T("Meters", "销量")}: ${fmtK(d.units)}\n${T("Revenue", "收入")}: ${fmtA(d.revenue)}\nEBIT: ${fmtA(d.ebit)}`}))
   ]
 })
