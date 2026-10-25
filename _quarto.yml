@@ -16,6 +16,20 @@ website:
     left:
       - href: index.qmd
         text: "Home · 首页"
+      - text: "Report · 报告"
+        menu:
+          - href: report/introduction.qmd
+            text: "1 · Introduction · 引言"
+          - href: report/market-context.qmd
+            text: "2 · Market context · 市场背景"
+          - href: report/opportunity.qmd
+            text: "3 · Market opportunity · 市场机会"
+          - href: report/customers.qmd
+            text: "4 · Customer insights · 客户洞察"
+          - href: report/competitors.qmd
+            text: "5 · Competitor analysis · 竞争分析"
+          - href: report/go-to-market.qmd
+            text: "6–7 · Go-to-market plan · 进入市场计划"
       - text: "A · Business models · 商业模式"
         menu:
           - href: part-a/overview.qmd

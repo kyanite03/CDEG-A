@@ -1,0 +1,92 @@
+---
+title: "[3 · Market opportunity]{.en}[三 · 市场机会]{.zh}"
+---
+
+<p class="owner"><span class="en">Owners: Kai (3.1 a, b, e; 3.2 WtE; 3.3; 3.4) · Janeika (3.1 c, d; 3.2 meters; 3.5)</span><span class="zh">负责人：马凯 · Janeika</span></p>
+
+::: {.en}
+*Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
+:::
+
+::: {.zh}
+*报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
+:::
+
+::: {.en}
+We look at the market in three layers, following the outline: waste treatment, energy recovery and the circular economy. 3.1 names the target markets, 3.2 sizes them, 3.3 and 3.4 test technical and economic fit, and 3.5 turns the results into strategy options.
+
+- **(a) WtE O&M for licence holders**: see [Waste-to-energy](../part-a/wte.qmd).
+- **(b) Organics, sludge and biosolids outside the cap**: see [Sludge and biosolids](../part-a/sludge-water.qmd) and [Food organics](../part-a/organics.qmd).
+- **(e) Coal-site conversion and siting**: see [Waste-to-energy](../part-a/wte.qmd#siting).
+- **3.2 Market size (WtE)**, **3.3 Technical fit** and **3.4 Economics**: see [Waste-to-energy](../part-a/wte.qmd).
+:::
+
+::: {.zh}
+- 3.1（a、e）、3.2（焚烧）、3.3、3.4见[垃圾焚烧发电](../part-a/wte.qmd)页；3.1（b）见[污泥](../part-a/sludge-water.qmd)和[厨余](../part-a/organics.qmd)页。
+:::
+
+## [3.1 (c) Water digital products]{.en}[3.1（c）水务数字产品]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika. Victoria's 16 retail water businesses (3 metro, 13 regional); Melbourne Water is wholesale and owns no household meters
+- South East Water 200,000 digital meters (Jan 2026); Yarra Valley Water ~900,000 by 2032 (Sagemcom); Barwon Water on Iota Lentic
+- Opening: regional corporations ahead of the 2028 Water Price Review (submissions due 13 Sep 2027); drainage sensors as a second product
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika。维州16家零售水务公司（3家大都市、13家地区）；Melbourne Water为批发商
+- 东南水务20万只数字水表；雅拉谷水务计划2032年前约90万只；Barwon Water采用Iota Lentic平台
+- 机会：2028年水价审查前的地区水务公司（2027年9月13日截止申报）
+:::
+:::
+
+## [3.1 (d) R&D partners]{.en}[3.1（d）研发合作方]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika. Partners for sludge reuse, CCUS and AI for water
+- Candidates: RMIT PYROCO (biosolids pyrolysis), CarbonNet (Pelican storage, Loy Yang gateway), water corporations with digesters (YVW ReWaste)
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika。污泥资源化、碳捕集和水务AI的合作方
+- 候选：皇家墨尔本理工PYROCO、CarbonNet、拥有厌氧消化设施的水务公司
+:::
+:::
+
+## [3.2 Market size: smart meters]{.en}[3.2 市场规模：智能水表]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika, using Kai's meter model
+- Formula: connections × (replacement + new connections) × share open × price
+- Model defaults: ~1.1m meters/yr nationally (~A$150m); NMI approval ~Jul 2028; year 5 ~43,000 meters (A$5.8m revenue); depends on CDEG's ex-works price
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika（使用马凯的水表模型）
+- 公式：用户数 ×（更换率+新增）× 开放比例 × 价格
+- 模型默认：全国每年约110万只；约2028年7月获NMI认证；第5年约4.3万只
+:::
+:::
+
+## [3.5 SWOT to TOWS]{.en}[3.5 SWOT与TOWS]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika. SWOT for CDEG in Victoria, turned into TOWS strategies that feed 6.1
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika。集团在维州的SWOT分析及TOWS策略
+:::
+:::

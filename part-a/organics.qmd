@@ -4,6 +4,24 @@ title: "[Food organics and anaerobic digestion]{.en}[厨余垃圾与厌氧消化
 
 <p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
 
+::: {.en}
+*Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
+:::
+
+::: {.zh}
+*报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
+:::
+
+## [Where the opportunity is]{.en}[机会所在]{.zh}
+
+::: {.en}
+Food organics landfilled, FOGO timing and the decontamination gap are in [Table 4 on the sludge and biosolids page](sludge-water.qmd).
+:::
+
+::: {.zh}
+厨余填埋量、FOGO时间表及去杂质需求见[污泥页表4](sludge-water.qmd)。
+:::
+
 ## [How the money flows]{.en}[资金流向]{.zh}
 
 ::: {.en}
@@ -24,15 +42,13 @@ title: "[Food organics and anaerobic digestion]{.en}[厨余垃圾与厌氧消化
 
 ::: {.en}
 ::: {.placeholder}
-- Repurpose It, Yarra Valley Water ReWaste, Veolia, Cleanaway
-- Table from data/players.csv: owner, operator, technology, EPC, approvals held
+- Repurpose It (Epping, 200,000 t/yr), Yarra Valley Water ReWaste (33,000 t/yr), Veolia, Cleanaway; 80 organics facilities and 8 digesters statewide
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
-- Repurpose It、Yarra Valley Water ReWaste、Veolia、Cleanaway
-- 表格数据来自 data/players.csv：业主、运营商、技术方、EPC、已获批文
+- Repurpose It、雅拉谷水务ReWaste、Veolia、Cleanaway；全州80家有机物设施、8座厌氧消化设施
 :::
 :::
 
@@ -40,27 +56,13 @@ title: "[Food organics and anaerobic digestion]{.en}[厨余垃圾与厌氧消化
 
 ::: {.en}
 ::: {.placeholder}
-- Capex, opex, prices and contract terms, each linked to data/assumptions.csv with source and date
+- CDEG equipment process, unit capacity, impurity tolerance, price and reference sites (requested from CDEG)
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
-- 投资、运营成本、价格和合同条款，均链接至 data/assumptions.csv（含来源和日期）
-:::
-:::
-
-## [China vs Australia]{.en}[中澳对比]{.zh}
-
-::: {.en}
-::: {.placeholder}
-- How Chinese competitors are paid and priced in this line (teammate's research)
-:::
-:::
-
-::: {.zh}
-::: {.placeholder}
-- 该业务在中国的收费模式和价格水平（队友调研）
+- 集团设备工艺、单机处理能力、杂质耐受度、价格及参考案例（待集团提供）
 :::
 :::
 
@@ -68,12 +70,12 @@ title: "[Food organics and anaerobic digestion]{.en}[厨余垃圾与厌氧消化
 
 ::: {.en}
 ::: {.placeholder}
-- One paragraph: fit, entry route, best partner
+- Value proposition for organics processors and councils (report 6.2, segment 3): FOGO decontamination pilot
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
-- 一段话：契合度、进入路径、最佳合作方
+- 面向有机物处理企业与市政的价值主张：FOGO去杂质试点
 :::
 :::

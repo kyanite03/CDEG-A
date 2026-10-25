@@ -2,7 +2,47 @@
 title: "[Who has done it before]{.en}[谁有审批经验]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Owners: Christine (licence matrix) · Kai</span><span class="zh">负责人：江坤彤（许可矩阵）· 马凯</span></p>
+
+::: {.en}
+*Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
+:::
+
+::: {.zh}
+*报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
+:::
+
+## [Licence-holder matrix]{.en}[许可持有方矩阵]{.zh}
+
+::: {.en}
+**Table A1. Victoria's ten WtE licence holders**
+
+::: tw
+  Holder                              Licence                          Site and status                                                                                  Technology                           EPC / O&M              CDEG entry point
+  ----------------------------------- -------------------------------- ------------------------------------------------------------------------------------------------ ------------------------------------ ---------------------- ----------------------------------------------------------
+  Cleanaway                           Cap 760,000                      Wollert MERC; EPA application to be re-filed; EQT takeover pending                               Not announced (open EOI)             Not announced          O&M if not self-operated or bundled; ask the new owner
+  HiQ EFW Victoria                    Cap 750,000                      Bulla; full operation about late 2030; no planning approval                                      Kanadevia Inova                      Not announced          O&M if the vendor does not bundle it
+  Melbourne Water                     Cap 450,000                      Plant at a treatment site (ETP or WTP) under study; feasibility 2026–31; biosolids tender 2025   Open                                 Open                   Biosolids and sludge: closest fit
+  Recovered Energy Laverton           Existing-operator; cap 280,000   Laverton North; start not confirmed                                                              Vertical rotating gasification       Not announced          Conditional: below CDEG's two-line minimum; gasification
+  Liquid Power Co                     Cap 50,000                       Early development                                                                                Gasification + Fischer-Tropsch       Not announced          Low: below 250 t/d
+  Zerogen Holdings                    Cap 45,000                       Wellington precinct                                                                              Plasma-assisted gasification         Not announced          Low: below 250 t/d
+  Knox Transfer Station               Cap 15,000                       To be confirmed                                                                                  Not announced                        Not announced          Low: small
+  Paper Australia (Opal), Maryvale    Existing-operator                Pre-construction; no financial close found; A\$48.2m federal grant                               Babcock & Wilcox; EPC Cobra \[94\]   Veolia in consortium   Low: operator in place
+  Visy Industries                     Existing-operator                Coolaroo; existing facility                                                                      Not checked                          Not checked            To research
+  Great Southern Waste Technologies   Existing-operator                Dandenong South, 100,000 t/yr                                                                    Norwegian rights                     Not announced          Check operator
+:::
+
+*Sources: EPA Victoria licence register and team precedent briefing \[1, 32, 33, 73, 94\]. "Not announced" means no public announcement was found; it does not mean the role is unfilled.*
+:::
+
+::: {.zh}
+- 维州10家焚烧许可持有方的选址、技术、EPC/运营安排及集团切入点。
+- “未公布”表示未找到公开信息，不代表岗位空缺。
+
+::: {.placeholder}
+完整中文译文待补充（英文版为准）。
+:::
+:::
 
 ## [Approval-experience matrix]{.en}[审批经验矩阵]{.zh}
 
@@ -14,7 +54,7 @@ title: "[Who has done it before]{.en}[谁有审批经验]{.zh}"
 
 ::: {.zh}
 ::: {.placeholder}
-- 参与方 × 审批环节；每个勾选链接至证据（data/players.csv）
+- 参与方 × 审批环节；每个勾选链接至证据
 :::
 :::
 
@@ -22,12 +62,12 @@ title: "[Who has done it before]{.en}[谁有审批经验]{.zh}"
 
 ::: {.en}
 ::: {.placeholder}
-- Top candidates per business line, linking to the interactive ranking in Models
+- Top candidates per business line (report 6.4)
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
-- 各业务线首选合作方，链接至模型部分的互动排名
+- 各业务线首选合作方（报告6.4）
 :::
 :::

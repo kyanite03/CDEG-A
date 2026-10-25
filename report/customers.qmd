@@ -1,0 +1,106 @@
+---
+title: "[4 · Customer insights]{.en}[四 · 客户洞察]{.zh}"
+---
+
+<p class="owner"><span class="en">Owners: Janeika (4.1–4.3) · Christine (4.4)</span><span class="zh">负责人：Janeika（4.1–4.3）· 江坤彤（4.4）</span></p>
+
+::: {.en}
+*Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
+:::
+
+::: {.zh}
+*报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
+:::
+
+::: {.en}
+We have no interviews yet, so each persona is built from what the customer has published: inquiry submissions, ASX and EPA records, and price submissions. Each one is a hypothesis to test in the first 90 days (7.0).
+:::
+
+::: {.zh}
+尚未开展访谈，客户画像基于其公开资料。
+:::
+
+## [4.1 Persona: licence-holder project director]{.en}[4.1 客户画像：许可持有方项目总监]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika. Cleanaway, HiQ, Melbourne Water: project stage, decision-makers, fears (overruns, unproven operator, opposition), what they value, how they buy
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika。项目阶段、决策者、顾虑、关注点、采购方式
+:::
+:::
+
+## [4.2 How WtE buyers decide]{.en}[4.2 焚烧项目买方如何决策]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika. Owner, lenders' technical adviser, EPA, councils (20–25-year supply contracts), community; test the 10% switching threshold with councils
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika。业主、贷款方技术顾问、EPA、市政、社区
+:::
+:::
+
+## [4.3 Persona: regional water corporation]{.en}[4.3 客户画像：地区水务公司]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika. Budget cycle (2028 Water Price Review), tenders and joint tenders, NMI/WaterMark requirements, leak detection, platform integration (Iota Lentic), IWN pilots
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika。预算周期、招标方式、认证要求、漏损检测、平台集成
+:::
+:::
+
+## [4.4 Public sentiment]{.en}[4.4 公众态度]{.zh}
+
+::: {.en}
+**Opposition is about health and siting, it is concentrated at HiQ's Sunbury site, and it has not yet focused on Chinese involvement.**
+
+A WtE plant in Victoria needs community acceptance as well as a licence, and an operator inherits the plant's reputation. Without interviews, submissions to the parliamentary inquiry are the public record of what residents and industry think. This section answers two questions: what residents fear most, and whether Chinese involvement adds to it.
+
+We coded 565 readable submissions to the inquiry \[6\]: 537 from individuals and community groups, 16 from industry and 12 from other submitter types. Health and air pollution is the leading community concern: 86% of community submissions use at least one health keyword. It is followed by local amenity and siting (73%), recycling and the waste hierarchy (39%), consultation, trust and regulation (27%), and cost and contracts (23%). Industry argues in other terms: recycling and the waste hierarchy (94%) and the energy and landfill-diversion benefits of WtE (81%).
+
+![](../assets/img/christine-fig5.jpg\){fig-alt="Themes in WtE inquiry submissions, community vs industry"}
+
+*Figure 6. Themes in WtE inquiry submissions, community vs industry. Source: \[6\], team coding (method in Appendix E).*
+
+Opposition is local. 56% of community submissions name Sunbury or Bulla (HiQ), and 14% name Wollert, Epping or Donnybrook (Cleanaway). Chinese involvement is rarely raised: 4 of 537 community submissions express concern about foreign ownership, 3 cite Chinese plants as emissions evidence, 2 cite China as a positive example, and 3 mention it in other ways. No Chinese operator has yet been named at any licensed site, so the low count does not show how residents would react to one. Lara, the one Victorian proposal linked to a Chinese WtE firm, drew strong local opposition \[92, 93\].
+
+![](../assets/img/christine-fig6.jpg\){fig-alt="WtE sites named in community submissions"}
+
+*Figure 7. WtE sites named in community submissions. Source: \[6\].*
+
+Water meters draw little debate. 177 posts in 13 Whirlpool threads (2011–2026) are mostly practical:
+
+-   installation: 42%
+-   leaks and usage data: 39%
+-   bills: 14%
+-   privacy: 6%
+
+The barrier for meters is utility procurement and approval, not public acceptance.
+
+**So what.** An O&M partner at HiQ or Cleanaway inherits this opposition. CDEG's offer should lead with independently verified emissions and live public data, then truck and siting management (6.2). These are self-selected submissions, mostly from opponents, so they show what concerned people say, not what all Victorians think.
+:::
+
+::: {.zh}
+- 我们对议会调查的565份可读意见进行了编码。
+- 社区意见中86%提及健康，73%提及选址，56%点名Sunbury/Bulla（HiQ）。
+- 仅4份表达对外国所有权的担忧；但目前尚无中资运营方被点名，这并不代表公众对中资运营方的态度。
+- 智能水表的公众讨论较少，主要关于安装、漏损和账单。
+- **建议：** 先提供经独立核实的实时排放数据。
+
+::: {.placeholder}
+完整中文译文待补充（英文版为准）。
+:::
+:::

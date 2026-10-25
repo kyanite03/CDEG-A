@@ -2,19 +2,59 @@
 title: "[Approval pathways]{.en}[审批路径]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
-
-## [Waste-to-energy]{.en}[垃圾焚烧发电]{.zh}
+<p class="owner"><span class="en">Owner: Kai (Christine: emission limits, China-side approvals)</span><span class="zh">负责人：马凯（江坤彤：排放限值、国内审批）</span></p>
 
 ::: {.en}
-::: {.placeholder}
-- Clickable flowchart: cap licence → EPA development licence → planning / EES → EPBC → grid connection → EPA operating licence; ash approval; 10c container rule. Each step links to the official page
-:::
+*Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
 :::
 
 ::: {.zh}
+*报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
+:::
+
+## [Waste-to-energy and cross-cutting approvals]{.en}[垃圾焚烧及通用审批]{.zh}
+
+::: {.en}
+**A Victorian WtE plant needs four separate approvals, and a Chinese SOE needs approvals in both countries. That is why CDEG should enter as a contractor to a licence holder, not as an owner.**
+
+Recycling Victoria became EPA Victoria's Circular Economy division in mid-2026, so one regulator now handles the cap licence and the environmental licences \[43\] [to verify]{.verify} (exact date). The owner holds the project approvals. The operator shares duties under the permitted-waste rules, ash handling and SOCI, and CDEG needs its own corporate approvals at the bottom of Table 2.
+
+**Table 2. Approvals for a thermal WtE plant in Victoria, and who holds them**
+
+::: tw
+  Approval                                  Body and law                                                                                 What it tests                                                                                                                                   Holder                        For CDEG
+  ----------------------------------------- -------------------------------------------------------------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------- ----------------------------- ---------------------------------------------------------------------------------------------------------------------------
+  Cap licence                               EPA Circular Economy division; *Circular Economy (Waste Reduction and Recycling) Act 2021*   Nearness to feedstock and offtake, viability, permits held, jobs, energy output, fit and proper person, climate impact \[43\]                   Owner                         94% allocated; the government does not support raising the cap again \[30\] [to verify]{.verify}
+  EPA development, then operating licence   EPA; *Environment Protection Act 2017*; guideline 1559.1                                     Best available techniques; EU BAT is the practical reference (Appendix C) \[46\]. EPA tied Laverton North's approval to European limits \[2\]   Owner (operator named)        CDEG's emissions record supports the owner's case
+  Planning permit                           Council or Minister for Planning                                                             Siting, traffic, community. No minimum buffer distance \[7\]                                                                                    Owner                         Main social-licence hurdle (4.4)
+  Federal referral                          DCCEEW; *EPBC Act*                                                                           Matters of national environmental significance                                                                                                  Owner                         Site-specific
+  Grid connection                           AEMO and network owner                                                                       Connection studies, queue                                                                                                                       Owner                         Easier at former coal sites (3.1e)
+  Permitted-waste rules                     WtE Scheme scope guidance                                                                    No recyclables; deposit containers banned in any amount; commercial waste must pass the "not practicable to recycle" test \[36\]                Owner and operator            Needs sorting before the furnace (3.3)
+  Ash                                       EPA, case by case                                                                            Bottom ash: testing before use as aggregate. Fly ash: hazardous, needs treatment and licensed disposal \[7\] [to verify]{.verify}                           Owner and operator            CDEG reuses 100% of its slag and stabilises fly ash before landfill; resource routes for fly ash are in development \[3\]
+  Foreign investment                        FIRB; *Foreign Acquisitions and Takeovers Act 1975*                                          An SOE is a foreign government investor: \$0 threshold, and starting an Australian business needs approval \[16\]                               CDEG                          A Melbourne entity triggers FIRB. A service contract signed from China may not [to verify]{.verify} (legal advice)
+  Critical infrastructure                   Home Affairs; *SOCI Act 2018*                                                                Risk-management programs for owners of critical water and energy assets; duties pass to contractors \[55\]                                      Owner, passed to contractor   CDEG must pass the owner's supplier and personnel checks
+  China-side outbound approvals             NDRC (Order No. 49, from 1 Dec 2026), MOFCOM, SAFE, Chengdu SASAC \[17\]                     Outbound investment and foreign-exchange filing                                                                                                 CDEG                          Needed for a Melbourne entity and any parent guarantee
+:::
+
+**The rules are tightening.** The parliamentary inquiry (August 2026) made 59 findings and 33 recommendations \[7\]. Four matter most for an operator:
+
+-   continuous emissions monitoring with real-time public reporting (Recommendation 22)
+-   international best-practice standards written into regulation (Recommendation 19)
+-   flexible council supply contracts (Recommendation 12)
+-   a review of whether economic incentives still favour recycling (Recommendation 13), which could mean a WtE levy
+
+The government has six months to respond, so its response is due around February 2027 \[7\]. The state election on 28 November 2026 comes first \[8\].
+
+**So what for CDEG.** As a contractor, CDEG carries little of the project-approval risk. It needs the corporate approvals (FIRB for its entity and the China-side filings) and must meet the owner's SOCI risk-management duties. In return, its emissions data must meet the bar the inquiry has set.
+:::
+
+::: {.zh}
+- 一座焚烧厂需要四项项目审批：配额许可、EPA开发及运营许可、规划许可、并网，均由业主持有。
+- 集团作为运营方只需公司层面的审批：在墨尔本设立实体需FIRB批准（国企门槛为0澳元），以及国内发改委（2026年12月1日起施行第49号令）、商务部、外汇局和成都国资委的备案；还需配合业主履行关键基础设施（SOCI）风险管理义务。
+- 议会调查（2026年8月）提出59项结论和33项建议，包括实时公开排放数据和采用国际最佳标准；政府回应预计于2027年2月前后发布。
+
 ::: {.placeholder}
-- 可点击流程图：配额许可 → EPA开发许可 → 规划/环评 → EPBC → 并网 → EPA运营许可；炉渣审批；押金容器规定。每步链接至官方页面
+完整中文译文待补充（英文版为准）。
 :::
 :::
 
@@ -36,13 +76,13 @@ title: "[Approval pathways]{.en}[审批路径]{.zh}"
 
 ::: {.en}
 ::: {.placeholder}
-- NMI pattern approval (NMI R 49), AS 3565.1, AS/NZS 4020, WaterMark
+- NMI pattern approval (NMI R 49, about 12 months), AS 3565.1, AS/NZS 4020, WaterMark
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
-- NMI型式批准（NMI R 49）、AS 3565.1、AS/NZS 4020、WaterMark
+- NMI型式批准（约12个月）、AS 3565.1、AS/NZS 4020、WaterMark
 :::
 :::
 
@@ -57,19 +97,5 @@ title: "[Approval pathways]{.en}[审批路径]{.zh}"
 ::: {.zh}
 ::: {.placeholder}
 - AICIS化学品登记、危险品运输、水务公司准入
-:::
-:::
-
-## [Cross-cutting: investment approvals]{.en}[通用：投资审批]{.zh}
-
-::: {.en}
-::: {.placeholder}
-- FIRB (Australia) and NDRC / MOFCOM / SAFE / SASAC filings (China); service contracts vs equity
-:::
-:::
-
-::: {.zh}
-::: {.placeholder}
-- FIRB（澳洲）及发改委/商务部/外汇局/国资委备案（中国）；服务合同与股权投资的区别
 :::
 :::

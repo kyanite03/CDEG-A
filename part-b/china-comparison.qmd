@@ -4,16 +4,56 @@ title: "[Australia vs China regulation]{.en}[中澳监管对比]{.zh}"
 
 <p class="owner"><span class="en">Owner: Christine</span><span class="zh">负责人：江坤彤</span></p>
 
-## [Comparison table]{.en}[对比表]{.zh}
-
 ::: {.en}
-::: {.placeholder}
-- Emission standards (EU vs GB 18485), licensing, waste classification, project approval, payment model; a link in each cell
-:::
+*Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 排放标准（欧盟 vs GB 18485）、许可制度、废物分类、项目审批、收费模式；每格附链接
+*报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
 :::
+
+## [Emission standards]{.en}[排放标准]{.zh}
+
+::: {.en}
+**Table C1. Daily emission limits and Wanxing readings (mg/Nm³, 11% O₂, dry)**
+
+::: tw
+  Pollutant              GB 18485-2014 daily   EU IED daily   EU BAT-AEL, new plants   Wanxing, 14 Oct 2026
+  ---------------------- --------------------- -------------- ------------------------ -------------------------
+  Dust                   20                    10             \<2–5                    0.264
+  NOx                    250                   200            50–120                   76.29
+  SO₂                    80                    50             5–30                     14.37
+  HCl                    50                    10             \<2–6                    1.961
+  CO                     80                    50             10–50                    5.824
+  Mercury                0.05                  0.05           0.005–0.02               not published daily
+  Dioxins (ng TEQ/Nm³)   0.1                   0.1            \<0.01–0.04              periodic tests; request
+:::
+
+*Sources: \[23, 118–120\]. Wanxing values are furnace 1 daily averages for one day, taken from the public platform. They are a snapshot until the full hourly and annual series is available. EU limits are a benchmark here, not a Victorian legal limit \[46\].*
+
+![](../assets/img/christine-fig11.jpg\){fig-alt="Wanxing daily averages as a share of EU daily limits"}
+
+*Figure C1. Wanxing daily averages as a share of EU daily limits (one day, furnace 1).*
+
+**Why moisture and heating value matter.** Wet food waste lowers the usable heat per kilogram, because energy is spent evaporating water. A furnace is designed to burn waste steadily and completely, recover heat, limit pollutants, and avoid corrosion and slagging. Heating value is a key design input, but not the only one. In Victoria the issue reverses: drier, richer residual waste (3.3) can push a grate towards its thermal limit.
+:::
+
+::: {.zh}
+- 本页对比中国GB 18485-2014、欧盟IED日均限值及欧盟BAT-AEL。
+- 万兴一号炉2026年10月14日的公开日均数据远低于欧盟限值。
+- 这只是单日快照，需以完整的小时和年度数据核实。
+
+::: {.placeholder}
+完整中文译文待补充（英文版为准）。
+:::
+:::
+
+## [Payment model and approvals]{.en}[收费模式与审批]{.zh}
+
+::: {.en}
+See [Report 2.2](../report/market-context.qmd) for how WtE is paid in China and Victoria.
+:::
+
+::: {.zh}
+中澳收费模式对比见[报告2.2](../report/market-context.qmd)。
 :::

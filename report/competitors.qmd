@@ -1,0 +1,120 @@
+---
+title: "[5 · Competitor analysis]{.en}[五 · 竞争分析]{.zh}"
+---
+
+<p class="owner"><span class="en">Owners: Christine (5.1–5.3) · Janeika (5.2 meters, 5.4)</span><span class="zh">负责人：江坤彤（5.1–5.3）· Janeika（5.2水表、5.4）</span></p>
+
+::: {.en}
+*Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
+:::
+
+::: {.zh}
+*报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
+:::
+
+## [5.1 Value-chain role map]{.en}[5.1 价值链角色图]{.zh}
+
+::: {.en}
+**Ownership and technology are taken; the operator role is the one most often unannounced.**
+
+![](../assets/img/christine-fig7.jpg\){fig-alt="Victorian WtE value chain and roles open to CDEG"}
+
+*Figure 8. Victorian WtE value chain and the roles open to CDEG. Sources: \[1, 88, 94\]; Appendix A.*
+
+Waste supply, ownership and technology are closed to CDEG or a weak fit. EPC is open only inside a consortium. The operator role is unannounced at most licensed plants. That is an opening, not proof the role is open:
+
+-   Where an operator has been named, it sits inside the ownership group. Veolia is a partner in the Maryvale consortium \[94\], and ACCIONA runs its own Kwinana plant (Table 6).
+-   Furnace vendors can offer O&M with their grates \[Inferred\].
+
+Who decides O&M, and when, is the first question to put to each licence holder (7.0). The full matrix is in Appendix A.
+:::
+
+::: {.zh}
+- 垃圾供应、许可和技术环节已被占据或不适合集团；EPC只能在联合体内参与。
+- 多数电厂尚未公布运营方，这是机会，但不等于岗位空缺：业主可能自营，设备商也可能捆绑运营。
+
+::: {.placeholder}
+完整中文译文待补充（英文版为准）。
+:::
+:::
+
+## [5.2 Incumbents: waste-to-energy]{.en}[5.2 现有参与者：垃圾焚烧]{.zh}
+
+::: {.en}
+-   **Cleanaway, the national leader:** FY26 net revenue was A\$3.74bn (up 13.1%) and underlying EBIT A\$470m, from more than 350 sites and 9,700 staff \[95\]. It holds the 760,000 t/yr Wollert licence \[1\] but withdrew its EPA application in September 2025 to re-file \[32\]. In January 2026 it signed a joint development agreement for the 700,000 t/yr Parkes plant (NSW) with Tadweer, an Abu Dhabi state-owned waste operator, and Tribe \[96\]. Tadweer is itself a state-owned rival operator. On 18 October 2026 Cleanaway agreed to be bought by EQT Infrastructure for A\$3.095 a share, an enterprise value of about A\$9.3bn, with completion expected by March 2027 \[33\]. EQT owned EEW, Germany's largest WtE operator, until selling it to Beijing Enterprises in 2016 \[97\]. Wollert's technology and operator choices may now wait for the new owner \[Inferred\].
+-   **Veolia, the operator with the widest reach:** It runs 68 water, wastewater and recycled-water plants in Australia, and in November 2025 it won A\$700m of water contracts, including six Central Highlands Water plants \[98\]. It is the operating partner in the Maryvale consortium \[73, 94\]. Its long-term Kwinana O&M contract ended in early 2025 \[87\]. Its Woodlawn plant (NSW) is under assessment \[99\].
+-   **ACCIONA, the only WtE owner-operator:** It owns and operates Kwinana and is EPC contractor, creditor and 10% shareholder at East Rockingham (Table 6) \[88\].
+-   **Others:** Remondis withdrew its A\$400m Swanbank plan in 2022 \[100, 101\]. Visy holds an existing-operator licence at Coolaroo \[1\]. Vendors with Australian references are Kanadevia Inova (HiQ, Parkes), Keppel (Kwinana) and Babcock & Wilcox (Maryvale) \[45, 94, 102\].
+
+The operating market is thin. One large plant runs, one is in receivership, and Victoria's plants start from about 2030. CDEG's opening is O&M or technical services for a licence holder without a named operator (Melbourne Water, HiQ), or a role under Cleanaway's new owner \[Inferred\].
+:::
+
+::: {.zh}
+- **Cleanaway：** 全国龙头，持有76万吨许可，正被EQT收购。
+- **Veolia：** 运营商覆盖最广，在Maryvale联合体中担任运营方。
+- **ACCIONA：** 自有并运营Kwinana。
+- 运营市场很薄，集团的机会在尚未指定运营方的许可持有方。
+
+::: {.placeholder}
+完整中文译文待补充（英文版为准）。
+:::
+:::
+
+## [5.2 Incumbents: meters and water]{.en}[5.2 现有参与者：水表与水务]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika. Huizhong (via Avnet), Sanchuan, Ningbo Water Meter, Landis+Gyr, Sagemcom/Itron, Iota (Lentic); Veolia and TRILITY in water O&M
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika。汇中（经Avnet）、三川、宁波水表、Landis+Gyr、Sagemcom/Itron、Iota；水务运营Veolia、TRILITY
+:::
+:::
+
+## [5.3 Chinese SOEs in Australia: case learning]{.en}[5.3 中国国企在澳案例]{.zh}
+
+::: {.en}
+**Chinese SOEs have entered as service operators beside local partners; bids for control of critical assets have been refused.**
+
+![](../assets/img/christine-fig8.jpg\){fig-alt="Chinese-linked events in Australian infrastructure"}
+
+*Figure 9. Chinese-linked events in Australian infrastructure, water, waste and energy. Sources: \[14, 15, 55, 59, 92, 93, 104–110\].*
+
+Chinese state-owned firms have entered Australian infrastructure in three ways. In these few cases, service businesses under Australian management have met less resistance than bids for control. That is an observation, not a rule.
+
+-   **BEWG and TRILITY, water operations (reference value: high).** Beijing Enterprises Water bought 100% of TRILITY with FIRB approval in 2018 \[14\]. TRILITY kept its Australian name and team, and operates the Adelaide Desalination Plant through the AdelaideAqua joint venture until 2033 \[104\]. With John Holland, GHD and Jacobs it won Sydney Water's Upper South Creek plant \[105\]. Its WA Helena Water purchase was approved but publicly criticised by the state water minister \[111\]. For CDEG, also a city-owned group, this is the closest model, but approval brings political attention.
+-   **CCCC and John Holland, construction (medium).** CCCC bought John Holland in 2014 for A\$1.15bn \[106\]. John Holland lost A\$117m in its latest year after fixed-price write-downs \[107\]. That supports CDEG's preference for O&M over EPC risk.
+-   **State Grid, energy networks (low for control).** State Grid holds 60% of Jemena beside Singapore Power \[108, 109\] and about 46% of ElectraNet \[110\]. Its 2016 bid for control of Ausgrid was blocked \[15\]. Minority stakes beside non-Chinese co-owners were approved; control was refused. SOCI duties now apply to critical asset owners and their contractors (2.3).
+-   **WtE precedents (medium).** Lara is the one Victorian proposal with a named major Chinese WtE firm: Everbright as technology partner and a CEEC institute as designer \[92\]. It holds an EPA development licence but missed out on a cap licence, and has no planning permit or confirmed finance \[1, 92, 93\]. Laverton North's gasifier supplier is unnamed \[1, 59\]. The lesson is to partner with a funded licence holder, not a small developer.
+
+**Partner logic.** CDEG should bid with Australian or other non-Chinese partners, such as a local waste company and an engineering firm, and keep any equity small. A partner that is also Chinese-owned would not address ownership questions. TRILITY is still worth approaching in water and biosolids, where it is both a possible ally and the closest rival \[61\] \[Inferred\].
+:::
+
+::: {.zh}
+- 北控水务收购TRILITY（2018年，经FIRB批准）后由澳洲团队管理，是最接近的参照。
+- 中交建收购John Holland后在固定总价施工上出现亏损。
+- 国家电网对Ausgrid的控股收购被否决。
+- Lara项目与光大环境有关，但未获配额。
+- **结论：** 以服务运营方身份、与澳洲（或非中资）伙伴组成联合体进入，股权保持小比例。
+
+::: {.placeholder}
+完整中文译文待补充（英文版为准）。
+:::
+:::
+
+## [5.4 Positioning map and Five Forces]{.en}[5.4 定位图与五力分析]{.zh}
+
+::: {.en}
+::: {.placeholder}
+- Owner: Janeika. Positioning: Australian/OECD track record × expected cost per tonne. Five Forces for WtE O&M: buyer power, vendor bundling, rivalry, entrants, substitutes (landfill)
+:::
+:::
+
+::: {.zh}
+::: {.placeholder}
+- 负责人：Janeika。定位图（本地业绩×每吨成本）及焚烧运营五力分析
+:::
+:::

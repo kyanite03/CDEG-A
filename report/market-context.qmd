@@ -1,0 +1,113 @@
+---
+title: "[2 · Market context]{.en}[二 · 市场背景]{.zh}"
+---
+
+<p class="owner"><span class="en">Owners: Kai (2.1, 2.3) · Christine (2.2)</span><span class="zh">负责人：马凯（2.1、2.3）· 江坤彤（2.2）</span></p>
+
+::: {.en}
+*Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
+:::
+
+::: {.zh}
+*报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
+:::
+
+## [2.1 Victoria's problem and opportunity]{.en}[2.1 维州的问题与机会]{.zh}
+
+::: {.en}
+**Victoria makes more burnable waste than its WtE cap can take, landfill gets dearer every year, and the licensed plants will need operators from about 2030.**
+
+**Waste outgrows the cap.** Victoria generated about 15.7 Mt of waste in 2024–25 and sent 5.3 Mt to landfill \[28\] \[Official\]. Of that landfill, 2.41 Mt was burnable household and commercial waste: food, garden, timber, paper, plastics and textiles \[28\]. Victoria's broader residual-waste measure was 5.7 Mt in 2024 and is projected to reach 8.9 Mt by 2053 \[29\]. Melbourne expects to run out of landfill space in the mid-2030s \[29\]. Thermal WtE is capped at 2.5 Mt/yr, raised from 2.0 Mt in July 2025 \[30\], and 2.35 Mt was licensed on 17 August 2025 \[1, 7\]. Even if every licensed plant is built, a large share of residual waste still needs another route \[Inferred\].
+
+**Landfill is priced to lose.** The metropolitan levy has risen from A\$65.90/t in 2019–20 to A\$177.19/t in 2026–27, and it applies in 35 council areas, including Geelong, Ballarat and Bendigo \[4, 31\]. Landfill operators add their own gate fee. We estimate about A\$95/t (range A\$70–130), using Geelong's published waste-charge breakdown \[5\] \[Assumption\]. That makes the metro landfill price WtE must beat about A\$272/t. A WtE plant pays no levy on the waste it burns, although levy applies to any ash it landfills.
+
+**The plants are licensed but not built.** None of the seven cap-licence projects has reached construction. Cleanaway withdrew its EPA application in September 2025 to re-file at 760,000 t/yr \[32\], and its takeover by EQT is due to complete by March 2027 \[33\]. Each owner will need a builder, a technology supplier and an operator (5.1).
+
+**Three streams sit outside the cap.**
+
+-   **Food:** 437,000 t went to landfill in 2024–25 (Table 4). Every household must have FOGO collection by 2030, and the standard four-bin system is due by 1 July 2027, although that deadline was not yet legislated in March 2026 \[34, 35\].
+-   **Biosolids:** 167,000 t went to landfill in 2024–25 (Table 4). Biosolids burnt on their own are exempt from the cap \[36\].
+-   **Meters:** water meters are replaced on a 10–15-year cycle \[27\].
+
+CDEG already runs all three businesses in Chengdu (1.2).
+
+**Table 1. Victoria's waste, levy and cap at a glance**
+
+::: tw
+  Measure                                 Value           Source
+  --------------------------------------- --------------- ----------------------
+  Waste generated, 2024–25                15.7 Mt         \[28\] \[Official\]
+  Burnable waste landfilled, 2024–25      2.41 Mt         \[28\] \[Official\]
+  Council kerbside garbage, 2023–24       1.11 Mt         \[37\] \[Official\]
+  Thermal WtE cap / licensed (Aug 2025)   2.5 / 2.35 Mt   \[1, 30\]
+  Metro landfill levy 2026–27             A\$177.19/t     \[4\] \[Official\]
+  Metro landfill price incl. gate fee     ≈ A\$272/t      \[5\] \[Assumption\]
+:::
+
+**So what for CDEG.** What Victoria lacks is operators, not waste or licences. CDEG cannot win a cap licence, but it can sell the operating skill licence holders will need, and start now in streams that need no cap.
+:::
+
+::: {.zh}
+- 维州2024–25年产生约1,570万吨废物，填埋530万吨，其中可燃生活及工商业垃圾241万吨。
+- 焚烧发电上限250万吨/年（2025年7月由200万吨上调），2025年8月已向7家发放235万吨许可。
+- 大都市填埋税由2019–20年的65.90澳元/吨升至2026–27年的177.19澳元/吨；加上约95澳元的填埋处理费，焚烧厂需击败的价格约272澳元/吨。
+- 厨余（43.7万吨）和生物固体（16.7万吨）仍在填埋，且不受焚烧配额限制。
+- **对集团的意义：** 维州缺少的是运营方，而不是垃圾或许可。
+
+::: {.placeholder}
+完整中文译文待补充（英文版为准）。
+:::
+:::
+
+## [2.2 China's WtE model vs Victoria]{.en}[2.2 中国焚烧模式与维州对比]{.zh}
+
+::: {.en}
+**China pays WtE plants through concessions and subsidised power; Victoria pays them through gate fees set against a landfill levy. CDEG can export how it runs plants, not how it is paid.**
+
+In China, local government makes the decisions.
+
+-   **Waste supply:** It grants a 25–30-year BOT or BOO concession, now generally up to 40 years \[20, 38\], and pays a tipping fee per tonne \[20, 39\].
+-   **Main revenue:** Electricity earns about two-thirds of revenue. The first 280 kWh per tonne earns a benchmark RMB 0.65/kWh, about RMB 182/t, and the rest earns the local coal-power price \[39, 40\]. The tipping fee, about RMB 100/t, provides the other third \[39\] \[Industry\]. Plants connected since September 2020 share this subsidy with local government, and the central share is being phased out \[41\].
+-   **Emissions:** Since 2020, automatic monitoring data can be used as evidence of violations \[42\], and plants publish their data on a public MEE platform \[23\].
+-   **Feedstock and siting:** CDEG's plants do no front-end sorting \[2\]. CDEG's rule of thumb is that a plant should generally be no more than about 50 km from the city it serves \[2\]. In Victoria that is a starting point, not a rule (3.1e).
+
+In Victoria, a private developer must win a cap licence, EPA development and operating licences, and planning approval \[43\] (2.3).
+
+-   **Waste supply:** Council consortia sign long supply contracts. For example, nine south-east metropolitan councils agreed a 25-year waste supply agreement in 2024 \[44\].
+-   **Main revenue:** Gate fees carry about 60% of revenue and power about 25% \[45\]. The full revenue stack and our plant model are in 3.4.
+-   **Emissions:** EPA expects best practice in siting, design and emission control \[46\]. The Maryvale approval ties mercury monitoring to EU best available techniques \[47\].
+-   **Feedstock and siting:** Only waste that cannot practicably be recycled may be burnt \[48\]. Sites are decided through planning and are strongly contested (4.4).
+
+![](../assets/img/christine-fig3.jpg\){fig-alt="WtE revenue per tonne in China and Australia"}
+
+*Figure 2. WtE revenue per tonne in China and Australia. Sources: \[39, 40, 45\].*
+
+**Why Chinese WtE operators are looking abroad.** These are industry and media estimates, and we have not checked them against company data \[Industry\].
+
+-   China's incineration capacity reached about 1.18 Mt/d at the end of 2025, against a 14th Five-Year Plan target of about 0.8 Mt/d \[49, 50\].
+-   Utilisation estimates differ: about 60% on one industry estimate \[39\], against an average load rate of 88.7% in the official count for 2024 \[51\].
+-   Power subsidies end after 82,500 hours or 15 years \[52\], and tipping fees have risen from about RMB 60–70/t to about RMB 100/t \[39\].
+-   Chinese firms had 79 overseas WtE projects by May 2025 \[39\] and joined 12 more in the first half of 2026 \[53\].
+
+CDEG's own Lahore (Pakistan) and Uzbekistan projects stopped for policy reasons \[2, 54\], which is why this report weighs policy risk heavily (6.7). The other difference is the waste itself. Victorian residual waste is drier and richer, so the question for CDEG is high-heating-value fit, not dewatering (3.3).
+:::
+
+::: {.zh}
+- **中国：** 地方政府授予25–40年BOT/BOO特许经营，电费约占收入三分之二，处理费约三分之一（约100元/吨）。
+- **维州：** 私营开发商须取得配额许可、EPA许可和规划批准；收入约60%来自处理费，约25%来自售电。
+- 维州剩余垃圾更干、热值更高，集团面临的是“高热值适配”问题，而非脱水问题。
+
+::: {.placeholder}
+完整中文译文待补充（英文版为准）。
+:::
+:::
+
+## [2.3 Rules a project must meet]{.en}[2.3 项目须满足的规则]{.zh}
+
+::: {.en}
+See [Part B: Approval pathways](../part-b/pathways.qmd).
+:::
+
+::: {.zh}
+见[第二部分：审批路径](../part-b/pathways.qmd)。
+:::
