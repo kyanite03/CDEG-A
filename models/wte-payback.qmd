@@ -14,11 +14,11 @@ include-in-header:
 <p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
 
 ::: {.en}
-A 450 kt/yr-class waste-to-energy plant in the Latrobe Valley, modelled year by year. Two things the plant cannot control drive the result: **how much burnable waste Victoria still sends to landfill** (the plant's feedstock) and **the landfill levy** (which sets what customers will pay to avoid landfill). Each has three scenarios built from the last 10 years of data. Pick a scenario, set the **gate fee** we charge per tonne, and read off payback, NPV and IRR. All money is nominal A\$, excluding GST. The [council price map](council-map.qmd) shows which councils this gate fee undercuts.
+A waste-to-energy plant in the Latrobe Valley, modelled year by year from 2027. The model chains four steps: **the licence** limits how many furnaces we can build; **our gate fee** decides how much waste councils and businesses will send us; **that waste**, spread across the furnaces, sets how full the plant runs; and **how full it runs** against fixed costs per furnace decides whether it pays back. Market share is a result, not an input. All money is nominal A\$, excluding GST. The results bar at the bottom of the screen updates as you move any control.
 :::
 
 ::: {.zh}
-拉筹伯谷（Latrobe Valley）一座约45万吨/年规模的垃圾焚烧发电厂，逐年测算。项目自身无法控制的两个因素决定结果：**维州仍送往填埋场的可燃垃圾量**（即原料）和**填埋税**（决定客户为避免填埋愿付的价格）。两者各有基于过去10年数据的三种情景。选择情景、设定每吨**处理费**，即可得到回收期、净现值和内部收益率。所有金额为名义澳元，不含GST。[市政价格地图](council-map.qmd)显示该处理费比哪些市政的填埋成本更低。
+拉筹伯谷（Latrobe Valley）垃圾焚烧发电厂，自2027年起逐年测算。模型由四步串联：**许可配额**决定可建焚烧炉数量；**我方处理费**决定市政和企业愿意送来的垃圾量；**垃圾量**在各焚烧炉间平均分配，决定工厂负荷率；**负荷率**与每台炉的固定成本共同决定能否回本。市场份额是结果而非输入。所有金额为名义澳元，不含GST。屏幕底部的结果栏会随任何参数变化而实时更新。
 :::
 
 ```{ojs}
@@ -31,7 +31,6 @@ d3 = window.d3
 html = window.htl.html
 // Label that switches with the language button (CSS shows one span)
 L = (en, zh) => html`<span class="en">${en}</span><span class="zh">${zh}</span>`
-// Current language, updated when the button is pressed (for chart text)
 lang = Generators.observe(notify => {
   const f = () => notify(document.documentElement.getAttribute("data-lang") || "en");
   f();
@@ -44,164 +43,304 @@ csv = path => fetch(path).then(r => r.text()).then(t => d3.csvParse(t, d3.autoTy
 wasteHist = csv("../data/vic_waste_history.csv")
 levyHist = csv("../data/levy_history.csv")
 scen = csv("../data/scenarios.csv")
-// Chart colours: fixed order, slot 1-3 of the site palette; history in ink
-C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a"})
+councils = csv("../data/councils.csv")
+C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890"})
 fmtM = v => (v / 1e6).toFixed(0)
+kt = v => (v / 1e3).toFixed(0)
+// Paragraph from our own trusted strings that contain <b> tags
+rich = s => { const p = document.createElement("p"); p.className = "kpi-note"; p.innerHTML = s; return p; }
+startYear = 2027
+opYears = 25
 ```
 
-## [1 · Feedstock: burnable waste Victoria sends to landfill]{.en}[1 · 原料：维州送往填埋的可燃垃圾]{.zh}
+## [1 · Market: licence and feedstock]{.en}[1 · 市场：许可配额与原料]{.zh}
 
 ::: {.en}
-Household (MSW) and commercial (C&I) waste landfilled in Victoria that is organics, paper, plastics or textiles: the part a furnace can burn. Rubble, metals, glass, ash and hazardous waste are excluded. It peaked in 2019–20 and has fallen about 1% a year since, mainly as councils roll out food-and-garden (FOGO) bins. Kerbside garbage collected by councils fell from 1.22 Mt to 1.11 Mt over the same period.
+Victoria caps waste-to-energy at **2.5 Mt a year**. In August 2025 seven licences took 2.35 Mt of it (Cleanaway 760 kt, HiQ 750 kt, Melbourne Water 450 kt, Recovered Energy 280 kt and three small ones), which leaves about 150 kt unallocated. A new entrant therefore needs either a partner that already holds a licence or a higher cap. The government said in February 2026 that it does not support an increase, so the cap slider is the "what if it is lifted" case.
 :::
 
 ::: {.zh}
-维州填埋的生活垃圾（MSW）和工商业垃圾（C&I）中的有机物、纸类、塑料和纺织品，即可焚烧部分；不含建筑废料、金属、玻璃、灰渣和危险废物。该数量在2019–20年度达到峰值，此后每年下降约1%，主要原因是各市政推广厨余与园林垃圾（FOGO）分类。同期市政路边垃圾收运量由122万吨降至111万吨。
+维州垃圾焚烧发电总量上限为**每年250万吨**。2025年8月已发放7张许可，共235万吨（Cleanaway 76万吨、HiQ 75万吨、Melbourne Water 45万吨、Recovered Energy 28万吨及三家小型企业），未分配余量约15万吨。因此新进入者要么与现有许可持有方合作，要么需要上限提高。政府于2026年2月表示不支持提高上限，故上限滑块代表“若上限提高”的情景。
 :::
 
+:::: {.columns .model-row}
+::: {.column width="40%"}
 ```{ojs}
 //| echo: false
+viewof capMt = Inputs.range([2.5, 5], {value: 2.5, step: 0.1, label: L("WtE cap (Mt/yr)", "焚烧上限（百万吨/年）")})
+viewof partner = Inputs.select(new Map([
+  [T("Melbourne Water (450 kt)", "Melbourne Water（45万吨）"), 450000],
+  [T("Recovered Energy (280 kt)", "Recovered Energy（28万吨）"), 280000],
+  [T("HiQ (750 kt)", "HiQ（75万吨）"), 750000],
+  [T("Cleanaway (760 kt)", "Cleanaway（76万吨）"), 760000],
+  [T("No partner", "无合作方"), 0]
+]), {value: 450000, label: L("Licence partner", "许可合作方")})
 viewof wasteScen = Inputs.radio(new Map([
-  [T("Base: −1%/yr (2020–25 trend)", "基准：每年−1%（2020–25趋势）"), "base"],
-  [T("Low: −3%/yr (Vic diversion targets met)", "低：每年−3%（达成维州减量目标）"), "low"],
-  [T("High: +1%/yr (2015–25 trend resumes)", "高：每年+1%（恢复2015–25趋势）"), "high"]
-]), {value: "base", label: L("Waste scenario", "垃圾量情景")})
+  [T("Base −1%/yr", "基准 每年−1%"), "base"], [T("Low −3%/yr", "低 每年−3%"), "low"], [T("High +1%/yr", "高 每年+1%"), "high"]
+]), {value: "base", label: L("Waste trend", "垃圾量趋势")})
 ```
+:::
 
+::: {.column width="60%"}
 ```{ojs}
 //| echo: false
 wasteRate = Object.fromEntries(scen.filter(d => d.driver === "waste").map(d => [d.scenario, d.annual_change]))
 wasteBaseYear = 2025
 wasteBase = wasteHist.find(d => d.year === wasteBaseYear).combustible_landfill_mt
+wasteScale = y => Math.pow(1 + wasteRate[wasteScen], y - wasteBaseYear)
 wasteProj = ["base", "low", "high"].flatMap(s => d3.range(wasteBaseYear, 2037).map(y => ({scenario: s, year: y, mt: wasteBase * Math.pow(1 + wasteRate[s], y - wasteBaseYear)})))
-needMt = capacity * availability / share / 1e6
 Plot.plot({
-  height: 300, marginLeft: 50, marginRight: 110,
+  height: 260, marginLeft: 44, marginRight: 70,
   x: {label: null, tickFormat: d => String(d), domain: [2016, 2036]},
-  y: {label: T("Mt per year", "百万吨/年"), grid: true, domain: [0, 3.6]},
+  y: {label: T("Mt per year", "百万吨/年"), grid: true, domain: [0, Math.max(3.2, capMt + 0.3)]},
   color: {domain: ["base", "low", "high"], range: [C.base, C.low, C.high]},
   marks: [
     Plot.ruleY([0]),
-    Plot.ruleY([needMt], {stroke: "#9a9890", strokeDasharray: "2,3"}),
-    Plot.text([needMt], {x: 2036, y: d => d, dy: 12, textAnchor: "end", fill: "#52514e", fontSize: 11,
-      text: () => T(`Plant needs ${needMt.toFixed(2)} Mt at ${(share*100).toFixed(0)}% share`, `按${(share*100).toFixed(0)}%份额需${needMt.toFixed(2)}百万吨`)}),
-    Plot.line(wasteProj, {x: "year", y: "mt", stroke: "scenario", strokeWidth: d => d.scenario === wasteScen ? 2.5 : 1.25, strokeDasharray: "5,3", strokeOpacity: d => d.scenario === wasteScen ? 1 : 0.6}),
+    Plot.ruleY([capMt], {stroke: C.grey, strokeDasharray: "4,3"}),
+    Plot.text([capMt], {x: 2016, y: d => d, dy: -7, textAnchor: "start", fill: "#52514e", fontSize: 11, text: () => T(`WtE cap ${capMt} Mt`, `焚烧上限${capMt}百万吨`)}),
+    Plot.line(wasteProj, {x: "year", y: "mt", stroke: "scenario", strokeWidth: d => d.scenario === wasteScen ? 2.5 : 1.2, strokeDasharray: "5,3", strokeOpacity: d => d.scenario === wasteScen ? 1 : 0.5}),
     Plot.line(wasteHist, {x: "year", y: "combustible_landfill_mt", stroke: C.hist, strokeWidth: 2}),
     Plot.dot(wasteHist, {x: "year", y: "combustible_landfill_mt", fill: C.hist, r: 2.5}),
     Plot.text(wasteProj.filter(d => d.year === 2036), {x: "year", y: "mt", text: d => ({base: T("Base", "基准"), low: T("Low", "低"), high: T("High", "高")})[d.scenario], dx: 6, textAnchor: "start", fill: "#52514e", fontSize: 11}),
-    Plot.tip(wasteHist, Plot.pointerX({x: "year", y: "combustible_landfill_mt", title: d => `${d.fy}\n${T("Burnable to landfill", "可燃垃圾填埋")}: ${d.combustible_landfill_mt} Mt\n${T("Council kerbside garbage", "市政路边垃圾")}: ${d.kerbside_garbage_mt ?? "–"} Mt`}))
+    Plot.tip(wasteHist, Plot.pointerX({x: "year", y: "combustible_landfill_mt", title: d => `${d.fy}\n${T("Burnable waste to landfill", "可燃垃圾填埋")}: ${d.combustible_landfill_mt} Mt\n${T("Council kerbside garbage", "市政路边垃圾")}: ${d.kerbside_garbage_mt ?? "–"} Mt`}))
   ]
 })
 ```
+<p class="figure-note"><span class="en">Burnable household and commercial waste landfilled in Victoria (organics, paper, plastics, textiles), 2015–16 to 2024–25, with projections. Even with a higher cap, only about 2.4 Mt a year exists to burn, and every licence holder competes for it. Sources: DCCEEW NWRR 2026; EPA Victoria.</span><span class="zh">维州填埋的可燃生活及工商业垃圾（有机物、纸、塑料、纺织品），2015–16至2024–25年度及预测。即使上限提高，可焚烧量也只有约每年240万吨，且所有许可持有方都在争夺这些原料。来源：国家废物数据库2026；维州环保局。</span></p>
+:::
+::::
 
-<p class="figure-note"><span class="en">Solid line: actual, financial years ending 2016–2025. Dashed: projections to 2036. Source: DCCEEW National Waste and Resource Recovery Database 2026 (Victoria, headline scope); EPA Victoria local government waste data 2025.03.</span><span class="zh">实线：实际值（2016–2025财年）；虚线：至2036年预测。来源：澳大利亚气候变化、能源、环境与水资源部《国家废物与资源回收数据库2026》（维州）；维州环保局市政垃圾数据2025.03。</span></p>
-
-## [2 · Price: the landfill levy customers avoid]{.en}[2 · 价格：客户可避免的填埋税]{.zh}
+## [2 · Price: who will send us their waste]{.en}[2 · 价格：谁会把垃圾交给我们]{.zh}
 
 ::: {.en}
-Every tonne a council or business sends to us instead of landfill avoids the state levy, which Victoria does not charge on waste-to-energy. Victoria's metro levy has nearly tripled since 2020 (A\$65.90 → A\$177.19/t) and now sits close to NSW's metro rate (A\$180.20/t). Rural Victorian councils pay half (A\$88.42/t), and southern NSW councils outside the levy area pay none.
+A customer only switches if our gate fee **plus transport** to the Latrobe Valley is cheaper than its landfill bill (gate fee + levy) by a margin worth the hassle of re-tendering a contract. There is no published figure for this threshold; 10% is a reasonable default, since council waste tenders are rarely re-run for savings smaller than that. Councils are modelled one by one (see the [council price map](council-map.qmd)). Commercial waste is modelled as Melbourne-based customers whose landfill prices vary ±25% around the metro price.
 :::
 
 ::: {.zh}
-客户每送来一吨垃圾而非填埋，即可免缴州填埋税（维州不对垃圾焚烧发电征收此税）。维州大都市区填埋税自2020年以来增长近两倍（65.90→177.19澳元/吨），已接近新州大都市区税率（180.20澳元/吨）。维州乡村市政税率为一半（88.42澳元/吨），新州南部征税区以外的市政则无需缴纳。
+只有当我方处理费**加上运至拉筹伯谷的运费**比客户的填埋成本（处理费+填埋税）低出足够幅度、值得重新招标时，客户才会转换。该门槛没有公开数据；默认取10%较为合理，因为市政通常不会为更小的节省重新招标。市政逐一测算（见[市政价格地图](council-map.qmd)）；工商业垃圾按墨尔本客户计算，其填埋价格在大都市价格±25%范围内分布。
 :::
 
+:::: {.columns .model-row}
+::: {.column width="40%"}
 ```{ojs}
 //| echo: false
+viewof gateFee = Inputs.range([60, 260], {value: 150, step: 5, label: L("Our gate fee, 2027 (A$/t)", "我方处理费，2027（澳元/吨）")})
+viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving needed to switch", "转换所需节省比例")})
+viewof passThrough = Inputs.range([0, 1], {value: 0.5, step: 0.05, label: L("Levy rises passed into our fee", "填埋税涨幅计入处理费比例")})
 viewof levyScen = Inputs.radio(new Map([
-  [T("Base: +5%/yr (CPI plus real increases)", "基准：每年+5%（通胀加实际上调）"), "base"],
-  [T("Low: +2.5%/yr (CPI only, like NSW)", "低：每年+2.5%（仅随通胀，类似新州）"), "low"],
-  [T("High: +10%/yr (2021–26 pace continues)", "高：每年+10%（延续2021–26增速）"), "high"]
-]), {value: "base", label: L("Levy scenario", "填埋税情景")})
+  [T("Base +5%/yr", "基准 每年+5%"), "base"], [T("Low +2.5%/yr", "低 每年+2.5%"), "low"], [T("High +10%/yr", "高 每年+10%"), "high"]
+]), {value: "base", label: L("Levy trend", "填埋税趋势")})
+viewof lfGate = Inputs.range([40, 160], {value: 95, step: 5, label: L("Metro landfill gate fee excl. levy", "大都市填埋处理费（不含税）")})
 ```
+:::
 
+::: {.column width="60%"}
 ```{ojs}
 //| echo: false
-levyRate = Object.fromEntries(scen.filter(d => d.driver === "levy").map(d => [d.scenario, d.annual_change]))
-levy0 = levyHist.find(d => d.year === 2027 && d.zone === "VIC_METRO").levy
-levyAt = (s, y) => y <= 2027 ? (levyHist.find(d => d.year === y && d.zone === "VIC_METRO")?.levy ?? levy0) : levy0 * Math.pow(1 + levyRate[s], y - 2027)
-levyProj = ["base", "low", "high"].flatMap(s => d3.range(2027, 2037).map(y => ({scenario: s, year: y, levy: levyAt(s, y)})))
-levyVic = levyHist.filter(d => d.zone === "VIC_METRO")
-levyOther = levyHist.filter(d => ["NSW_MLA", "SA_METRO", "VIC_RURAL"].includes(d.zone))
-zoneName = ({NSW_MLA: T("NSW metro", "新州大都市"), SA_METRO: T("SA metro", "南澳大都市"), VIC_RURAL: T("Vic rural", "维州乡村")})
+supplyCurve = d3.range(60, 265, 5).flatMap(gf => {
+  const s = supplyAt(gf, cod);
+  return [{gf, type: "council", t: s.kerb}, {gf, type: "ci", t: s.ci}];
+})
 Plot.plot({
-  height: 300, marginLeft: 50, marginRight: 110,
-  x: {label: null, tickFormat: d => String(d), domain: [2016, 2036]},
-  y: {label: T("A$ per tonne", "澳元/吨"), grid: true},
-  color: {domain: ["base", "low", "high"], range: [C.base, C.low, C.high]},
+  height: 280, marginLeft: 50,
+  x: {label: T(`Gate fee, 2027 A$/t (supply shown for ${cod})`, `处理费，2027年澳元/吨（${cod}年供应量）`)},
+  y: {label: T("Waste customers would send (kt/yr)", "客户愿送垃圾量（千吨/年）"), grid: true, transform: d => d / 1e3},
+  color: {legend: true, domain: ["council", "ci"], range: [C.base, "#86b6ef"], tickFormat: d => d === "council" ? T("Council kerbside", "市政路边垃圾") : T("Commercial (C&I)", "工商业垃圾")},
   marks: [
-    Plot.ruleY([0]),
-    Plot.line(levyOther, {x: "year", y: "levy", z: "zone", stroke: "#b5b3ab", strokeWidth: 1.25}),
-    Plot.text(levyOther.filter(d => d.year === 2027), {x: "year", y: "levy", text: d => zoneName[d.zone], dx: 6, textAnchor: "start", fill: "#77756e", fontSize: 10}),
-    Plot.line(levyProj, {x: "year", y: "levy", stroke: "scenario", strokeWidth: d => d.scenario === levyScen ? 2.5 : 1.25, strokeDasharray: "5,3", strokeOpacity: d => d.scenario === levyScen ? 1 : 0.6}),
-    Plot.line(levyVic, {x: "year", y: "levy", stroke: C.hist, strokeWidth: 2}),
-    Plot.dot(levyVic, {x: "year", y: "levy", fill: d => d.status.startsWith("official") || d.status.startsWith("VAGO") ? C.hist : "white", stroke: C.hist, r: 2.5}),
-    Plot.text(levyProj.filter(d => d.year === 2036), {x: "year", y: "levy", text: d => ({base: T("Base", "基准"), low: T("Low", "低"), high: T("High", "高")})[d.scenario], dx: 6, textAnchor: "start", fill: "#52514e", fontSize: 11}),
-    Plot.tip(levyVic, Plot.pointerX({x: "year", y: "levy", title: d => `FY${d.year - 1}–${String(d.year).slice(2)}\n${T("Vic metro levy", "维州大都市填埋税")}: A$${d.levy.toFixed(2)}/t\n(${d.status})`}))
+    Plot.areaY(supplyCurve, {x: "gf", y: "t", fill: "type", curve: "step-after", fillOpacity: 0.9}),
+    Plot.ruleY([capacity], {stroke: "#0b0b0b", strokeWidth: 1.5}),
+    Plot.text([capacity], {x: 260, y: d => d, dy: -7, textAnchor: "end", fontSize: 11, fill: "#0b0b0b", text: () => T(`${furnaces} furnace${furnaces > 1 ? "s" : ""}: ${kt(capacity)} kt`, `${furnaces}台炉：${kt(capacity)}千吨`)}),
+    Plot.ruleY([licence], {stroke: C.low, strokeDasharray: "4,3", strokeWidth: 1.5}),
+    Plot.text([licence], {x: 62, y: d => d, dy: -7, textAnchor: "start", fontSize: 11, fill: "#b4471b", text: () => T(`Licence ${kt(licence)} kt`, `许可${kt(licence)}千吨`)}),
+    Plot.ruleX([gateFee], {stroke: "#0b0b0b", strokeDasharray: "2,2"}),
+    Plot.dot([{gf: gateFee, t: supplyAt(gateFee, cod).total}], {x: "gf", y: "t", r: 5, fill: "#0b0b0b", stroke: "white", strokeWidth: 2}),
+    Plot.tip(supplyCurve.filter(d => d.type === "council"), Plot.pointerX({x: "gf", y: d => supplyAt(d.gf, cod).total, title: d => { const s = supplyAt(d.gf, cod); return `${T("Gate fee", "处理费")}: A$${d.gf}/t\n${T("Councils", "市政")}: ${kt(s.kerb)} kt (${s.nCouncils})\n${T("Commercial", "工商业")}: ${kt(s.ci)} kt\n${T("Total", "合计")}: ${kt(s.total)} kt`; }}))
+  ]
+})
+```
+<p class="figure-note"><span class="en">Raise the fee and customers drop away. The plant burns the lowest of three lines: what customers send (shaded), furnace capacity (black) and the licence (orange).</span><span class="zh">处理费越高，客户越少。工厂实际处理量取三者最小值：客户愿送量（阴影）、焚烧炉产能（黑线）和许可配额（橙线）。</span></p>
+:::
+::::
+
+## [3 · Plant: furnaces and running costs]{.en}[3 · 工厂：焚烧炉与运营成本]{.zh}
+
+:::: {.columns .model-row}
+::: {.column width="40%"}
+```{ojs}
+//| echo: false
+viewof tpd = Inputs.range([300, 750], {value: 500, step: 50, label: L("Furnace size (t/day)", "单炉规模（吨/日）")})
+viewof availability = Inputs.range([0.75, 0.95], {value: 0.9, step: 0.01, label: L("Availability", "可用率")})
+viewof furnaces = Inputs.range([1, maxFurnaces], {value: Math.min(this?.value ?? 3, maxFurnaces), step: 1, label: L(`Furnaces (max ${maxFurnaces} under licence)`, `焚烧炉数量（许可下最多${maxFurnaces}台）`)})
+viewof capexSite = Inputs.range([50, 400], {value: 200, step: 10, label: L("Shared site capex (A$m)", "公共设施投资（百万澳元）")})
+viewof capexFurnace = Inputs.range([100, 350], {value: 210, step: 10, label: L("Capex per furnace (A$m)", "单炉投资（百万澳元）")})
+viewof fixedFurnace = Inputs.range([2, 12], {value: 5, step: 0.5, label: L("Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
+viewof fixedSite = Inputs.range([0, 10], {value: 3, step: 0.5, label: L("Site overhead (A$m/yr)", "厂区管理费用（百万澳元/年）")})
+viewof varOpex = Inputs.range([10, 60], {value: 30, step: 5, label: L("Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
+viewof sortCost = Inputs.range([0, 40], {value: 15, step: 1, label: L("Pre-sorting cost (A$/t received)", "预分拣成本（澳元/吨）")})
+```
+:::
+
+::: {.column width="60%"}
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 280, marginLeft: 50,
+  x: {label: null, tickFormat: d => String(d)},
+  y: {label: T("kt per year", "千吨/年"), grid: true, transform: d => d / 1e3, domain: [0, Math.min(Math.max(capacity, licence) * 1.8, Math.max(capacity, licence, d3.max(ops, d => d.supply)) * 1.1) / 1e3]},
+  clip: true,
+  marks: [
+    Plot.areaY(ops, {x: "year", y: "tonnes", fill: C.base, fillOpacity: 0.25}),
+    Plot.line(ops, {x: "year", y: "supply", stroke: "#86b6ef", strokeWidth: 2}),
+    Plot.line(ops, {x: "year", y: () => capacity, stroke: "#0b0b0b", strokeWidth: 1.5}),
+    Plot.line(ops, {x: "year", y: () => licence, stroke: C.low, strokeDasharray: "4,3", strokeWidth: 1.5}),
+    Plot.line(ops, {x: "year", y: "tonnes", stroke: C.base, strokeWidth: 2.5}),
+    Plot.text([ops[ops.length - 1]], {x: "year", y: d => Math.min(d.supply, Math.max(capacity, licence) * 1.75), text: () => T("Customers would send", "客户愿送量"), dy: -8, textAnchor: "end", fontSize: 11, fill: "#52514e"}),
+    Plot.text([ops[0]], {x: "year", y: () => capacity, text: () => T("Furnace capacity", "焚烧炉产能"), dy: 10, dx: 4, textAnchor: "start", fontSize: 11, fill: "#0b0b0b"}),
+    Plot.text([ops[0]], {x: "year", y: () => licence, text: () => T("Licence", "许可配额"), dy: -7, dx: 4, textAnchor: "start", fontSize: 11, fill: "#b4471b"}),
+    Plot.tip(ops, Plot.pointerX({x: "year", y: "tonnes", title: d => `${d.year}\n${T("Burned", "处理量")}: ${kt(d.tonnes)} kt (${(d.util*100).toFixed(0)}% ${T("of capacity", "负荷率")})\n${T("Per furnace", "每台炉")}: ${kt(d.tonnes / furnaces)} kt\n${T("Customers would send", "客户愿送")}: ${kt(d.supply)} kt\n${T("Limited by", "限制因素")}: ${limitName[d.limit]}\n${T("Gate fee", "处理费")}: A$${d.fee.toFixed(0)}/t`}))
   ]
 })
 ```
 
-<p class="figure-note"><span class="en">Dark line: Victorian metropolitan municipal levy, financial years ending 2016–2027 (hollow dots = interpolated years). Grey: NSW metro, SA metro and Vic rural for comparison. Sources: EPA Victoria; VLGA (2020 deferral schedule); VAGO (2018); NSW EPA; SA EPA.</span><span class="zh">深色线：维州大都市生活垃圾填埋税（2016–2027财年，空心点为插值年份）。灰线：新州、南澳大都市及维州乡村税率对比。来源：维州环保局、VLGA、维州审计署、新州环保局、南澳环保局。</span></p>
+```{ojs}
+//| echo: false
+rich(T(
+  `${furnaces} × ${tpd} t/day furnaces = ${kt(capacity)} kt/yr. In ${cod} the plant receives ${kt(first.tonnes)} kt, about ${kt(first.tonnes / furnaces)} kt per furnace, so it runs at <b>${(first.util*100).toFixed(0)}% of capacity</b> (limited by ${limitName[first.limit]}). Fixed costs are A$${(fixedTotal/1e6).toFixed(0)}m/yr whether the furnaces are full or not: <b>A$${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}/t</b> at this load. About ${first.stations} transfer station${first.stations === 1 ? "" : "s"} (150 kt each) would be needed for council waste from more than 100 km away.`,
+  `${furnaces}台 × ${tpd}吨/日 = ${kt(capacity)}千吨/年。${cod}年接收${kt(first.tonnes)}千吨，每台约${kt(first.tonnes / furnaces)}千吨，<b>负荷率${(first.util*100).toFixed(0)}%</b>（受${limitName[first.limit]}限制）。无论是否满负荷，固定成本均为每年${(fixedTotal/1e6).toFixed(0)}百万澳元，在此负荷下为<b>每吨${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}澳元</b>。100公里以外的市政垃圾约需${first.stations}座转运站（每座15万吨）。`))
+```
+:::
+::::
 
-## [3 · The project]{.en}[3 · 项目测算]{.zh}
+## [4 · Finance]{.en}[4 · 财务]{.zh}
+
+:::: {.columns .model-row}
+::: {.column width="40%"}
+```{ojs}
+//| echo: false
+viewof buildYears = Inputs.range([2, 4], {value: 3, step: 1, label: L("Construction years", "建设期（年）")})
+viewof powerKwh = Inputs.range([400, 800], {value: 600, step: 10, label: L("Power exported (kWh/t)", "上网电量（千瓦时/吨）")})
+viewof powerPrice = Inputs.range([30, 150], {value: 80, step: 5, label: L("Power price, 2027 (A$/MWh)", "电价，2027（澳元/兆瓦时）")})
+viewof ashShare = Inputs.range([0, 0.25], {value: 0.15, step: 0.01, label: L("Ash landfilled (% of input)", "灰渣填埋比例")})
+viewof inflation = Inputs.range([0, 0.06], {value: 0.025, step: 0.005, label: L("Inflation", "通胀率")})
+viewof discount = Inputs.range([0.04, 0.14], {value: 0.08, step: 0.005, label: L("Discount rate (nominal)", "折现率（名义）")})
+viewof taxRate = Inputs.range([0, 0.3], {value: 0.3, step: 0.05, label: L("Company tax", "企业所得税率")})
+```
+:::
+
+::: {.column width="60%"}
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 280, marginLeft: 56,
+  x: {label: null, tickFormat: d => String(d)},
+  y: {label: T("Cumulative cash (A$m)", "累计现金流（百万澳元）"), grid: true, transform: d => d / 1e6},
+  color: {legend: true, domain: [T("Nominal", "名义"), T("Discounted", "折现")], range: [C.base, C.low]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.ruleX([cod], {stroke: C.grey, strokeDasharray: "2,3"}),
+    Plot.line(rows, {x: "year", y: "cumulative", stroke: () => T("Nominal", "名义"), strokeWidth: 2}),
+    Plot.line(rows, {x: "year", y: "discounted", stroke: () => T("Discounted", "折现"), strokeWidth: 2}),
+    Plot.tip(rows, Plot.pointerX({x: "year", y: "cumulative", title: d => `${d.year}${d.building ? T(" (construction)", "（建设期）") : ""}\n${T("Cash this year", "当年现金流")}: A$${(d.cash/1e6).toFixed(1)}m\n${T("Cumulative", "累计")}: A$${(d.cumulative/1e6).toFixed(0)}m${d.building ? "" : `\n${T("Revenue", "收入")}: A$${(d.revenue/1e6).toFixed(0)}m\n${T("Fixed costs", "固定成本")}: A$${(d.fixed/1e6).toFixed(0)}m\n${T("Variable costs", "变动成本")}: A$${(d.variable/1e6).toFixed(0)}m`}`}))
+  ]
+})
+```
 
 ```{ojs}
 //| echo: false
-viewof gateFee = Inputs.range([60, 260], {value: 150, step: 5, label: L("Gate fee we charge, 2027 (A$/t)", "我方处理费，2027年（澳元/吨）")})
-viewof passThrough = Inputs.range([0, 1], {value: 0.5, step: 0.05, label: L("Share of real levy rises passed into gate fee", "填埋税实际涨幅计入处理费的比例")})
-viewof share = Inputs.range([0.05, 0.4], {value: 0.2, step: 0.01, label: L("Share of Vic burnable residual we win", "获得维州可燃余量的份额")})
-viewof capacity = Inputs.range([150000, 800000], {value: 450000, step: 10000, label: L("Capacity (t/yr)", "处理能力（吨/年）")})
-viewof availability = Inputs.range([0.7, 0.95], {value: 0.9, step: 0.01, label: L("Availability", "可用率")})
-viewof capexPerT = Inputs.range([1000, 2600], {value: 1850, step: 50, label: L("Capex per t/yr of capacity (A$)", "单位投资（澳元/年吨）")})
-viewof buildYears = Inputs.range([2, 4], {value: 3, step: 1, label: L("Construction years (from 2027)", "建设期（自2027年）")})
-viewof powerKwh = Inputs.range([400, 800], {value: 600, step: 10, label: L("Power exported (kWh/t)", "上网电量（千瓦时/吨）")})
-viewof powerPrice = Inputs.range([30, 150], {value: 80, step: 5, label: L("Power price, 2027 (A$/MWh)", "电价，2027年（澳元/兆瓦时）")})
-viewof opexPerT = Inputs.range([30, 120], {value: 70, step: 5, label: L("Opex, 2027 (A$/t)", "运营成本，2027年（澳元/吨）")})
-viewof ashShare = Inputs.range([0, 0.25], {value: 0.15, step: 0.01, label: L("Ash and residue landfilled (% of input)", "灰渣填埋比例（占进料）")})
-viewof lfGate = Inputs.range([40, 160], {value: 95, step: 5, label: L("Landfill gate fee excl. levy, 2027 (A$/t)", "填埋场处理费（不含税），2027年（澳元/吨）")})
-viewof inflation = Inputs.range([0, 0.06], {value: 0.025, step: 0.005, label: L("Inflation", "通胀率")})
-viewof discount = Inputs.range([0.04, 0.14], {value: 0.08, step: 0.005, label: L("Discount rate (nominal)", "折现率（名义）")})
-viewof taxRate = Inputs.range([0, 0.3], {value: 0.3, step: 0.05, label: L("Company tax rate", "企业所得税率")})
+{
+  const sens = d3.range(60, 265, 5).map(gf => ({gf, npv: npvOf(model(gf))}));
+  const best = d3.greatest(sens, d => d.npv);
+  return html`<div>${Plot.plot({
+    height: 220, marginLeft: 56,
+    x: {label: T("Gate fee, 2027 (A$/t)", "处理费，2027（澳元/吨）")},
+    y: {label: T("NPV (A$m)", "净现值（百万澳元）"), grid: true, transform: d => d / 1e6},
+    marks: [
+      Plot.ruleY([0]),
+      Plot.line(sens, {x: "gf", y: "npv", stroke: C.base, strokeWidth: 2}),
+      Plot.dot([{gf: gateFee, npv}], {x: "gf", y: "npv", r: 5, fill: C.base, stroke: "white", strokeWidth: 2}),
+      Plot.tip(sens, Plot.pointerX({x: "gf", y: "npv", title: d => `${T("Gate fee", "处理费")}: A$${d.gf}/t\nNPV: A$${(d.npv/1e6).toFixed(0)}m`}))
+    ]
+  })}${rich(T(
+    `Too cheap and every tonne loses money; too dear and customers leave the furnaces idle. With ${furnaces} furnace${furnaces > 1 ? "s" : ""}, NPV peaks at a gate fee of about <b>A$${best.gf}/t</b> (A$${fmtM(best.npv)}m).`,
+    `太便宜则每吨亏损，太贵则客户流失、炉子闲置。${furnaces}台炉时，处理费约<b>${best.gf}澳元/吨</b>时净现值最高（${fmtM(best.npv)}百万澳元）。`))}</div>`
+}
 ```
+:::
+::::
 
 ```{ojs}
 //| echo: false
 //| output: false
-startYear = 2027
-opYears = 25
-// Year-by-year cash flow for a given gate fee (used for the main result and the sensitivity curve)
+// ---------- Model ----------
+levyRate = Object.fromEntries(scen.filter(d => d.driver === "levy").map(d => [d.scenario, d.annual_change]))
+levy2027 = Object.fromEntries(levyHist.filter(d => d.year === 2027).map(d => [d.zone, d.levy]))
+levy0 = levy2027.VIC_METRO
+levyAt = (s, y) => levy0 * Math.pow(1 + levyRate[s], Math.max(0, y - startYear))
+allocated = 2350000
+licence = Math.max(0, capMt * 1e6 - allocated) + partner
+perFurnace = tpd * 365 * availability
+maxFurnaces = Math.max(1, Math.min(5, Math.floor(licence / perFurnace + 0.15)))
+capacity = furnaces * perFurnace
+cod = startYear + buildYears
+capex = (capexSite + capexFurnace * furnaces) * 1e6
+fixedTotal = (fixedFurnace * furnaces + fixedSite) * 1e6
+limitName = ({supply: T("customers at this price", "此价格下的客源"), capacity: T("furnace capacity", "焚烧炉产能"), licence: T("the licence", "许可配额")})
+// Landfill gate fees excl. levy by zone (2027), matching the council map defaults
+gateLF = ({VIC_METRO: lfGate, VIC_RURAL: lfGate + 15, NSW_NOLEVY: lfGate + 35, SA_NONMETRO: lfGate + 15, ACT: 111})
+// Transport to Morwell, 2027 A$/t (cheapest of road and rail), same as the map defaults
+councilDelivery = new Map(councils.map(c => {
+  const road = 12 + 0.18 * Math.max(0, c.road_km - 30);
+  const rail = c.rail_km ? 25 + 0.07 * c.rail_km : Infinity;
+  return [c.name, Math.min(road, rail)];
+}))
+ciPool2025 = (wasteHist.find(d => d.year === 2025).combustible_landfill_mt - 0.995) * 1e6
+// Waste customers would send at gate fee gf (2027 A$) in year y
+supplyAt = (gf, y) => {
+  const g = Math.pow(1 + inflation, y - startYear), lev = levyAt(levyScen, y), sc = wasteScale(y);
+  const fee = gf * g + passThrough * (lev - levy0 * g);
+  const levyZ = {VIC_METRO: lev, VIC_RURAL: levy2027.VIC_RURAL * lev / levy0, NSW_NOLEVY: 0, SA_NONMETRO: levy2027.SA_NONMETRO * g, ACT: 0};
+  let kerb = 0, n = 0, far = 0;
+  for (const c of councils) {
+    const landfill = gateLF[c.zone] * g + levyZ[c.zone];
+    if (fee + councilDelivery.get(c.name) * g <= landfill * (1 - threshold)) { kerb += c.garbage_t * sc; n++; if (c.road_km > 100) far += c.garbage_t * sc; }
+  }
+  const Lm = lfGate * g + lev, offer = (fee + 34 * g) / (1 - threshold);
+  const ciFrac = Math.max(0, Math.min(1, (1.25 * Lm - offer) / (0.5 * Lm)));
+  const ci = ciPool2025 * sc * ciFrac;
+  return {kerb, ci, total: kerb + ci, nCouncils: n, far, fee, landfill: Lm};
+}
 model = (gf) => {
-  const capex = capacity * capexPerT, cod = startYear + buildYears, dep = capex / opYears;
+  const dep = capex / opYears;
   let cum = 0, dcum = 0, lossCF = 0;
   const out = [];
   for (let y = startYear; y < cod + opYears; y++) {
     const t = y - startYear, g = Math.pow(1 + inflation, t), df = Math.pow(1 + discount, -(t + 0.5));
-    const lev = levyAt(levyScen, y);
-    const row = {year: y, building: y < cod, levy: lev};
-    if (y < cod) {
-      row.capex = capex / buildYears; row.revenue = 0; row.opex = 0; row.tax = 0; row.tonnes = 0;
-      row.cash = -row.capex;
+    const row = {year: y, building: y < cod};
+    if (row.building) {
+      Object.assign(row, {cash: -capex / buildYears, revenue: 0, fixed: 0, variable: 0});
     } else {
-      const feed = wasteBase * 1e6 * Math.pow(1 + wasteRate[wasteScen], y - wasteBaseYear);
-      const tonnes = Math.min(capacity * availability, share * feed);
-      const fee = gf * g + passThrough * (lev - levy0 * g);
-      const landfill = lfGate * g + lev;
-      const rev = tonnes * fee + tonnes * powerKwh / 1000 * powerPrice * g;
-      const opex = tonnes * opexPerT * g + tonnes * ashShare * landfill;
-      const ebitda = rev - opex;
+      const s = supplyAt(gf, y);
+      const tonnes = Math.min(s.total, capacity, licence);
+      const limit = tonnes === s.total ? "supply" : tonnes === capacity ? "capacity" : "licence";
+      const revenue = tonnes * s.fee + tonnes * powerKwh / 1000 * powerPrice * g;
+      const fixed = fixedTotal * g;
+      const variable = tonnes * (varOpex + sortCost) * g + tonnes * ashShare * s.landfill;
+      const ebitda = revenue - fixed - variable;
       let taxable = ebitda - dep - lossCF; lossCF = taxable < 0 ? -taxable : 0;
       const tax = Math.max(0, taxable) * taxRate;
-      Object.assign(row, {capex: 0, tonnes, fee, landfill, revenue: rev, opex, tax, ebitda, cash: ebitda - tax});
+      Object.assign(row, {tonnes, supply: s.total, util: tonnes / capacity, limit, fee: s.fee, revenue, fixed, variable,
+        stations: Math.ceil(Math.min(s.far, tonnes) / 150000), cash: ebitda - tax});
     }
     cum += row.cash; dcum += row.cash * df;
-    row.cumulative = cum; row.discounted = dcum; row.df = df;
+    Object.assign(row, {cumulative: cum, discounted: dcum, df});
     out.push(row);
   }
   return out;
 }
-rows = model(gateFee)
 npvOf = r => r.reduce((s, d) => s + d.cash * d.df, 0)
+rows = model(gateFee)
+ops = rows.filter(d => !d.building)
+first = ops[0]
 npv = npvOf(rows)
 irr = {
   const f = r => rows.reduce((s, d) => s + d.cash * Math.pow(1 + r, -(d.year - startYear + 0.5)), 0);
@@ -210,91 +349,43 @@ irr = {
   for (let i = 0; i < 100; i++) { const m = (lo + hi) / 2; (f(lo) * f(m) <= 0) ? hi = m : lo = m; }
   return (lo + hi) / 2;
 }
-cod = startYear + buildYears
-paybackYear = rows.find(d => !d.building && d.cumulative >= 0)?.year
-dPaybackYear = rows.find(d => !d.building && d.discounted >= 0)?.year
-first = rows.find(d => !d.building)
-saving2027 = lfGate + levy0 - gateFee
+paybackYear = ops.find(d => d.cumulative >= 0)?.year
+marketMt = Math.min(capMt, wasteBase * wasteScale(cod))
 ```
 
 ```{ojs}
 //| echo: false
-tile = (label, value, sub) => html`<div class="kpi"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
-html`<div class="kpi-row">
-  ${tile(T("Capex", "总投资"), `A$${fmtM(capacity * capexPerT)}m`, T(`${buildYears} years from 2027`, `${buildYears}年建设期，自2027年`))}
-  ${tile(T("Payback", "回收期"), paybackYear ? `${paybackYear - cod + 1} ${T("yrs", "年")}` : "—", paybackYear ? T(`from start of operations (${paybackYear})`, `自投产起（${paybackYear}年）`) : T("not within 25 years", "25年内未回本"))}
-  ${tile(T("NPV", "净现值"), `A$${fmtM(npv)}m`, T(`at ${(discount*100).toFixed(1)}%, to 2027`, `折现率${(discount*100).toFixed(1)}%，折至2027年`))}
-  ${tile(T("IRR", "内部收益率"), irr === null ? "—" : `${(irr*100).toFixed(1)}%`, irr === null ? "" : (irr >= discount ? T("above the discount rate", "高于折现率") : T("below the discount rate", "低于折现率")))}
-  ${tile(T("Discounted payback", "折现回收期"), dPaybackYear ? `${dPaybackYear - cod + 1} ${T("yrs", "年")}` : "—", dPaybackYear ? `(${dPaybackYear})` : T("not within 25 years", "25年内未回本"))}
-</div>
-<p class="kpi-note">${T(
-  `In ${cod} the plant burns ${(first.tonnes/1e3).toFixed(0)} kt (${(first.tonnes/capacity/availability*100).toFixed(0)}% of available capacity). A metro customer saves A$${saving2027.toFixed(0)}/t versus landfill at today's prices (landfill A$${(lfGate+levy0).toFixed(0)}/t incl. levy).`,
-  `${cod}年处理量${(first.tonnes/1e3).toFixed(0)}千吨（可用产能的${(first.tonnes/capacity/availability*100).toFixed(0)}%）。按当前价格，大都市客户每吨比填埋节省${saving2027.toFixed(0)}澳元（填埋含税${(lfGate+levy0).toFixed(0)}澳元/吨）。`)}</p>`
-```
-
-```{ojs}
-//| echo: false
-Plot.plot({
-  height: 320, marginLeft: 60,
-  x: {label: null, tickFormat: d => String(d)},
-  y: {label: T("Cumulative cash (A$m)", "累计现金流（百万澳元）"), grid: true, transform: d => d / 1e6},
-  color: {legend: true, domain: [T("Nominal", "名义"), T("Discounted", "折现")], range: [C.base, C.low]},
-  marks: [
-    Plot.ruleY([0]),
-    Plot.ruleX([cod], {stroke: "#9a9890", strokeDasharray: "2,3"}),
-    Plot.text([cod], {x: d => d, frameAnchor: "top", dx: 4, textAnchor: "start", text: () => T("Operations start", "投产"), fill: "#52514e", fontSize: 11}),
-    Plot.line(rows, {x: "year", y: "cumulative", stroke: () => T("Nominal", "名义"), strokeWidth: 2}),
-    Plot.line(rows, {x: "year", y: "discounted", stroke: () => T("Discounted", "折现"), strokeWidth: 2}),
-    Plot.tip(rows, Plot.pointerX({x: "year", y: "cumulative", title: d => `${d.year}${d.building ? T(" (construction)", "（建设期）") : ""}\n${T("Cash this year", "当年现金流")}: A$${(d.cash/1e6).toFixed(1)}m\n${T("Cumulative", "累计")}: A$${(d.cumulative/1e6).toFixed(0)}m\n${T("Discounted", "折现累计")}: A$${(d.discounted/1e6).toFixed(0)}m${d.building ? "" : `\n${T("Tonnes", "处理量")}: ${(d.tonnes/1e3).toFixed(0)} kt\n${T("Gate fee", "处理费")}: A$${d.fee.toFixed(0)}/t\n${T("Landfill incl. levy", "填埋含税")}: A$${d.landfill.toFixed(0)}/t`}`}))
-  ]
-})
-```
-
-### [How NPV changes with the gate fee]{.en}[净现值随处理费的变化]{.zh}
-
-```{ojs}
-//| echo: false
-sens = d3.range(60, 265, 5).map(gf => ({gf, npv: npvOf(model(gf))}))
-breakEven = sens.find(d => d.npv >= 0)?.gf
-Plot.plot({
-  height: 260, marginLeft: 60,
-  x: {label: T("Gate fee, 2027 (A$/t)", "处理费，2027年（澳元/吨）")},
-  y: {label: T("NPV (A$m)", "净现值（百万澳元）"), grid: true, transform: d => d / 1e6},
-  marks: [
-    Plot.ruleY([0]),
-    Plot.ruleX([lfGate + levy0], {stroke: "#9a9890", strokeDasharray: "2,3"}),
-    Plot.text([lfGate + levy0], {x: d => d, frameAnchor: "bottom", dy: -6, dx: -4, textAnchor: "end", text: () => T("Metro landfill price", "大都市填埋价格"), fill: "#52514e", fontSize: 11}),
-    Plot.line(sens, {x: "gf", y: "npv", stroke: C.base, strokeWidth: 2}),
-    Plot.dot([{gf: gateFee, npv}], {x: "gf", y: "npv", r: 5, fill: C.base, stroke: "white", strokeWidth: 2}),
-    Plot.tip(sens, Plot.pointerX({x: "gf", y: "npv", title: d => `${T("Gate fee", "处理费")}: A$${d.gf}/t\nNPV: A$${(d.npv/1e6).toFixed(0)}m`}))
-  ]
-})
-```
-
-```{ojs}
-//| echo: false
-html`<p class="kpi-note">${breakEven
-  ? T(`Under these scenarios the project breaks even (NPV = 0) at a gate fee of about A$${breakEven}/t, which is A$${(lfGate + levy0 - breakEven).toFixed(0)}/t below what metro councils pay for landfill today.`,
-      `在当前情景下，处理费约${breakEven}澳元/吨时项目净现值为零，比大都市市政当前填埋成本低${(lfGate + levy0 - breakEven).toFixed(0)}澳元/吨。`)
-  : T("No gate fee up to A$260/t breaks even under these scenarios.", "在当前情景下，处理费在260澳元/吨以内均无法实现净现值为零。")}</p>`
+// Results bar fixed to the bottom of the screen
+{
+  const item = (label, value) => html`<div class="rb-item"><span class="rb-label">${label}</span><span class="rb-value">${value}</span></div>`;
+  return html`<div class="results-bar">
+    ${item(T("Capex", "投资"), `A$${fmtM(capex)}m`)}
+    ${item(T("Furnaces", "焚烧炉"), `${furnaces} / ${maxFurnaces}`)}
+    ${item(T("Load", "负荷率"), `${(first.util*100).toFixed(0)}%`)}
+    ${item(T("Market share", "市场份额"), `${(first.tonnes / (marketMt*1e6) * 100).toFixed(0)}%`)}
+    ${item(T("Payback", "回收期"), paybackYear ? `${paybackYear - cod + 1} ${T("yrs", "年")}` : "—")}
+    ${item("NPV", `A$${fmtM(npv)}m`)}
+    ${item("IRR", irr === null ? "—" : `${(irr*100).toFixed(1)}%`)}
+  </div>`;
+}
 ```
 
 ## [Method and limits]{.en}[方法与局限]{.zh}
 
 ::: {.en}
-- **Throughput** = the smaller of available capacity and our share of Victoria's burnable residual in each year, so a falling-waste scenario can leave the plant short of feedstock. Capacity of 450 kt/yr is about three CDEG 500 t/day lines.
-- **Gate fee** rises with inflation, plus the chosen share of any levy increase above inflation. At 0% the gate fee only tracks CPI; at 100% customers keep the same real saving against landfill.
-- **Ash and residue** go to landfill at the landfill gate fee plus levy, so a higher levy also raises our costs.
-- **Tax**: straight-line depreciation over 25 years, with losses carried forward. Debt, LGC certificate revenue, metals recovery and Victoria's waste-to-energy licence cap (2 Mt/yr, with a proposal to raise it to 2.5 Mt/yr) are not yet modelled.
-- **Projections** beyond 2036 continue each scenario's annual rate.
-- **NPV vs IRR**: both come from the same cash flows. IRR shows the return without picking a discount rate; NPV shows the value at the rate you choose.
+- **Licence** = (cap − 2.35 Mt already allocated) + the partner's licence. The number of furnaces is limited to what the licence can fill (at most 5).
+- **Tonnes burned** each year = the lowest of: what customers would send at our price, furnace capacity, and the licence. Tonnes are shared equally across furnaces.
+- **Customer switching**: a council switches if our gate fee plus transport is at least the chosen margin below its landfill cost (zone gate fee plus levy, rising with the levy scenario). Commercial customers are 1.42 Mt of burnable C&I waste, assumed to be in Melbourne (about 150 km by road, A\$34/t) with landfill prices spread ±25% around the metro price. Other licence holders compete for the same waste; that competition is not modelled.
+- **Costs**: fixed cost per furnace (staff, maintenance, insurance) plus site overhead are paid regardless of load, so a half-empty plant loses money on every tonne it doesn't burn. Variable costs (reagents, consumables) and pre-sorting scale with tonnes. Ash goes to landfill at the metro landfill price.
+- **Default costs are benchmarks to adjust**, set so that a three-furnace plant at full load costs about A\$1.85k per tonne of annual capacity and about A\$75/t to run, in line with Kwinana and Maryvale.
+- **Not modelled**: debt, LGC certificate revenue, metals recovery and transfer-station capex.
 :::
 
 ::: {.zh}
-- **处理量**取当年可用产能与我方所占维州可燃余量份额的较小值，因此垃圾量下降的情景可能导致原料不足。45万吨/年约相当于三条集团500吨/日生产线。
-- **处理费**随通胀上涨，并加上填埋税超出通胀部分的设定比例。比例为0%时仅随CPI上涨；为100%时客户相对填埋的实际节省保持不变。
-- **灰渣**按填埋处理费加填埋税处置，因此填埋税上升也会增加我方成本。
-- **税务**：25年直线折旧，亏损可结转。尚未纳入：债务融资、绿证（LGC）收入、金属回收，以及维州垃圾焚烧发电许可总量上限（200万吨/年，有提案提高至250万吨/年）。
-- **2036年以后**的预测沿用各情景的年变化率。
-- **净现值与内部收益率**来自同一现金流：IRR无需选择折现率即可显示回报，NPV显示在所选折现率下的价值。
+- **许可配额** =（上限 − 已分配235万吨）+ 合作方许可。焚烧炉数量受许可可支持的规模限制（最多5台）。
+- **年处理量**取三者最小值：此价格下客户愿送量、焚烧炉产能、许可配额；处理量在各炉间平均分配。
+- **客户转换**：市政在我方处理费加运费比其填埋成本（税区处理费+填埋税，随情景上涨）低出设定比例时转换。工商业客户为142万吨可燃工商业垃圾，假设位于墨尔本（公路约150公里，34澳元/吨），填埋价格在大都市价格±25%内分布。其他许可持有方也在争夺同一批原料，此竞争未纳入模型。
+- **成本**：每台炉的固定成本（人员、维护、保险）及厂区管理费用与负荷无关，因此半空运行的工厂在每一吨未处理的垃圾上都会亏损；变动成本（药剂、耗材）和预分拣成本随处理量变化；灰渣按大都市填埋价格处置。
+- **默认成本为可调整的基准**：三炉满负荷时约每年吨产能1850澳元投资、每吨约75澳元运营成本，与Kwinana和Maryvale项目相当。
+- **未纳入**：债务、绿证收入、金属回收及转运站投资。
 :::

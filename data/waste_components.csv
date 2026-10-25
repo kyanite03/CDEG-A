@@ -1,0 +1,9 @@
+component,label_en,label_zh,mj_per_kg,cv_source,base_trend
+food,Food,厨余,4.65,"Tchobanoglous et al. (1993) Table 4-16, as discarded",-0.059
+garden,Garden,园林,6.5,"Tchobanoglous et al. (1993), yard waste",-0.041
+other_organics,Other organics,其他有机物,6.5,assumed as yard waste,-0.049
+biosolids,Biosolids,污泥,2.0,estimate: dewatered sludge ~20-25% solids,0.023
+timber,Timber,木材,18.6,"Tchobanoglous et al. (1993), wood",-0.021
+paper,Paper & cardboard,纸类,16.5,"Tchobanoglous et al. (1993), paper 16.7 / cardboard 16.3",0.014
+textiles,"Textiles, leather, rubber",纺织/皮革/橡胶,18.0,"Tchobanoglous et al. (1993), textiles 17.4 / rubber 23.3",0.034
+plastics,Plastics,塑料,32.6,"Tchobanoglous et al. (1993), plastics",0.011
