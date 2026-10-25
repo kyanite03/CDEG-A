@@ -13,4 +13,23 @@ vic_kerbside_garbage,Vic council kerbside garbage 2023-24,维州市政路边垃�
 landfill_gate_metro,Landfill gate fee excl levy (Vic metro),填埋处理费不含税（维州大都市）,95,A$/t,70,130,S20,estimate,Geelong levy+GST = 61% of landfill cost
 road_rate,Road haulage rate,公路运费,0.18,A$/t-km,0.10,0.30,,estimate,bulk walking-floor
 rail_rate,Rail haulage rate,铁路运费,0.07,A$/t-km,0.04,0.12,,estimate,plus ~A$25/t terminal lifts
-wte_cap_vic,Vic waste-to-energy licence cap,维州垃圾焚烧许可总量上限,2.0,Mt/yr,,2.5,S21,confirmed,2.5 Mt proposed 2025
+wte_cap_vic,Vic waste-to-energy licence cap,维州垃圾焚烧许可总量上限,2.5,Mt/yr,2.5,5,S21,confirmed,raised from 2.0 to 2.5 Mt July 2025; 2.35 Mt allocated Aug 2025; Govt (Feb 2026) does not support a further increase
+m_connections,Metered water connections in Australia,澳洲已装表供水用户数,10.0,million,8,12,S27,estimate,~27m people served by reporting utilities / ~2.5 people per household; apartments often share a meter
+m_life,Meter replacement cycle,水表更换周期,12,years,10,15,S26,estimate,mechanical meters 10-15 yrs; smart meters limited by battery life
+m_newconn,New connections per year (share of stock),每年新增用户（占存量比例）,0.016,share,0.010,0.022,S33,estimate,~170k dwelling completions a year; Housing Accord target 240k/yr
+m_open,Share of demand open to new suppliers before 2032,2032年前对新供应商开放的需求比例,0.5,share,0.3,0.7,S24,estimate,SEW (Huizhong) and YVW (Sagemcom) locked to ~2032; Sydney Water rollout under way
+m_price,Utility price per DN20 smart meter (meter only),水务公司采购价（DN20智能水表，仅表具）,135,A$/meter,90,180,S23,calculated,Huizhong NSW contract ~A$150 incl. Avnet margin
+m_exworks,Ex-works price DN20 NB-IoT ultrasonic (AU spec),出厂价（DN20 NB-IoT超声波，澳洲规格）,400,RMB/meter,250,650,,assumption,CDEG has not yet given a unit price; replace first
+m_fx,Exchange rate,汇率,4.7,RMB per A$,4.2,5.2,,assumption,check on the day
+m_freight,Sea freight + port + broker + 3PL per meter,海运+港口+报关+仓储（每只）,2.5,A$/meter,1.5,5,,estimate,~8-10k boxed DN20 meters per 40ft container
+m_duty,Import duty (HS 9028.20 under ChAFTA),进口关税（ChAFTA项下HS 9028.20）,0,share,0,0.05,,to verify,GST 10% is recoverable and excluded
+m_qa,Local verification and QA per meter,在澳检定与质检（每只）,3,A$/meter,1,6,S24,estimate,Avnet runs a meter test lab in Bayswater for SEW
+m_warranty,Warranty provision,质保准备金,0.03,share of price,0.01,0.06,,assumption,battery and electronics failures within warranty
+m_dist,Distributor margin (distributor route),代理商利润率（代理模式）,0.15,share of price,0.08,0.25,S23,estimate,Avnet is Huizhong's exclusive ANZ agent
+m_factory,Factory gross margin on ex-works price,工厂出厂价毛利率,0.25,share,0.10,0.40,S32,estimate,Huizhong operating margin ~24-25% (2024-25)
+m_nmi,NMI pattern approval (one meter family),NMI型式批准（一个系列）,40000,A$,15000,100000,S26,to verify,set + hourly fees; less if NMI accepts China lab results
+m_watermark,WaterMark + AS/NZS 4020 first year,WaterMark认证+AS/NZS 4020首年费用,25000,A$,10000,40000,S29,industry estimate,annual renewals ~A$3-6k
+m_rnd,Product adaptation for Australia,澳洲适配研发,150000,A$,0,400000,,assumption,battery life to utility spec; AU fittings; firmware; data hosting; network certification
+m_bdpre,Bid and partnership costs per year before first sale,首单前每年投标与合作开发费用,150000,A$/yr,50000,300000,,assumption,tenders; Ozwater; travel; distributor negotiation
+m_overhead_dist,Annual overhead (distributor route),年度固定费用（代理模式）,200000,A$/yr,100000,400000,,assumption,1 account/technical manager; renewals; insurance
+m_overhead_direct,Annual overhead (own office),年度固定费用（自建团队）,650000,A$/yr,400000,1000000,,assumption,3 staff; warehouse; tenders; insurance

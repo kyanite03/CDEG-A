@@ -1,21 +1,477 @@
 ---
-title: "[Meter distributor model]{.en}[水表代理模型]{.zh}"
+title: "[Smart water meter profit model]{.en}[智能水表盈利模型]{.zh}"
+include-in-header:
+  text: |
+    <!-- Libraries are bundled locally (no CDN) so the model works inside mainland China -->
+    <link rel="stylesheet" href="../assets/vendor/inputs.css">
+    <link rel="stylesheet" href="../assets/models.css">
+    <script src="../assets/vendor/d3.min.js"></script>
+    <script src="../assets/vendor/plot.umd.min.js"></script>
+    <script src="../assets/vendor/htl.min.js"></script>
+    <script src="../assets/vendor/inputs.min.js"></script>
 ---
 
 <p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
 
-## [Model]{.en}[模型]{.zh}
-
 ::: {.en}
-::: {.placeholder}
-- Inputs: ex-works price, freight/duty, agent margin, test cost (RMB ~200k), NMI fee, volumes → break-even units
-- Toggle: Chinese lab report accepted by NMI
-:::
+CDEG's subsidiary Huijin makes NB-IoT ultrasonic meters in China. In this model it builds them to Australian standards, ships them in bulk, and sells them to Australian water utilities, either through a local distributor (the route Huizhong took with Avnet) or through its own Australian office. The model runs year by year from 2027 to 2036 and answers four questions: **how big the market is, what it costs and how long it takes to get approved, what each meter earns, and what sales and profit to expect**.
+
+**Who buys the meters.** Melbourne Water is a wholesaler and does not own household meters. The buyers are the retail utilities: in Melbourne, Greater Western Water, South East Water and Yarra Valley Water; in regional Victoria, 13 regional water corporations; elsewhere, Sydney Water, Hunter Water, Unitywater, Urban Utilities, SA Water, Water Corporation, Icon Water and council-run utilities.
+
+Every input is a slider. Defaults come from `data/assumptions.csv`. **CDEG should replace the ex-works price and the price it is willing to bid with its own figures first**: the sensitivity chart in section 5 shows that, with a thin margin per meter, these two and the exchange rate move profit far more than volume does. All money is in real 2027 A\$ excluding GST.
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 输入：出厂价、运费/关税、代理利润、国内检测费（约20万元）、NMI费用、销量 → 盈亏平衡销量
-- 开关：NMI采信国内检测报告
+集团下属汇锦公司在国内生产NB-IoT超声波水表。本模型假设其按澳洲标准生产、批量海运至澳洲，并销售给澳洲水务公司：可通过本地代理商（汇中与Avnet的模式），也可自建澳洲团队直销。模型逐年测算2027–2036年，回答四个问题：**市场有多大、获批需要多少钱和多长时间、每只水表赚多少、预期销量和利润是多少**。
+
+**谁购买水表。** 墨尔本水务（Melbourne Water）是批发商，不拥有居民水表。买方是零售水务公司：墨尔本为大西部水务、东南水务和雅拉谷水务；维州乡村有13家区域水务公司；其他州有悉尼水务、亨特水务、Unitywater、Urban Utilities、南澳水务、西澳水务公司、首都领地Icon Water及市政自营水务。
+
+所有参数均可调节，默认值来自 `data/assumptions.csv`。**集团应首先用自己的数据替换出厂价和拟投标价格**：第5节的敏感性图显示，由于每只水表的利润较薄，这两项和汇率对利润的影响远大于销量。所有金额为2027年不变价澳元，不含GST。
 :::
+
+```{ojs}
+//| echo: false
+//| output: false
+Inputs = window.Inputs
+Plot = window.Plot
+d3 = window.d3
+html = window.htl.html
+L = (en, zh) => html`<span class="en">${en}</span><span class="zh">${zh}</span>`
+lang = Generators.observe(notify => {
+  const f = () => notify(document.documentElement.getAttribute("data-lang") || "en");
+  f();
+  const mo = new MutationObserver(f);
+  mo.observe(document.documentElement, {attributes: true, attributeFilter: ["data-lang"]});
+  return () => mo.disconnect();
+})
+T = (en, zh) => lang === "zh" ? zh : en
+csv = path => fetch(path).then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
+assump = csv("../data/assumptions.csv")
+A = Object.fromEntries(assump.map(d => [d.id, d]))
+v = id => A[id].value
+C = ({base: "#2a78d6", optimal: "#1baf7a", recession: "#eb6834", ink: "#52514e", grey: "#b5b3ab"})
+fmtA = x => {
+  const s = x < 0 ? "−" : "", a = Math.abs(x);
+  return a >= 1e6 ? `${s}A$${(a/1e6).toFixed(1)}m` : a >= 1e3 ? `${s}A$${(a/1e3).toFixed(0)}k` : `${s}A$${a.toFixed(0)}`;
+}
+fmtK = x => x >= 1e6 ? `${(x/1e6).toFixed(2)}m` : x >= 1e3 ? `${(x/1e3).toFixed(1)}k` : x.toFixed(0)
+pct = x => `${(x*100).toFixed(0)}%`
+tile = (label, value, sub) => html`<div class="kpi"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
+years = d3.range(2027, 2037)
+scenNames = ({base: T("Base", "基准"), optimal: T("Optimal market", "最优市场"), recession: T("Recession", "经济衰退")})
+```
+
+## [1 · The market: how many meters Australia buys each year]{.en}[1 · 市场：澳洲每年采购多少只水表]{.zh}
+
+::: {.en}
+Every metered property needs a new meter roughly every 10–15 years, because mechanical meters lose accuracy and smart meters run out of battery. New homes add more. Utilities are also replacing old meters early with digital ones to find leaks: South East Water passed 200,000 digital meters in January 2026, Yarra Valley Water is installing about 9,000 a month toward more than 1 million, and Sydney Water plans a meter in every property. Those big programs are already contracted (Huizhong through Avnet at South East Water; Sagemcom at Yarra Valley Water), so only part of the demand is open to a new supplier before the next round of tenders.
+:::
+
+::: {.zh}
+每个装表用户大约每10–15年需要更换一次水表：机械表精度下降，智能表电池耗尽。新建住宅带来新增需求。水务公司还在提前把旧表换成数字水表以发现漏损：东南水务2026年1月已安装20万只数字水表，雅拉谷水务每月安装约9,000只、目标超过100万只，悉尼水务计划为每户安装智能水表。这些大型项目已签约（东南水务为汇中经Avnet供货，雅拉谷水务为Sagemcom），因此在下一轮招标前，新供应商只能争取部分需求。
+:::
+
+```{ojs}
+//| echo: false
+viewof scen = Inputs.radio(new Map([
+  [T("Base: replacement + steady digital upgrades", "基准：正常更换+稳步数字化"), "base"],
+  [T("Optimal market: national digital push, more homes, more tenders open", "最优市场：全国加速数字化、住宅增加、更多招标开放"), "optimal"],
+  [T("Recession: 2-year downturn (fewer new homes, upgrades deferred, weaker A$)", "经济衰退：两年下行（新房减少、升级推迟、澳元走弱）"), "recession"]
+]), {value: "base", label: L("Market scenario", "市场情景")})
+viewof connections = Inputs.range([8, 12], {value: v("m_connections"), step: 0.1, label: L("Metered connections in Australia (million)", "澳洲装表用户数（百万）")})
+viewof life = Inputs.range([8, 16], {value: v("m_life"), step: 1, label: L("Meter replacement cycle (years)", "水表更换周期（年）")})
+viewof newConn = Inputs.range([0.008, 0.025], {value: v("m_newconn"), step: 0.001, label: L("New connections per year (share of stock)", "每年新增用户（占存量比例）")})
+viewof openShare = Inputs.range([0.2, 0.8], {value: v("m_open"), step: 0.05, label: L("Share of demand open to new suppliers before 2032", "2032年前对新供应商开放的需求比例")})
+viewof recStart = Inputs.range([2028, 2033], {value: 2029, step: 1, label: L("Recession starts (recession scenario only)", "衰退开始年份（仅衰退情景）")})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Market environment by scenario and year: multipliers on top of the sliders
+env = (s, y) => {
+  const after = y >= 2032 ? 0.2 : 0;                      // big metro contracts roll over around 2032
+  const e = {newConn: 1, accel: 1.15, price: 1, fx: 1, open: Math.min(0.95, openShare + after)};
+  if (s === "optimal") Object.assign(e, {newConn: 1.15, accel: 1.5, open: Math.min(0.95, openShare + 0.1 + after)});
+  if (s === "recession" && y >= recStart && y < recStart + 2) Object.assign(e, {newConn: 0.7, accel: 1.0, price: 0.95, fx: 0.88});
+  return e;
+}
+market = (s, y) => {
+  const e = env(s, y), stock = connections * 1e6 * Math.pow(1 + newConn, y - 2027);
+  const replace = stock / life * e.accel, fresh = stock * newConn * e.newConn;
+  return {scenario: s, year: y, replace, fresh, total: replace + fresh, open: (replace + fresh) * e.open, e};
+}
+mkt = ["base", "optimal", "recession"].flatMap(s => years.map(y => market(s, y)))
+mNow = mkt.filter(d => d.scenario === scen)
+```
+
+```{ojs}
+//| echo: false
+html`<div class="kpi-row">
+  ${tile(T("Meters bought nationally, 2027", "全国采购量，2027年"), fmtK(mNow[0].total), T(`${fmtK(mNow[0].replace)} replacements + ${fmtK(mNow[0].fresh)} new homes`, `更换${fmtK(mNow[0].replace)}只+新房${fmtK(mNow[0].fresh)}只`))}
+  ${tile(T("Hardware market, 2027", "表具市场规模，2027年"), fmtA(mNow[0].total * price), T(`at A$${price} a meter`, `按每只${price}澳元`))}
+  ${tile(T("Open to a new supplier, 2027", "新供应商可争取，2027年"), fmtK(mNow[0].open), T(`${pct(mNow[0].e.open)} of demand`, `占需求${pct(mNow[0].e.open)}`))}
+  ${tile(T("Open to a new supplier, 2032", "新供应商可争取，2032年"), fmtK(mNow[5].open), T("after metro contracts roll over", "大都市合同到期后"))}
+</div>`
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 280, marginLeft: 55, marginRight: 110,
+  x: {label: null, tickFormat: d => String(d)},
+  y: {label: T("Meters per year (thousand)", "每年水表数（千只）"), grid: true, transform: d => d / 1e3, domain: [0, d3.max(mkt, d => d.total) / 1e3 * 1.05]},
+  color: {domain: ["base", "optimal", "recession"], range: [C.base, C.optimal, C.recession]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(mkt, {x: "year", y: "total", stroke: "scenario", strokeWidth: d => d.scenario === scen ? 2.5 : 1.25, strokeOpacity: d => d.scenario === scen ? 1 : 0.5}),
+    Plot.line(mNow, {x: "year", y: "open", stroke: C[scen], strokeDasharray: "5,3", strokeWidth: 2}),
+    Plot.text(mkt.filter(d => d.year === 2036), {x: "year", y: "total", text: d => scenNames[d.scenario], dx: 6, dy: d => d.scenario === "recession" ? 12 : 0, textAnchor: "start", fill: C.ink, fontSize: 11}),
+    Plot.text(mNow.filter(d => d.year === 2036), {x: "year", y: "open", text: () => T("Open to new supplier", "新供应商可争取"), dx: 6, textAnchor: "start", fill: C.ink, fontSize: 11}),
+    Plot.tip(mNow, Plot.pointerX({x: "year", y: "total", title: d => `${d.year} · ${scenNames[d.scenario]}\n${T("Replacements", "更换")}: ${fmtK(d.replace)}\n${T("New homes", "新房")}: ${fmtK(d.fresh)}\n${T("Open to new supplier", "新供应商可争取")}: ${fmtK(d.open)}`}))
+  ]
+})
+```
+
+<p class="figure-note"><span class="en">Solid lines: all meters bought nationally under each scenario. Dashed: the part open to a new supplier under the selected scenario (it steps up in 2032 when Melbourne's metro contracts roll over). Sources: BoM National Performance Report 2024–25 (27m people served); South East Water (2026); Utility Magazine (2024, 2026); Bluefield Research (2026). Connections and replacement cycle are team estimates.</span><span class="zh">实线：各情景下全国水表采购总量。虚线：所选情景下新供应商可争取的部分（2032年墨尔本大都市合同到期后上升）。来源：澳洲气象局《国家绩效报告2024–25》（服务2,700万人）；东南水务（2026）；Utility Magazine（2024、2026）；Bluefield Research（2026）。用户数和更换周期为团队估算。</span></p>
+
+## [2 · Getting approved: time and start-up cost]{.en}[2 · 获批：时间与启动投资]{.zh}
+
+::: {.en}
+A meter cannot be used for billing in Australia until the National Measurement Institute (NMI) approves its pattern under NMI R 49, which takes about 12 months. It also needs AS 3565.1, WaterMark and AS/NZS 4020 (drinking-water contact) certification, and it must work on the utility's NB-IoT network and data platform. NMI can accept test results from ISO 17025-accredited labs or OIML-system countries, so a Chinese lab report could shorten the process. Huijin's meters do not yet hold OIML certification, and CDEG has said it will pay for NMI approval.
+
+**Is R&D needed?** Probably some. Huijin quotes a battery life of more than 6 years; Australian utilities replace meters on a 10–15-year cycle, so they will expect a battery that lasts that long. Fittings, units, firmware, data hosting in Australia and network certification also need checking. Set the cost and months below.
+:::
+
+::: {.zh}
+水表须经国家计量院（NMI）按NMI R 49完成型式批准后才能用于贸易结算，约需12个月。还需取得AS 3565.1、WaterMark和AS/NZS 4020（饮用水接触材料）认证，并须兼容水务公司的NB-IoT网络和数据平台。NMI可采信ISO 17025认可实验室或OIML体系国家的检测结果，因此国内检测报告可能缩短流程。汇锦水表尚未取得OIML认证，集团已表示愿意承担NMI型式批准费用。
+
+**是否需要研发？** 可能需要一部分。汇锦标称电池寿命大于6年，而澳洲水务公司按10–15年周期换表，会要求电池寿命与之匹配。接口规格、计量单位、固件、数据在澳存储和网络认证也需核查。请在下方设定费用和月数。
+:::
+
+```{ojs}
+//| echo: false
+viewof nmiAccepts = Inputs.toggle({value: false, label: L("NMI accepts the Chinese lab report (ISO 17025 / OIML)", "NMI采信国内检测报告（ISO 17025/OIML）")})
+viewof adaptMonths = Inputs.range([0, 18], {value: 6, step: 1, label: L("Product adaptation and China testing (months)", "产品适配及国内检测（月）")})
+viewof rnd = Inputs.range([0, 400000], {value: v("m_rnd"), step: 10000, label: L("Product adaptation cost (A$)", "适配研发费用（澳元）")})
+viewof nmiCost = Inputs.range([10000, 120000], {value: v("m_nmi"), step: 5000, label: L("NMI pattern approval fees (A$)", "NMI型式批准费用（澳元）")})
+viewof wmCost = Inputs.range([5000, 50000], {value: v("m_watermark"), step: 1000, label: L("WaterMark + AS/NZS 4020, first year (A$)", "WaterMark+AS/NZS 4020首年（澳元）")})
+viewof tenderMonths = Inputs.range([0, 18], {value: 6, step: 1, label: L("From approval to first commercial order (months)", "获批至首个商业订单（月）")})
+viewof pilotUnits = Inputs.range([0, 5000], {value: 1000, step: 250, label: L("Free pilot meters for the first utility", "向首家水务公司免费提供试点水表")})
+viewof bdPre = Inputs.range([50000, 300000], {value: v("m_bdpre"), step: 10000, label: L("Bid and partnership costs per year before first sale (A$)", "首单前每年投标与合作开发费用（澳元）")})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+nmiMonths = nmiAccepts ? 6 : 12
+nmiFee = nmiAccepts ? nmiCost * 0.5 : nmiCost
+approvalT = 2027 + (adaptMonths + nmiMonths) / 12
+firstSaleT = approvalT + tenderMonths / 12
+chinaTestA = v("nmi_test_cn") / fx       // RMB 200k China test report (CDEG figure)
+ymLabel = t => { const y = Math.floor(t), m = Math.round((t - y) * 12); const mm = m === 12 ? 0 : m, yy = m === 12 ? y + 1 : y; return `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][mm]} ${yy}`; }
+phases = [
+  {k: T("Adapt + China tests", "适配+国内检测"), a: 2027, b: 2027 + adaptMonths / 12},
+  {k: T("NMI pattern approval", "NMI型式批准"), a: 2027 + adaptMonths / 12, b: approvalT},
+  {k: T("WaterMark + AS/NZS 4020", "WaterMark+AS/NZS 4020"), a: 2027 + adaptMonths / 12, b: 2027 + adaptMonths / 12 + 0.5},
+  {k: T("Pilot + tender", "试点+投标"), a: approvalT, b: firstSaleT},
+  {k: T("Commercial sales", "商业销售"), a: firstSaleT, b: Math.max(firstSaleT + 0.5, 2031)}
+]
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 190, marginLeft: 170, clip: true,
+  x: {label: null, domain: [2027, 2031], tickFormat: d => Number.isInteger(d) ? String(d) : ""},
+  y: {label: null, domain: phases.map(d => d.k)},
+  marks: [
+    Plot.barX(phases, {x1: "a", x2: "b", y: "k", fill: (d, i) => i === 4 ? C.optimal : C.base, rx: 3}),
+    Plot.ruleX([2028.5], {stroke: "#9a9890", strokeDasharray: "2,3"}),
+    Plot.text([2028.5], {x: d => d, frameAnchor: "top", dx: 4, textAnchor: "start", fill: C.ink, fontSize: 10, text: () => T("Vic regional price period starts (Jul 2028)", "维州区域水价期开始（2028年7月）")}),
+    Plot.tip(phases, Plot.pointerY({x1: "a", x2: "b", y: "k", title: d => `${d.k}\n${ymLabel(d.a)} – ${ymLabel(d.b)}`}))
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+upfrontOneOff = chinaTestA + rnd + nmiFee + wmCost + 40000 + 50000   // + network/platform certification, + legal/entity set-up
+html`<div class="kpi-row">
+  ${tile(T("NMI approval", "NMI获批"), ymLabel(approvalT), T(`${adaptMonths + nmiMonths} months from Jan 2027`, `自2027年1月起${adaptMonths + nmiMonths}个月`))}
+  ${tile(T("First commercial sale", "首个商业订单"), ymLabel(firstSaleT), firstSaleT <= 2028.5 ? T("in time for the 2028 Vic regional price period", "赶上2028年维州区域水价期") : T("after the 2028 price period starts: budget must already include meters", "晚于2028年水价期开始：需水务公司预算已含水表"))}
+  ${tile(T("One-off approval and set-up costs", "一次性审批与设立费用"), fmtA(upfrontOneOff), T(`China test ${fmtA(chinaTestA)} · R&D ${fmtA(rnd)} · NMI ${fmtA(nmiFee)} · WaterMark ${fmtA(wmCost)} · network + legal A$90k`, `国内检测${fmtA(chinaTestA)}·研发${fmtA(rnd)}·NMI ${fmtA(nmiFee)}·WaterMark ${fmtA(wmCost)}·网络与法务9万澳元`))}
+  ${tile(T("Cash out before first sale", "首单前现金支出"), fmtA(-rows.filter(d => d.units === 0).reduce((s, d) => s + d.cash, 0)), T("one-off costs, bids, pilot meters", "一次性费用、投标、试点水表"))}
+</div>`
+```
+
+<p class="figure-note"><span class="en">The Victorian regional water corporations set their spending for 1 July 2028 onward in submissions to the Essential Services Commission due 13 September 2027, so a meter approved by mid-2028 can be in those budgets. Sources: NMI (pattern approval); CDEG reply 16 Oct 2026 (RMB 200,000 China test report; no OIML yet; will fund NMI); WaterMark fees are an industry estimate. NMI fees, network certification (A$40k) and legal set-up (A$50k) are team estimates, to verify.</span><span class="zh">维州区域水务公司须于2027年9月13日前向基本服务委员会（ESC）提交2028年7月1日起的支出计划，因此2028年中前获批的水表可纳入其预算。来源：NMI（型式批准）；集团2026年10月16日回复（国内检测约20万元人民币；尚无OIML认证；愿承担NMI费用）；WaterMark费用为行业估算。NMI费用、网络认证（4万澳元）和法务设立（5万澳元）为团队估算，待核实。</span></p>
+
+## [3 · What each meter earns]{.en}[3 · 每只水表的利润]{.zh}
+
+::: {.en}
+Huizhong's 2023 NSW contract works out to about A\$150 a meter, and that price already includes Avnet's margin, so CDEG must be able to sell below it. The bar shows where each dollar of the utility's price goes. The **contribution** is what is left per meter to pay for overheads and approvals. Turn on the group view to add the factory's own margin on the ex-works price, which stays with CDEG in China.
+:::
+
+::: {.zh}
+汇中2023年新州合同折合每只约150澳元，且已包含Avnet的代理利润，因此集团的售价必须低于这一水平。下图显示水务公司支付的每一澳元的去向。**边际贡献**是每只水表扣除可变成本后用于覆盖固定费用和审批费用的部分。开启集团视角后，会加上工厂出厂价中的利润，这部分留在国内归集团所有。
+:::
+
+```{ojs}
+//| echo: false
+viewof route = Inputs.radio(new Map([
+  [T("Through a local distributor", "通过本地代理商"), "dist"],
+  [T("Own Australian office", "自建澳洲团队"), "direct"]
+]), {value: "dist", label: L("Sales route", "销售渠道")})
+viewof price = Inputs.range([90, 180], {value: v("m_price"), step: 1, label: L("Price to the utility, meter only (A$)", "水务公司采购价，仅表具（澳元）")})
+viewof exRMB = Inputs.range([250, 650], {value: v("m_exworks"), step: 10, label: L("Ex-works price, AU spec (RMB)", "出厂价，澳洲规格（人民币）")})
+viewof fx = Inputs.range([4.2, 5.2], {value: v("m_fx"), step: 0.05, label: L("Exchange rate (RMB per A$)", "汇率（人民币/澳元）")})
+viewof freight = Inputs.range([1, 6], {value: v("m_freight"), step: 0.5, label: L("Freight, port, broker, warehouse per meter (A$)", "运费、港口、报关、仓储（每只，澳元）")})
+viewof duty = Inputs.range([0, 0.05], {value: v("m_duty"), step: 0.01, label: L("Import duty", "进口关税")})
+viewof qa = Inputs.range([0, 8], {value: v("m_qa"), step: 0.5, label: L("Local verification and QA per meter (A$)", "在澳检定与质检（每只，澳元）")})
+viewof warranty = Inputs.range([0, 0.08], {value: v("m_warranty"), step: 0.005, label: L("Warranty provision (share of price)", "质保准备金（占售价）")})
+viewof distMargin = Inputs.range([0, 0.3], {value: route === "dist" ? v("m_dist") : 0, step: 0.01, label: L("Distributor margin (share of price)", "代理商利润率（占售价）")})
+viewof groupView = Inputs.toggle({value: false, label: L("Group view: add factory margin", "集团视角：计入工厂利润")})
+viewof factoryMargin = Inputs.range([0, 0.4], {value: v("m_factory"), step: 0.01, label: L("Factory gross margin on ex-works price", "工厂出厂价毛利率")})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+unit = (fxMult = 1, priceMult = 1) => {
+  const p = price * priceMult, ex = exRMB / (fx * fxMult);
+  const parts = {
+    dist: p * distMargin, ex, duty: ex * duty, freight, qa, warranty: p * warranty
+  };
+  const landed = ex + parts.duty + freight;
+  const contrib = p - Object.values(parts).reduce((s, x) => s + x, 0);
+  return {p, ex, landed, parts, contrib, factory: ex * factoryMargin};
+}
+u = unit()
+contribShown = u.contrib + (groupView ? u.factory : 0)
+wf = [
+  {k: T("Distributor", "代理商"), v: u.parts.dist, c: C.grey},
+  {k: T("Ex-works (factory)", "出厂价（工厂）"), v: u.ex - (groupView ? u.factory : 0), c: C.ink},
+  ...(groupView ? [{k: T("Factory margin (CDEG)", "工厂利润（集团）"), v: u.factory, c: C.optimal}] : []),
+  {k: T("Duty + freight + QA", "关税+运费+质检"), v: u.parts.duty + freight + qa, c: "#9a9890"},
+  {k: T("Warranty", "质保"), v: u.parts.warranty, c: "#c9c7bf"},
+  {k: T("Contribution (Australia)", "边际贡献（澳洲）"), v: u.contrib, c: u.contrib >= 0 ? C.base : C.recession}
+]
+wfStack = (() => { let x = 0; return wf.map(d => { const r = {...d, x1: x, x2: x + d.v}; x += d.v; return r; }); })()
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 110, marginLeft: 10, marginRight: 10,
+  x: {label: T("A$ per meter", "每只水表（澳元）"), domain: [Math.min(0, d3.min(wfStack, d => d.x2)), Math.max(price, d3.max(wfStack, d => d.x2))]},
+  marks: [
+    Plot.rectX(wfStack, {x1: "x1", x2: "x2", y1: 0, y2: 1, fill: "c", stroke: "white"}),
+    Plot.text(wfStack.filter(d => Math.abs(d.v) > 9), {x: d => (d.x1 + d.x2) / 2, y: 0.5, text: d => `${d.v.toFixed(0)}`, fill: "white", fontSize: 11, fontWeight: 600}),
+    Plot.ruleX([price], {stroke: C.ink}),
+    Plot.tip(wfStack, Plot.pointerX({x: d => (d.x1 + d.x2) / 2, y: 0.5, title: d => `${d.k}: A$${d.v.toFixed(1)}`}))
+  ],
+  y: {axis: null, domain: [0, 1]}
+})
+```
+
+```{ojs}
+//| echo: false
+html`<div class="map-legend">${wf.map(d => html`<span><span class="sw" style="background:${d.c}"></span>${d.k}</span>`)}</div>
+<div class="kpi-row">
+  ${tile(T("Landed cost per meter", "到岸成本（每只）"), `A$${u.landed.toFixed(0)}`, T(`RMB ${exRMB} ex-works = A$${u.ex.toFixed(0)}`, `出厂价${exRMB}元=${u.ex.toFixed(0)}澳元`))}
+  ${tile(groupView ? T("Contribution per meter (group)", "每只边际贡献（集团）") : T("Contribution per meter", "每只边际贡献"), `A$${contribShown.toFixed(0)}`, T(`${pct(contribShown / price)} of the utility price`, `占采购价${pct(contribShown / price)}`))}
+  ${tile(T("Break-even volume", "盈亏平衡销量"), u.contrib > 0 ? `${fmtK(overhead / u.contrib)} ${T("/yr", "只/年")}` : "—", u.contrib > 0 ? T(`to cover ${fmtA(overhead)} a year of overhead`, `覆盖每年${fmtA(overhead)}固定费用`) : T("price is below variable cost", "售价低于可变成本"))}
+  ${tile(T("Room under Huizhong", "低于汇中的空间"), `A$${(150 - price).toFixed(0)}`, T("below ~A$150 per meter (NSW, 2023)", "低于每只约150澳元（新州，2023）"))}
+</div>`
+```
+
+<p class="figure-note"><span class="en">Sources: Yicai Global (2023): Huizhong, 191,000 meters, up to A$29m via Avnet (team calculation ≈ A$150 each; installation and software not stated). Ex-works price, FX and warranty are assumptions; CDEG has not yet given a unit price. Duty assumes HS 9028.20 is duty-free under ChAFTA (to verify); GST is recoverable and excluded.</span><span class="zh">来源：第一财经（2023）：汇中经Avnet中标19.1万只水表，最高2,900万澳元（团队计算约每只150澳元；未说明是否含安装和软件）。出厂价、汇率和质保为假设，集团尚未提供单价。关税按ChAFTA项下HS 9028.20零关税计算（待核实）；GST可抵扣，未计入。</span></p>
+
+## [4 · Sales and profit, 2027–2036]{.en}[4 · 销量与利润，2027–2036年]{.zh}
+
+::: {.en}
+Sales = the demand open to a new supplier × the share CDEG wins. The share ramps up from the first commercial order. For scale: Huizhong's two Australian contracts (about 1 million meters at South East Water over 2024–2032, plus 191,000 in NSW) mean it sells over 100,000 meters a year here, which is roughly 10–15% of the national market. That is a realistic ceiling for an incumbent-level winner; a new entrant should plan for less.
+:::
+
+::: {.zh}
+销量=新供应商可争取的需求×集团获得的份额。份额从首个商业订单开始逐步爬升。作为参照：汇中在澳两份合同（东南水务2024–2032年约100万只，加新州19.1万只）意味着其在澳年销量超过10万只，约占全国市场的10–15%。这是行业领先者的现实上限；新进入者应按更低水平规划。
+:::
+
+```{ojs}
+//| echo: false
+viewof shareMax = Inputs.range([0.01, 0.25], {value: 0.05, step: 0.01, label: L("Share of open demand CDEG wins at full ramp", "完全爬坡后获得的可争取需求份额")})
+viewof ramp = Inputs.range([1, 5], {value: 3, step: 1, label: L("Years to reach full share", "达到完全份额所需年数")})
+viewof overhead = Inputs.range([50000, 1200000], {value: route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct"), step: 10000, label: L("Annual overhead once selling (A$)", "开始销售后的年度固定费用（澳元）")})
+viewof invMonths = Inputs.range([0, 6], {value: 3, step: 1, label: L("Stock held in Australia (months of sales)", "在澳库存（月销量）")})
+viewof discount = Inputs.range([0.02, 0.12], {value: 0.055, step: 0.005, label: L("Discount rate (real; 5.5% ≈ the WtE model's 8% nominal)", "折现率（实际；5.5%≈垃圾发电模型的8%名义折现率）")})
+viewof taxRate = Inputs.range([0, 0.3], {value: 0.3, step: 0.05, label: L("Australian company tax rate", "澳洲企业所得税率")})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Year-by-year P&L. pr overrides any input (used by the sensitivity chart).
+model = (s, pr = {}) => {
+  const P = {price, exRMB, fx, shareMax, overhead, distMargin, rnd, life, openShare, ...pr};
+  let cum = 0, dcum = 0, loss = 0, invPrev = 0;
+  const oneOff = v("nmi_test_cn") / P.fx + P.rnd + nmiFee + wmCost + 90000;
+  return years.map(y => {
+    const e = env(s, y);
+    const stock = connections * 1e6 * Math.pow(1 + newConn, y - 2027);
+    const open = (stock / P.life * e.accel + stock * newConn * e.newConn) * Math.min(0.95, e.open - openShare + P.openShare);
+    const sellFrac = Math.max(0, Math.min(1, y + 1 - firstSaleT));             // share of this year after first sale
+    const yrsSelling = Math.max(0, y + 1 - firstSaleT);
+    const units = open * P.shareMax * Math.min(1, yrsSelling / ramp) * sellFrac;
+    const p = P.price * e.price, ex = P.exRMB / (P.fx * e.fx);
+    const landed = ex * (1 + duty) + freight;
+    const revenue = units * p;
+    const cogs = units * (landed + qa) + revenue * warranty;
+    const distCost = revenue * P.distMargin;
+    const pilotThisYear = (approvalT >= y && approvalT < y + 1) ? pilotUnits * (landed + qa) + (pilotUnits > 0 ? 30000 : 0) : 0;
+    const fixed = P.overhead * sellFrac + bdPre * (1 - sellFrac) + (sellFrac > 0 ? 5000 : 0);
+    const once = y === 2027 ? oneOff : 0;
+    const ebit = revenue - cogs - distCost - fixed - pilotThisYear - once;
+    let taxable = ebit - loss; loss = taxable < 0 ? -taxable : 0;
+    const tax = Math.max(0, taxable) * taxRate;
+    const inv = units * landed * invMonths / 12, dInv = inv - invPrev; invPrev = inv;
+    const cash = ebit - tax - dInv;
+    const factory = units * ex * factoryMargin;
+    const df = Math.pow(1 + discount, -(y - 2027 + 0.5));
+    cum += cash + (groupView ? factory : 0); dcum += (cash + (groupView ? factory : 0)) * df;
+    return {scenario: s, year: y, open, units, revenue, cogs, distCost, fixed, pilot: pilotThisYear, once, ebit, tax, dInv, cash, factory, cumulative: cum, discounted: dcum, gm: revenue ? (revenue - cogs - distCost) / revenue : null};
+  });
+}
+all = ["base", "optimal", "recession"].flatMap(s => model(s))
+rows = all.filter(d => d.scenario === scen)
+npvOf = r => r[r.length - 1].discounted
+npv = npvOf(rows)
+paybackYear = rows.find(d => d.cumulative >= 0 && d.units > 0)?.year
+firstFull = rows.find(d => d.units > 0)
+y5 = rows.find(d => d.year === Math.floor(firstSaleT) + 4) ?? rows[rows.length - 1]
+```
+
+```{ojs}
+//| echo: false
+html`<div class="kpi-row">
+  ${tile(T("First sales year", "首个销售年度"), firstFull ? `${fmtK(firstFull.units)} ${T("meters", "只")}` : "—", firstFull ? T(`${firstFull.year}: ${fmtA(firstFull.revenue)} revenue`, `${firstFull.year}年：收入${fmtA(firstFull.revenue)}`) : "")}
+  ${tile(T("Fifth year of sales", "销售第五年"), `${fmtK(y5.units)} ${T("meters", "只")}`, T(`${y5.year}: ${fmtA(y5.revenue)} revenue, ${pct(y5.units / mkt.find(d => d.scenario === scen && d.year === y5.year).total)} of national market`, `${y5.year}年：收入${fmtA(y5.revenue)}，占全国市场${pct(y5.units / mkt.find(d => d.scenario === scen && d.year === y5.year).total)}`))}
+  ${tile(T("Fifth-year profit (EBIT)", "第五年息税前利润"), fmtA(y5.ebit + (groupView ? y5.factory : 0)), groupView ? T(`incl. ${fmtA(y5.factory)} factory margin`, `含工厂利润${fmtA(y5.factory)}`) : T(`gross margin ${y5.gm === null ? "–" : pct(y5.gm)} after distributor`, `扣除代理后毛利率${y5.gm === null ? "–" : pct(y5.gm)}`))}
+  ${tile(T("Payback", "回收期"), paybackYear ? String(paybackYear) : T("not by 2036", "2036年前未回本"), T("cumulative cash turns positive", "累计现金流转正"))}
+  ${tile(T("NPV to 2036", "净现值（至2036年）"), fmtA(npv), T(`at ${(discount*100).toFixed(1)}%, no terminal value`, `折现率${(discount*100).toFixed(1)}%，不含终值`))}
+</div>`
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 260, marginLeft: 55, marginRight: 110,
+  x: {label: null, tickFormat: d => String(d)},
+  y: {label: T("CDEG meters sold per year (thousand)", "集团年销量（千只）"), grid: true, transform: d => d / 1e3},
+  color: {domain: ["base", "optimal", "recession"], range: [C.base, C.optimal, C.recession]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.ruleY([u.contrib > 0 ? overhead / u.contrib : 0], {stroke: "#9a9890", strokeDasharray: "2,3"}),
+    Plot.text([u.contrib > 0 ? overhead / u.contrib : 0], {x: 2027, y: d => d, dy: -6, textAnchor: "start", fill: C.ink, fontSize: 10, text: () => T("Break-even volume", "盈亏平衡销量")}),
+    Plot.line(all, {x: "year", y: "units", stroke: "scenario", strokeWidth: d => d.scenario === scen ? 2.5 : 1.25, strokeOpacity: d => d.scenario === scen ? 1 : 0.5}),
+    Plot.text(all.filter(d => d.year === 2036), {x: "year", y: "units", text: d => scenNames[d.scenario], dx: 6, dy: d => d.scenario === "recession" ? 12 : 0, textAnchor: "start", fill: C.ink, fontSize: 11}),
+    Plot.tip(rows, Plot.pointerX({x: "year", y: "units", title: d => `${d.year} · ${scenNames[d.scenario]}\n${T("Meters", "销量")}: ${fmtK(d.units)}\n${T("Revenue", "收入")}: ${fmtA(d.revenue)}\nEBIT: ${fmtA(d.ebit)}`}))
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 240, marginLeft: 60,
+  x: {label: null, tickFormat: d => String(d)},
+  y: {label: T("Cumulative cash (A$m)", "累计现金流（百万澳元）"), grid: true, transform: d => d / 1e6},
+  color: {domain: ["base", "optimal", "recession"], range: [C.base, C.optimal, C.recession]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(all, {x: "year", y: "cumulative", stroke: "scenario", strokeWidth: d => d.scenario === scen ? 2.5 : 1.25, strokeOpacity: d => d.scenario === scen ? 1 : 0.5}),
+    Plot.tip(rows, Plot.pointerX({x: "year", y: "cumulative", title: d => `${d.year}\n${T("Cash this year", "当年现金流")}: ${fmtA(d.cash + (groupView ? d.factory : 0))}\n${T("Cumulative", "累计")}: ${fmtA(d.cumulative)}`}))
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+html`<div style="overflow-x:auto"><table class="table table-sm council-table">
+<thead><tr><th></th>${rows.map(d => html`<th class="num">${d.year}</th>`)}</tr></thead>
+<tbody>
+${[
+  [T("Meters sold", "销量"), d => fmtK(d.units)],
+  [T("Revenue", "收入"), d => fmtA(d.revenue)],
+  [T("Landed cost, QA, warranty", "到岸成本、质检、质保"), d => fmtA(-d.cogs)],
+  [T("Distributor margin", "代理商利润"), d => fmtA(-d.distCost)],
+  [T("Overhead and bids", "固定费用与投标"), d => fmtA(-d.fixed)],
+  [T("Approvals, R&D, pilot", "审批、研发、试点"), d => fmtA(-(d.once + d.pilot))],
+  [T("EBIT", "息税前利润"), d => fmtA(d.ebit)],
+  [T("Tax and stock build", "税费与备货"), d => fmtA(-(d.tax + d.dInv))],
+  ...(groupView ? [[T("Factory margin (China)", "工厂利润（国内）"), d => fmtA(d.factory)]] : []),
+  [T("Cumulative cash", "累计现金流"), d => fmtA(d.cumulative)]
+].map(([k, f]) => html`<tr><td>${k}</td>${rows.map(d => html`<td class="num">${f(d)}</td>`)}</tr>`)}
+</tbody></table></div>`
+```
+
+## [5 · Which inputs matter most]{.en}[5 · 哪些参数影响最大]{.zh}
+
+::: {.en}
+Each bar moves one input 20% up and down from its current setting and shows how the 10-year NPV changes. The longest bars are the numbers CDEG should replace with its own data first.
+:::
+
+::: {.zh}
+每根横条将一个参数在当前值基础上上下浮动20%，显示10年净现值的变化。横条最长的参数，是集团最应优先用自有数据替换的。
+:::
+
+```{ojs}
+//| echo: false
+sensKeys = [
+  ["price", T("Price to utility", "采购价"), price],
+  ["exRMB", T("Ex-works price", "出厂价"), exRMB],
+  ["shareMax", T("Market share won", "市场份额"), shareMax],
+  ["fx", T("Exchange rate", "汇率"), fx],
+  ["overhead", T("Annual overhead", "年度固定费用"), overhead],
+  ["distMargin", T("Distributor margin", "代理商利润率"), distMargin],
+  ["openShare", T("Demand open to new suppliers", "可争取需求比例"), openShare],
+  ["life", T("Replacement cycle", "更换周期"), life],
+  ["rnd", T("Adaptation R&D", "适配研发"), rnd]
+]
+sens = sensKeys.map(([k, label, base]) => {
+  const lo = npvOf(model(scen, {[k]: base * 0.8})), hi = npvOf(model(scen, {[k]: base * 1.2}));
+  return {k, label, lo: lo - npv, hi: hi - npv, span: Math.abs(hi - lo)};
+}).sort((a, b) => b.span - a.span)
+sensLong = sens.flatMap(d => [{label: d.label, dir: "−20%", x: d.lo}, {label: d.label, dir: "+20%", x: d.hi}])
+Plot.plot({
+  height: 300, marginLeft: 190,
+  x: {label: T("Change in NPV (A$m)", "净现值变化（百万澳元）"), grid: true, transform: d => d / 1e6},
+  y: {label: null, domain: sens.map(d => d.label)},
+  color: {legend: true, domain: ["−20%", "+20%"], range: [C.recession, C.base]},
+  marks: [
+    Plot.barX(sensLong, {x: "x", y: "label", fill: "dir"}),
+    Plot.ruleX([0], {stroke: C.ink}),
+    Plot.tip(sensLong, Plot.pointerY({x: "x", y: "label", title: d => `${d.label} ${d.dir}: ${fmtA(d.x)}`}))
+  ]
+})
+```
+
+## [Method and limits]{.en}[方法与局限]{.zh}
+
+::: {.en}
+- **Demand** = connections ÷ replacement cycle (times a digital-upgrade factor: 1.15 base, 1.5 optimal, 1.0 during a recession) + new connections. Connections grow at the new-connection rate.
+- **Open demand** steps up by 20 percentage points from 2032, when Melbourne's metro contracts are due to roll over. The optimal scenario adds 10 points.
+- **Recession** lasts two years from the chosen start: new connections −30%, early upgrades paused, tender prices −5%, and the A\$ buys 12% less RMB. Replacement of worn meters continues, because utilities must keep meters accurate and their budgets are fixed in five-year price determinations. A recession mainly squeezes margin through the exchange rate, not volume.
+- **Costs**: landed cost = ex-works ÷ FX × (1 + duty) + freight. One-off costs fall in 2027. Pilot meters are given free in the approval year. Overhead starts at the first sale; before that, bid costs apply. Losses carry forward for tax. Stock in Australia ties up cash.
+- **Not modelled**: installation (usually a separate contract), software and data-platform fees (a possible extra revenue line), large-diameter commercial meters, NZ, inflation (all figures are real 2027 A\$), and Chinese tax on the factory margin.
+- **Biggest unknowns**: Huijin's ex-works price for an Australian-spec meter, whether the battery meets utility specifications without redesign, and whether NMI accepts Chinese test results. All three are questions for CDEG.
+:::
+
+::: {.zh}
+- **需求**=用户数÷更换周期（乘以数字化升级系数：基准1.15、最优1.5、衰退期间1.0）+新增用户。用户数按新增率增长。
+- **可争取需求**自2032年起提高20个百分点（墨尔本大都市合同届时到期），最优情景再加10个百分点。
+- **衰退**自所选年份起持续两年：新增用户−30%、提前升级暂停、招标价格−5%、澳元兑人民币贬值12%。磨损水表的更换不会停止，因为水务公司必须保证计量准确，且预算由五年水价核定锁定。衰退主要通过汇率压缩利润，而非减少销量。
+- **成本**：到岸成本=出厂价÷汇率×（1+关税）+运费。一次性费用计入2027年。试点水表在获批当年免费提供。固定费用自首单开始计算，此前计投标费用。亏损可结转抵税。在澳库存占用现金。
+- **未纳入**：安装（通常另行招标）、软件和数据平台服务费（可作为额外收入）、大口径商用水表、新西兰市场、通胀（所有金额为2027年不变价澳元）、工厂利润在国内的税负。
+- **最大不确定性**：汇锦澳洲规格水表的出厂价、电池是否无需重新设计即可满足水务公司要求、NMI是否采信国内检测结果。这三项均需向集团确认。
 :::
