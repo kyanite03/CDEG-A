@@ -25,3 +25,7 @@ desktop.ini
 *.Rproj
 
 **/*.quarto_ipynb
+
+# Local working copies (not published)
+report/*.pdf
+*:Zone.Identifier
