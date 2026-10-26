@@ -1,39 +1,42 @@
-id,title,publisher,date,url,type
-S5,Waste to Energy Scheme licences,EPA Victoria,2026-08-27,https://www.epa.vic.gov.au/waste-energy-scheme-licences,official
-S8,Waste levy rates,EPA Victoria,2026,https://www.epa.vic.gov.au/waste-levy,official
-S9,Waste-to-energy in Australia: Energy solution or problem?,Smart Energy Council,2026-07,https://smartenergy.org.au/wp-content/uploads/2026/07/Smart-Energy-Council-and-waste-to-energy-in-Australia-2026.pdf,industry
-C2,Renewable-energy company written replies,CDEG,2026-10-16,,company claim
-C3,Meter subsidiary (Huijin) WeChat reply: RMB 200k China test; no OIML; agent sales overseas; will fund NMI,CDEG,2026-10-16,,company claim
-S10,National Waste and Resource Recovery Database 2026,DCCEEW,2026-09,https://www.dcceew.gov.au/environment/protection/waste/national-waste-reports,official
-S11,Victorian local government waste data 2025.03,EPA Victoria,2026-06,https://discover.data.vic.gov.au/dataset/victorian-local-government-waste-data-dashboard,official
-S12,Environment Protection Regulations 2021 reg. 52 (metro levy councils),Victorian Government,2026-10,https://www.legislation.vic.gov.au/in-force/statutory-rules/environment-protection-regulations-2021,official
-S13,Landfill levy rate rises deferred (2020-23 schedule),VLGA,2020,https://www.vlga.org.au/sites/default/files/LANDFILL%20LEVY%20RATE%20RISES%20DEFERRED.pdf,industry
-S14,Managing the Municipal and Industrial Landfill Levy,VAGO,2018-07,https://www.audit.vic.gov.au/report/managing-municipal-and-industrial-landfill-levy,official
-S15,Waste levy areas and levy rates,NSW EPA,2026-03,https://www.epa.nsw.gov.au/Your-environment/Waste/waste-levy/levy-regulated-area-and-levy-rates,official
-S16,Waste levy rates,SA EPA,2026-08,https://www.epa.sa.gov.au/business_and_industry/waste-levy,official
-S17,SA commits to $103 waste levy by 2019/20,Waste Management Review,2016,https://wastemanagementreview.com.au/sa-commits-to-103-waste-levy-by-201920/,industry
-S18,Waste Management and Resource Recovery (Fees) Determination 2026,ACT Government,2026,https://www.legislation.act.gov.au/DownloadFile/di/2026-134/current/PDF/2026-134.PDF,official
-S19,Council calls to halt waste levy increase (Corangamite rural levy 2024-25),Warrnambool & District News,2025-09,https://www.wdnews.com.au/council-calls-to-halt-waste-levy-increase-2025-09-12,media
-S20,What does my waste charge pay for,City of Greater Geelong,2025,https://www.geelongcity.vic.gov.au/whats-happening/news-and-updates/what-does-my-waste-charge-pay,official
-S21,Growing the cap limit for waste to energy projects in Victoria,Norton Rose Fulbright,2025-04,https://www.nortonrosefulbright.com/en-gr/knowledge/publications/96caf112/growing-the-cap-limit-for-waste-to-energy-projects-in-victoria,industry
-S22,geoBoundaries Australia ADM2,William & Mary geoLab,2023,https://www.geoboundaries.org,dataset
-S23,"Integrated Solid Waste Management (Tchobanoglous, Theisen & Vigil), Table 4-16 energy content of MSW components",McGraw-Hill,1993,,book
-S24,Red bin audit 2011-19 (Table 7: residual bin composition by organics service),NSW EPA,2020,https://www.epa.nsw.gov.au/sites/default/files/red-bin-audit-2011-19.pdf,official
-S25,FOGO services map and council list,NSW EPA,2026-10,https://www.epa.nsw.gov.au/Your-environment/Recycling-and-reuse/business-government-recycling/Food-organics-and-garden-organics/nsw-fogo-services,official
-S26,Local Government Waste Data Survey 2023-24 Appendix A (council red-bin tonnes),NSW EPA,2025-09,https://www.epa.nsw.gov.au/Your-environment/Recycling-and-reuse/warr-strategy/performance-against-strategy/local-government-waste-data-survey/previous-surveys/2023-24,official
-S27,Metropolitan Adelaide Kerbside Waste Performance Snapshot 2023-24,Green Industries SA,2025,https://www.greenindustries.sa.gov.au/resources/metro-kerbisde-performance-snapshot-23-24,official
-S28,ACT 2022 kerbside waste audit report,ACT Government (TCCS),2022,https://www.cityservices.act.gov.au/__data/assets/pdf_file/0004/2254333/ACT-2022-kerbside-waste-audit-report-final_Access.pdf,official
-S29,The Landfill Levy (Tasmania),Tasmanian Government NRE,2026,https://nre.tas.gov.au/environment/waste-and-resource-recovery/landfill-levy,official
-S30,Information Paper 3: Tasmanian sea freight,Tasmanian Department of State Growth,,https://stategrowth.tas.gov.au/__data/assets/pdf_file/0012/134211/Information_Paper_3_-_Tasmanian_sea_freight.pdf,official
-M1,Huizhong wins A$29m deal to supply Australian city with smart water meters,Yicai Global,2023-07,https://yicaiglobal.com/news/huizhong-soars-after-chinese-firm-bags-usd140-mln-deal-to-supply-australian-city-with-smart-water-meters,media
-M2,Avnet to support South East Water's mass digital meter deployment,BINDT,2025-01,https://www.bindt.org/News/january-2025/avnet-to-support-mass-digital-meter-deployment/,media
-M3,Yarra Valley Water reaches major digital meter milestone,Utility Magazine,2026,https://utilitymagazine.com.au/yarra-valley-water-reaches-major-digital-meter-milestone/,media
-M4,About pattern approval,National Measurement Institute,2026,https://www.industry.gov.au/regulations-and-standards/pattern-approval,official
-M5,National Performance Report 2024-25: urban water,Bureau of Meteorology,2026,https://www.bom.gov.au/water/npr/docs/2024-25/NPR_2024-25_01-Introduction.pdf,official
-M6,Australia's US$17.4B digital water forecast,Water Online (Bluefield Research),2026-03,https://www.wateronline.com/doc/australia-s-us-b-digital-water-forecast-highlights-the-utility-opportunity-ahead-0001,industry
-M7,WaterMark certification for Australian plumbing products,Alibaba.com Seller Blog,2026,https://seller.alibaba.com/blogs/2026/southeast-asia/plumbing-products/watermark-certification-australia-guide-alibaba-b2b,industry
-M8,"South East Water hits 200,000 digital meter milestone",South East Water,2026-01,https://southeastwater.com.au/about-us/news/digital-meter-milestone2/,official
-M9,Sydney Water shares results of smart meter rollout,Utility Magazine,2024,https://utilitymagazine.com.au/sydney-water-shares-results-of-smart-metre-rollout/,media
-M10,Huizhong Instrumentation (300371.SZ) financials,roic.ai,2026,https://www.roic.ai/quote/300371.SZ/classic,dataset
-M11,Building activity and Housing Accord progress,ABS / Australian Government,2026,https://www.abs.gov.au/statistics/industry/building-and-construction,official
-C4,NexStar company registration form (meter specs; overseas sales),CDEG,2026-09,,company claim
+id,ref,title,publisher,date,url,type
+S5,1,Waste to Energy Scheme licences,EPA Victoria,2026-08-27,https://www.epa.vic.gov.au/waste-energy-scheme-licences,official
+S8,4,Waste levy rates,EPA Victoria,2026,https://www.epa.vic.gov.au/waste-levy,official
+S9,45,Waste-to-energy in Australia: Energy solution or problem?,Smart Energy Council,2026-07,https://smartenergy.org.au/wp-content/uploads/2026/07/Smart-Energy-Council-and-waste-to-energy-in-Australia-2026.pdf,industry
+C2,3,Renewable-energy company written replies,CDEG,2026-10-16,,company claim
+C3,24,Meter subsidiary (Huijin) WeChat reply: RMB 200k China test; no OIML; agent sales overseas; will fund NMI,CDEG,2026-10-16,,company claim
+S10,28,National Waste and Resource Recovery Database 2026,DCCEEW,2026-09,https://www.dcceew.gov.au/environment/protection/waste/national-waste-reports,official
+S11,37,Victorian local government waste data 2025.03,EPA Victoria,2026-06,https://discover.data.vic.gov.au/dataset/victorian-local-government-waste-data-dashboard,official
+S12,31,Environment Protection Regulations 2021 reg. 52 (metro levy councils),Victorian Government,2026-10,https://www.legislation.vic.gov.au/in-force/statutory-rules/environment-protection-regulations-2021,official
+S13,121,Landfill levy rate rises deferred (2020-23 schedule),VLGA,2020,https://www.vlga.org.au/sites/default/files/LANDFILL%20LEVY%20RATE%20RISES%20DEFERRED.pdf,industry
+S14,122,Managing the Municipal and Industrial Landfill Levy,VAGO,2018-07,https://www.audit.vic.gov.au/report/managing-municipal-and-industrial-landfill-levy,official
+S15,114,Waste levy areas and levy rates,NSW EPA,2026-03,https://www.epa.nsw.gov.au/Your-environment/Waste/waste-levy/levy-regulated-area-and-levy-rates,official
+S16,123,Waste levy rates,SA EPA,2026-08,https://www.epa.sa.gov.au/business_and_industry/waste-levy,official
+S17,124,SA commits to $103 waste levy by 2019/20,Waste Management Review,2016,https://wastemanagementreview.com.au/sa-commits-to-103-waste-levy-by-201920/,industry
+S18,125,Waste Management and Resource Recovery (Fees) Determination 2026,ACT Government,2026,https://www.legislation.act.gov.au/DownloadFile/di/2026-134/current/PDF/2026-134.PDF,official
+S19,126,Council calls to halt waste levy increase (Corangamite rural levy 2024-25),Warrnambool & District News,2025-09,https://www.wdnews.com.au/council-calls-to-halt-waste-levy-increase-2025-09-12,media
+S20,5,What does my waste charge pay for,City of Greater Geelong,2025,https://www.geelongcity.vic.gov.au/whats-happening/news-and-updates/what-does-my-waste-charge-pay,official
+S21,30,Growing the cap limit for waste to energy projects in Victoria,Norton Rose Fulbright,2025-04,https://www.nortonrosefulbright.com/en-gr/knowledge/publications/96caf112/growing-the-cap-limit-for-waste-to-energy-projects-in-victoria,industry
+S22,127,geoBoundaries Australia ADM2,William & Mary geoLab,2023,https://www.geoboundaries.org,dataset
+S23,77,"Integrated Solid Waste Management (Tchobanoglous, Theisen & Vigil), Table 4-16 energy content of MSW components",McGraw-Hill,1993,,book
+S24,76,Red bin audit 2011-19 (Table 7: residual bin composition by organics service),NSW EPA,2020,https://www.epa.nsw.gov.au/sites/default/files/red-bin-audit-2011-19.pdf,official
+S25,128,FOGO services map and council list,NSW EPA,2026-10,https://www.epa.nsw.gov.au/Your-environment/Recycling-and-reuse/business-government-recycling/Food-organics-and-garden-organics/nsw-fogo-services,official
+S26,129,Local Government Waste Data Survey 2023-24 Appendix A (council red-bin tonnes),NSW EPA,2025-09,https://www.epa.nsw.gov.au/Your-environment/Recycling-and-reuse/warr-strategy/performance-against-strategy/local-government-waste-data-survey/previous-surveys/2023-24,official
+S27,130,Metropolitan Adelaide Kerbside Waste Performance Snapshot 2023-24,Green Industries SA,2025,https://www.greenindustries.sa.gov.au/resources/metro-kerbisde-performance-snapshot-23-24,official
+S28,131,ACT 2022 kerbside waste audit report,ACT Government (TCCS),2022,https://www.cityservices.act.gov.au/__data/assets/pdf_file/0004/2254333/ACT-2022-kerbside-waste-audit-report-final_Access.pdf,official
+S29,132,The Landfill Levy (Tasmania),Tasmanian Government NRE,2026,https://nre.tas.gov.au/environment/waste-and-resource-recovery/landfill-levy,official
+S30,133,Information Paper 3: Tasmanian sea freight,Tasmanian Department of State Growth,,https://stategrowth.tas.gov.au/__data/assets/pdf_file/0012/134211/Information_Paper_3_-_Tasmanian_sea_freight.pdf,official
+M1,11,Huizhong wins A$29m deal to supply Australian city with smart water meters,Yicai Global,2023-07,https://yicaiglobal.com/news/huizhong-soars-after-chinese-firm-bags-usd140-mln-deal-to-supply-australian-city-with-smart-water-meters,media
+M2,10,Avnet to support South East Water's mass digital meter deployment,BINDT,2025-01,https://www.bindt.org/News/january-2025/avnet-to-support-mass-digital-meter-deployment/,media
+M3,134,Yarra Valley Water reaches major digital meter milestone,Utility Magazine,2026,https://utilitymagazine.com.au/yarra-valley-water-reaches-major-digital-meter-milestone/,media
+M4,91,About pattern approval,National Measurement Institute,2026,https://www.industry.gov.au/regulations-and-standards/pattern-approval,official
+M5,135,National Performance Report 2024-25: urban water,Bureau of Meteorology,2026,https://www.bom.gov.au/water/npr/docs/2024-25/NPR_2024-25_01-Introduction.pdf,official
+M6,136,Australia's US$17.4B digital water forecast,Water Online (Bluefield Research),2026-03,https://www.wateronline.com/doc/australia-s-us-b-digital-water-forecast-highlights-the-utility-opportunity-ahead-0001,industry
+M7,137,WaterMark certification for Australian plumbing products,Alibaba.com Seller Blog,2026,https://seller.alibaba.com/blogs/2026/southeast-asia/plumbing-products/watermark-certification-australia-guide-alibaba-b2b,industry
+M8,65,"South East Water hits 200,000 digital meter milestone",South East Water,2026-01,https://southeastwater.com.au/about-us/news/digital-meter-milestone2/,official
+M9,138,Sydney Water shares results of smart meter rollout,Utility Magazine,2024,https://utilitymagazine.com.au/sydney-water-shares-results-of-smart-metre-rollout/,media
+M10,139,Huizhong Instrumentation (300371.SZ) financials,roic.ai,2026,https://www.roic.ai/quote/300371.SZ/classic,dataset
+M11,140,Building activity and Housing Accord progress,ABS / Australian Government,2026,https://www.abs.gov.au/statistics/industry/building-and-construction,official
+C4,19,NexStar company registration form (meter specs; overseas sales),CDEG,2026-09,,company claim
+S31,81,Circular Economy (Waste Reduction and Recycling) (Waste to Energy Scheme) Amendment Regulations 2025: Regulatory impact statement,Victorian Government,2025,https://www.vic.gov.au/sites/default/files/2025-04/Circular-Economy-%28Waste-Reduction-and-Recylcing%29-%28Waste-to-Energy-Scheme%29-Amendment-Regulations-2025-Regulatory-Impact-Statement-.docx,official
+S32,141,Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025,Australian Taxation Office,2025,,official
+S33,142,Company tax rates,Australian Taxation Office,2026,,official

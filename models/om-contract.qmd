@@ -44,9 +44,37 @@ fmtM = v => (v / 1e6).toFixed(1)
 kt = v => (v / 1e3).toFixed(0)
 tile = (label, value, sub, warn) => html`<div class="kpi" style="${warn ? "border-color:#eb6834;background:#fdf1ec" : ""}"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
 // Victorian WtE licences, August 2025 (same figures as Model 1)
-LIC = ({total: 2.35e6, cleanaway: 760e3, hiq: 750e3, mw: 450e3})
+LIC = ({total: v("lic_total") * 1e6, cleanaway: v("lic_cleanaway") * 1e3, hiq: v("lic_hiq") * 1e3, mw: v("lic_mw") * 1e3})
 // Metro Vancouver contractor-run plant, C$93–112/t ≈ A$100–125/t, excluding ash and debt service
 VANCOUVER = [100, 125]
+// ----- Assumptions register: defaults and sources for every input (data/assumptions.csv + data/sources.csv) -----
+// A failed fetch falls back to DEFAULTS (with a warning) instead of blanking the page
+csvStrict = path => fetch(path).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => d3.csvParse(t, d3.autoType))
+registerRes = Promise.all([csvStrict("../data/assumptions.csv" + V), csvStrict("../data/sources.csv" + V)]).then(([a, s]) => ({a, s, ok: true}), () => ({a: [], s: [], ok: false}))
+registerFailed = !registerRes.ok
+A = Object.fromEntries(registerRes.a.map(d => [d.id, d]))
+REF = Object.fromEntries(registerRes.s.map(d => [d.id, d.ref]))
+// Fallback defaults (same values as data/assumptions.csv) so a missing row cannot blank the page
+DEFAULTS = ({lic_cleanaway: 760, lic_hiq: 750, lic_mw: 450, lic_total: 2.35, o_budget: 9.6, o_discount: 0.08, o_markup: 0.125, o_owner_share: 0, o_range_high: 110, o_range_low: 60, o_self_op: 0.5, o_term: 10, w_availability: 0.9, w_fixed_furnace: 5, w_fixed_site: 3, w_furnaces: 3, w_tpd: 500, w_var_opex: 30})
+num = x => typeof x === "number" && Number.isFinite(x)
+missingIds = Object.keys(DEFAULTS).filter(id => !num(A[id]?.value)).map(id => A[id] && A[id].value != null ? `${id} (invalid)` : id)
+// The CSV wins; DEFAULTS are used only when a row is missing or its value is not a finite number
+v = id => num(A[id]?.value) ? A[id].value : DEFAULTS[id]
+// Source tag after a label: report reference number(s) linked to the Sources page; an input with no source is an assumption
+tag = id => {
+  if (!A[id]) return "";
+  const refs = String(A[id].source_id ?? "").split(/[;\s]+/).filter(Boolean).map(s => REF[s]).filter(Boolean);
+  return refs.length
+    ? html`<span class="src-tag">[${refs.map((r, i) => html`${i ? ", " : ""}<a href="../appendix/sources.html#ref-${r}">${r}</a>`)}]</span>`
+    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
+}
+lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
+
+```
+
+```{ojs}
+//| echo: false
+missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-weight:600">${registerFailed ? L("Warning: the assumptions register could not be loaded; built-in defaults used for all inputs.", "警告：无法加载假设参数表，所有参数均使用内置默认值。") : html`${L("Warning: missing or not a number in the assumptions register, built-in defaults used for: ", "警告：假设参数表中以下参数缺失或不是数字，已使用内置默认值：")}${missingIds.join(", ")}`}</p>` : html`<span class="assump-ok" hidden></span>`
 ```
 
 ## [1 · Running cost the operator controls]{.en}[1 · 运营方可控的运营成本]{.zh}
@@ -63,18 +91,18 @@ The operator pays for staff, maintenance and consumables. We assume the owner pa
 ::: {.column width="40%"}
 ```{ojs}
 //| echo: false
-viewof furnaces = Inputs.range([1, 6], {value: 3, step: 1, label: L("Furnaces", "焚烧炉数量")})
-viewof availability = Inputs.range([0.75, 0.95], {value: 0.9, step: 0.01, label: L("Availability", "可用率")})
-viewof fixedFurnace = Inputs.range([2, 12], {value: 5, step: 0.5, label: L("Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
-viewof varOpex = Inputs.range([10, 60], {value: 30, step: 5, label: L("Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
+viewof furnaces = Inputs.range([1, 6], {value: v("w_furnaces"), step: 1, label: lab("w_furnaces", "Furnaces", "焚烧炉数量")})
+viewof availability = Inputs.range([0.75, 0.95], {value: v("w_availability"), step: 0.01, label: lab("w_availability", "Availability", "可用率")})
+viewof fixedFurnace = Inputs.range([2, 12], {value: v("w_fixed_furnace"), step: 0.5, label: lab("w_fixed_furnace", "Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
+viewof varOpex = Inputs.range([10, 60], {value: v("w_var_opex"), step: 5, label: lab("w_var_opex", "Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
 ```
 
 <details><summary><span class="en">Plant size and site cost assumptions (same defaults as Model 1)</span><span class="zh">工厂规模与厂区成本假设（与模型1默认值相同）</span></summary>
 
 ```{ojs}
 //| echo: false
-viewof tpd = Inputs.range([300, 750], {value: 500, step: 50, label: L("Furnace size (t/day)", "单炉规模（吨/日）")})
-viewof fixedSite = Inputs.range([0, 10], {value: 3, step: 0.5, label: L("Site overhead (A$m/yr)", "厂区管理费用（百万澳元/年）")})
+viewof tpd = Inputs.range([300, 750], {value: v("w_tpd"), step: 50, label: lab("w_tpd", "Furnace size (t/day)", "单炉规模（吨/日）")})
+viewof fixedSite = Inputs.range([0, 10], {value: v("w_fixed_site"), step: 0.5, label: lab("w_fixed_site", "Site overhead (A$m/yr)", "厂区管理费用（百万澳元/年）")})
 ```
 
 </details>
@@ -136,8 +164,8 @@ The operator's fee is its cost per tonne plus a margin. The chart sets the resul
 ::: {.column width="40%"}
 ```{ojs}
 //| echo: false
-viewof markup = Inputs.range([0, 0.3], {value: 0.125, step: 0.005, label: L("Operator margin on cost", "运营方成本加成率")})
-viewof ownerShare = Inputs.range([0, 1], {value: 0, step: 0.05, label: L("Share of spares and consumables the owner buys", "业主直接采购的备件与耗材比例")})
+viewof markup = Inputs.range([0, 0.3], {value: v("o_markup"), step: 0.005, label: lab("o_markup", "Operator margin on cost", "运营方成本加成率")})
+viewof ownerShare = Inputs.range([0, 1], {value: v("o_owner_share"), step: 0.05, label: lab("o_owner_share", "Share of spares and consumables the owner buys", "业主直接采购的备件与耗材比例")})
 viewof roundFee = Inputs.toggle({value: true, label: L("Round the fee to the nearest A$5", "运营费取整至5澳元")})
 ```
 
@@ -145,8 +173,8 @@ viewof roundFee = Inputs.toggle({value: true, label: L("Round the fee to the nea
 
 ```{ojs}
 //| echo: false
-viewof rangeLow = Inputs.range([30, 90], {value: 60, step: 5, label: L("Low end of range (A$/t)", "区间下限（澳元/吨）")})
-viewof rangeHigh = Inputs.range([80, 150], {value: 110, step: 5, label: L("High end of range (A$/t)", "区间上限（澳元/吨）")})
+viewof rangeLow = Inputs.range([30, 90], {value: v("o_range_low"), step: 5, label: lab("o_range_low", "Low end of range (A$/t)", "区间下限（澳元/吨）")})
+viewof rangeHigh = Inputs.range([80, 150], {value: v("o_range_high"), step: 5, label: lab("o_range_high", "High end of range (A$/t)", "区间上限（澳元/吨）")})
 ```
 
 </details>
@@ -209,7 +237,7 @@ Seven Victorian licences cover 2.35 Mt a year. Three large holders (Cleanaway 76
 ```{ojs}
 //| echo: false
 viewof dropHiQ = Inputs.toggle({value: true, label: L("Leave out HiQ (vendor likely to operate)", "剔除HiQ（供应商可能自行运营）")})
-viewof selfOp = Inputs.range([0, 1], {value: 0.5, step: 0.05, label: L("Share owners run themselves", "业主自行运营比例")})
+viewof selfOp = Inputs.range([0, 1], {value: v("o_self_op"), step: 0.05, label: lab("o_self_op", "Share owners run themselves", "业主自行运营比例")})
 ```
 :::
 
@@ -263,15 +291,15 @@ CDEG's profit on one contract is the margin per tonne times the contract's tonne
 //| echo: false
 viewof contract = Inputs.radio(["two", "mw", "plant"], {value: "two", label: L("Contract", "合同"),
   format: k => ({two: L("Two-line plant (2 furnaces)", "两条线电厂（2台炉）"), mw: L("Melbourne Water (450 kt)", "Melbourne Water（45万吨）"), plant: L("Plant set in section 1", "第1节设定的电厂")})[k]})
-viewof budget = Inputs.range([3, 20], {value: 9.6, step: 0.1, label: L("Entry budget (A$m)", "进入预算（百万澳元）")})
-viewof term = Inputs.range([5, 25], {value: 10, step: 1, label: L("Contract length (years)", "合同期限（年）")})
+viewof budget = Inputs.range([3, 20], {value: v("o_budget"), step: 0.1, label: lab("o_budget", "Entry budget (A$m)", "进入预算（百万澳元）")})
+viewof term = Inputs.range([5, 25], {value: v("o_term"), step: 1, label: lab("o_term", "Contract length (years)", "合同期限（年）")})
 ```
 
 <details><summary><span class="en">Discounting assumption</span><span class="zh">折现假设</span></summary>
 
 ```{ojs}
 //| echo: false
-viewof discount = Inputs.range([0.04, 0.14], {value: 0.08, step: 0.005, label: L("Discount rate (real)", "折现率（实际）")})
+viewof discount = Inputs.range([0.04, 0.14], {value: v("o_discount"), step: 0.005, label: lab("o_discount", "Discount rate (real)", "折现率（实际）")})
 ```
 
 </details>

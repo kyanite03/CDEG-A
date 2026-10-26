@@ -99,6 +99,34 @@ fmt = v => Number.isFinite(v) ? `A$${v.toFixed(0)}` : "—"
 fmt1 = (v, d = 1) => Number.isFinite(v) ? v.toFixed(d) : "—"
 esc = s => String(s ?? "").replace(/[&<>"]/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[ch])
 rich = s => { const p = document.createElement("p"); p.className = "kpi-note"; p.innerHTML = s; return p; }
+// ----- Assumptions register: defaults and sources for every input (data/assumptions.csv + data/sources.csv) -----
+// A failed fetch falls back to DEFAULTS (with a warning) instead of blanking the page
+csvStrict = path => fetch(path).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => d3.csvParse(t, d3.autoType))
+registerRes = Promise.all([csvStrict("../data/assumptions.csv" + V), csvStrict("../data/sources.csv" + V)]).then(([a, s]) => ({a, s, ok: true}), () => ({a: [], s: [], ok: false}))
+registerFailed = !registerRes.ok
+A = Object.fromEntries(registerRes.a.map(d => [d.id, d]))
+REF = Object.fromEntries(registerRes.s.map(d => [d.id, d.ref]))
+// Fallback defaults (same values as data/assumptions.csv) so a missing row cannot blank the page
+DEFAULTS = ({c_gate_act: 111, c_gate_nsw: 130, c_gate_nsw_mla: 120, c_gate_nsw_rla: 120, c_gate_sa: 110, c_gate_sa_metro: 90, c_gate_tas: 135, c_gate_vic_rural: 110, c_threshold: 0.1, f_bass: 1000, f_cont_m3: 33, f_lift_extra: 150, f_local_km: 30, f_max_payload: 24, f_port_fix: 350, f_rail_fix: 400, f_rail_km: 1.4, f_rho11: 0.6, f_road_fix: 150, f_road_km: 3.5, f_sea_km: 1.1, gate_fee: 205, gate_fee_other: 150, landfill_gate_metro: 95})
+num = x => typeof x === "number" && Number.isFinite(x)
+missingIds = Object.keys(DEFAULTS).filter(id => !num(A[id]?.value)).map(id => A[id] && A[id].value != null ? `${id} (invalid)` : id)
+// The CSV wins; DEFAULTS are used only when a row is missing or its value is not a finite number
+v = id => num(A[id]?.value) ? A[id].value : DEFAULTS[id]
+// Source tag after a label: report reference number(s) linked to the Sources page; an input with no source is an assumption
+tag = id => {
+  if (!A[id]) return "";
+  const refs = String(A[id].source_id ?? "").split(/[;\s]+/).filter(Boolean).map(s => REF[s]).filter(Boolean);
+  return refs.length
+    ? html`<span class="src-tag">[${refs.map((r, i) => html`${i ? ", " : ""}<a href="../appendix/sources.html#ref-${r}">${r}</a>`)}]</span>`
+    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
+}
+lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
+
+```
+
+```{ojs}
+//| echo: false
+missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-weight:600">${registerFailed ? L("Warning: the assumptions register could not be loaded; built-in defaults used for all inputs.", "警告：无法加载假设参数表，所有参数均使用内置默认值。") : html`${L("Warning: missing or not a number in the assumptions register, built-in defaults used for: ", "警告：假设参数表中以下参数缺失或不是数字，已使用内置默认值：")}${missingIds.join(", ")}`}</p>` : html`<span class="assump-ok" hidden></span>`
 ```
 
 ```{ojs}
@@ -125,8 +153,8 @@ rich = s => { const p = document.createElement("p"); p.className = "kpi-note"; p
 ```{ojs}
 //| echo: false
 viewof site = { const i = Inputs.radio(SITES.map(s => s.id), {value: "LATROBE", label: L("Plant site", "厂址"), format: k => { const s = siteById.get(k); return L(s.en, s.zh); }}); i.classList.add("site-radio"); return i; }
-viewof gateFee = Inputs.range([60, 260], {value: site === "LATROBE" ? 205 : 150, step: 5, label: L("Our gate fee (A$/t)", "我方处理费（澳元/吨）")})
-viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving needed to switch", "转换所需节省比例")})
+viewof gateFee = Inputs.range([60, 260], {value: site === "LATROBE" ? v("gate_fee") : v("gate_fee_other"), step: 5, label: lab(site === "LATROBE" ? "gate_fee" : "gate_fee_other", "Our gate fee (A$/t)", "我方处理费（澳元/吨）")})
+viewof threshold = Inputs.range([0, 0.25], {value: v("c_threshold"), step: 0.01, label: lab("c_threshold", "Saving needed to switch", "转换所需节省比例")})
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
 ```
 
@@ -134,33 +162,33 @@ viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail",
 
 ```{ojs}
 //| echo: false
-viewof contM3 = Inputs.range([25, 40], {value: 33, step: 1, label: L("20 ft container volume (m³)", "20英尺箱容积（立方米）")})
-viewof maxPayload = Inputs.range([18, 28], {value: 24, step: 1, label: L("Max payload (t)", "最大载重（吨）")})
-viewof rho11 = Inputs.range([0.40, 0.80], {value: 0.60, step: 0.01, label: L("Compacted density at 11 MJ/kg (t/m³)", "11兆焦/千克时压实密度（吨/立方米）")})
-viewof roadPerKm = Inputs.range([2, 6], {value: 3.5, step: 0.1, label: L("Road A$ per container-km", "公路 澳元/箱公里")})
-viewof roadFix = Inputs.range([0, 400], {value: 150, step: 10, label: L("Road loading A$/container", "公路装箱 澳元/箱")})
-viewof localKm = Inputs.range([0, 60], {value: 30, step: 5, label: L("Truck km already paid (km)", "现有卡车运距（公里）")})
-viewof railPerKm = Inputs.range([0.6, 3], {value: 1.4, step: 0.1, label: L("Rail A$ per container-km", "铁路 澳元/箱公里")})
-viewof railFix = Inputs.range([200, 900], {value: 400, step: 25, label: L("Rail terminal lifts (on + off) A$/container", "铁路站场装卸（上下）澳元/箱")})
-viewof liftExtra = Inputs.range([0, 400], {value: 150, step: 10, label: L("Extra lift (gauge change, TasRail) A$/container", "额外换装（换轨、塔州铁路）澳元/箱")})
-viewof seaPerKm = Inputs.range([0.3, 2.5], {value: 1.1, step: 0.05, label: L("Coastal sea A$ per container-km (notional)", "沿海海运 澳元/箱公里（示意）")})
-viewof bassRate = Inputs.range([300, 2000], {value: 1000, step: 50, label: L("Bass Strait sea freight A$/container", "巴斯海峡海运 澳元/箱")})
-viewof portFix = Inputs.range([100, 800], {value: 350, step: 25, label: L("Port charges per end A$/container", "每端港口费 澳元/箱")})
+viewof contM3 = Inputs.range([25, 40], {value: v("f_cont_m3"), step: 1, label: lab("f_cont_m3", "20 ft container volume (m³)", "20英尺箱容积（立方米）")})
+viewof maxPayload = Inputs.range([18, 28], {value: v("f_max_payload"), step: 1, label: lab("f_max_payload", "Max payload (t)", "最大载重（吨）")})
+viewof rho11 = Inputs.range([0.40, 0.80], {value: v("f_rho11"), step: 0.01, label: lab("f_rho11", "Compacted density at 11 MJ/kg (t/m³)", "11兆焦/千克时压实密度（吨/立方米）")})
+viewof roadPerKm = Inputs.range([2, 6], {value: v("f_road_km"), step: 0.1, label: lab("f_road_km", "Road A$ per container-km", "公路 澳元/箱公里")})
+viewof roadFix = Inputs.range([0, 400], {value: v("f_road_fix"), step: 10, label: lab("f_road_fix", "Road loading A$/container", "公路装箱 澳元/箱")})
+viewof localKm = Inputs.range([0, 60], {value: v("f_local_km"), step: 5, label: lab("f_local_km", "Truck km already paid (km)", "现有卡车运距（公里）")})
+viewof railPerKm = Inputs.range([0.6, 3], {value: v("f_rail_km"), step: 0.1, label: lab("f_rail_km", "Rail A$ per container-km", "铁路 澳元/箱公里")})
+viewof railFix = Inputs.range([200, 900], {value: v("f_rail_fix"), step: 25, label: lab("f_rail_fix", "Rail terminal lifts (on + off) A$/container", "铁路站场装卸（上下）澳元/箱")})
+viewof liftExtra = Inputs.range([0, 400], {value: v("f_lift_extra"), step: 10, label: lab("f_lift_extra", "Extra lift (gauge change, TasRail) A$/container", "额外换装（换轨、塔州铁路）澳元/箱")})
+viewof seaPerKm = Inputs.range([0.3, 2.5], {value: v("f_sea_km"), step: 0.05, label: lab("f_sea_km", "Coastal sea A$ per container-km (notional)", "沿海海运 澳元/箱公里（示意）")})
+viewof bassRate = Inputs.range([300, 2000], {value: v("f_bass"), step: 50, label: lab("f_bass", "Bass Strait sea freight A$/container", "巴斯海峡海运 澳元/箱")})
+viewof portFix = Inputs.range([100, 800], {value: v("f_port_fix"), step: 25, label: lab("f_port_fix", "Port charges per end A$/container", "每端港口费 澳元/箱")})
 ```
 
 <p class="figure-note"><span class="en">Landfill gate fee excluding levy, A$/t:</span><span class="zh">填埋处理费（不含税），澳元/吨：</span></p>
 
 ```{ojs}
 //| echo: false
-viewof gVicMetro = Inputs.range([40, 180], {value: 95, step: 5, label: L("Vic metro", "维州大都市")})
-viewof gVicRural = Inputs.range([40, 180], {value: 110, step: 5, label: L("Vic rural", "维州乡村")})
-viewof gNSWm = Inputs.range([40, 200], {value: 120, step: 5, label: L("NSW metro levy area", "新州大都市征税区")})
-viewof gNSWr = Inputs.range([40, 200], {value: 120, step: 5, label: L("NSW regional levy area", "新州区域征税区")})
-viewof gNSW = Inputs.range([40, 200], {value: 130, step: 5, label: L("NSW outside levy areas", "新州非征税区")})
-viewof gSAm = Inputs.range([40, 180], {value: 90, step: 5, label: L("Metro Adelaide", "阿德莱德大都市")})
-viewof gSA = Inputs.range([40, 180], {value: 110, step: 5, label: L("SA non-metro", "南澳非大都市")})
-viewof gACT = Inputs.range([60, 220], {value: 111, step: 1, label: L("ACT all-in (no levy)", "首都领地全包（无税）")})
-viewof gTAS = Inputs.range([60, 220], {value: 135, step: 5, label: L("Tasmania", "塔斯马尼亚")})
+viewof gVicMetro = Inputs.range([40, 180], {value: v("landfill_gate_metro"), step: 5, label: lab("landfill_gate_metro", "Vic metro", "维州大都市")})
+viewof gVicRural = Inputs.range([40, 180], {value: v("c_gate_vic_rural"), step: 5, label: lab("c_gate_vic_rural", "Vic rural", "维州乡村")})
+viewof gNSWm = Inputs.range([40, 200], {value: v("c_gate_nsw_mla"), step: 5, label: lab("c_gate_nsw_mla", "NSW metro levy area", "新州大都市征税区")})
+viewof gNSWr = Inputs.range([40, 200], {value: v("c_gate_nsw_rla"), step: 5, label: lab("c_gate_nsw_rla", "NSW regional levy area", "新州区域征税区")})
+viewof gNSW = Inputs.range([40, 200], {value: v("c_gate_nsw"), step: 5, label: lab("c_gate_nsw", "NSW outside levy areas", "新州非征税区")})
+viewof gSAm = Inputs.range([40, 180], {value: v("c_gate_sa_metro"), step: 5, label: lab("c_gate_sa_metro", "Metro Adelaide", "阿德莱德大都市")})
+viewof gSA = Inputs.range([40, 180], {value: v("c_gate_sa"), step: 5, label: lab("c_gate_sa", "SA non-metro", "南澳非大都市")})
+viewof gACT = Inputs.range([60, 220], {value: v("c_gate_act"), step: 1, label: lab("c_gate_act", "ACT all-in (no levy)", "首都领地全包（无税）")})
+viewof gTAS = Inputs.range([60, 220], {value: v("c_gate_tas"), step: 5, label: lab("c_gate_tas", "Tasmania", "塔斯马尼亚")})
 ```
 
 </details>

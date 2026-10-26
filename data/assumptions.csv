@@ -1,6 +1,6 @@
 id,label_en,label_zh,value,unit,low,high,source_id,status,notes
 landfill_levy_metro,Landfill levy (metro municipal 2026-27),填埋税（墨尔本生活垃圾 2026-27）,177.19,A$/t,,,S8,confirmed,
-gate_fee,WtE gate fee,垃圾处理费,205,A$/t,120,250,S9,industry estimate,Kwinana contracted ~120
+gate_fee,"Our WtE gate fee, Latrobe Valley",我方垃圾处理费（拉筹伯谷）,205,A$/t,60,260,S9,industry estimate,industry range A$150-250/t; Kwinana contracted ~120
 capex_per_t,Capex per tonne of annual capacity,每年每吨处理能力投资,1850,A$/t,1700,2600,S9,calculated,Maryvale ~1850; Kwinana >2170
 min_plant_tpd,CDEG minimum plant size,集团最小设计规模,1000,t/day,1000,1500,C2,company claim,two lines
 nmi_test_cn,China test report cost (DN15-20 meters),国内水表检测费（DN15-20）,200000,RMB,,,C3,company claim,report only; NMI certificate separate
@@ -10,9 +10,7 @@ levy_sa_metro,SA solid waste levy metro 2026-27,南澳大都市填埋税 2026-27
 act_gate_domestic,ACT landfill fee domestic 2026-27,首都领地生活垃圾填埋费 2026-27,121.75,A$/t incl GST,,,S18,confirmed,commercial 210.90
 vic_burnable_landfill,Vic burnable MSW+C&I landfilled 2024-25,维州可燃生活及工商业垃圾填埋量 2024-25,2.41,Mt,,,S10,calculated,organics+paper+plastics+textiles
 vic_kerbside_garbage,Vic council kerbside garbage 2023-24,维州市政路边垃圾 2023-24,1.11,Mt,,,S11,confirmed,
-landfill_gate_metro,Landfill gate fee excl levy (Vic metro),填埋处理费不含税（维州大都市）,95,A$/t,70,130,S20,estimate,Geelong levy+GST = 61% of landfill cost
-road_rate,Road haulage rate,公路运费,0.18,A$/t-km,0.10,0.30,,estimate,bulk walking-floor
-rail_rate,Rail haulage rate,铁路运费,0.07,A$/t-km,0.04,0.12,,estimate,plus ~A$25/t terminal lifts
+landfill_gate_metro,Landfill gate fee excl levy (Vic metro),填埋处理费不含税（维州大都市）,95,A$/t,40,180,S20,estimate,Geelong levy+GST = 61% of landfill cost; other zones move with it in Model 1
 wte_cap_vic,Vic waste-to-energy licence cap,维州垃圾焚烧许可总量上限,2.5,Mt/yr,2.5,5,S21,confirmed,raised from 2.0 to 2.5 Mt July 2025; 2.35 Mt allocated Aug 2025; Govt (Feb 2026) does not support a further increase
 m_connections,Metered water connections in Australia,澳洲已装表供水用户数,10.0,million,8,12,M5,estimate,~27m people served by reporting utilities / ~2.5 people per household; apartments often share a meter
 m_life,Meter replacement cycle,水表更换周期,12,years,10,15,M4,estimate,mechanical meters 10-15 yrs; smart meters limited by battery life
@@ -33,3 +31,69 @@ m_rnd,Product adaptation for Australia,澳洲适配研发,150000,A$,0,400000,,as
 m_bdpre,Bid and partnership costs per year before first sale,首单前每年投标与合作开发费用,150000,A$/yr,50000,300000,,assumption,tenders; Ozwater; travel; distributor negotiation
 m_overhead_dist,Annual overhead (distributor route),年度固定费用（代理模式）,200000,A$/yr,100000,400000,,assumption,1 account/technical manager; renewals; insurance
 m_overhead_direct,Annual overhead (own office),年度固定费用（自建团队）,650000,A$/yr,400000,1000000,,assumption,3 staff; warehouse; tenders; insurance
+gate_fee_other,"Our WtE gate fee, Narromine and Port Augusta",我方垃圾处理费（Narromine、奥古斯塔港）,150,A$/t,60,260,S9,industry estimate,bottom of the A$150-250/t industry range; lower levies outside Victoria
+c_threshold,Saving a council needs before it switches,市政转换所需节省比例,0.1,share,0,0.25,,assumption,
+w_passthrough,Share of levy rises passed into our fee,填埋税涨幅计入处理费比例,0.5,share,0,1,,assumption,
+f_cont_m3,20 ft waste container volume,20英尺垃圾集装箱容积,33,m³,25,40,,assumption,sealed waste container
+f_max_payload,Container maximum payload,集装箱最大载重,24,t,18,28,,assumption,
+f_rho11,Compacted density at 11 MJ/kg,11兆焦/千克时压实密度,0.6,t/m³,0.4,0.8,,assumption,+0.05 t/m³ for each MJ/kg less
+f_road_km,Road freight per container-km,公路运费（每箱公里）,3.5,A$/container-km,2,6,,assumption,not a quote
+f_road_fix,Road loading per container,公路装箱费（每箱）,150,A$/container,0,400,,assumption,not a quote
+f_local_km,Truck haul a council already pays for,市政已承担的卡车运距,30,km,0,60,,assumption,haul to the local landfill
+f_rail_km,Rail freight per container-km,铁路运费（每箱公里）,1.4,A$/container-km,0.6,3,,assumption,not a quote
+f_rail_fix,Rail terminal lifts (on + off) per container,铁路站场装卸（上下）每箱,400,A$/container,200,900,,assumption,not a quote
+f_lift_extra,"Extra lift (gauge change, TasRail) per container",额外换装（换轨、塔州铁路）每箱,150,A$/container,0,400,,assumption,not a quote
+f_sea_km,Coastal sea freight per container-km (notional),沿海海运（每箱公里，示意）,1.1,A$/container-km,0.3,2.5,,assumption,mainland coastal lanes are notional
+f_bass,Bass Strait sea freight per container,巴斯海峡海运（每箱）,1000,A$/container,300,2000,S30,estimate,"middle of the Tasmanian Government A$600-1,200 range, c. 2013 prices"
+f_port_fix,Port charges per end per container,每端港口费（每箱）,350,A$/container,100,800,,assumption,not a quote
+c_gate_vic_rural,Landfill gate fee excl levy (Vic rural),填埋处理费不含税（维州乡村）,110,A$/t,40,180,,assumption,Model 1: Vic metro + 15
+c_gate_nsw_mla,Landfill gate fee excl levy (NSW metro levy area),填埋处理费不含税（新州大都市征税区）,120,A$/t,40,200,,assumption,Model 1: Vic metro + 25
+c_gate_nsw_rla,Landfill gate fee excl levy (NSW regional levy area),填埋处理费不含税（新州区域征税区）,120,A$/t,40,200,,assumption,defaults to the NSW metro value
+c_gate_nsw,Landfill gate fee excl levy (NSW outside levy areas),填埋处理费不含税（新州非征税区）,130,A$/t,40,200,,assumption,Model 1: Vic metro + 35
+c_gate_sa_metro,Landfill gate fee excl levy (metro Adelaide),填埋处理费不含税（阿德莱德大都市）,90,A$/t,40,180,,assumption,Model 1: Vic metro − 5
+c_gate_sa,Landfill gate fee excl levy (SA non-metro),填埋处理费不含税（南澳非大都市）,110,A$/t,40,180,,assumption,Model 1: Vic metro + 15
+c_gate_act,"ACT landfill price, all-in (no levy)",首都领地填埋价格（全包，无税）,111,A$/t,60,220,S18,confirmed,Mugga Lane domestic A$121.75/t incl GST
+c_gate_tas,Landfill gate fee excl levy (Tasmania),填埋处理费不含税（塔斯马尼亚）,135,A$/t,60,220,,assumption,
+w_tpd,Furnace size,单炉规模,500,t/day,300,750,C2,company claim,"CDEG minimum plant 1,000 t/d as two lines"
+w_furnaces,Number of furnaces,焚烧炉数量,3,furnaces,1,12,,assumption,capped by licence or feedstock in Model 1
+w_capex_site,Shared site capex,公共设施投资,200,A$m,50,400,S9,benchmark,set with capex per furnace to match Kwinana and Maryvale cost per tonne
+w_capex_furnace,Capex per furnace,单炉投资,210,A$m,100,350,S9,benchmark,set with shared site capex to match Kwinana and Maryvale cost per tonne
+w_availability,Plant availability,工厂可用率,0.9,share,0.75,0.95,,assumption,
+w_fixed_furnace,Fixed cost per furnace,单炉固定成本,5,A$m/yr,2,12,,assumption,"benchmark setting, not an operator quote"
+w_fixed_site,Site overhead,厂区管理费用,3,A$m/yr,0,10,,assumption,"benchmark setting, not an operator quote"
+w_var_opex,Variable cost per tonne burned,变动成本（每吨焚烧）,30,A$/t,10,60,,assumption,consumables and maintenance; benchmark setting
+w_sort_cost,Pre-sorting cost per tonne received,预分拣成本（每吨接收）,15,A$/t,0,40,,assumption,
+w_power_price,"Power price, 2027",电价（2027年）,80,A$/MWh,30,150,S31,official,Victorian RIS assumes A$80.11/MWh
+w_discount,Unlevered cost of capital (nominal),无杠杆资本成本（名义）,0.08,share,0.04,0.14,,assumption,about 2.6 points over the 10-year swap rate; 9-10% is more usual for a first-of-its-kind plant
+w_debt_share,Debt share of capex,债务占投资比例,0.6,share,0,0.8,S9,benchmark,Kwinana: about A$400m debt in A$698m of funding
+w_debt_rate,"Interest rate (all-in, nominal)",贷款利率（综合，名义）,0.0775,share,0.05,0.12,,assumption,10-year AUD swap 5.37% (22 Oct 2026) + ~2.4% margin
+w_build_years,Construction years,建设期,3,years,2,4,,assumption,
+w_eff_elec,Net electrical efficiency,净发电效率,0.2,share,0.15,0.3,,assumption,
+w_noncomb,Non-burnable share of commercial waste,工商业垃圾中不可燃比例,0.3,share,0,0.5,,assumption,
+w_ash,Ash landfilled (share of input),灰渣填埋比例,0.15,share,0,0.25,,assumption,
+w_inflation,Inflation,通胀率,0.025,share,0,0.06,,assumption,
+tax_rate,Company tax rate,企业所得税率,0.3,share,0,0.3,S33,confirmed,25% base-rate entity rate needs group turnover under A$50m
+w_tax_life,Plant tax life,设备税务寿命,30,years,20,40,S32,confirmed,ATO effective life for thermal power generation
+w_cw_share,Buildings share of capex,建筑物占投资比例,0.15,share,0,0.3,,assumption,capital works at 2.5% a year
+w_tenor,Loan term after opening,投运后还款期,18,years,5,25,,assumption,
+w_fee_rate,Loan upfront fee (share of loan),贷款前端费用（占贷款比例）,0.02,share,0,0.03,,assumption,
+lic_total,Victorian WtE tonnes licensed (Aug 2025),维州焚烧发电已许可吨数（2025年8月）,2.35,Mt/yr,,,S5,confirmed,seven licences
+lic_cleanaway,Cleanaway WtE licence,Cleanaway焚烧发电许可量,760,kt/yr,,,S5,confirmed,
+lic_hiq,HiQ WtE licence,HiQ焚烧发电许可量,750,kt/yr,,,S5,confirmed,
+lic_mw,Melbourne Water WtE licence,Melbourne Water焚烧发电许可量,450,kt/yr,,,S5,confirmed,
+o_markup,O&M operator margin on cost,运营方成本加成率,0.125,share,0,0.3,,assumption,10-15% range
+o_owner_share,Share of spares and consumables the owner buys,业主直接采购的备件与耗材比例,0,share,0,1,,assumption,
+o_range_low,"O&M fee range, low end",运营费区间下限,60,A$/t,30,90,,assumption,
+o_range_high,"O&M fee range, high end",运营费区间上限,110,A$/t,80,150,,assumption,Metro Vancouver ~A$100-125/t sits at the top
+o_self_op,Share of owners who run plants themselves,业主自行运营比例,0.5,share,0,1,,assumption,
+o_budget,CDEG entry budget 2027-29,集团进入预算（2027–29年）,9.6,A$m,3,20,,assumption,team estimate (report Table 15)
+o_term,O&M contract length,运营合同期限,10,years,5,25,,assumption,
+o_discount,O&M discount rate (real),运营合同折现率（实际）,0.08,share,0.04,0.14,,assumption,same as Model 1 cost of capital
+m_recstart,Recession start year,衰退开始年份,2029,year,2028,2033,,assumption,recession scenario only
+m_adapt_months,Adaptation and China tests,适配及国内检测,6,months,0,18,,assumption,
+m_tender_months,Approval to first order,获批至首单,6,months,0,18,,assumption,
+m_pilot,Free pilot meters,免费试点水表,1000,meters,0,5000,,assumption,
+m_share,Share of open demand won,获得的可争取需求份额,0.05,share,0.01,0.25,,assumption,Huizhong holds ~10-15% of the national market
+m_ramp,Years to full share,达到完全份额年数,3,years,1,5,,assumption,
+m_inv_months,Stock held in Australia,在澳库存,3,months,0,6,,assumption,
+m_discount,Meter discount rate (real),水表模型折现率（实际）,0.055,share,0.02,0.12,,assumption,equals 8% nominal at 2.5% inflation

@@ -52,3 +52,6 @@ form.site-radio > div > label { display: block; margin: 0 0 .2rem; }
 
 /* Let map tooltips extend below the map instead of being clipped */
 .cell-output-display:has(> .map-wrap), .cell-output-display:has(.map-wrap) { overflow: visible !important; }
+/* Source tag after an input label: report reference number(s), or [Assumption] */
+.src-tag { font-size: .72em; color: #77756e; white-space: nowrap; }
+.src-tag a, a.src-tag { color: inherit; text-decoration: underline dotted; }

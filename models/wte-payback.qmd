@@ -68,6 +68,34 @@ siteInfo = ({
   NARROMINE: {en: "Narromine (NSW)", zh: "Narromine（新州）", short: "Narromine", state: "NSW", zone: "NSW_NOLEVY"},
   PORT_AUGUSTA: {en: "Port Augusta (SA)", zh: "奥古斯塔港（南澳）", short: "Port Augusta", state: "SA", zone: "SA_NONMETRO"}
 })
+// ----- Assumptions register: defaults and sources for every input (data/assumptions.csv + data/sources.csv) -----
+// A failed fetch falls back to DEFAULTS (with a warning) instead of blanking the page
+csvStrict = path => fetch(path).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => d3.csvParse(t, d3.autoType))
+registerRes = Promise.all([csvStrict("../data/assumptions.csv" + V), csvStrict("../data/sources.csv" + V)]).then(([a, s]) => ({a, s, ok: true}), () => ({a: [], s: [], ok: false}))
+registerFailed = !registerRes.ok
+A = Object.fromEntries(registerRes.a.map(d => [d.id, d]))
+REF = Object.fromEntries(registerRes.s.map(d => [d.id, d.ref]))
+// Fallback defaults (same values as data/assumptions.csv) so a missing row cannot blank the page
+DEFAULTS = ({c_threshold: 0.1, f_bass: 1000, f_cont_m3: 33, f_lift_extra: 150, f_local_km: 30, f_max_payload: 24, f_port_fix: 350, f_rail_fix: 400, f_rail_km: 1.4, f_rho11: 0.6, f_road_fix: 150, f_road_km: 3.5, f_sea_km: 1.1, gate_fee: 205, gate_fee_other: 150, landfill_gate_metro: 95, tax_rate: 0.3, w_ash: 0.15, w_availability: 0.9, w_build_years: 3, w_capex_furnace: 210, w_capex_site: 200, w_cw_share: 0.15, w_debt_rate: 0.0775, w_debt_share: 0.6, w_discount: 0.08, w_eff_elec: 0.2, w_fee_rate: 0.02, w_fixed_furnace: 5, w_fixed_site: 3, w_furnaces: 3, w_inflation: 0.025, w_noncomb: 0.3, w_passthrough: 0.5, w_power_price: 80, w_sort_cost: 15, w_tax_life: 30, w_tenor: 18, w_tpd: 500, w_var_opex: 30, wte_cap_vic: 2.5})
+num = x => typeof x === "number" && Number.isFinite(x)
+missingIds = Object.keys(DEFAULTS).filter(id => !num(A[id]?.value)).map(id => A[id] && A[id].value != null ? `${id} (invalid)` : id)
+// The CSV wins; DEFAULTS are used only when a row is missing or its value is not a finite number
+v = id => num(A[id]?.value) ? A[id].value : DEFAULTS[id]
+// Source tag after a label: report reference number(s) linked to the Sources page; an input with no source is an assumption
+tag = id => {
+  if (!A[id]) return "";
+  const refs = String(A[id].source_id ?? "").split(/[;\s]+/).filter(Boolean).map(s => REF[s]).filter(Boolean);
+  return refs.length
+    ? html`<span class="src-tag">[${refs.map((r, i) => html`${i ? ", " : ""}<a href="../appendix/sources.html#ref-${r}">${r}</a>`)}]</span>`
+    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
+}
+lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
+
+```
+
+```{ojs}
+//| echo: false
+missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-weight:600">${registerFailed ? L("Warning: the assumptions register could not be loaded; built-in defaults used for all inputs.", "警告：无法加载假设参数表，所有参数均使用内置默认值。") : html`${L("Warning: missing or not a number in the assumptions register, built-in defaults used for: ", "警告：假设参数表中以下参数缺失或不是数字，已使用内置默认值：")}${missingIds.join(", ")}`}</p>` : html`<span class="assump-ok" hidden></span>`
 ```
 
 ```{ojs}
@@ -93,7 +121,7 @@ Victoria caps waste-to-energy at **2.5 Mt a year**. In August 2025 seven licence
 //| echo: false
 viewof site = Inputs.radio(["LATROBE", "NARROMINE", "PORT_AUGUSTA"], {value: "LATROBE", label: L("Plant site", "厂址"),
   format: k => L(siteInfo[k].en, siteInfo[k].zh)})
-viewof capMt = Inputs.range([2.5, 5], {value: 2.5, step: 0.1, label: L("Victorian WtE cap (Mt/yr) — Latrobe only", "维州焚烧上限（百万吨/年）——仅拉筹伯")})
+viewof capMt = Inputs.range([2.5, 5], {value: v("wte_cap_vic"), step: 0.1, label: lab("wte_cap_vic", "Victorian WtE cap (Mt/yr) — Latrobe only", "维州焚烧上限（百万吨/年）——仅拉筹伯")})
 // Option labels avoid T() so switching language does not rebuild (and reset) the controls
 viewof partner = Inputs.select(new Map([
   ["Melbourne Water (450 kt)", 450000], ["Recovered Energy (280 kt)", 280000], ["HiQ (750 kt)", 750000], ["Cleanaway (760 kt)", 760000], ["— / 无", 0]
@@ -209,8 +237,8 @@ A customer only switches if our gate fee **plus transport to the chosen site** i
 ::: {.column width="40%"}
 ```{ojs}
 //| echo: false
-viewof gateFee = Inputs.range([60, 260], {value: site === "LATROBE" ? 205 : 150, step: 5, label: L("Our gate fee, 2027 (A$/t)", "我方处理费，2027（澳元/吨）")})
-viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving needed to switch", "转换所需节省比例")})
+viewof gateFee = Inputs.range([60, 260], {value: site === "LATROBE" ? v("gate_fee") : v("gate_fee_other"), step: 5, label: lab(site === "LATROBE" ? "gate_fee" : "gate_fee_other", "Our gate fee, 2027 (A$/t)", "我方处理费，2027（澳元/吨）")})
+viewof threshold = Inputs.range([0, 0.25], {value: v("c_threshold"), step: 0.01, label: lab("c_threshold", "Saving needed to switch", "转换所需节省比例")})
 viewof levyScen = Inputs.radio(["base", "low", "high"], {value: "base", label: L("Levy trend", "填埋税趋势"),
   format: k => ({base: L("Base +5%/yr", "基准 每年+5%"), low: L("Low +2.5%/yr", "低 每年+2.5%"), high: L("High +10%/yr", "高 每年+10%")})[k]})
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
@@ -220,20 +248,20 @@ viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail",
 
 ```{ojs}
 //| echo: false
-viewof lfGate = Inputs.range([40, 160], {value: 95, step: 5, label: L("Vic metro landfill gate fee excl. levy (other zones move with it)", "维州大都市填埋处理费（不含税，其他区域随之变动）")})
-viewof passThrough = Inputs.range([0, 1], {value: 0.5, step: 0.05, label: L("Levy rises passed into our fee", "填埋税涨幅计入处理费比例")})
-viewof contM3 = Inputs.range([25, 40], {value: 33, step: 1, label: L("20 ft container volume (m³)", "20英尺箱容积（立方米）")})
-viewof maxPayload = Inputs.range([18, 28], {value: 24, step: 1, label: L("Max payload (t)", "最大载重（吨）")})
-viewof rho11 = Inputs.range([0.40, 0.80], {value: 0.60, step: 0.01, label: L("Compacted density at 11 MJ/kg (t/m³)", "11兆焦/千克时压实密度（吨/立方米）")})
-viewof roadPerKm = Inputs.range([2, 6], {value: 3.5, step: 0.1, label: L("Road A$ per container-km", "公路 澳元/箱公里")})
-viewof roadFix = Inputs.range([0, 400], {value: 150, step: 10, label: L("Road loading A$/container", "公路装箱 澳元/箱")})
-viewof localKm = Inputs.range([0, 60], {value: 30, step: 5, label: L("Truck haul already paid (km)", "现有卡车运距（公里）")})
-viewof railPerKm = Inputs.range([0.6, 3], {value: 1.4, step: 0.1, label: L("Rail A$ per container-km", "铁路 澳元/箱公里")})
-viewof railFix = Inputs.range([200, 900], {value: 400, step: 25, label: L("Rail terminal lifts (2) A$/container", "铁路两端装卸 澳元/箱")})
-viewof liftExtra = Inputs.range([0, 400], {value: 150, step: 10, label: L("Extra lift (gauge change, TasRail) A$/container", "额外换装（换轨、塔州铁路）澳元/箱")})
-viewof seaPerKm = Inputs.range([0.3, 2.5], {value: 1.1, step: 0.05, label: L("Sea A$ per container-km (notional mainland lanes)", "海运 澳元/箱公里（大陆示意航线）")})
-viewof bassRate = Inputs.range([300, 2000], {value: 1000, step: 50, label: L("Bass Strait sea freight A$/container", "巴斯海峡海运 澳元/箱")})
-viewof portFix = Inputs.range([100, 800], {value: 350, step: 25, label: L("Port charges per end A$/container", "每端港口费 澳元/箱")})
+viewof lfGate = Inputs.range([40, 160], {value: v("landfill_gate_metro"), step: 5, label: lab("landfill_gate_metro", "Vic metro landfill gate fee excl. levy (other zones move with it)", "维州大都市填埋处理费（不含税，其他区域随之变动）")})
+viewof passThrough = Inputs.range([0, 1], {value: v("w_passthrough"), step: 0.05, label: lab("w_passthrough", "Levy rises passed into our fee", "填埋税涨幅计入处理费比例")})
+viewof contM3 = Inputs.range([25, 40], {value: v("f_cont_m3"), step: 1, label: lab("f_cont_m3", "20 ft container volume (m³)", "20英尺箱容积（立方米）")})
+viewof maxPayload = Inputs.range([18, 28], {value: v("f_max_payload"), step: 1, label: lab("f_max_payload", "Max payload (t)", "最大载重（吨）")})
+viewof rho11 = Inputs.range([0.40, 0.80], {value: v("f_rho11"), step: 0.01, label: lab("f_rho11", "Compacted density at 11 MJ/kg (t/m³)", "11兆焦/千克时压实密度（吨/立方米）")})
+viewof roadPerKm = Inputs.range([2, 6], {value: v("f_road_km"), step: 0.1, label: lab("f_road_km", "Road A$ per container-km", "公路 澳元/箱公里")})
+viewof roadFix = Inputs.range([0, 400], {value: v("f_road_fix"), step: 10, label: lab("f_road_fix", "Road loading A$/container", "公路装箱 澳元/箱")})
+viewof localKm = Inputs.range([0, 60], {value: v("f_local_km"), step: 5, label: lab("f_local_km", "Truck haul already paid (km)", "现有卡车运距（公里）")})
+viewof railPerKm = Inputs.range([0.6, 3], {value: v("f_rail_km"), step: 0.1, label: lab("f_rail_km", "Rail A$ per container-km", "铁路 澳元/箱公里")})
+viewof railFix = Inputs.range([200, 900], {value: v("f_rail_fix"), step: 25, label: lab("f_rail_fix", "Rail terminal lifts (2) A$/container", "铁路两端装卸 澳元/箱")})
+viewof liftExtra = Inputs.range([0, 400], {value: v("f_lift_extra"), step: 10, label: lab("f_lift_extra", "Extra lift (gauge change, TasRail) A$/container", "额外换装（换轨、塔州铁路）澳元/箱")})
+viewof seaPerKm = Inputs.range([0.3, 2.5], {value: v("f_sea_km"), step: 0.05, label: lab("f_sea_km", "Sea A$ per container-km (notional mainland lanes)", "海运 澳元/箱公里（大陆示意航线）")})
+viewof bassRate = Inputs.range([300, 2000], {value: v("f_bass"), step: 50, label: lab("f_bass", "Bass Strait sea freight A$/container", "巴斯海峡海运 澳元/箱")})
+viewof portFix = Inputs.range([100, 800], {value: v("f_port_fix"), step: 25, label: lab("f_port_fix", "Port charges per end A$/container", "每端港口费 澳元/箱")})
 ```
 
 </details>
@@ -284,23 +312,23 @@ Plot.plot({
 ::: {.column width="40%"}
 ```{ojs}
 //| echo: false
-viewof tpd = Inputs.range([300, 750], {value: 500, step: 50, label: L("Furnace size (t/day)", "单炉规模（吨/日）")})
+viewof tpd = Inputs.range([300, 750], {value: v("w_tpd"), step: 50, label: lab("w_tpd", "Furnace size (t/day)", "单炉规模（吨/日）")})
 // Remember the last furnace count (outside OJS) so changing the licence or site keeps it where possible
-viewof furnaces = Inputs.range([1, maxFurnaces], {value: Math.min(window.__lastFurnaces ?? 3, maxFurnaces), step: 1,
-  label: vicSite ? L(`Furnaces (max ${maxFurnaces} under licence)`, `焚烧炉数量（许可下最多${maxFurnaces}台）`) : L(`Furnaces (max ${maxFurnaces} for available feedstock)`, `焚烧炉数量（按可得原料最多${maxFurnaces}台）`)})
-viewof capexSite = Inputs.range([50, 400], {value: 200, step: 10, label: L("Shared site capex (A$m)", "公共设施投资（百万澳元）")})
-viewof capexFurnace = Inputs.range([100, 350], {value: 210, step: 10, label: L("Capex per furnace (A$m)", "单炉投资（百万澳元）")})
+viewof furnaces = Inputs.range([1, maxFurnaces], {value: Math.min(window.__lastFurnaces ?? v("w_furnaces"), maxFurnaces), step: 1,
+  label: vicSite ? lab("w_furnaces", `Furnaces (max ${maxFurnaces} under licence)`, `焚烧炉数量（许可下最多${maxFurnaces}台）`) : lab("w_furnaces", `Furnaces (max ${maxFurnaces} for available feedstock)`, `焚烧炉数量（按可得原料最多${maxFurnaces}台）`)})
+viewof capexSite = Inputs.range([50, 400], {value: v("w_capex_site"), step: 10, label: lab("w_capex_site", "Shared site capex (A$m)", "公共设施投资（百万澳元）")})
+viewof capexFurnace = Inputs.range([100, 350], {value: v("w_capex_furnace"), step: 10, label: lab("w_capex_furnace", "Capex per furnace (A$m)", "单炉投资（百万澳元）")})
 ```
 
 <details><summary><span class="en">Availability and running cost assumptions</span><span class="zh">可用率与运营成本假设</span></summary>
 
 ```{ojs}
 //| echo: false
-viewof availability = Inputs.range([0.75, 0.95], {value: 0.9, step: 0.01, label: L("Availability", "可用率")})
-viewof fixedFurnace = Inputs.range([2, 12], {value: 5, step: 0.5, label: L("Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
-viewof fixedSite = Inputs.range([0, 10], {value: 3, step: 0.5, label: L("Site overhead (A$m/yr)", "厂区管理费用（百万澳元/年）")})
-viewof varOpex = Inputs.range([10, 60], {value: 30, step: 5, label: L("Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
-viewof sortCost = Inputs.range([0, 40], {value: 15, step: 1, label: L("Pre-sorting cost (A$/t received)", "预分拣成本（澳元/吨）")})
+viewof availability = Inputs.range([0.75, 0.95], {value: v("w_availability"), step: 0.01, label: lab("w_availability", "Availability", "可用率")})
+viewof fixedFurnace = Inputs.range([2, 12], {value: v("w_fixed_furnace"), step: 0.5, label: lab("w_fixed_furnace", "Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
+viewof fixedSite = Inputs.range([0, 10], {value: v("w_fixed_site"), step: 0.5, label: lab("w_fixed_site", "Site overhead (A$m/yr)", "厂区管理费用（百万澳元/年）")})
+viewof varOpex = Inputs.range([10, 60], {value: v("w_var_opex"), step: 5, label: lab("w_var_opex", "Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
+viewof sortCost = Inputs.range([0, 40], {value: v("w_sort_cost"), step: 1, label: lab("w_sort_cost", "Pre-sorting cost (A$/t received)", "预分拣成本（澳元/吨）")})
 ```
 
 </details>
@@ -353,36 +381,36 @@ Cash flows are after company tax. **Tax depreciation** follows ATO rules: plant 
 ::: {.column width="40%"}
 ```{ojs}
 //| echo: false
-viewof powerPrice = Inputs.range([30, 150], {value: 80, step: 5, label: L("Power price, 2027 (A$/MWh)", "电价，2027（澳元/兆瓦时）")})
-viewof discount = Inputs.range([0.04, 0.14], {value: 0.08, step: 0.005, label: L("Unlevered cost of capital (nominal)", "无杠杆资本成本（名义）")})
-viewof debtShare = Inputs.range([0, 0.8], {value: 0.6, step: 0.05, label: L("Debt share of capex", "债务占投资比例")})
-viewof debtRate = Inputs.range([0.05, 0.12], {value: 0.0775, step: 0.0025, label: L("Interest rate (all-in, nominal)", "贷款利率（综合，名义）")})
+viewof powerPrice = Inputs.range([30, 150], {value: v("w_power_price"), step: 5, label: lab("w_power_price", "Power price, 2027 (A$/MWh)", "电价，2027（澳元/兆瓦时）")})
+viewof discount = Inputs.range([0.04, 0.14], {value: v("w_discount"), step: 0.005, label: lab("w_discount", "Unlevered cost of capital (nominal)", "无杠杆资本成本（名义）")})
+viewof debtShare = Inputs.range([0, 0.8], {value: v("w_debt_share"), step: 0.05, label: lab("w_debt_share", "Debt share of capex", "债务占投资比例")})
+viewof debtRate = Inputs.range([0.05, 0.12], {value: v("w_debt_rate"), step: 0.0025, label: lab("w_debt_rate", "Interest rate (all-in, nominal)", "贷款利率（综合，名义）")})
 ```
 
 <details><summary><span class="en">Plant, tax and loan assumptions</span><span class="zh">工厂、税务与贷款假设</span></summary>
 
 ```{ojs}
 //| echo: false
-viewof buildYears = Inputs.range([2, 4], {value: 3, step: 1, label: L("Construction years", "建设期（年）")})
-viewof effElec = Inputs.range([0.15, 0.30], {value: 0.20, step: 0.01, label: L("Net electrical efficiency", "净发电效率")})
-viewof nonComb = Inputs.range([0, 0.5], {value: 0.30, step: 0.05, label: L("Non-burnable share of commercial waste", "工商业垃圾中不可燃比例")})
-viewof ashShare = Inputs.range([0, 0.25], {value: 0.15, step: 0.01, label: L("Ash landfilled (% of input)", "灰渣填埋比例")})
-viewof inflation = Inputs.range([0, 0.06], {value: 0.025, step: 0.005, label: L("Inflation", "通胀率")})
-viewof taxRate = Inputs.range([0, 0.3], {value: 0.3, step: 0.05, label: L("Company tax", "企业所得税率")})
+viewof buildYears = Inputs.range([2, 4], {value: v("w_build_years"), step: 1, label: lab("w_build_years", "Construction years", "建设期（年）")})
+viewof effElec = Inputs.range([0.15, 0.30], {value: v("w_eff_elec"), step: 0.01, label: lab("w_eff_elec", "Net electrical efficiency", "净发电效率")})
+viewof nonComb = Inputs.range([0, 0.5], {value: v("w_noncomb"), step: 0.05, label: lab("w_noncomb", "Non-burnable share of commercial waste", "工商业垃圾中不可燃比例")})
+viewof ashShare = Inputs.range([0, 0.25], {value: v("w_ash"), step: 0.01, label: lab("w_ash", "Ash landfilled (% of input)", "灰渣填埋比例")})
+viewof inflation = Inputs.range([0, 0.06], {value: v("w_inflation"), step: 0.005, label: lab("w_inflation", "Inflation", "通胀率")})
+viewof taxRate = Inputs.range([0, 0.3], {value: v("tax_rate"), step: 0.05, label: lab("tax_rate", "Company tax", "企业所得税率")})
 ```
 
 ```{ojs}
 //| echo: false
 html`<p class="kpi-note" style="margin:.8rem 0 .2rem"><b>${L("Tax depreciation", "税务折旧")}</b></p>`
-viewof taxLife = Inputs.range([20, 40], {value: 30, step: 1, label: L("Plant tax life (years; ATO: 30)", "设备税务寿命（年；ATO：30）")})
+viewof taxLife = Inputs.range([20, 40], {value: v("w_tax_life"), step: 1, label: lab("w_tax_life", "Plant tax life (years; ATO: 30)", "设备税务寿命（年；ATO：30）")})
 viewof depMethod = Inputs.radio(["dv", "pc"], {value: "dv", label: L("Method", "折旧方法"),
   format: k => ({dv: L("Diminishing value", "余额递减法"), pc: L("Prime cost (straight line)", "直线法")})[k]})
-viewof cwShare = Inputs.range([0, 0.3], {value: 0.15, step: 0.05, label: L("Buildings share of capex (2.5%/yr)", "建筑物占投资比例（每年2.5%）")})
+viewof cwShare = Inputs.range([0, 0.3], {value: v("w_cw_share"), step: 0.05, label: lab("w_cw_share", "Buildings share of capex (2.5%/yr)", "建筑物占投资比例（每年2.5%）")})
 html`<p class="kpi-note" style="margin:.8rem 0 .2rem"><b>${L("Debt financing", "债务融资")}</b></p>`
-viewof tenor = Inputs.range([5, 25], {value: 18, step: 1, label: L("Loan term after opening (years)", "投运后还款期（年）")})
+viewof tenor = Inputs.range([5, 25], {value: v("w_tenor"), step: 1, label: lab("w_tenor", "Loan term after opening (years)", "投运后还款期（年）")})
 viewof repay = Inputs.radio(["annuity", "equal"], {value: "annuity", label: L("Repayment", "还款方式"),
   format: k => ({annuity: L("Level payments (annuity)", "等额本息"), equal: L("Equal principal", "等额本金")})[k]})
-viewof feeRate = Inputs.range([0, 0.03], {value: 0.02, step: 0.0025, label: L("Upfront fee (share of loan)", "前端费用（占贷款比例）")})
+viewof feeRate = Inputs.range([0, 0.03], {value: v("w_fee_rate"), step: 0.0025, label: lab("w_fee_rate", "Upfront fee (share of loan)", "前端费用（占贷款比例）")})
 viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin-cap test", "资本弱化测试"),
   format: k => ({frt: L("Fixed ratio: interest ≤ 30% of tax EBITDA", "固定比率：利息≤应税EBITDA的30%"), tpdt: L("Third-party debt: all interest deductible", "第三方债务：利息全额抵扣")})[k]})
 ```

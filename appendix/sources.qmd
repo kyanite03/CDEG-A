@@ -17,135 +17,166 @@ Numbered in order of first citation. "Company document" means CDEG's own materia
 按首次引用顺序编号，保留原文语言。“Company document”指集团自有资料；“team model”指CDEG–A小组的互动模型。
 :::
 
-1.  EPA Victoria. (2026). Waste to Energy Scheme licences (updated 27 August 2026). <https://www.epa.vic.gov.au/waste-energy-scheme-licences>
-2.  CDEG–A team. (2026, 15 October). Notes of call with Chengdu Environment Group \[not published\].
-3.  Chengdu Environment Group. (2026, 16 October). Written answers to questions on Australian projects \[Company document\].
-4.  EPA Victoria. (2026). Waste levy rates. <https://www.epa.vic.gov.au/waste-levy>
-5.  City of Greater Geelong. (2025). What does my waste charge pay for. <https://www.geelongcity.vic.gov.au/whats-happening/news-and-updates/what-does-my-waste-charge-pay>
-6.  Parliament of Victoria. (2025–2026). Submissions to the Inquiry into the development and expansion of WtE infrastructure in Victoria (627 listed; 565 coded by the team). <https://www.parliament.vic.gov.au/get-involved/inquiries/wastetoenergyinquiry/submissions/>
-7.  Legislative Council Economy and Infrastructure Committee. (2026, August). Inquiry into the development and expansion of waste-to-energy (WtE) infrastructure in Victoria (59 findings, 33 recommendations). Parliament of Victoria. <https://www.parliament.vic.gov.au/get-involved/inquiries/wastetoenergyinquiry/reports>
-8.  Victorian Electoral Commission. (2026). 2026 Victorian state election, 28 November 2026. <https://www.vec.vic.gov.au>
-9.  National Measurement Institute. (2026). Certificates of approval 14/3/70 (Sanchuan), 14/3/22 (Ningbo Water Meter), 14/3/72 (Landis+Gyr). <https://www.industry.gov.au/sites/default/files/nmi/certificates-approval/2026-01/14-3-70_r3.pdf>
-10. BINDT. (2025, January). Avnet to support South East Water's mass digital meter deployment. <https://www.bindt.org/News/january-2025/avnet-to-support-mass-digital-meter-deployment/>
-11. Yicai Global. (2024, 27 August). Huizhong deal to supply an Australian city with smart water meters. <https://yicaiglobal.com/news/huizhong-soars-after-chinese-firm-bags-usd140-mln-deal-to-supply-australian-city-with-smart-water-meters>
-12. Essential Services Commission. (2026). Water Price Review 2028. <https://www.esc.vic.gov.au/water/water-prices-tariffs-and-special-drainage/water-price-reviews/water-price-review-2028>
-13. Medianet. (2026, September). Regulator releases guidance to assist businesses with water price submissions. <https://newshub.medianet.com.au/2026/09/regulator-releases-guidance-to-assist-businesses-with-water-price-submissions/171429/>
-14. TRILITY. (2018). Beijing Enterprises Water Group finalises the acquisition of TRILITY Group. <https://trility.com.au/news/beijing-enterprises-water-group-limited-finalises-the-acquisition-of-trility-group/>
-15. Utility Magazine. (2016). Treasurer Scott Morrison blocks Chinese investment of Ausgrid. <https://utilitymagazine.com.au/treasurer-scott-morrison-blocks-chinese-investment-of-ausgrid/>
-16. Foreign Investment Review Board. (2020, 18 December). Guidance Note 7: Business investments. <https://foreigninvestment.gov.au/sites/firb.gov.au/files/guidance-notes/G07-Business.pdf>
-17. National Development and Reform Commission. (2026). Measures for the administration of outbound investment (NDRC Order No. 49 of 2026; effective 1 December 2026, repealing NDRC Order No. 11 of 2017) \[in Chinese\]. <https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202610/t20261022_1408298.html>
-18. NexStar 2026. (2026). Collaboration opportunities with Chengdu new energy companies: Chengdu Environment Group profile, strengths and needs \[Company document, English and Chinese\].
-19. Chengdu Environment Investment Group. (2026). NexStar 2026 enterprise registration form \[Company document\].
-20. Chengdu Xingrong Environment Co., Ltd. (2026). 2025 annual report (000598.SZ). cninfo. <https://www.cninfo.com.cn>
-21. Chengdu Xingrong Environment Co., Ltd. (2026). 2026 half-year report (000598.SZ) \[Unaudited\]. cninfo. <https://www.cninfo.com.cn>
-22. Xizi Clean Energy. (2026, 11 May). All units of Wanxing Phase III complete full-load trial operation. <https://c.m.163.com/news/a/KSMA9KOE05568W0A.html>
-23. Ministry of Ecology and Environment of China. (2026). MSW incineration plant automatic monitoring data disclosure platform: Chengdu Xingrong Wanxing plant, daily averages of 14 October 2026. <https://ljgk.envsc.cn>
-24. Chengdu Environment Group, Huijin meter subsidiary. (2026, 16 October). Written reply on meters and certification \[company communication, not published\].
-25. CDEG–A team. (2026, 14 October). Notes of mentor consultation \[not published\].
-26. CDEG–A team (Kai Marsh). (2026, October). WtE payback model and council price map \[interactive models, bilingual\]. <https://cdeg.ksmarsh.net>
-27. CDEG–A team (Kai Marsh). (2026, October). Smart water meter profit model \[interactive model\]. <https://cdeg.ksmarsh.net>
-28. DCCEEW. (2026, September). National Waste and Resource Recovery Database 2026. <https://www.dcceew.gov.au/environment/protection/waste/national-waste-reports>
-29. EPA Victoria. (2026, June). Waste, recycling and resource recovery investment prospectus.
-30. Norton Rose Fulbright. (2025, April). Growing the cap limit for waste to energy projects in Victoria. <https://www.nortonrosefulbright.com/en-gr/knowledge/publications/96caf112/growing-the-cap-limit-for-waste-to-energy-projects-in-victoria>
-31. Victorian Government. (2026). Environment Protection Regulations 2021, reg. 52 (councils in the metropolitan levy zone). <https://www.legislation.vic.gov.au/in-force/statutory-rules/environment-protection-regulations-2021>
-32. EPA Victoria. (2025, 1 September; updated 9 December 2025). Cleanaway MERC application withdrawn. <https://www.epa.vic.gov.au/cleanaway-merc-application-withdrawn>
-33. EQT. (2026, 18 October). EQT agrees to acquire Cleanaway, a leading Australian integrated waste management and resource recovery platform. <https://eqtgroup.com/news/eqt-agrees-to-acquire-cleanaway-a-leading-australian-integrated-waste-management-and-resource-recovery-platform-2026-10-18>
-34. Victorian Government. (2026). Standardising household recycling across Victoria. <https://www.vic.gov.au/standardising-household-recycling-across-victoria>
-35. Mornington Peninsula Shire. (2026, 12 March). Council to decide on waste reform implementation. <https://www.mornpen.vic.gov.au/The-Shire/News-media-and-publications/News-and-media-releases/Council-to-decide-on-waste-reform-implementation>
-36. Victorian Government. (2024, December). Guidance on the scope of the Waste to Energy Scheme (permitted, banned and exempt waste).
-37. EPA Victoria. (2026, June). Victorian local government waste data 2025.03. <https://discover.data.vic.gov.au/dataset/victorian-local-government-waste-data-dashboard>
-38. NDRC and others. (2024). Measures for the administration of infrastructure and public utility concessions (NDRC Order No. 17 of 2024). <https://www.gov.cn/gongbao/2024/issue_11346/202405/content_6951524.html>
-39. The Paper. (2025, 15 July). How China ran short of waste to burn \[in Chinese\]. <https://www.thepaper.cn/newsDetail_forward_31178082>
-40. National Development and Reform Commission. (2012). Notice on improving the pricing policy for waste incineration power generation (Fa Gai Jia Ge \[2012\] No. 801). <https://www.ndrc.gov.cn/xxgk/zcfb/tz/201204/t20120410_964415.html>
-41. NDRC, Ministry of Finance and National Energy Administration. (2021). 2021 biomass power project construction work plan (Fa Gai Neng Yuan \[2021\] No. 1190) \[in Chinese\]. NDRC interpretation: <https://www.ndrc.gov.cn/xxgk/jd/jd/202108/t20210819_1294041.html>
-42. Ministry of Ecology and Environment of China. (2019). Regulations on the application and management of automatic monitoring data of MSW incineration power plants (MEE Order No. 10; amended 20 September 2026). <https://www.mee.gov.cn/gzk/gz/202112/t20211211_963805.shtml>
-43. EPA Victoria. (2026). Victoria's Waste to Energy Scheme. <https://www.epa.vic.gov.au/victorias-waste-energy-scheme>
-44. Frankston City Council. (2024, 21 August). South East Metropolitan Advanced Waste Processing (SEMAWP). <https://www.frankston.vic.gov.au/Council/News-and-media/Latest-News/Media-Releases-2024/South-East-Metropolitan-Advanced-Waste-Processing-SEMAWP>
-45. Harford Consulting for the Smart Energy Council. (2026, July). Waste-to-energy in Australia: energy solution or problem? <https://smartenergy.org.au/wp-content/uploads/2026/07/Smart-Energy-Council-and-waste-to-energy-in-Australia-2026.pdf>
-46. EPA Victoria. (2017). Energy from waste guideline (Publication 1559.1). <https://www.epa.vic.gov.au/15591-energy-waste-guideline>
-47. Environmental Justice Australia. (2023). Challenging the Maryvale Mill waste incinerator. <https://envirojustice.org.au/legal-work/ending-pollution/ending-toxic-contamination-and-waste/challenging-the-maryvale-mill-waste-incinerator/>
-48. EPA Victoria. (2026). Waste to Energy Scheme (updated 27 August 2026). <https://www.epa.vic.gov.au/waste-energy-scheme>
-49. Xinhua. (2026, 25 May). Urban household waste resource-utilisation rate to exceed 76% by end-2030 \[in Chinese\]. <https://www.news.cn/politics/20260525/8e0c96ba7378447b8b0cc8886512141f/c.html>
-50. NDRC and Ministry of Housing and Urban-Rural Development. (2021). 14th Five-Year Plan for urban household waste sorting and treatment facilities (Fa Gai Huan Zi \[2021\] No. 642) \[in Chinese\]. <https://www.gov.cn/zhengce/zhengceku/2021-05/14/content_5606349.htm>
-51. Xinhua Daily Telegraph. (2026, 27 May). An investigation into 'not enough waste to burn' \[in Chinese\]. <https://www.news.cn/politics/20260527/7254958591fd484899511ae57e04bf10/c.html>
-52. Ministry of Finance, NDRC and National Energy Administration. (2020). Supplementary notice on promoting the healthy development of non-hydro renewable power (Cai Jian \[2020\] No. 426). <https://www.gov.cn/zhengce/zhengceku/2020-10/21/content_5552978.htm>
-53. Wangneng Environment Co., Ltd. (2026). 2026 half-year report: management discussion and analysis (002034.SZ) \[in Chinese\]. Stockstar. <https://wap.stockstar.com/detail/RB2026082800000522>
-54. Chengdu Environment Group. (2017, 31 May). Xingrong Environment delegation visits Lahore, Pakistan \[WeChat article\].
-55. Department of Home Affairs. (2023). Security of Critical Infrastructure (Critical infrastructure risk management program) Rules (LIN 23/006). <https://www.homeaffairs.gov.au/reports-and-pubs/files/soci-rmp-rules-legislative-instrument-lin-22-018.pdf> (check instrument number LIN 23/006 vs URL)
-56. Department of Industry, Science and Resources. (2025, May). Melbourne Energy and Resource Centre AIP plan summary; North Central Review. (2025, September). Cleanaway seeks to double Wollert plant.
-57. ABC News. (2026, 26 August). Parliamentary inquiry into Melbourne waste-to-energy plants prompts calls for tougher regulations.
-58. Australian Tenders. (2025). Melbourne Water: development of a biosolid processing solution. <https://www.australiantenders.com.au/tenders/581897/melbourne-water-mw-development-of-a-biosolid-processing-solution>
-59. Recovered Energy Laverton. (n.d.). Laverton North Project \[Developer website\]. <https://www.recoveredenergy.com.au/laverton-north-project>
-60. Department of Treasury and Finance Victoria. (n.d.). Barwon Water Biosolids Management Project (Partnerships Victoria).
-61. TRILITY. (n.d.). Barwon Water biosolids management (thermal dryer, 60,000 t/yr).
-62. RMIT University. (n.d.). Aussie innovation turns waste into energy 'gold' (PYROCO biosolids pyrolysis).
-63. Australian Manufacturing. (n.d.). Victoria invests to expand Repurpose It facility in Epping.
-64. Sustainability Victoria. (n.d.). Circular Economy Organics Sector Transformation Fund: funded projects; Bioenergy Fund and Recycling Modernisation Fund guidelines.
-65. South East Water. (2026, 21 January). South East Water hits 200,000 digital meter milestone. <https://southeastwater.com.au/about-us/news/digital-meter-milestone2/>
-66. Mail Community. (2026, 21 May). Fifty thousand water meters installed by Yarra Valley Water; Yarra Valley Water, Digital metering.
-67. VicWater. (n.d.). Barwon Water partners with Iota.
-68. Australian Tenders. (2025). Supply and delivery of water meters (GWW11903).
-69. Department of Jobs, Skills, Industry and Regions. (n.d.). CarbonNet project: Pelican storage site and Loy Yang gateway.
-70. Planning Victoria. (2026). Hazelwood Rehabilitation Project: Environment Effects Statement and draft planning scheme amendment.
-71. Premier of Victoria. (2022). Loy Yang A transition agreement (closure 2035).
-72. Latrobe Valley Express. (2025, November). New life for Yallourn W; RenewEconomy. (2026, August). EnergyAustralia coal sites.
-73. Opal, Veolia and Masdar Tribe Australia. (2024, 19 August). Maryvale Energy from Waste project wins multi-council waste tenders \[Media release\]. <https://opalanz.com/app/uploads/2024/08/240819-Maryvale-EfW-project-wins-multi-council-waste-tenders_final.pdf>
-74. Metro Vancouver. (2025). Waste-to-Energy Facility financial update 2024. <https://metrovancouver.org/services/solid-waste/Documents/wte-financial-update-2024.pdf>
-75. Hatzfeld, S. (2017, 31 May). MBT Jiangsu: high-tech waste processing for China. Recycling Magazine. <https://www.recycling-magazine.com/en/20504/mbt-jiangsu-high-tech-waste-processing-china>
-76. NSW EPA. (2020). Red bin audit 2011–19 (Table 7: residual bin composition by organics service). <https://www.epa.nsw.gov.au/sites/default/files/red-bin-audit-2011-19.pdf>
-77. Tchobanoglous, G., Theisen, H. & Vigil, S. (1993). Integrated Solid Waste Management, Table 4-16 (energy content of MSW components). McGraw-Hill.
-78. NAWTEC20. (2012). Characteristics of municipal solid waste in Chengdu \[conference paper\].
-79. Cleanaway. (2026, July). Bromelton energy-from-waste feedstock report.
-80. IJGlobal. (n.d.). Kwinana energy-from-waste plant, Australia.
-81. Victorian Government. (2025). Circular Economy (Waste Reduction and Recycling) (Waste to Energy Scheme) Amendment Regulations 2025: Regulatory impact statement. <https://www.vic.gov.au/sites/default/files/2025-04/Circular-Economy-%28Waste-Reduction-and-Recylcing%29-%28Waste-to-Energy-Scheme%29-Amendment-Regulations-2025-Regulatory-Impact-Statement-.docx>
-82. Clean Energy Regulator. (n.d.). Eligible renewable energy sources: biomass-based components of municipal solid waste. <https://cer.gov.au>
-83. The Nightly. (2026). AEMO report shows wholesale power prices plunge (Q2 2026).
-84. Clean Energy Finance Corporation and ARENA. (n.d.). Kwinana and East Rockingham WtE project pages. <https://www.cefc.com.au>
-85. Macquarie Group and CEFC. (2018–2024). Kwinana Energy Recovery financial close, WALGA supply and ACCIONA acquisition media releases.
-86. Business News WA. (2022). East Rockingham WtE supply agreement with Talison Lithium (Greenbushes).
-87. 清气团 · 固废展望 \[Solid Waste Outlook\]. (2025, 6 May). 澳大利亚垃圾焚烧行业的群雄逐鹿 \[Australia's waste-to-energy industry: a contest of contenders\]. China Solid Waste Network. <https://www.solidwaste.com.cn/news/357711.html>
-88. ACCC. (2025, 17 July). Acciona – East Rockingham Waste to Energy Project (informal merger review). <https://www.accc.gov.au/public-registers/mergers-and-acquisitions-registers/public-informal-merger-reviews-register-2002-25/acciona-east-rockingham-waste-to-energy-project>
-89. ACCC. (2025). Acciona – East Rockingham Waste to Energy Project, informal merger review register (withdrawn 13 October 2025). <https://www.accc.gov.au/public-registers/mergers-registers/public-informal-merger-reviews-register/acciona-east-rockingham-waste-to-energy-project>
-90. Utility Magazine. (n.d.). Iota wins landmark digital water meter and IoT platform contract.
-91. National Measurement Institute. (2026). About pattern approval. <https://www.industry.gov.au/regulations-and-standards/pattern-approval>
-92. ABC News. (2025, 23 June). Company in charge of proposed incinerator outside Geelong has direct links to the Chinese government. <https://www.abc.net.au/news/2025-06-23/victoria-waste-to-energy-project-lara-chinese-government-links/105442594>
-93. City of Greater Geelong. (2025, 29 January; updated 23 March 2026). Advocacy against Lara incinerator continues. <https://www.geelongcity.vic.gov.au/whats-happening/news-and-updates/advocacy-against-lara-incinerator-continues>
-94. ESD News. (2023). Consortium inks deal with Cobra for Maryvale EfW project. <https://esdnews.com.au/consortium-inks-deal-with-cobra-for-maryvale-efw-project/>
-95. Cleanaway Waste Management. (2026, 20 August). FY26 results (ASX announcement). <https://announcements.asx.com.au/asxpdf/20260820/pdf/072yq2lqg3cv31.pdf>
-96. Zawya. (2026, 14 January). Tadweer Group expands global Waste-to-Energy footprint through strategic partnership with Tribe and Cleanaway \[Press release\]. <https://www.zawya.com/en/press-release/companies-news/tadweer-group-expands-global-waste-to-energy-footprint-through-strategic-partnership-with-tribe-and-cleanaway-ewa1f5iv>
-97. Infrastructure Investor. (2016). EQT sells waste-to-energy business for €1.4bn. <https://www.infrastructureinvestor.com/eqt-sells-waste-to-energy-business-for-e1-4bn%5D/>
-98. Veolia. (2025, 12 November). Veolia secures AUD \$700m in new contracts to advance technological innovation in water management in Australia \[Press release\]. <https://www.veolia.com/en/our-media/press-releases/veolia-australia-new-contracts-water-management>
-99. NSW Department of Planning, Housing and Infrastructure. (2026, 30 July). Veolia Woodlawn ARC \[State significant development\]. <https://www.planning.nsw.gov.au/assess-and-regulate/state-significant-projects/energy-from-waste/veolia-woodlawn-arc>
-100. Waste Management Review. (n.d.). REMONDIS withdraws Swanbank EfW plan. <https://wastemanagementreview.com.au/remondis-withdraws-swanbank-efw-plan/>
-101. Ipswich City Council. (2022, 1 March). People power puts incinerator on the back burner \[News\]. <https://www.ipswich.qld.gov.au/News-Articles-Folder/2022/People-power-puts-incinerator-on-the-back-burner>
-102. HiQ. (n.d.). Sunbury Eco-Hub. HiQ EFW Victoria \[Developer website\].
-103. Landis+Gyr. (2021). Awarded major smart water contract by South East Water.
-104. TRILITY. (n.d.). Adelaide Desalination Plant. <https://trility.com.au/project/adelaide-desalination-plant/>
-105. Sydney Water. (2022, 12 October). World-class water recycling facility for Western Sydney \[Media release\]. <https://www.sydneywater.com.au/content/dam/sydneywater/media-releases/121022-upper-south-creek-media-release.pdf>
-106. Global Construction Review. (2014, 13 December). Chinese construction giant to buy Australia's John Holland in bid for global expansion. (URL to re-check before submission)
-107. Cuthbert, J. (2026, 24 March). Construction giant John Holland hits record \$117M loss. Grafa. <https://grafa.com/en/news/australia/construction-giant-john-holland-hits-record-117m-loss>
-108. Jemena. (2025, May). Pipeline management plan: Jemena gas assets \[Safety case\]. <https://www.jemena.com.au/siteassets/gas/gas-999-pa-hse-002-jemena-safety-case-saop-_-pipeline-management-plan–jemena-gas-assets.22052025.pdf>
-109. Jemena. (2015, April). Jemena Electricity Networks (Vic) Ltd regulatory proposal. Australian Energy Regulator. <https://www.aer.gov.au/system/files/Jemena%20-%20Regulatory%20proposal%20-%20April%202015.pdf>
-110. IPE Real Assets. (2025, 5 November). TIF exits ElectraNet stake in sale to Australian Retirement Trust. <https://realassets.ipe.com/news/tif-exits-electranet-stake-in-sale-to-australian-retirement-trust/10133525.article>
-111. TRILITY. (2018); WA Government. (2018). Helena Water acquisition and Water Minister's statement.
-112. Jones Day. (2026, June). How long does Australian FIRB approval take? Latest statistics and more streamlining reforms. <https://www.jonesday.com/en/insights/2026/06/how-long-does-australian-firb-approval-take-latest-statistics-and-more-streamlining-reforms>
-113. NSW Department of Planning. (2025). Energy from waste: priority infrastructure areas.
-114. NSW EPA. (2026). Waste levy areas and levy rates; FOGO mandates and rollout. <https://www.epa.nsw.gov.au/Your-environment/Waste/waste-levy/levy-regulated-area-and-levy-rates>
-115. WA Government. (2026). Waste levy rate schedule.
-116. Queensland Government. (2026). Waste levy rates. <https://www.qld.gov.au/environment/waste/levy>
-117. NSW EPA. (2025). Waste performance 2023–24; WA Waste Authority. (2025). Key findings; Queensland Government. (2025). Recycling and waste in Queensland 2025.
-118. Ministry of Ecology and Environment of China. (2014). GB 18485-2014 Standard for pollution control on the municipal solid waste incineration (amended 2019, MEE Announcement No. 56 of 2019). <https://www.mee.gov.cn/ywgz/fgbz/bz/bzwb/gthw/gtfwwrkzbz/201405/t20140530_276307.shtml>
-119. European Union. (2010). Directive 2010/75/EU on industrial emissions, Annex VI. <https://legislation.gov.uk/eudr/2010/75/annex/VI/part/3/adopted>
-120. European Commission. (2019). Implementing Decision (EU) 2019/2010 establishing best available techniques (BAT) conclusions for waste incineration. Official Journal of the European Union, L 312.
+1.  []{#ref-1}EPA Victoria. (2026). Waste to Energy Scheme licences (updated 27 August 2026). <https://www.epa.vic.gov.au/waste-energy-scheme-licences>
+2.  []{#ref-2}CDEG–A team. (2026, 15 October). Notes of call with Chengdu Environment Group \[not published\].
+3.  []{#ref-3}Chengdu Environment Group. (2026, 16 October). Written answers to questions on Australian projects \[Company document\].
+4.  []{#ref-4}EPA Victoria. (2026). Waste levy rates. <https://www.epa.vic.gov.au/waste-levy>
+5.  []{#ref-5}City of Greater Geelong. (2025). What does my waste charge pay for. <https://www.geelongcity.vic.gov.au/whats-happening/news-and-updates/what-does-my-waste-charge-pay>
+6.  []{#ref-6}Parliament of Victoria. (2025–2026). Submissions to the Inquiry into the development and expansion of WtE infrastructure in Victoria (627 listed; 565 coded by the team). <https://www.parliament.vic.gov.au/get-involved/inquiries/wastetoenergyinquiry/submissions/>
+7.  []{#ref-7}Legislative Council Economy and Infrastructure Committee. (2026, August). Inquiry into the development and expansion of waste-to-energy (WtE) infrastructure in Victoria (59 findings, 33 recommendations). Parliament of Victoria. <https://www.parliament.vic.gov.au/get-involved/inquiries/wastetoenergyinquiry/reports>
+8.  []{#ref-8}Victorian Electoral Commission. (2026). 2026 Victorian state election, 28 November 2026. <https://www.vec.vic.gov.au>
+9.  []{#ref-9}National Measurement Institute. (2026). Certificates of approval 14/3/70 (Sanchuan), 14/3/22 (Ningbo Water Meter), 14/3/72 (Landis+Gyr). <https://www.industry.gov.au/sites/default/files/nmi/certificates-approval/2026-01/14-3-70_r3.pdf>
+10. []{#ref-10}BINDT. (2025, January). Avnet to support South East Water's mass digital meter deployment. <https://www.bindt.org/News/january-2025/avnet-to-support-mass-digital-meter-deployment/>
+11. []{#ref-11}Yicai Global. (2024, 27 August). Huizhong deal to supply an Australian city with smart water meters. <https://yicaiglobal.com/news/huizhong-soars-after-chinese-firm-bags-usd140-mln-deal-to-supply-australian-city-with-smart-water-meters>
+12. []{#ref-12}Essential Services Commission. (2026). Water Price Review 2028. <https://www.esc.vic.gov.au/water/water-prices-tariffs-and-special-drainage/water-price-reviews/water-price-review-2028>
+13. []{#ref-13}Medianet. (2026, September). Regulator releases guidance to assist businesses with water price submissions. <https://newshub.medianet.com.au/2026/09/regulator-releases-guidance-to-assist-businesses-with-water-price-submissions/171429/>
+14. []{#ref-14}TRILITY. (2018). Beijing Enterprises Water Group finalises the acquisition of TRILITY Group. <https://trility.com.au/news/beijing-enterprises-water-group-limited-finalises-the-acquisition-of-trility-group/>
+15. []{#ref-15}Utility Magazine. (2016). Treasurer Scott Morrison blocks Chinese investment of Ausgrid. <https://utilitymagazine.com.au/treasurer-scott-morrison-blocks-chinese-investment-of-ausgrid/>
+16. []{#ref-16}Foreign Investment Review Board. (2020, 18 December). Guidance Note 7: Business investments. <https://foreigninvestment.gov.au/sites/firb.gov.au/files/guidance-notes/G07-Business.pdf>
+17. []{#ref-17}National Development and Reform Commission. (2026). Measures for the administration of outbound investment (NDRC Order No. 49 of 2026; effective 1 December 2026, repealing NDRC Order No. 11 of 2017) \[in Chinese\]. <https://www.ndrc.gov.cn/xxgk/zcfb/fzggwl/202610/t20261022_1408298.html>
+18. []{#ref-18}NexStar 2026. (2026). Collaboration opportunities with Chengdu new energy companies: Chengdu Environment Group profile, strengths and needs \[Company document, English and Chinese\].
+19. []{#ref-19}Chengdu Environment Investment Group. (2026). NexStar 2026 enterprise registration form \[Company document\].
+20. []{#ref-20}Chengdu Xingrong Environment Co., Ltd. (2026). 2025 annual report (000598.SZ). cninfo. <https://www.cninfo.com.cn>
+21. []{#ref-21}Chengdu Xingrong Environment Co., Ltd. (2026). 2026 half-year report (000598.SZ) \[Unaudited\]. cninfo. <https://www.cninfo.com.cn>
+22. []{#ref-22}Xizi Clean Energy. (2026, 11 May). All units of Wanxing Phase III complete full-load trial operation. <https://c.m.163.com/news/a/KSMA9KOE05568W0A.html>
+23. []{#ref-23}Ministry of Ecology and Environment of China. (2026). MSW incineration plant automatic monitoring data disclosure platform: Chengdu Xingrong Wanxing plant, daily averages of 14 October 2026. <https://ljgk.envsc.cn>
+24. []{#ref-24}Chengdu Environment Group, Huijin meter subsidiary. (2026, 16 October). Written reply on meters and certification \[company communication, not published\].
+25. []{#ref-25}CDEG–A team. (2026, 14 October). Notes of mentor consultation \[not published\].
+26. []{#ref-26}CDEG–A team (Kai Marsh). (2026, October). WtE payback model and council price map \[interactive models, bilingual\]. <https://cdeg.ksmarsh.net>
+27. []{#ref-27}CDEG–A team (Kai Marsh). (2026, October). Smart water meter profit model \[interactive model\]. <https://cdeg.ksmarsh.net>
+28. []{#ref-28}DCCEEW. (2026, September). National Waste and Resource Recovery Database 2026. <https://www.dcceew.gov.au/environment/protection/waste/national-waste-reports>
+29. []{#ref-29}EPA Victoria. (2026, June). Waste, recycling and resource recovery investment prospectus.
+30. []{#ref-30}Norton Rose Fulbright. (2025, April). Growing the cap limit for waste to energy projects in Victoria. <https://www.nortonrosefulbright.com/en-gr/knowledge/publications/96caf112/growing-the-cap-limit-for-waste-to-energy-projects-in-victoria>
+31. []{#ref-31}Victorian Government. (2026). Environment Protection Regulations 2021, reg. 52 (councils in the metropolitan levy zone). <https://www.legislation.vic.gov.au/in-force/statutory-rules/environment-protection-regulations-2021>
+32. []{#ref-32}EPA Victoria. (2025, 1 September; updated 9 December 2025). Cleanaway MERC application withdrawn. <https://www.epa.vic.gov.au/cleanaway-merc-application-withdrawn>
+33. []{#ref-33}EQT. (2026, 18 October). EQT agrees to acquire Cleanaway, a leading Australian integrated waste management and resource recovery platform. <https://eqtgroup.com/news/eqt-agrees-to-acquire-cleanaway-a-leading-australian-integrated-waste-management-and-resource-recovery-platform-2026-10-18>
+34. []{#ref-34}Victorian Government. (2026). Standardising household recycling across Victoria. <https://www.vic.gov.au/standardising-household-recycling-across-victoria>
+35. []{#ref-35}Mornington Peninsula Shire. (2026, 12 March). Council to decide on waste reform implementation. <https://www.mornpen.vic.gov.au/The-Shire/News-media-and-publications/News-and-media-releases/Council-to-decide-on-waste-reform-implementation>
+36. []{#ref-36}Victorian Government. (2024, December). Guidance on the scope of the Waste to Energy Scheme (permitted, banned and exempt waste).
+37. []{#ref-37}EPA Victoria. (2026, June). Victorian local government waste data 2025.03. <https://discover.data.vic.gov.au/dataset/victorian-local-government-waste-data-dashboard>
+38. []{#ref-38}NDRC and others. (2024). Measures for the administration of infrastructure and public utility concessions (NDRC Order No. 17 of 2024). <https://www.gov.cn/gongbao/2024/issue_11346/202405/content_6951524.html>
+39. []{#ref-39}The Paper. (2025, 15 July). How China ran short of waste to burn \[in Chinese\]. <https://www.thepaper.cn/newsDetail_forward_31178082>
+40. []{#ref-40}National Development and Reform Commission. (2012). Notice on improving the pricing policy for waste incineration power generation (Fa Gai Jia Ge \[2012\] No. 801). <https://www.ndrc.gov.cn/xxgk/zcfb/tz/201204/t20120410_964415.html>
+41. []{#ref-41}NDRC, Ministry of Finance and National Energy Administration. (2021). 2021 biomass power project construction work plan (Fa Gai Neng Yuan \[2021\] No. 1190) \[in Chinese\]. NDRC interpretation: <https://www.ndrc.gov.cn/xxgk/jd/jd/202108/t20210819_1294041.html>
+42. []{#ref-42}Ministry of Ecology and Environment of China. (2019). Regulations on the application and management of automatic monitoring data of MSW incineration power plants (MEE Order No. 10; amended 20 September 2026). <https://www.mee.gov.cn/gzk/gz/202112/t20211211_963805.shtml>
+43. []{#ref-43}EPA Victoria. (2026). Victoria's Waste to Energy Scheme. <https://www.epa.vic.gov.au/victorias-waste-energy-scheme>
+44. []{#ref-44}Frankston City Council. (2024, 21 August). South East Metropolitan Advanced Waste Processing (SEMAWP). <https://www.frankston.vic.gov.au/Council/News-and-media/Latest-News/Media-Releases-2024/South-East-Metropolitan-Advanced-Waste-Processing-SEMAWP>
+45. []{#ref-45}Harford Consulting for the Smart Energy Council. (2026, July). Waste-to-energy in Australia: energy solution or problem? <https://smartenergy.org.au/wp-content/uploads/2026/07/Smart-Energy-Council-and-waste-to-energy-in-Australia-2026.pdf>
+46. []{#ref-46}EPA Victoria. (2017). Energy from waste guideline (Publication 1559.1). <https://www.epa.vic.gov.au/15591-energy-waste-guideline>
+47. []{#ref-47}Environmental Justice Australia. (2023). Challenging the Maryvale Mill waste incinerator. <https://envirojustice.org.au/legal-work/ending-pollution/ending-toxic-contamination-and-waste/challenging-the-maryvale-mill-waste-incinerator/>
+48. []{#ref-48}EPA Victoria. (2026). Waste to Energy Scheme (updated 27 August 2026). <https://www.epa.vic.gov.au/waste-energy-scheme>
+49. []{#ref-49}Xinhua. (2026, 25 May). Urban household waste resource-utilisation rate to exceed 76% by end-2030 \[in Chinese\]. <https://www.news.cn/politics/20260525/8e0c96ba7378447b8b0cc8886512141f/c.html>
+50. []{#ref-50}NDRC and Ministry of Housing and Urban-Rural Development. (2021). 14th Five-Year Plan for urban household waste sorting and treatment facilities (Fa Gai Huan Zi \[2021\] No. 642) \[in Chinese\]. <https://www.gov.cn/zhengce/zhengceku/2021-05/14/content_5606349.htm>
+51. []{#ref-51}Xinhua Daily Telegraph. (2026, 27 May). An investigation into 'not enough waste to burn' \[in Chinese\]. <https://www.news.cn/politics/20260527/7254958591fd484899511ae57e04bf10/c.html>
+52. []{#ref-52}Ministry of Finance, NDRC and National Energy Administration. (2020). Supplementary notice on promoting the healthy development of non-hydro renewable power (Cai Jian \[2020\] No. 426). <https://www.gov.cn/zhengce/zhengceku/2020-10/21/content_5552978.htm>
+53. []{#ref-53}Wangneng Environment Co., Ltd. (2026). 2026 half-year report: management discussion and analysis (002034.SZ) \[in Chinese\]. Stockstar. <https://wap.stockstar.com/detail/RB2026082800000522>
+54. []{#ref-54}Chengdu Environment Group. (2017, 31 May). Xingrong Environment delegation visits Lahore, Pakistan \[WeChat article\].
+55. []{#ref-55}Department of Home Affairs. (2023). Security of Critical Infrastructure (Critical infrastructure risk management program) Rules (LIN 23/006). <https://www.homeaffairs.gov.au/reports-and-pubs/files/soci-rmp-rules-legislative-instrument-lin-22-018.pdf> (check instrument number LIN 23/006 vs URL)
+56. []{#ref-56}Department of Industry, Science and Resources. (2025, May). Melbourne Energy and Resource Centre AIP plan summary; North Central Review. (2025, September). Cleanaway seeks to double Wollert plant.
+57. []{#ref-57}ABC News. (2026, 26 August). Parliamentary inquiry into Melbourne waste-to-energy plants prompts calls for tougher regulations.
+58. []{#ref-58}Australian Tenders. (2025). Melbourne Water: development of a biosolid processing solution. <https://www.australiantenders.com.au/tenders/581897/melbourne-water-mw-development-of-a-biosolid-processing-solution>
+59. []{#ref-59}Recovered Energy Laverton. (n.d.). Laverton North Project \[Developer website\]. <https://www.recoveredenergy.com.au/laverton-north-project>
+60. []{#ref-60}Department of Treasury and Finance Victoria. (n.d.). Barwon Water Biosolids Management Project (Partnerships Victoria).
+61. []{#ref-61}TRILITY. (n.d.). Barwon Water biosolids management (thermal dryer, 60,000 t/yr).
+62. []{#ref-62}RMIT University. (n.d.). Aussie innovation turns waste into energy 'gold' (PYROCO biosolids pyrolysis).
+63. []{#ref-63}Australian Manufacturing. (n.d.). Victoria invests to expand Repurpose It facility in Epping.
+64. []{#ref-64}Sustainability Victoria. (n.d.). Circular Economy Organics Sector Transformation Fund: funded projects; Bioenergy Fund and Recycling Modernisation Fund guidelines.
+65. []{#ref-65}South East Water. (2026, 21 January). South East Water hits 200,000 digital meter milestone. <https://southeastwater.com.au/about-us/news/digital-meter-milestone2/>
+66. []{#ref-66}Mail Community. (2026, 21 May). Fifty thousand water meters installed by Yarra Valley Water; Yarra Valley Water, Digital metering.
+67. []{#ref-67}VicWater. (n.d.). Barwon Water partners with Iota.
+68. []{#ref-68}Australian Tenders. (2025). Supply and delivery of water meters (GWW11903).
+69. []{#ref-69}Department of Jobs, Skills, Industry and Regions. (n.d.). CarbonNet project: Pelican storage site and Loy Yang gateway.
+70. []{#ref-70}Planning Victoria. (2026). Hazelwood Rehabilitation Project: Environment Effects Statement and draft planning scheme amendment.
+71. []{#ref-71}Premier of Victoria. (2022). Loy Yang A transition agreement (closure 2035).
+72. []{#ref-72}Latrobe Valley Express. (2025, November). New life for Yallourn W; RenewEconomy. (2026, August). EnergyAustralia coal sites.
+73. []{#ref-73}Opal, Veolia and Masdar Tribe Australia. (2024, 19 August). Maryvale Energy from Waste project wins multi-council waste tenders \[Media release\]. <https://opalanz.com/app/uploads/2024/08/240819-Maryvale-EfW-project-wins-multi-council-waste-tenders_final.pdf>
+74. []{#ref-74}Metro Vancouver. (2025). Waste-to-Energy Facility financial update 2024. <https://metrovancouver.org/services/solid-waste/Documents/wte-financial-update-2024.pdf>
+75. []{#ref-75}Hatzfeld, S. (2017, 31 May). MBT Jiangsu: high-tech waste processing for China. Recycling Magazine. <https://www.recycling-magazine.com/en/20504/mbt-jiangsu-high-tech-waste-processing-china>
+76. []{#ref-76}NSW EPA. (2020). Red bin audit 2011–19 (Table 7: residual bin composition by organics service). <https://www.epa.nsw.gov.au/sites/default/files/red-bin-audit-2011-19.pdf>
+77. []{#ref-77}Tchobanoglous, G., Theisen, H. & Vigil, S. (1993). Integrated Solid Waste Management, Table 4-16 (energy content of MSW components). McGraw-Hill.
+78. []{#ref-78}NAWTEC20. (2012). Characteristics of municipal solid waste in Chengdu \[conference paper\].
+79. []{#ref-79}Cleanaway. (2026, July). Bromelton energy-from-waste feedstock report.
+80. []{#ref-80}IJGlobal. (n.d.). Kwinana energy-from-waste plant, Australia.
+81. []{#ref-81}Victorian Government. (2025). Circular Economy (Waste Reduction and Recycling) (Waste to Energy Scheme) Amendment Regulations 2025: Regulatory impact statement. <https://www.vic.gov.au/sites/default/files/2025-04/Circular-Economy-%28Waste-Reduction-and-Recylcing%29-%28Waste-to-Energy-Scheme%29-Amendment-Regulations-2025-Regulatory-Impact-Statement-.docx>
+82. []{#ref-82}Clean Energy Regulator. (n.d.). Eligible renewable energy sources: biomass-based components of municipal solid waste. <https://cer.gov.au>
+83. []{#ref-83}The Nightly. (2026). AEMO report shows wholesale power prices plunge (Q2 2026).
+84. []{#ref-84}Clean Energy Finance Corporation and ARENA. (n.d.). Kwinana and East Rockingham WtE project pages. <https://www.cefc.com.au>
+85. []{#ref-85}Macquarie Group and CEFC. (2018–2024). Kwinana Energy Recovery financial close, WALGA supply and ACCIONA acquisition media releases.
+86. []{#ref-86}Business News WA. (2022). East Rockingham WtE supply agreement with Talison Lithium (Greenbushes).
+87. []{#ref-87}清气团 · 固废展望 \[Solid Waste Outlook\]. (2025, 6 May). 澳大利亚垃圾焚烧行业的群雄逐鹿 \[Australia's waste-to-energy industry: a contest of contenders\]. China Solid Waste Network. <https://www.solidwaste.com.cn/news/357711.html>
+88. []{#ref-88}ACCC. (2025, 17 July). Acciona – East Rockingham Waste to Energy Project (informal merger review). <https://www.accc.gov.au/public-registers/mergers-and-acquisitions-registers/public-informal-merger-reviews-register-2002-25/acciona-east-rockingham-waste-to-energy-project>
+89. []{#ref-89}ACCC. (2025). Acciona – East Rockingham Waste to Energy Project, informal merger review register (withdrawn 13 October 2025). <https://www.accc.gov.au/public-registers/mergers-registers/public-informal-merger-reviews-register/acciona-east-rockingham-waste-to-energy-project>
+90. []{#ref-90}Utility Magazine. (n.d.). Iota wins landmark digital water meter and IoT platform contract.
+91. []{#ref-91}National Measurement Institute. (2026). About pattern approval. <https://www.industry.gov.au/regulations-and-standards/pattern-approval>
+92. []{#ref-92}ABC News. (2025, 23 June). Company in charge of proposed incinerator outside Geelong has direct links to the Chinese government. <https://www.abc.net.au/news/2025-06-23/victoria-waste-to-energy-project-lara-chinese-government-links/105442594>
+93. []{#ref-93}City of Greater Geelong. (2025, 29 January; updated 23 March 2026). Advocacy against Lara incinerator continues. <https://www.geelongcity.vic.gov.au/whats-happening/news-and-updates/advocacy-against-lara-incinerator-continues>
+94. []{#ref-94}ESD News. (2023). Consortium inks deal with Cobra for Maryvale EfW project. <https://esdnews.com.au/consortium-inks-deal-with-cobra-for-maryvale-efw-project/>
+95. []{#ref-95}Cleanaway Waste Management. (2026, 20 August). FY26 results (ASX announcement). <https://announcements.asx.com.au/asxpdf/20260820/pdf/072yq2lqg3cv31.pdf>
+96. []{#ref-96}Zawya. (2026, 14 January). Tadweer Group expands global Waste-to-Energy footprint through strategic partnership with Tribe and Cleanaway \[Press release\]. <https://www.zawya.com/en/press-release/companies-news/tadweer-group-expands-global-waste-to-energy-footprint-through-strategic-partnership-with-tribe-and-cleanaway-ewa1f5iv>
+97. []{#ref-97}Infrastructure Investor. (2016). EQT sells waste-to-energy business for €1.4bn. <https://www.infrastructureinvestor.com/eqt-sells-waste-to-energy-business-for-e1-4bn%5D/>
+98. []{#ref-98}Veolia. (2025, 12 November). Veolia secures AUD \$700m in new contracts to advance technological innovation in water management in Australia \[Press release\]. <https://www.veolia.com/en/our-media/press-releases/veolia-australia-new-contracts-water-management>
+99. []{#ref-99}NSW Department of Planning, Housing and Infrastructure. (2026, 30 July). Veolia Woodlawn ARC \[State significant development\]. <https://www.planning.nsw.gov.au/assess-and-regulate/state-significant-projects/energy-from-waste/veolia-woodlawn-arc>
+100. []{#ref-100}Waste Management Review. (n.d.). REMONDIS withdraws Swanbank EfW plan. <https://wastemanagementreview.com.au/remondis-withdraws-swanbank-efw-plan/>
+101. []{#ref-101}Ipswich City Council. (2022, 1 March). People power puts incinerator on the back burner \[News\]. <https://www.ipswich.qld.gov.au/News-Articles-Folder/2022/People-power-puts-incinerator-on-the-back-burner>
+102. []{#ref-102}HiQ. (n.d.). Sunbury Eco-Hub. HiQ EFW Victoria \[Developer website\].
+103. []{#ref-103}Landis+Gyr. (2021). Awarded major smart water contract by South East Water.
+104. []{#ref-104}TRILITY. (n.d.). Adelaide Desalination Plant. <https://trility.com.au/project/adelaide-desalination-plant/>
+105. []{#ref-105}Sydney Water. (2022, 12 October). World-class water recycling facility for Western Sydney \[Media release\]. <https://www.sydneywater.com.au/content/dam/sydneywater/media-releases/121022-upper-south-creek-media-release.pdf>
+106. []{#ref-106}Global Construction Review. (2014, 13 December). Chinese construction giant to buy Australia's John Holland in bid for global expansion. (URL to re-check before submission)
+107. []{#ref-107}Cuthbert, J. (2026, 24 March). Construction giant John Holland hits record \$117M loss. Grafa. <https://grafa.com/en/news/australia/construction-giant-john-holland-hits-record-117m-loss>
+108. []{#ref-108}Jemena. (2025, May). Pipeline management plan: Jemena gas assets \[Safety case\]. <https://www.jemena.com.au/siteassets/gas/gas-999-pa-hse-002-jemena-safety-case-saop-_-pipeline-management-plan–jemena-gas-assets.22052025.pdf>
+109. []{#ref-109}Jemena. (2015, April). Jemena Electricity Networks (Vic) Ltd regulatory proposal. Australian Energy Regulator. <https://www.aer.gov.au/system/files/Jemena%20-%20Regulatory%20proposal%20-%20April%202015.pdf>
+110. []{#ref-110}IPE Real Assets. (2025, 5 November). TIF exits ElectraNet stake in sale to Australian Retirement Trust. <https://realassets.ipe.com/news/tif-exits-electranet-stake-in-sale-to-australian-retirement-trust/10133525.article>
+111. []{#ref-111}TRILITY. (2018); WA Government. (2018). Helena Water acquisition and Water Minister's statement.
+112. []{#ref-112}Jones Day. (2026, June). How long does Australian FIRB approval take? Latest statistics and more streamlining reforms. <https://www.jonesday.com/en/insights/2026/06/how-long-does-australian-firb-approval-take-latest-statistics-and-more-streamlining-reforms>
+113. []{#ref-113}NSW Department of Planning. (2025). Energy from waste: priority infrastructure areas.
+114. []{#ref-114}NSW EPA. (2026). Waste levy areas and levy rates; FOGO mandates and rollout. <https://www.epa.nsw.gov.au/Your-environment/Waste/waste-levy/levy-regulated-area-and-levy-rates>
+115. []{#ref-115}WA Government. (2026). Waste levy rate schedule.
+116. []{#ref-116}Queensland Government. (2026). Waste levy rates. <https://www.qld.gov.au/environment/waste/levy>
+117. []{#ref-117}NSW EPA. (2025). Waste performance 2023–24; WA Waste Authority. (2025). Key findings; Queensland Government. (2025). Recycling and waste in Queensland 2025.
+118. []{#ref-118}Ministry of Ecology and Environment of China. (2014). GB 18485-2014 Standard for pollution control on the municipal solid waste incineration (amended 2019, MEE Announcement No. 56 of 2019). <https://www.mee.gov.cn/ywgz/fgbz/bz/bzwb/gthw/gtfwwrkzbz/201405/t20140530_276307.shtml>
+119. []{#ref-119}European Union. (2010). Directive 2010/75/EU on industrial emissions, Annex VI. <https://legislation.gov.uk/eudr/2010/75/annex/VI/part/3/adopted>
+120. []{#ref-120}European Commission. (2019). Implementing Decision (EU) 2019/2010 establishing best available techniques (BAT) conclusions for waste incineration. Official Journal of the European Union, L 312.
+
+::: {.en}
+References 121 onward are cited only by the interactive models.
+:::
+
+::: {.zh}
+第121条起的参考文献仅由互动模型引用。
+:::
+
+121. []{#ref-121}VLGA. (2020). Landfill levy rate rises deferred (2020-23 schedule). <https://www.vlga.org.au/sites/default/files/LANDFILL%20LEVY%20RATE%20RISES%20DEFERRED.pdf>
+122. []{#ref-122}VAGO. (2018, July). Managing the Municipal and Industrial Landfill Levy. <https://www.audit.vic.gov.au/report/managing-municipal-and-industrial-landfill-levy>
+123. []{#ref-123}SA EPA. (2026, August). Waste levy rates. <https://www.epa.sa.gov.au/business_and_industry/waste-levy>
+124. []{#ref-124}Waste Management Review. (2016). SA commits to \$103 waste levy by 2019/20. <https://wastemanagementreview.com.au/sa-commits-to-103-waste-levy-by-201920/>
+125. []{#ref-125}ACT Government. (2026). Waste Management and Resource Recovery (Fees) Determination 2026. <https://www.legislation.act.gov.au/DownloadFile/di/2026-134/current/PDF/2026-134.PDF>
+126. []{#ref-126}Warrnambool & District News. (2025, September). Council calls to halt waste levy increase (Corangamite rural levy 2024-25). <https://www.wdnews.com.au/council-calls-to-halt-waste-levy-increase-2025-09-12>
+127. []{#ref-127}William & Mary geoLab. (2023). geoBoundaries Australia ADM2. <https://www.geoboundaries.org>
+128. []{#ref-128}NSW EPA. (2026, October). FOGO services map and council list. <https://www.epa.nsw.gov.au/Your-environment/Recycling-and-reuse/business-government-recycling/Food-organics-and-garden-organics/nsw-fogo-services>
+129. []{#ref-129}NSW EPA. (2025, September). Local Government Waste Data Survey 2023-24 Appendix A (council red-bin tonnes). <https://www.epa.nsw.gov.au/Your-environment/Recycling-and-reuse/warr-strategy/performance-against-strategy/local-government-waste-data-survey/previous-surveys/2023-24>
+130. []{#ref-130}Green Industries SA. (2025). Metropolitan Adelaide Kerbside Waste Performance Snapshot 2023-24. <https://www.greenindustries.sa.gov.au/resources/metro-kerbisde-performance-snapshot-23-24>
+131. []{#ref-131}ACT Government (TCCS). (2022). ACT 2022 kerbside waste audit report. <https://www.cityservices.act.gov.au/__data/assets/pdf_file/0004/2254333/ACT-2022-kerbside-waste-audit-report-final_Access.pdf>
+132. []{#ref-132}Tasmanian Government NRE. (2026). The Landfill Levy (Tasmania). <https://nre.tas.gov.au/environment/waste-and-resource-recovery/landfill-levy>
+133. []{#ref-133}Tasmanian Department of State Growth. (n.d.). Information Paper 3: Tasmanian sea freight. <https://stategrowth.tas.gov.au/__data/assets/pdf_file/0012/134211/Information_Paper_3_-_Tasmanian_sea_freight.pdf>
+134. []{#ref-134}Utility Magazine. (2026). Yarra Valley Water reaches major digital meter milestone. <https://utilitymagazine.com.au/yarra-valley-water-reaches-major-digital-meter-milestone/>
+135. []{#ref-135}Bureau of Meteorology. (2026). National Performance Report 2024-25: urban water. <https://www.bom.gov.au/water/npr/docs/2024-25/NPR_2024-25_01-Introduction.pdf>
+136. []{#ref-136}Water Online (Bluefield Research). (2026, March). Australia's US\$17.4B digital water forecast. <https://www.wateronline.com/doc/australia-s-us-b-digital-water-forecast-highlights-the-utility-opportunity-ahead-0001>
+137. []{#ref-137}Alibaba.com Seller Blog. (2026). WaterMark certification for Australian plumbing products. <https://seller.alibaba.com/blogs/2026/southeast-asia/plumbing-products/watermark-certification-australia-guide-alibaba-b2b>
+138. []{#ref-138}Utility Magazine. (2024). Sydney Water shares results of smart meter rollout. <https://utilitymagazine.com.au/sydney-water-shares-results-of-smart-metre-rollout/>
+139. []{#ref-139}roic.ai. (2026). Huizhong Instrumentation (300371.SZ) financials. <https://www.roic.ai/quote/300371.SZ/classic>
+140. []{#ref-140}ABS / Australian Government. (2026). Building activity and Housing Accord progress. <https://www.abs.gov.au/statistics/industry/building-and-construction>
+141. []{#ref-141}Australian Taxation Office. (2025). Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025.
+142. []{#ref-142}Australian Taxation Office. (2026). Company tax rates.
 
 ## [Model source register]{.en}[模型数据来源]{.zh}
 
 ::: {.en}
-Sources for the default values in the interactive models (IDs used in the [Assumptions register](assumptions.qmd)).
+Sources for the default values in the interactive models (IDs used in the [Assumptions register](assumptions.qmd)). Each has the number it carries in the reference list above; the models show that number next to each input.
 :::
 
 ::: {.zh}
-互动模型默认值的数据来源（编号用于[假设参数](assumptions.qmd)页）。
+互动模型默认值的数据来源（编号用于[假设参数](assumptions.qmd)页）。每条均注明其在上方参考文献中的序号；模型在各参数旁显示该序号。
 :::
 
 ::: tw

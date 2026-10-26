@@ -61,18 +61,28 @@ lang = Generators.observe(notify => {
 T = (en, zh) => lang === "zh" ? zh : en
 // Cache-busting: Cloudflare caches data files for hours; the page's Last-Modified changes on every deploy
 V = "?v=" + encodeURIComponent(document.lastModified)
-csv = path => fetch(path).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => d3.csvParse(t, d3.autoType))
+// ----- Assumptions register: defaults and sources for every input (data/assumptions.csv + data/sources.csv) -----
 // A failed fetch falls back to DEFAULTS (with a warning) instead of blanking the page
-assumpRes = csv("../data/assumptions.csv" + V).then(rows => ({rows, ok: true}), () => ({rows: [], ok: false}))
-assump = assumpRes.rows
-assumpFailed = !assumpRes.ok
-A = Object.fromEntries(assump.map(d => [d.id, d]))
+csvStrict = path => fetch(path).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => d3.csvParse(t, d3.autoType))
+registerRes = Promise.all([csvStrict("../data/assumptions.csv" + V), csvStrict("../data/sources.csv" + V)]).then(([a, s]) => ({a, s, ok: true}), () => ({a: [], s: [], ok: false}))
+registerFailed = !registerRes.ok
+A = Object.fromEntries(registerRes.a.map(d => [d.id, d]))
+REF = Object.fromEntries(registerRes.s.map(d => [d.id, d.ref]))
 // Fallback defaults (same values as data/assumptions.csv) so a missing row cannot blank the page
-DEFAULTS = ({m_connections: 10.0, m_life: 12, m_newconn: 0.016, m_open: 0.5, m_price: 135, m_exworks: 400, m_fx: 4.7, m_freight: 2.5, m_duty: 0, m_qa: 3, m_warranty: 0.03, m_dist: 0.15, m_factory: 0.25, m_nmi: 40000, m_watermark: 25000, m_rnd: 150000, m_bdpre: 150000, m_overhead_dist: 200000, m_overhead_direct: 650000, nmi_test_cn: 200000})
-// The CSV wins; DEFAULTS are used only when a row is missing or its value is not a finite number
+DEFAULTS = ({m_adapt_months: 6, m_bdpre: 150000, m_connections: 10, m_discount: 0.055, m_dist: 0.15, m_duty: 0, m_exworks: 400, m_factory: 0.25, m_freight: 2.5, m_fx: 4.7, m_inv_months: 3, m_life: 12, m_newconn: 0.016, m_nmi: 40000, m_open: 0.5, m_overhead_direct: 650000, m_overhead_dist: 200000, m_pilot: 1000, m_price: 135, m_qa: 3, m_ramp: 3, m_recstart: 2029, m_rnd: 150000, m_share: 0.05, m_tender_months: 6, m_warranty: 0.03, m_watermark: 25000, nmi_test_cn: 200000, tax_rate: 0.3})
 num = x => typeof x === "number" && Number.isFinite(x)
 missingIds = Object.keys(DEFAULTS).filter(id => !num(A[id]?.value)).map(id => A[id] && A[id].value != null ? `${id} (invalid)` : id)
+// The CSV wins; DEFAULTS are used only when a row is missing or its value is not a finite number
 v = id => num(A[id]?.value) ? A[id].value : DEFAULTS[id]
+// Source tag after a label: report reference number(s) linked to the Sources page; an input with no source is an assumption
+tag = id => {
+  if (!A[id]) return "";
+  const refs = String(A[id].source_id ?? "").split(/[;\s]+/).filter(Boolean).map(s => REF[s]).filter(Boolean);
+  return refs.length
+    ? html`<span class="src-tag">[${refs.map((r, i) => html`${i ? ", " : ""}<a href="../appendix/sources.html#ref-${r}">${r}</a>`)}]</span>`
+    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
+}
+lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
 C = ({base: "#2a78d6", optimal: "#1baf7a", recession: "#eb6834", ink: "#52514e", grey: "#b5b3ab"})
 fmtA = x => {
   const s = x < 0 ? "−" : "", a = Math.abs(x);
@@ -89,7 +99,7 @@ scenNames = ({base: T("Base", "基准"), optimal: T("Optimal market", "最优市
 
 ```{ojs}
 //| echo: false
-missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-weight:600">${assumpFailed ? L("Warning: data/assumptions.csv could not be loaded; built-in defaults used for all inputs.", "警告：无法加载 data/assumptions.csv，所有参数均使用内置默认值。") : html`${L("Warning: missing or not a number in data/assumptions.csv, built-in defaults used for: ", "警告：data/assumptions.csv 中以下参数缺失或不是数字，已使用内置默认值：")}${missingIds.join(", ")}`}</p>` : html`<span class="assump-ok" hidden></span>`
+missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-weight:600">${registerFailed ? L("Warning: the assumptions register could not be loaded; built-in defaults used for all inputs.", "警告：无法加载假设参数表，所有参数均使用内置默认值。") : html`${L("Warning: missing or not a number in the assumptions register, built-in defaults used for: ", "警告：假设参数表中以下参数缺失或不是数字，已使用内置默认值：")}${missingIds.join(", ")}`}</p>` : html`<span class="assump-ok" hidden></span>`
 ```
 
 ```{ojs}
@@ -138,11 +148,11 @@ Every metered property needs a new meter roughly every 10–15 years, because me
 // Option labels avoid T() so switching language does not rebuild (and reset) the controls
 viewof scen = Inputs.radio(["base", "optimal", "recession"], {value: "base", label: L("Market scenario", "市场情景"),
   format: k => ({base: L("Base", "基准"), optimal: L("Optimal market", "最优市场"), recession: L("Recession", "经济衰退")})[k]})
-viewof recStart = Inputs.range([2028, 2033], {value: 2029, step: 1, label: L("Recession starts", "衰退开始年份")})
-viewof connections = adv(Inputs.range([8, 12], {value: v("m_connections"), step: 0.1, label: L("Metered connections (million)", "装表用户数（百万）")}))
-viewof life = adv(Inputs.range([8, 16], {value: v("m_life"), step: 1, label: L("Replacement cycle (years)", "更换周期（年）")}))
-viewof newConn = adv(Inputs.range([0.008, 0.025], {value: v("m_newconn"), step: 0.001, label: L("New connections a year (share of stock)", "每年新增用户（占存量）")}))
-viewof openShare = adv(Inputs.range([0.2, 0.8], {value: v("m_open"), step: 0.05, label: L("Demand open to new suppliers before 2032", "2032年前可争取需求比例")}))
+viewof recStart = Inputs.range([2028, 2033], {value: v("m_recstart"), step: 1, label: lab("m_recstart", "Recession starts", "衰退开始年份")})
+viewof connections = adv(Inputs.range([8, 12], {value: v("m_connections"), step: 0.1, label: lab("m_connections", "Metered connections (million)", "装表用户数（百万）")}))
+viewof life = adv(Inputs.range([8, 16], {value: v("m_life"), step: 1, label: lab("m_life", "Replacement cycle (years)", "更换周期（年）")}))
+viewof newConn = adv(Inputs.range([0.008, 0.025], {value: v("m_newconn"), step: 0.001, label: lab("m_newconn", "New connections a year (share of stock)", "每年新增用户（占存量）")}))
+viewof openShare = adv(Inputs.range([0.2, 0.8], {value: v("m_open"), step: 0.05, label: lab("m_open", "Demand open to new suppliers before 2032", "2032年前可争取需求比例")}))
 ```
 ::::
 :::: {.column width="60%"}
@@ -219,13 +229,13 @@ A meter cannot be used for billing in Australia until the National Measurement I
 ```{ojs}
 //| echo: false
 viewof nmiAccepts = Inputs.toggle({value: false, label: L("NMI accepts China lab report (ISO 17025 / OIML)", "NMI采信国内检测报告（ISO 17025/OIML）")})
-viewof adaptMonths = Inputs.range([0, 18], {value: 6, step: 1, label: L("Adaptation + China tests (months)", "适配及国内检测（月）")})
-viewof rnd = Inputs.range([0, 400000], {value: v("m_rnd"), step: 10000, label: L("Adaptation cost (A$)", "适配研发费用（澳元）")})
-viewof nmiCost = adv(Inputs.range([10000, 120000], {value: v("m_nmi"), step: 5000, label: L("NMI approval fees (A$)", "NMI型式批准费用（澳元）")}))
-viewof wmCost = adv(Inputs.range([5000, 50000], {value: v("m_watermark"), step: 1000, label: L("WaterMark + AS/NZS 4020 (A$)", "WaterMark+AS/NZS 4020（澳元）")}))
-viewof tenderMonths = adv(Inputs.range([0, 18], {value: 6, step: 1, label: L("Approval to first order (months)", "获批至首单（月）")}))
-viewof pilotUnits = adv(Inputs.range([0, 5000], {value: 1000, step: 250, label: L("Free pilot meters", "免费试点水表")}))
-viewof bdPre = adv(Inputs.range([50000, 300000], {value: v("m_bdpre"), step: 10000, label: L("Bid costs a year before first sale (A$)", "首单前每年投标费用（澳元）")}))
+viewof adaptMonths = Inputs.range([0, 18], {value: v("m_adapt_months"), step: 1, label: lab("m_adapt_months", "Adaptation + China tests (months)", "适配及国内检测（月）")})
+viewof rnd = Inputs.range([0, 400000], {value: v("m_rnd"), step: 10000, label: lab("m_rnd", "Adaptation cost (A$)", "适配研发费用（澳元）")})
+viewof nmiCost = adv(Inputs.range([10000, 120000], {value: v("m_nmi"), step: 5000, label: lab("m_nmi", "NMI approval fees (A$)", "NMI型式批准费用（澳元）")}))
+viewof wmCost = adv(Inputs.range([5000, 50000], {value: v("m_watermark"), step: 1000, label: lab("m_watermark", "WaterMark + AS/NZS 4020 (A$)", "WaterMark+AS/NZS 4020（澳元）")}))
+viewof tenderMonths = adv(Inputs.range([0, 18], {value: v("m_tender_months"), step: 1, label: lab("m_tender_months", "Approval to first order (months)", "获批至首单（月）")}))
+viewof pilotUnits = adv(Inputs.range([0, 5000], {value: v("m_pilot"), step: 250, label: lab("m_pilot", "Free pilot meters", "免费试点水表")}))
+viewof bdPre = adv(Inputs.range([50000, 300000], {value: v("m_bdpre"), step: 10000, label: lab("m_bdpre", "Bid costs a year before first sale (A$)", "首单前每年投标费用（澳元）")}))
 ```
 ::::
 :::: {.column width="60%"}
@@ -294,16 +304,16 @@ Huizhong's 2023 NSW contract works out to about A\$150 a meter, and that price a
 //| echo: false
 viewof route = Inputs.radio(["dist", "direct"], {value: "dist", label: L("Sales route", "销售渠道"),
   format: k => ({dist: L("Local distributor", "本地代理商"), direct: L("Own office", "自建团队")})[k]})
-viewof price = Inputs.range([90, 180], {value: v("m_price"), step: 1, label: L("Price to utility, meter only (A$)", "采购价，仅表具（澳元）")})
-viewof exRMB = Inputs.range([250, 650], {value: v("m_exworks"), step: 10, label: L("Ex-works price, AU spec (RMB)", "出厂价，澳洲规格（元）")})
+viewof price = Inputs.range([90, 180], {value: v("m_price"), step: 1, label: lab("m_price", "Price to utility, meter only (A$)", "采购价，仅表具（澳元）")})
+viewof exRMB = Inputs.range([250, 650], {value: v("m_exworks"), step: 10, label: lab("m_exworks", "Ex-works price, AU spec (RMB)", "出厂价，澳洲规格（元）")})
 viewof groupView = Inputs.toggle({value: false, label: L("Group view: add factory margin", "集团视角：计入工厂利润")})
-viewof fx = adv(Inputs.range([4.2, 5.2], {value: v("m_fx"), step: 0.05, label: L("Exchange rate (RMB per A$)", "汇率（人民币/澳元）")}))
-viewof freight = adv(Inputs.range([1, 6], {value: v("m_freight"), step: 0.5, label: L("Freight to warehouse per meter (A$)", "运至仓库（每只，澳元）")}))
-viewof duty = adv(Inputs.range([0, 0.05], {value: v("m_duty"), step: 0.01, label: L("Import duty", "进口关税")}))
-viewof qa = adv(Inputs.range([0, 8], {value: v("m_qa"), step: 0.5, label: L("Verification + QA per meter (A$)", "检定与质检（每只，澳元）")}))
-viewof warranty = adv(Inputs.range([0, 0.08], {value: v("m_warranty"), step: 0.005, label: L("Warranty (share of price)", "质保（占售价）")}))
-viewof distMargin = adv(Inputs.range([0, 0.3], {value: route === "dist" ? v("m_dist") : 0, step: 0.01, label: L("Distributor margin (share of price)", "代理利润率（占售价）")}))
-viewof factoryMargin = adv(Inputs.range([0, 0.4], {value: v("m_factory"), step: 0.01, label: L("Factory gross margin", "工厂毛利率")}))
+viewof fx = adv(Inputs.range([4.2, 5.2], {value: v("m_fx"), step: 0.05, label: lab("m_fx", "Exchange rate (RMB per A$)", "汇率（人民币/澳元）")}))
+viewof freight = adv(Inputs.range([1, 6], {value: v("m_freight"), step: 0.5, label: lab("m_freight", "Freight to warehouse per meter (A$)", "运至仓库（每只，澳元）")}))
+viewof duty = adv(Inputs.range([0, 0.05], {value: v("m_duty"), step: 0.01, label: lab("m_duty", "Import duty", "进口关税")}))
+viewof qa = adv(Inputs.range([0, 8], {value: v("m_qa"), step: 0.5, label: lab("m_qa", "Verification + QA per meter (A$)", "检定与质检（每只，澳元）")}))
+viewof warranty = adv(Inputs.range([0, 0.08], {value: v("m_warranty"), step: 0.005, label: lab("m_warranty", "Warranty (share of price)", "质保（占售价）")}))
+viewof distMargin = adv(Inputs.range([0, 0.3], {value: route === "dist" ? v("m_dist") : 0, step: 0.01, label: lab("m_dist", "Distributor margin (share of price)", "代理利润率（占售价）")}))
+viewof factoryMargin = adv(Inputs.range([0, 0.4], {value: v("m_factory"), step: 0.01, label: lab("m_factory", "Factory gross margin", "工厂毛利率")}))
 ```
 ::::
 :::: {.column width="60%"}
@@ -377,12 +387,12 @@ Sales = the demand open to a new supplier × the share CDEG wins. The share ramp
 :::: {.column width="40%"}
 ```{ojs}
 //| echo: false
-viewof shareMax = Inputs.range([0.01, 0.25], {value: 0.05, step: 0.01, label: L("Share of open demand won", "获得的可争取需求份额")})
-viewof ramp = Inputs.range([1, 5], {value: 3, step: 1, label: L("Years to full share", "达到完全份额年数")})
-viewof overhead = adv(Inputs.range([50000, 1200000], {value: route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct"), step: 10000, label: L("Annual overhead once selling (A$)", "销售后年度固定费用（澳元）")}))
-viewof invMonths = adv(Inputs.range([0, 6], {value: 3, step: 1, label: L("Stock in Australia (months)", "在澳库存（月）")}))
-viewof discount = adv(Inputs.range([0.02, 0.12], {value: 0.055, step: 0.005, label: L("Discount rate (real; ≈8% nominal)", "折现率（实际；≈8%名义）")}))
-viewof taxRate = adv(Inputs.range([0, 0.3], {value: 0.3, step: 0.05, label: L("Company tax rate", "企业所得税率")}))
+viewof shareMax = Inputs.range([0.01, 0.25], {value: v("m_share"), step: 0.01, label: lab("m_share", "Share of open demand won", "获得的可争取需求份额")})
+viewof ramp = Inputs.range([1, 5], {value: v("m_ramp"), step: 1, label: lab("m_ramp", "Years to full share", "达到完全份额年数")})
+viewof overhead = adv(Inputs.range([50000, 1200000], {value: route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct"), step: 10000, label: lab(route === "dist" ? "m_overhead_dist" : "m_overhead_direct", "Annual overhead once selling (A$)", "销售后年度固定费用（澳元）")}))
+viewof invMonths = adv(Inputs.range([0, 6], {value: v("m_inv_months"), step: 1, label: lab("m_inv_months", "Stock in Australia (months)", "在澳库存（月）")}))
+viewof discount = adv(Inputs.range([0.02, 0.12], {value: v("m_discount"), step: 0.005, label: lab("m_discount", "Discount rate (real; ≈8% nominal)", "折现率（实际；≈8%名义）")}))
+viewof taxRate = adv(Inputs.range([0, 0.3], {value: v("tax_rate"), step: 0.05, label: lab("tax_rate", "Company tax rate", "企业所得税率")}))
 ```
 ::::
 :::: {.column width="60%"}
@@ -506,10 +516,10 @@ keyCount = 11
 // Advanced inputs: [element, current value, default]. Route-dependent defaults follow the chosen route.
 advSpec = [
   [viewof connections, connections, v("m_connections")], [viewof life, life, v("m_life")], [viewof newConn, newConn, v("m_newconn")], [viewof openShare, openShare, v("m_open")],
-  [viewof nmiCost, nmiCost, v("m_nmi")], [viewof wmCost, wmCost, v("m_watermark")], [viewof tenderMonths, tenderMonths, 6], [viewof pilotUnits, pilotUnits, 1000], [viewof bdPre, bdPre, v("m_bdpre")],
+  [viewof nmiCost, nmiCost, v("m_nmi")], [viewof wmCost, wmCost, v("m_watermark")], [viewof tenderMonths, tenderMonths, v("m_tender_months")], [viewof pilotUnits, pilotUnits, v("m_pilot")], [viewof bdPre, bdPre, v("m_bdpre")],
   [viewof fx, fx, v("m_fx")], [viewof freight, freight, v("m_freight")], [viewof duty, duty, v("m_duty")], [viewof qa, qa, v("m_qa")], [viewof warranty, warranty, v("m_warranty")],
   [viewof distMargin, distMargin, route === "dist" ? v("m_dist") : 0], [viewof factoryMargin, factoryMargin, v("m_factory")],
-  [viewof overhead, overhead, route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct")], [viewof invMonths, invMonths, 3], [viewof discount, discount, 0.055], [viewof taxRate, taxRate, 0.3]
+  [viewof overhead, overhead, route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct")], [viewof invMonths, invMonths, v("m_inv_months")], [viewof discount, discount, v("m_discount")], [viewof taxRate, taxRate, v("tax_rate")]
 ]
 advCount = advSpec.length
 // Compare after snapping the default to the slider's own step/range, so an untouched slider never counts as changed
