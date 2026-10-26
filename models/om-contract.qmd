@@ -17,19 +17,23 @@ include-in-header:
 <p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ::: {.en .simple-only}
-What would an operating and maintenance (O&M) contract at a Victorian waste-to-energy plant earn CDEG, and how fast would it repay the entry budget? The defaults are Model 1's benchmarks until CDEG gives its own operating cost. A\$ at today's prices, excluding GST.
+What would an operating and maintenance (O&M) contract at a Victorian waste-to-energy plant earn CDEG, and how fast would it repay the entry budget? The defaults are Model 1's benchmarks. A\$ at today's prices, excluding GST.
+
+[Defaults are indicative estimates from public sources. Enter your own figures: nothing you type is saved or sent anywhere.]{.model-caveat}
 :::
 
 ::: {.zh .simple-only}
-维州垃圾焚烧发电厂的委托运营（O&M）合同能为集团带来多少收益，多快能收回进入预算？在集团提供自己的运营成本前，默认值采用模型1的基准。当前价格澳元，不含GST。
+维州垃圾焚烧发电厂的委托运营（O&M）合同能为集团带来多少收益，多快能收回进入预算？默认值采用模型1的基准。当前价格澳元，不含GST。
+
+[默认值为基于公开资料的估算，仅供参考。可输入自己的数据：输入内容不会被保存或发送到任何地方。]{.model-caveat}
 :::
 
 ::: {.en .dev-only}
-What an operating and maintenance (O&M) contract at a Victorian waste-to-energy plant would earn CDEG. The model starts from the running costs in [Model 1](wte-payback.qmd) (the WtE payback model) and chains four steps: **the plant's running costs** that an operator controls give a cost per tonne; **a margin** on top gives the O&M fee; **that fee times licensed tonnes** gives the size of the market; and **one contract's margin** against the entry budget gives CDEG's payback. CDEG has not yet given us its own operating cost, so the defaults are Model 1's benchmark settings. All money is A\$ at today's prices, excluding GST. The results bar at the bottom of the screen updates as you move any control.
+What an operating and maintenance (O&M) contract at a Victorian waste-to-energy plant would earn CDEG. The model starts from the running costs in [Model 1](wte-payback.qmd) (the WtE payback model) and chains four steps: **the plant's running costs** that an operator controls give a cost per tonne; **a margin** on top gives the O&M fee; **that fee times licensed tonnes** gives the size of the market; and **one contract's margin** against the entry budget gives CDEG's payback. The defaults are Model 1's benchmark settings, for CDEG to replace with its own operating cost. All money is A\$ at today's prices, excluding GST. The results bar at the bottom of the screen updates as you move any control.
 :::
 
 ::: {.zh .dev-only}
-测算维州一座垃圾焚烧发电厂的委托运营（O&M）合同能为集团带来多少收益。模型以[模型1](wte-payback.qmd)（垃圾发电项目回收期模型）的运营成本为起点，分四步串联：运营方可控的**工厂运营成本**得出每吨成本；加上**利润率**得出运营费；**运营费乘以许可吨数**得出市场规模；**一份合同的利润**与进入预算相比得出集团的回收期。集团尚未提供自己的运营成本，因此默认值采用模型1的基准设定。所有金额为当前价格澳元，不含GST。屏幕底部的结果栏会随任何参数变化而实时更新。
+测算维州一座垃圾焚烧发电厂的委托运营（O&M）合同能为集团带来多少收益。模型以[模型1](wte-payback.qmd)（垃圾发电项目回收期模型）的运营成本为起点，分四步串联：运营方可控的**工厂运营成本**得出每吨成本；加上**利润率**得出运营费；**运营费乘以许可吨数**得出市场规模；**一份合同的利润**与进入预算相比得出集团的回收期。默认值采用模型1的基准设定，集团可用自己的运营成本替换。所有金额为当前价格澳元，不含GST。屏幕底部的结果栏会随任何参数变化而实时更新。
 :::
 
 ```{ojs}
@@ -79,7 +83,7 @@ tag = id => {
   const refs = String(A[id].source_id ?? "").split(/[;\s]+/).filter(Boolean).map(s => REF[s]).filter(Boolean);
   return refs.length
     ? html`<span class="src-tag">[${refs.map((r, i) => html`${i ? ", " : ""}<a href="../appendix/sources.html#ref-${r}">${r}</a>`)}]</span>`
-    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
+    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Ass.]", "[假设]")}</a>`;
 }
 lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
 // Chart width: full content width in key-inputs mode (charts sit below the inputs), 640 beside the controls in developer mode

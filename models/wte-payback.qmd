@@ -17,11 +17,15 @@ include-in-header:
 <p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ::: {.en .simple-only}
-Can a waste-to-energy plant pay its way? Pick a site, set the gate fee and the plant, and the results bar at the bottom of the screen updates. All money is nominal A\$, excluding GST. All figures are indicative.
+Can a waste-to-energy plant pay its way? Pick a site, set the gate fee and the plant, and the results bar at the bottom of the screen updates. All money is nominal A\$, excluding GST.
+
+[Defaults are indicative estimates from public sources. Enter your own figures: nothing you type is saved or sent anywhere.]{.model-caveat}
 :::
 
 ::: {.zh .simple-only}
-垃圾焚烧发电厂能否收回投资？选择厂址，设定处理费和工厂规模，屏幕底部的结果栏即时更新。所有金额为名义澳元，不含GST。所有结果仅供参考。
+垃圾焚烧发电厂能否收回投资？选择厂址，设定处理费和工厂规模，屏幕底部的结果栏即时更新。所有金额为名义澳元，不含GST。
+
+[默认值为基于公开资料的估算，仅供参考。可输入自己的数据：输入内容不会被保存或发送到任何地方。]{.model-caveat}
 :::
 
 ::: {.en .dev-only}
@@ -98,7 +102,7 @@ tag = id => {
   const refs = String(A[id].source_id ?? "").split(/[;\s]+/).filter(Boolean).map(s => REF[s]).filter(Boolean);
   return refs.length
     ? html`<span class="src-tag">[${refs.map((r, i) => html`${i ? ", " : ""}<a href="../appendix/sources.html#ref-${r}">${r}</a>`)}]</span>`
-    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
+    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Ass.]", "[假设]")}</a>`;
 }
 lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
 // Chart width: full content width in key-inputs mode (charts sit below the inputs), 640 beside the controls in developer mode

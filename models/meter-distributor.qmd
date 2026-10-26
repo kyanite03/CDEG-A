@@ -22,10 +22,14 @@ include-in-header:
 
 ::: {.en .simple-only}
 Can CDEG's subsidiary Huijin sell its smart water meters to Australian utilities at a profit? Set the price, the route to market and the share CDEG wins, and the results bar at the bottom of the screen updates. CDEG's own ex-works price should replace the default first. Real 2027 A\$, excluding GST.
+
+[Defaults are indicative estimates from public sources. Enter your own figures: nothing you type is saved or sent anywhere.]{.model-caveat}
 :::
 
 ::: {.zh .simple-only}
 集团下属汇锦公司的智能水表能否盈利地销售给澳洲水务公司？设定售价、销售渠道和集团获得的份额，屏幕底部的结果栏即时更新。应首先用集团自己的出厂价替换默认值。2027年不变价澳元，不含GST。
+
+[默认值为基于公开资料的估算，仅供参考。可输入自己的数据：输入内容不会被保存或发送到任何地方。]{.model-caveat}
 :::
 
 ::: {.en .dev-only}
@@ -81,7 +85,7 @@ tag = id => {
   const refs = String(A[id].source_id ?? "").split(/[;\s]+/).filter(Boolean).map(s => REF[s]).filter(Boolean);
   return refs.length
     ? html`<span class="src-tag">[${refs.map((r, i) => html`${i ? ", " : ""}<a href="../appendix/sources.html#ref-${r}">${r}</a>`)}]</span>`
-    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
+    : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Ass.]", "[假设]")}</a>`;
 }
 lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
 // Chart width: full content width in key-inputs mode (charts sit below the inputs), 640 beside the controls in developer mode
@@ -401,7 +405,7 @@ html`<div class="map-legend">${wf.map(d => html`<span><span class="sw" style="ba
 ::::
 :::::
 
-<p class="figure-note"><span class="en"><span class="dev-only">Ex-works price, FX and warranty are assumptions until CDEG gives a unit price. Duty-free entry under ChAFTA is to verify. </span>Data sources: <a href="../appendix/sources.html#ref-11">[11]</a></span><span class="zh"><span class="dev-only">在集团提供单价前，出厂价、汇率和质保均为假设。ChAFTA零关税待核实。</span>数据来源：<a href="../appendix/sources.html#ref-11">[11]</a></span></p>
+<p class="figure-note"><span class="en"><span class="dev-only">Ex-works price, FX and warranty are assumptions for CDEG to replace with its own figures. Duty-free entry under ChAFTA is to verify. </span>Data sources: <a href="../appendix/sources.html#ref-11">[11]</a></span><span class="zh"><span class="dev-only">出厂价、汇率和质保均为假设，可由集团用自己的数据替换。ChAFTA零关税待核实。</span>数据来源：<a href="../appendix/sources.html#ref-11">[11]</a></span></p>
 
 ::: {.eq-box}
 $$u = P - \frac{X}{FX}\,(1 + d) - f - q - w P - \delta P$$
@@ -675,7 +679,7 @@ Each chart's equation is shown under it. For the full method, data sources and l
 - **Costs**: landed cost = ex-works ÷ FX × (1 + duty) + freight. One-off costs fall in 2027. Pilot meters are given free in the approval year. Overhead starts at the first sale; before that, bid costs apply. Losses carry forward for tax. Stock in Australia ties up cash.
 - **Discount rate**: 5.5% real, which equals the WtE payback model's 8% nominal at 2.5% inflation, so the two models use the same hurdle.
 - **Not modelled**: installation (usually a separate contract), software and data-platform fees (a possible extra revenue line), large-diameter commercial meters, NZ, inflation (all figures are real 2027 A\$), and Chinese tax on the factory margin.
-- **Biggest unknowns**: Huijin's ex-works price for an Australian-spec meter, whether the battery meets utility specifications without redesign, and whether NMI accepts Chinese test results. All three are questions for CDEG.
+- **Biggest unknowns**: Huijin's ex-works price for an Australian-spec meter, whether the battery meets utility specifications without redesign, and whether NMI accepts Chinese test results. CDEG can check all three itself.
 :::
 
 ::: {.zh .dev-only}
@@ -685,5 +689,5 @@ Each chart's equation is shown under it. For the full method, data sources and l
 - **成本**：到岸成本=出厂价÷汇率×（1+关税）+运费。一次性费用计入2027年。试点水表在获批当年免费提供。固定费用自首单开始计算，此前计投标费用。亏损可结转抵税。在澳库存占用现金。
 - **折现率**：实际5.5%，在2.5%通胀下等于垃圾发电回收期模型的8%名义折现率，两个模型的门槛一致。
 - **未纳入**：安装（通常另行招标）、软件和数据平台服务费（可作为额外收入）、大口径商用水表、新西兰市场、通胀（所有金额为2027年不变价澳元）、工厂利润在国内的税负。
-- **最大不确定性**：汇锦澳洲规格水表的出厂价、电池是否无需重新设计即可满足水务公司要求、NMI是否采信国内检测结果。这三项均需向集团确认。
+- **最大不确定性**：汇锦澳洲规格水表的出厂价、电池是否无需重新设计即可满足水务公司要求、NMI是否采信国内检测结果。这三项均可由集团自行核实。
 :::

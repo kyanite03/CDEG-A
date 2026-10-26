@@ -81,3 +81,4 @@ body:not(.dev-mode) .model-row > .column:first-child form[class*="inputs-"] > la
 .eq-box .eq-defs, .eq-box .eq-defs p { font-size: .8rem; color: #52514e; line-height: 1.45; margin: .2rem 0 0; }
 body:not(.dev-mode) .model-row > .column:first-child > .cell > .code-copy-outer-scaffold { display: none; }
 body:not(.dev-mode) .model-row > .column:first-child > .cell > .cell-output-display:not(:has(form)) { grid-column: 1 / -1; }
+.model-caveat { display: block; font-size: .8rem; color: #77756e; margin-top: -.4rem; }
