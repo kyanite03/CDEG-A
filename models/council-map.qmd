@@ -59,7 +59,7 @@ freightRaw = csv("../data/council_freight.csv")
 geo = fetch("../data/councils.geojson" + V).then(r => r.json())
 net = fetch("../data/freight_network.geojson" + V).then(r => r.ok ? r.json() : ({type: "FeatureCollection", features: []})).catch(() => ({type: "FeatureCollection", features: []}))
 levyHist = csv("../data/levy_history.csv")
-// Data contract with work/scripts/merge.py (W4). The banner below lists anything missing.
+// Data contract with work/scripts/merge.py. The banner below lists anything missing.
 NEED_C = ["name", "state", "zone", "in_scope", "lon", "lat", "levy_2027", "garbage_t", "tonnage_status", "cv_mj_kg", "organics_service", "organics_coverage"]
 NEED_F = ["name", "site", "mode", "road_km", "rail_km", "sea_km", "port", "transfers", "feasible", "legal_flag", "route_note", "bass_strait"]
 missingCols = [...NEED_C.filter(k => !councilsRaw.columns.includes(k)).map(k => "councils.csv:" + k), ...NEED_F.filter(k => !freightRaw.columns.includes(k)).map(k => "council_freight.csv:" + k)]
@@ -125,7 +125,7 @@ rich = s => { const p = document.createElement("p"); p.className = "kpi-note"; p
 ```{ojs}
 //| echo: false
 viewof site = { const i = Inputs.radio(SITES.map(s => s.id), {value: "LATROBE", label: L("Plant site", "厂址"), format: k => { const s = siteById.get(k); return L(s.en, s.zh); }}); i.classList.add("site-radio"); return i; }
-viewof gateFee = Inputs.range([60, 260], {value: 150, step: 5, label: L("Our gate fee (A$/t)", "我方处理费（澳元/吨）")})
+viewof gateFee = Inputs.range([60, 260], {value: site === "LATROBE" ? 205 : 150, step: 5, label: L("Our gate fee (A$/t)", "我方处理费（澳元/吨）")})
 viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving needed to switch", "转换所需节省比例")})
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
 ```
@@ -311,7 +311,7 @@ viewof view = {
 //| output: false
 gateLF = ({VIC_METRO: gVicMetro, VIC_RURAL: gVicRural, NSW_MLA: gNSWm, NSW_RLA: gNSWr, NSW_NOLEVY: gNSW, SA_METRO: gSAm, SA_NONMETRO: gSA, ACT: gACT, TAS: gTAS})
 BASS = new Set(["Burnie", "Devonport", "Grassy (King Island)", "Lady Barron (Flinders Island)"])
-// Cost per 20 ft container (A$) for one freight option: W3's cost_row(), plus the truck km already paid by the council
+// Cost per 20 ft container (A$) for one freight option: same formula as the freight cost table, plus the truck km already paid by the council
 boxCost = r => {
   const truck = roadPerKm * Math.max(0, (r.road_km ?? 0) - localKm) + roadFix;
   const rail = railPerKm * (r.rail_km ?? 0);

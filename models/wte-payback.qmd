@@ -209,19 +209,19 @@ A customer only switches if our gate fee **plus transport to the chosen site** i
 ::: {.column width="40%"}
 ```{ojs}
 //| echo: false
-viewof gateFee = Inputs.range([60, 260], {value: 150, step: 5, label: L("Our gate fee, 2027 (A$/t)", "我方处理费，2027（澳元/吨）")})
+viewof gateFee = Inputs.range([60, 260], {value: site === "LATROBE" ? 205 : 150, step: 5, label: L("Our gate fee, 2027 (A$/t)", "我方处理费，2027（澳元/吨）")})
 viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving needed to switch", "转换所需节省比例")})
-viewof passThrough = Inputs.range([0, 1], {value: 0.5, step: 0.05, label: L("Levy rises passed into our fee", "填埋税涨幅计入处理费比例")})
 viewof levyScen = Inputs.radio(["base", "low", "high"], {value: "base", label: L("Levy trend", "填埋税趋势"),
   format: k => ({base: L("Base +5%/yr", "基准 每年+5%"), low: L("Low +2.5%/yr", "低 每年+2.5%"), high: L("High +10%/yr", "高 每年+10%")})[k]})
-viewof lfGate = Inputs.range([40, 160], {value: 95, step: 5, label: L("Vic metro landfill gate fee excl. levy (other zones move with it)", "维州大都市填埋处理费（不含税，其他区域随之变动）")})
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
 ```
 
-<details><summary><span class="en">Container and freight assumptions (same defaults as the map)</span><span class="zh">集装箱与运费假设（与地图默认值相同）</span></summary>
+<details><summary><span class="en">Landfill, levy and freight assumptions (same defaults as the map)</span><span class="zh">填埋、征税与运费假设（与地图默认值相同）</span></summary>
 
 ```{ojs}
 //| echo: false
+viewof lfGate = Inputs.range([40, 160], {value: 95, step: 5, label: L("Vic metro landfill gate fee excl. levy (other zones move with it)", "维州大都市填埋处理费（不含税，其他区域随之变动）")})
+viewof passThrough = Inputs.range([0, 1], {value: 0.5, step: 0.05, label: L("Levy rises passed into our fee", "填埋税涨幅计入处理费比例")})
 viewof contM3 = Inputs.range([25, 40], {value: 33, step: 1, label: L("20 ft container volume (m³)", "20英尺箱容积（立方米）")})
 viewof maxPayload = Inputs.range([18, 28], {value: 24, step: 1, label: L("Max payload (t)", "最大载重（吨）")})
 viewof rho11 = Inputs.range([0.40, 0.80], {value: 0.60, step: 0.01, label: L("Compacted density at 11 MJ/kg (t/m³)", "11兆焦/千克时压实密度（吨/立方米）")})
@@ -285,17 +285,25 @@ Plot.plot({
 ```{ojs}
 //| echo: false
 viewof tpd = Inputs.range([300, 750], {value: 500, step: 50, label: L("Furnace size (t/day)", "单炉规模（吨/日）")})
-viewof availability = Inputs.range([0.75, 0.95], {value: 0.9, step: 0.01, label: L("Availability", "可用率")})
 // Remember the last furnace count (outside OJS) so changing the licence or site keeps it where possible
 viewof furnaces = Inputs.range([1, maxFurnaces], {value: Math.min(window.__lastFurnaces ?? 3, maxFurnaces), step: 1,
   label: vicSite ? L(`Furnaces (max ${maxFurnaces} under licence)`, `焚烧炉数量（许可下最多${maxFurnaces}台）`) : L(`Furnaces (max ${maxFurnaces} for available feedstock)`, `焚烧炉数量（按可得原料最多${maxFurnaces}台）`)})
 viewof capexSite = Inputs.range([50, 400], {value: 200, step: 10, label: L("Shared site capex (A$m)", "公共设施投资（百万澳元）")})
 viewof capexFurnace = Inputs.range([100, 350], {value: 210, step: 10, label: L("Capex per furnace (A$m)", "单炉投资（百万澳元）")})
+```
+
+<details><summary><span class="en">Availability and running cost assumptions</span><span class="zh">可用率与运营成本假设</span></summary>
+
+```{ojs}
+//| echo: false
+viewof availability = Inputs.range([0.75, 0.95], {value: 0.9, step: 0.01, label: L("Availability", "可用率")})
 viewof fixedFurnace = Inputs.range([2, 12], {value: 5, step: 0.5, label: L("Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
 viewof fixedSite = Inputs.range([0, 10], {value: 3, step: 0.5, label: L("Site overhead (A$m/yr)", "厂区管理费用（百万澳元/年）")})
 viewof varOpex = Inputs.range([10, 60], {value: 30, step: 5, label: L("Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
 viewof sortCost = Inputs.range([0, 40], {value: 15, step: 1, label: L("Pre-sorting cost (A$/t received)", "预分拣成本（澳元/吨）")})
 ```
+
+</details>
 :::
 
 ::: {.column width="60%"}
@@ -329,7 +337,7 @@ rich(T(
 :::
 ::::
 
-<!-- ===== FINANCE SECTION 4 START (controls, cash-flow chart, NPV sensitivity; W6 may edit after W5 DONE) ===== -->
+<!-- ===== FINANCE SECTION 4 START (controls, cash-flow chart, NPV sensitivity) ===== -->
 
 ## [4 · Finance]{.en}[4 · 财务]{.zh}
 
@@ -345,13 +353,21 @@ Cash flows are after company tax. **Tax depreciation** follows ATO rules: plant 
 ::: {.column width="40%"}
 ```{ojs}
 //| echo: false
+viewof powerPrice = Inputs.range([30, 150], {value: 80, step: 5, label: L("Power price, 2027 (A$/MWh)", "电价，2027（澳元/兆瓦时）")})
+viewof discount = Inputs.range([0.04, 0.14], {value: 0.08, step: 0.005, label: L("Unlevered cost of capital (nominal)", "无杠杆资本成本（名义）")})
+viewof debtShare = Inputs.range([0, 0.8], {value: 0.6, step: 0.05, label: L("Debt share of capex", "债务占投资比例")})
+viewof debtRate = Inputs.range([0.05, 0.12], {value: 0.0775, step: 0.0025, label: L("Interest rate (all-in, nominal)", "贷款利率（综合，名义）")})
+```
+
+<details><summary><span class="en">Plant, tax and loan assumptions</span><span class="zh">工厂、税务与贷款假设</span></summary>
+
+```{ojs}
+//| echo: false
 viewof buildYears = Inputs.range([2, 4], {value: 3, step: 1, label: L("Construction years", "建设期（年）")})
 viewof effElec = Inputs.range([0.15, 0.30], {value: 0.20, step: 0.01, label: L("Net electrical efficiency", "净发电效率")})
 viewof nonComb = Inputs.range([0, 0.5], {value: 0.30, step: 0.05, label: L("Non-burnable share of commercial waste", "工商业垃圾中不可燃比例")})
-viewof powerPrice = Inputs.range([30, 150], {value: 80, step: 5, label: L("Power price, 2027 (A$/MWh)", "电价，2027（澳元/兆瓦时）")})
 viewof ashShare = Inputs.range([0, 0.25], {value: 0.15, step: 0.01, label: L("Ash landfilled (% of input)", "灰渣填埋比例")})
 viewof inflation = Inputs.range([0, 0.06], {value: 0.025, step: 0.005, label: L("Inflation", "通胀率")})
-viewof discount = Inputs.range([0.04, 0.14], {value: 0.08, step: 0.005, label: L("Unlevered cost of capital (nominal)", "无杠杆资本成本（名义）")})
 viewof taxRate = Inputs.range([0, 0.3], {value: 0.3, step: 0.05, label: L("Company tax", "企业所得税率")})
 ```
 
@@ -363,8 +379,6 @@ viewof depMethod = Inputs.radio(["dv", "pc"], {value: "dv", label: L("Method", "
   format: k => ({dv: L("Diminishing value", "余额递减法"), pc: L("Prime cost (straight line)", "直线法")})[k]})
 viewof cwShare = Inputs.range([0, 0.3], {value: 0.15, step: 0.05, label: L("Buildings share of capex (2.5%/yr)", "建筑物占投资比例（每年2.5%）")})
 html`<p class="kpi-note" style="margin:.8rem 0 .2rem"><b>${L("Debt financing", "债务融资")}</b></p>`
-viewof debtShare = Inputs.range([0, 0.8], {value: 0.6, step: 0.05, label: L("Debt share of capex", "债务占投资比例")})
-viewof debtRate = Inputs.range([0.05, 0.12], {value: 0.0775, step: 0.0025, label: L("Interest rate (all-in, nominal)", "贷款利率（综合，名义）")})
 viewof tenor = Inputs.range([5, 25], {value: 18, step: 1, label: L("Loan term after opening (years)", "投运后还款期（年）")})
 viewof repay = Inputs.radio(["annuity", "equal"], {value: "annuity", label: L("Repayment", "还款方式"),
   format: k => ({annuity: L("Level payments (annuity)", "等额本息"), equal: L("Equal principal", "等额本金")})[k]})
@@ -372,6 +386,8 @@ viewof feeRate = Inputs.range([0, 0.03], {value: 0.02, step: 0.0025, label: L("U
 viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin-cap test", "资本弱化测试"),
   format: k => ({frt: L("Fixed ratio: interest ≤ 30% of tax EBITDA", "固定比率：利息≤应税EBITDA的30%"), tpdt: L("Third-party debt: all interest deductible", "第三方债务：利息全额抵扣")})[k]})
 ```
+
+</details>
 :::
 
 ::: {.column width="60%"}
@@ -477,7 +493,7 @@ greyVicControls = {
   }
   return vicSite;
 }
-// ---------- Model: feedstock, supply, plant (W5) ----------
+// ---------- Model: feedstock, supply, plant ----------
 // Feedstock by material: each material follows its own 2020-25 trend, shifted by the scenario
 scenAdj = ({base: 0, low: -0.02, high: 0.02})
 cvOf = Object.fromEntries(comps.map(d => [d.component, d.mj_per_kg]))
@@ -530,7 +546,7 @@ gateLF = ({VIC_METRO: lfGate, VIC_RURAL: lfGate + 15, NSW_MLA: lfGate + 25, NSW_
 // Levy by zone in year y (g = inflation index): Vic follows the levy scenario, other states rise with inflation
 levyZoneAt = (y, g, lev) => ({VIC_METRO: lev, VIC_RURAL: levy2027.VIC_RURAL * lev / levy0, NSW_MLA: levy2027.NSW_MLA * g, NSW_RLA: (levy2027.NSW_RLA ?? 103.80) * g,
   SA_METRO: levy2027.SA_METRO * g, SA_NONMETRO: levy2027.SA_NONMETRO * g, NSW_NOLEVY: 0, ACT: 0, TAS: (levy2027.TAS ?? 70.56) * g})
-// ----- Transport: identical to the council price map (W3 cost_row per 20 ft container, cheapest allowed mode) -----
+// ----- Transport: identical to the council price map (cost per 20 ft container, cheapest allowed mode) -----
 tpcOf = cv => Math.min(maxPayload, contM3 * Math.max(0.35, Math.min(0.8, rho11 + 0.05 * (11 - cv))))
 isBass = r => r.bass_strait === 1 || /Burnie|Devonport|Grassy|Lady Barron/.test(r.port ?? "")
 boxCost = r => {
@@ -601,7 +617,7 @@ marketMt = vicSite ? Math.min(capMt, wasteBase * wasteScale(cod)) : (d3.sum(coun
 ```{ojs}
 //| echo: false
 //| output: false
-// ===== FINANCE BLOCK START ===== (cash flow, tax, NPV, IRR, payback; owned by W6 after W5 DONE)
+// ===== FINANCE BLOCK START ===== (cash flow, tax, NPV, IRR, payback)
 // Inputs used from elsewhere: supplyAt(gf, y) -> {total, kerb, kerbMJ, ci, fee, landfill (ash price at site), far},
 // capacity, licence (Infinity outside Vic), capex, fixedTotal, cod, mixCV, kwhPerMJ, cvTrend, totalBy, and the section 4 inputs.
 // Outputs read elsewhere (keep the names): rows, ops, first (tonnes, cv, kwh, kerbT, ciT, kerbCV, ciCV, util, limit, stations),
@@ -768,7 +784,7 @@ eqPaybackYear = ops.find(d => d.eqCum >= 0)?.year
 - **Tax depreciation.** Company tax is 30% (the 25% base-rate-entity rate needs group turnover under A\$50m). Plant is depreciated from opening over the ATO effective life for thermal power generation, 30 years (steam generators and steam turbine generators; *Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025*). The default method is diminishing value (200% ÷ life); prime cost is the alternative. The buildings share is capital works at 2.5% a year. Land is assumed leased, so none of it is depreciated. Tax losses carry forward. The plant is assumed scrapped at the end of the 25 years, so any undeducted tax value is deducted in the last year, with no terminal value or decommissioning cost.
 - **Debt.** The chosen share of capex is borrowed in step with construction spending. Interest during construction is added to the loan and is tax-deductible when incurred (*Steele v DCT* [1999] HCA 7). The loan is repaid over the chosen term from opening. The upfront fee is paid by equity and deducted over 5 years. Default terms are estimates: 60% debt (Kwinana: A\$400m debt in about A\$698m of funding, 2018); 7.75% all-in (10-year AUD swap 5.37% on 22 Oct 2026 plus a margin of about 2.4%; Kwinana's bank debt was BBSY + 3.00%); 18 years; 2% fee.
 - **Thin capitalisation.** A CDEG-owned Australian company is foreign-controlled, so from 1 July 2023 its net interest deductions are capped at 30% of tax EBITDA (fixed ratio test). Disallowed amounts carry forward for up to 15 years. The cap does not apply if debt deductions are A\$2m a year or less. All interest stays deductible under the third-party debt test only if lenders have recourse to Australian assets alone. A guarantee from CDEG in China would generally fail that test (ATO TR 2025/2).
-- **What the finance numbers mean.** *Project NPV and IRR* value the plant with no debt, discounting after-tax cash at the **unlevered cost of capital**. Note for Kai: the 8% default is only about 2.6 points above the 10-year swap rate (5.37%), which is low for a merchant-exposed first-of-its-kind plant; 9–10% is more usual. *APV* = project NPV + present value of the interest tax shield (discounted at the loan rate) − fees, and is the value debt adds. Do not also use a WACC that already includes the tax benefit of debt; that counts the shield twice. *Equity IRR* is the shareholders' return after debt service. It rises with debt mostly because shareholders carry more risk. *DSCR* = (EBITDA − tax) ÷ (interest + principal); lenders typically want at least about 1.3×. *Payback* counts years from opening, using undiscounted project cash. NPV is as at the start of construction.
+- **What the finance numbers mean.** *Project NPV and IRR* value the plant with no debt, discounting after-tax cash at the **unlevered cost of capital**. The 8% default is only about 2.6 points above the 10-year swap rate (5.37%). That is low for a first-of-its-kind plant exposed to market prices, where 9–10% is more usual, so results at 8% lean optimistic. *APV* = project NPV + present value of the interest tax shield (discounted at the loan rate) − fees, and is the value debt adds. Do not also use a WACC that already includes the tax benefit of debt; that counts the shield twice. *Equity IRR* is the shareholders' return after debt service. It rises with debt mostly because shareholders carry more risk. *DSCR* = (EBITDA − tax) ÷ (interest + principal); lenders typically want at least about 1.3×. *Payback* counts years from opening, using undiscounted project cash. NPV is as at the start of construction.
 - **Not modelled**: group ratio test, interest withholding tax on foreign lenders, refinancing, debt reserve accounts, working capital, GST timing, LGC certificate revenue, metals recovery and transfer-station capex.
 :::
 
@@ -786,6 +802,6 @@ eqPaybackYear = ops.find(d => d.eqCum >= 0)?.year
 - **税务折旧**：企业所得税率30%（25%的基础税率仅适用于集团营业额低于5000万澳元的企业）。设备自投运起按ATO火力发电有效寿命30年计提折旧（蒸汽发生器、汽轮发电机；《2025年折旧资产有效寿命决定》），默认余额递减法（200% ÷ 寿命），可选直线法；建筑物部分按资本工程每年2.5%扣除；土地假设为租赁，不计折旧。税务亏损可结转。假设第25年末报废，剩余未扣除税基于最后一年一次性扣除；不计残值与拆除成本。
 - **债务**：按所选比例随建设支出同步提款；建设期利息资本化计入贷款，并于发生时税前抵扣（*Steele v DCT* [1999] HCA 7）；自投运起按所选期限还款；前端费用由股东支付，分5年抵扣。默认条款为估计值：债务60%（Kwinana项目2018年约6.98亿澳元资金中债务4亿）；综合利率7.75%（2026年10月22日10年期澳元掉期利率5.37%加约2.4%利差；Kwinana银行贷款为BBSY + 3.00%）；期限18年；费用2%。
 - **资本弱化**：成都环境集团控股的澳洲公司属外资控制，自2023年7月1日起净利息扣除上限为应税EBITDA的30%（固定比率测试），被限制部分可结转最多15年；年度债务扣除不超过200万澳元时不适用。第三方债务测试下利息可全额抵扣，但要求贷款人仅对澳洲资产有追索权；中国母公司担保通常不符合（ATO TR 2025/2）。
-- **财务指标含义**：*项目净现值/内部收益率*为无债务情况下的项目价值，以**无杠杆资本成本**折现税后现金流。供参考：默认8%仅比10年期掉期利率（5.37%）高约2.6个百分点，对承担市场风险的首个同类项目偏低，常见为9–10%。*APV* = 项目净现值 + 利息税盾现值（按贷款利率折现）− 融资费用，即债务带来的价值。不要再使用已含债务税盾的加权平均资本成本（WACC），否则税盾被重复计算。*股东内部收益率*为偿债后的股东回报，随债务上升主要是因为股东承担更多风险。*DSCR* =（EBITDA − 所得税）÷（利息 + 本金），银行通常要求不低于约1.3倍。*回收期*自投运起按未折现项目现金流计算；净现值以建设开始时为基准。
+- **财务指标含义**：*项目净现值/内部收益率*为无债务情况下的项目价值，以**无杠杆资本成本**折现税后现金流。默认8%仅比10年期掉期利率（5.37%）高约2.6个百分点。对承担市场价格风险的首个同类项目而言偏低，常见为9–10%，因此按8%得出的结果偏乐观。*APV* = 项目净现值 + 利息税盾现值（按贷款利率折现）− 融资费用，即债务带来的价值。不要再使用已含债务税盾的加权平均资本成本（WACC），否则税盾被重复计算。*股东内部收益率*为偿债后的股东回报，随债务上升主要是因为股东承担更多风险。*DSCR* =（EBITDA − 所得税）÷（利息 + 本金），银行通常要求不低于约1.3倍。*回收期*自投运起按未折现项目现金流计算；净现值以建设开始时为基准。
 - **未纳入**：集团比率测试、境外贷款利息预提税、再融资、偿债储备账户、营运资金、GST时间差、绿证收入、金属回收及转运站投资。
 :::

@@ -1,6 +1,6 @@
 id,label_en,label_zh,value,unit,low,high,source_id,status,notes
 landfill_levy_metro,Landfill levy (metro municipal 2026-27),填埋税（墨尔本生活垃圾 2026-27）,177.19,A$/t,,,S8,confirmed,
-gate_fee,WtE gate fee,垃圾处理费,150,A$/t,120,250,S9,industry estimate,Kwinana contracted ~120
+gate_fee,WtE gate fee,垃圾处理费,205,A$/t,120,250,S9,industry estimate,Kwinana contracted ~120
 capex_per_t,Capex per tonne of annual capacity,每年每吨处理能力投资,1850,A$/t,1700,2600,S9,calculated,Maryvale ~1850; Kwinana >2170
 min_plant_tpd,CDEG minimum plant size,集团最小设计规模,1000,t/day,1000,1500,C2,company claim,two lines
 nmi_test_cn,China test report cost (DN15-20 meters),国内水表检测费（DN15-20）,200000,RMB,,,C3,company claim,report only; NMI certificate separate
