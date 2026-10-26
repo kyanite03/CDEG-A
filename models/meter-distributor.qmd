@@ -10,16 +10,6 @@ include-in-header:
     <script src="../assets/vendor/htl.min.js"></script>
     <script src="../assets/vendor/inputs.min.js"></script>
     <style>
-      /* Key-inputs vs developer mode: advanced controls are hidden, not removed, so their values persist */
-      body:not(.dev-mode) .adv-input { display: none !important; }
-      body.dev-mode .adv-input { border-left: 3px solid #c9c7bf; padding-left: .4rem; }
-      .mode-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; background: #f7f7f5; border: 1px solid #e3e2de; border-radius: 8px; padding: .4rem .75rem; margin: 1rem 0; }
-      .mode-bar form { margin: 0 !important; }
-      .mode-note { font-size: .8rem; color: #52514e; }
-      .mode-note button, .adv-reset button { font-size: .78rem; padding: .1rem .5rem; margin-left: .35rem; border: 1px solid #b5b3ab; border-radius: 5px; background: #fff; cursor: pointer; }
-      .adv-reset { margin: .5rem 0 .25rem; font-size: .8rem; color: #52514e; }
-      .ctl-group { font-size: .72rem; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #77756e; margin: .4rem 0 .1rem; }
-      .rb-item.rb-warn .rb-value { color: #b4471b; }
       @media (max-width: 600px) { body:has(.results-bar) { padding-bottom: 10.5rem; } }
       .model-row .column form[class*="inputs-"] input[type=number] { width: 6.6em !important; min-width: 6.6em !important; }
     </style>
@@ -105,10 +95,10 @@ missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-wei
 ```{ojs}
 //| echo: false
 //| output: false
-// Mode toggle: remembered per browser (if storage is available); ?mode=dev in the URL also opens developer mode
+// Key-inputs vs developer mode, shared by all model pages: remembered per browser (if storage is available); ?mode=dev in the URL also opens developer mode
 viewof mode = {
   let start = "simple";
-  try { if (new URLSearchParams(location.search).get("mode") === "dev" || window.localStorage.getItem("meterModelMode") === "dev") start = "dev"; } catch (e) {}
+  try { if (new URLSearchParams(location.search).get("mode") === "dev" || window.localStorage.getItem("modelMode") === "dev") start = "dev"; } catch (e) {}
   const r = Inputs.radio(["simple", "dev"], {value: start, label: L("Inputs shown", "显示参数"),
     format: k => ({simple: L("Key inputs", "关键参数"), dev: L("All inputs (developer)", "全部参数（开发者）")})[k]});
   return r;
@@ -119,7 +109,7 @@ viewof mode = {
 //| echo: false
 {
   document.body.classList.toggle("dev-mode", mode === "dev");
-  try { window.localStorage.setItem("meterModelMode", mode); } catch (e) {}
+  try { window.localStorage.setItem("modelMode", mode); } catch (e) {}
   const n = advChanged.length;
   return html`<div class="mode-bar">${viewof mode}<span class="mode-note">${
     mode === "dev"
@@ -196,7 +186,7 @@ Plot.plot({
 })
 ```
 
-<p class="figure-note"><span class="en">Solid lines: all meters bought nationally under each scenario. Base = worn-out replacements plus steady digital upgrades; Optimal = a national digital push, more new homes and more tenders open; Recession = a two-year downturn (fewer new homes, upgrades deferred, weaker A$). Dashed: the part open to a new supplier under the selected scenario (it steps up in 2032 when Melbourne's metro contracts roll over). Sources: BoM National Performance Report 2024–25 (27m people served); South East Water (2026); Utility Magazine (2024, 2026); Bluefield Research (2026). Connections and replacement cycle are team estimates.</span><span class="zh">实线：各情景下全国水表采购总量。基准=到期更换加稳步数字化；最优=全国加速数字化、新房增加、更多招标开放；衰退=两年下行（新房减少、升级推迟、澳元走弱）。虚线：所选情景下新供应商可争取的部分（2032年墨尔本大都市合同到期后上升）。来源：澳洲气象局《国家绩效报告2024–25》（服务2,700万人）；东南水务（2026）；Utility Magazine（2024、2026）；Bluefield Research（2026）。用户数和更换周期为团队估算。</span></p>
+<p class="figure-note"><span class="en">Solid lines: all meters bought nationally under each scenario. Base = worn-out replacements plus steady digital upgrades; Optimal = a national digital push, more new homes and more tenders open; Recession = a two-year downturn (fewer new homes, upgrades deferred, weaker A$). Dashed: the part open to a new supplier under the selected scenario (it steps up in 2032 when Melbourne's metro contracts roll over). Data sources: <a href="../appendix/sources.html#ref-135">[135]</a> <a href="../appendix/sources.html#ref-65">[65]</a> <a href="../appendix/sources.html#ref-134">[134]</a> <a href="../appendix/sources.html#ref-138">[138]</a> <a href="../appendix/sources.html#ref-136">[136]</a></span><span class="zh">实线：各情景下全国水表采购总量。基准=到期更换加稳步数字化；最优=全国加速数字化、新房增加、更多招标开放；衰退=两年下行（新房减少、升级推迟、澳元走弱）。虚线：所选情景下新供应商可争取的部分（2032年墨尔本大都市合同到期后上升）。数据来源：<a href="../appendix/sources.html#ref-135">[135]</a> <a href="../appendix/sources.html#ref-65">[65]</a> <a href="../appendix/sources.html#ref-134">[134]</a> <a href="../appendix/sources.html#ref-138">[138]</a> <a href="../appendix/sources.html#ref-136">[136]</a></span></p>
 ::::
 :::::
 
@@ -286,7 +276,7 @@ html`<div class="kpi-row">
 </div>`
 ```
 
-<p class="figure-note"><span class="en">The Victorian regional water corporations set their spending for 1 July 2028 onward in submissions to the Essential Services Commission due 13 September 2027, so a meter approved by mid-2028 can be in those budgets. Sources: NMI (pattern approval); CDEG reply 16 Oct 2026 (RMB 200,000 China test report; no OIML yet; will fund NMI); WaterMark fees are an industry estimate. NMI fees, network certification (A$40k) and legal set-up (A$50k) are team estimates, to verify.</span><span class="zh">维州区域水务公司须于2027年9月13日前向基本服务委员会（ESC）提交2028年7月1日起的支出计划，因此2028年中前获批的水表可纳入其预算。来源：NMI（型式批准）；集团2026年10月16日回复（国内检测约20万元人民币；尚无OIML认证；愿承担NMI费用）；WaterMark费用为行业估算。NMI费用、网络认证（4万澳元）和法务设立（5万澳元）为团队估算，待核实。</span></p>
+<p class="figure-note"><span class="en">The Victorian regional water corporations set their spending for 1 July 2028 onward in submissions to the Essential Services Commission due 13 September 2027, so a meter approved by mid-2028 can be in those budgets. NMI fees, network certification (A$40k) and legal set-up (A$50k) are team estimates, to verify. Data sources: <a href="../appendix/sources.html#ref-91">[91]</a> <a href="../appendix/sources.html#ref-24">[24]</a> <a href="../appendix/sources.html#ref-137">[137]</a></span><span class="zh">维州区域水务公司须于2027年9月13日前向基本服务委员会（ESC）提交2028年7月1日起的支出计划，因此2028年中前获批的水表可纳入其预算。NMI费用、网络认证（4万澳元）和法务设立（5万澳元）为团队估算，待核实。数据来源：<a href="../appendix/sources.html#ref-91">[91]</a> <a href="../appendix/sources.html#ref-24">[24]</a> <a href="../appendix/sources.html#ref-137">[137]</a></span></p>
 
 ## [3 · What each meter earns]{.en}[3 · 每只水表的利润]{.zh}
 
@@ -371,7 +361,7 @@ html`<div class="map-legend">${wf.map(d => html`<span><span class="sw" style="ba
 ::::
 :::::
 
-<p class="figure-note"><span class="en">Sources: Yicai Global (2023): Huizhong, 191,000 meters, up to A$29m via Avnet (team calculation ≈ A$150 each; installation and software not stated). Ex-works price, FX and warranty are assumptions; CDEG has not yet given a unit price. Duty assumes HS 9028.20 is duty-free under ChAFTA (to verify); GST is recoverable and excluded.</span><span class="zh">来源：第一财经（2023）：汇中经Avnet中标19.1万只水表，最高2,900万澳元（团队计算约每只150澳元；未说明是否含安装和软件）。出厂价、汇率和质保为假设，集团尚未提供单价。关税按ChAFTA项下HS 9028.20零关税计算（待核实）；GST可抵扣，未计入。</span></p>
+<p class="figure-note"><span class="en">Ex-works price, FX and warranty are assumptions until CDEG gives a unit price. Duty-free entry under ChAFTA is to verify. Data sources: <a href="../appendix/sources.html#ref-11">[11]</a></span><span class="zh">在集团提供单价前，出厂价、汇率和质保均为假设。ChAFTA零关税待核实。数据来源：<a href="../appendix/sources.html#ref-11">[11]</a></span></p>
 
 ## [4 · Sales and profit, 2027–2036]{.en}[4 · 销量与利润，2027–2036年]{.zh}
 

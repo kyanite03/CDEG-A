@@ -47,6 +47,8 @@ tile = (label, value, sub, warn) => html`<div class="kpi" style="${warn ? "borde
 LIC = ({total: v("lic_total") * 1e6, cleanaway: v("lic_cleanaway") * 1e3, hiq: v("lic_hiq") * 1e3, mw: v("lic_mw") * 1e3})
 // Metro Vancouver contractor-run plant, C$93–112/t ≈ A$100–125/t, excluding ash and debt service
 VANCOUVER = [100, 125]
+// Cache-busting: Cloudflare caches data files for hours; the page's Last-Modified changes on every deploy
+V = "?v=" + encodeURIComponent(document.lastModified)
 // ----- Assumptions register: defaults and sources for every input (data/assumptions.csv + data/sources.csv) -----
 // A failed fetch falls back to DEFAULTS (with a warning) instead of blanking the page
 csvStrict = path => fetch(path).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => d3.csvParse(t, d3.autoType))
@@ -77,6 +79,53 @@ lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
 missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-weight:600">${registerFailed ? L("Warning: the assumptions register could not be loaded; built-in defaults used for all inputs.", "警告：无法加载假设参数表，所有参数均使用内置默认值。") : html`${L("Warning: missing or not a number in the assumptions register, built-in defaults used for: ", "警告：假设参数表中以下参数缺失或不是数字，已使用内置默认值：")}${missingIds.join(", ")}`}</p>` : html`<span class="assump-ok" hidden></span>`
 ```
 
+```{ojs}
+//| echo: false
+//| output: false
+// Key-inputs vs developer mode, shared by all model pages: remembered per browser (if storage is available); ?mode=dev in the URL also opens developer mode
+viewof mode = {
+  let start = "simple";
+  try { if (new URLSearchParams(location.search).get("mode") === "dev" || window.localStorage.getItem("modelMode") === "dev") start = "dev"; } catch (e) {}
+  return Inputs.radio(["simple", "dev"], {value: start, label: L("Inputs shown", "显示参数"),
+    format: k => ({simple: L("Key inputs", "关键参数"), dev: L("All inputs (developer)", "全部参数（开发者）")})[k]});
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  document.body.classList.toggle("dev-mode", mode === "dev");
+  try { window.localStorage.setItem("modelMode", mode); } catch (e) {}
+  const n = advChanged.length;
+  return html`<div class="mode-bar">${viewof mode}<span class="mode-note">${
+    mode === "dev"
+      ? html`${L(`Showing all ${advCount + keyCount} inputs. Advanced ones have a grey edge.`, `显示全部${advCount + keyCount}个参数，高级参数左侧有灰色边线。`)}${n ? html`<button onclick=${resetAdv}>${L("Reset advanced inputs", "恢复高级参数默认值")}</button>` : ""}`
+      : n
+        ? html`${L(`${n} hidden input${n > 1 ? "s differ" : " differs"} from the defaults and ${n > 1 ? "still count" : "still counts"} in the results.`, `${n}个隐藏参数已偏离默认值，并仍计入结果。`)}<button onclick=${resetAdv}>${L("Reset them", "恢复默认")}</button>`
+        : L(`Showing ${keyCount} key inputs; ${advCount} more in developer mode.`, `显示${keyCount}个关键参数；开发者模式另有${advCount}个。`)
+  }</span></div>`;
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// ---------- Key-inputs vs developer mode bookkeeping ----------
+keyCount = 12
+// Advanced inputs (hidden in key-inputs mode; their values still count): [element, current value, default]
+advSpec = [
+  [viewof tpd, tpd, v("w_tpd")], [viewof fixedSite, fixedSite, v("w_fixed_site")], [viewof rangeLow, rangeLow, v("o_range_low")], [viewof rangeHigh, rangeHigh, v("o_range_high")],
+  [viewof discount, discount, v("o_discount")]
+]
+advCount = advSpec.length
+// Compare after snapping the default to the slider's own step/range, so an untouched slider never counts as changed
+snap = (el, x) => { const i = el.querySelector("input[type=range]"); if (!i) return x; const lo = +i.min, hi = +i.max, st = +i.step || 0; let y = Math.min(hi, Math.max(lo, x)); if (st) y = lo + Math.round((y - lo) / st) * st; return y; }
+advChanged = advSpec.filter(([el, val, def]) => typeof def === "number" ? Math.abs(val - snap(el, def)) > 1e-9 : val !== def)
+resetAdv = () => {
+  for (const [el, , def] of advSpec) { el.value = def; el.dispatchEvent(new Event("input", {bubbles: true})); }
+}
+```
+
 ## [1 · Running cost the operator controls]{.en}[1 · 运营方可控的运营成本]{.zh}
 
 ::: {.en}
@@ -97,7 +146,7 @@ viewof fixedFurnace = Inputs.range([2, 12], {value: v("w_fixed_furnace"), step: 
 viewof varOpex = Inputs.range([10, 60], {value: v("w_var_opex"), step: 5, label: lab("w_var_opex", "Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
 ```
 
-<details><summary><span class="en">Plant size and site cost assumptions (same defaults as Model 1)</span><span class="zh">工厂规模与厂区成本假设（与模型1默认值相同）</span></summary>
+<div class="adv-input"><p class="ctl-group"><span class="en">Plant size and site cost assumptions (same defaults as Model 1)</span><span class="zh">工厂规模与厂区成本假设（与模型1默认值相同）</span></p>
 
 ```{ojs}
 //| echo: false
@@ -105,7 +154,7 @@ viewof tpd = Inputs.range([300, 750], {value: v("w_tpd"), step: 50, label: lab("
 viewof fixedSite = Inputs.range([0, 10], {value: v("w_fixed_site"), step: 0.5, label: lab("w_fixed_site", "Site overhead (A$m/yr)", "厂区管理费用（百万澳元/年）")})
 ```
 
-</details>
+</div>
 :::
 
 ::: {.column width="60%"}
@@ -169,7 +218,7 @@ viewof ownerShare = Inputs.range([0, 1], {value: v("o_owner_share"), step: 0.05,
 viewof roundFee = Inputs.toggle({value: true, label: L("Round the fee to the nearest A$5", "运营费取整至5澳元")})
 ```
 
-<details><summary><span class="en">Benchmark range assumptions</span><span class="zh">基准区间假设</span></summary>
+<div class="adv-input"><p class="ctl-group"><span class="en">Benchmark range assumptions</span><span class="zh">基准区间假设</span></p>
 
 ```{ojs}
 //| echo: false
@@ -177,7 +226,7 @@ viewof rangeLow = Inputs.range([30, 90], {value: v("o_range_low"), step: 5, labe
 viewof rangeHigh = Inputs.range([80, 150], {value: v("o_range_high"), step: 5, label: lab("o_range_high", "High end of range (A$/t)", "区间上限（澳元/吨）")})
 ```
 
-</details>
+</div>
 :::
 
 ::: {.column width="60%"}
@@ -295,14 +344,14 @@ viewof budget = Inputs.range([3, 20], {value: v("o_budget"), step: 0.1, label: l
 viewof term = Inputs.range([5, 25], {value: v("o_term"), step: 1, label: lab("o_term", "Contract length (years)", "合同期限（年）")})
 ```
 
-<details><summary><span class="en">Discounting assumption</span><span class="zh">折现假设</span></summary>
+<div class="adv-input"><p class="ctl-group"><span class="en">Discounting assumption</span><span class="zh">折现假设</span></p>
 
 ```{ojs}
 //| echo: false
 viewof discount = Inputs.range([0.04, 0.14], {value: v("o_discount"), step: 0.005, label: lab("o_discount", "Discount rate (real)", "折现率（实际）")})
 ```
 
-</details>
+</div>
 :::
 
 ::: {.column width="60%"}
@@ -372,7 +421,7 @@ breakEven = costT + budgetA / (contractT * annuity)
 //| echo: false
 // Results bar fixed to the bottom of the screen
 {
-  const item = (label, value) => html`<div class="rb-item"><span class="rb-label">${label}</span><span class="rb-value">${value}</span></div>`;
+  const item = (label, value, cls = "") => html`<div class="rb-item ${cls}"><span class="rb-label">${label}</span><span class="rb-value">${value}</span></div>`;
   return html`<div class="results-bar">
     ${item(T("Operator cost", "运营成本"), `A$${costT.toFixed(0)}/t`)}
     ${item(T("O&M fee", "运营费"), `A$${fee.toFixed(0)}/t`)}
@@ -381,6 +430,7 @@ breakEven = costT + budgetA / (contractT * annuity)
     ${item(T("Contract revenue", "合同收入"), `A$${fmtM(revenue)}m`)}
     ${item(T("CDEG profit", "集团利润"), `A$${fmtM(profit)}m`)}
     ${item(T("Payback", "回收期"), payback ? `${payback.toFixed(1)} ${T("yrs", "年")}` : "—")}
+    ${mode === "simple" && advChanged.length ? item(T("Hidden inputs changed", "隐藏参数已改"), String(advChanged.length), "rb-warn") : ""}
   </div>`;
 }
 ```

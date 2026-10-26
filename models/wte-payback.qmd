@@ -100,6 +100,59 @@ missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-wei
 
 ```{ojs}
 //| echo: false
+//| output: false
+// Key-inputs vs developer mode, shared by all model pages: remembered per browser (if storage is available); ?mode=dev in the URL also opens developer mode
+viewof mode = {
+  let start = "simple";
+  try { if (new URLSearchParams(location.search).get("mode") === "dev" || window.localStorage.getItem("modelMode") === "dev") start = "dev"; } catch (e) {}
+  return Inputs.radio(["simple", "dev"], {value: start, label: L("Inputs shown", "显示参数"),
+    format: k => ({simple: L("Key inputs", "关键参数"), dev: L("All inputs (developer)", "全部参数（开发者）")})[k]});
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  document.body.classList.toggle("dev-mode", mode === "dev");
+  try { window.localStorage.setItem("modelMode", mode); } catch (e) {}
+  const n = advChanged.length;
+  return html`<div class="mode-bar">${viewof mode}<span class="mode-note">${
+    mode === "dev"
+      ? html`${L(`Showing all ${advCount + keyCount} inputs. Advanced ones have a grey edge.`, `显示全部${advCount + keyCount}个参数，高级参数左侧有灰色边线。`)}${n ? html`<button onclick=${resetAdv}>${L("Reset advanced inputs", "恢复高级参数默认值")}</button>` : ""}`
+      : n
+        ? html`${L(`${n} hidden input${n > 1 ? "s differ" : " differs"} from the defaults and ${n > 1 ? "still count" : "still counts"} in the results.`, `${n}个隐藏参数已偏离默认值，并仍计入结果。`)}<button onclick=${resetAdv}>${L("Reset them", "恢复默认")}</button>`
+        : L(`Showing ${keyCount} key inputs; ${advCount} more in developer mode.`, `显示${keyCount}个关键参数；开发者模式另有${advCount}个。`)
+  }</span></div>`;
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// ---------- Key-inputs vs developer mode bookkeeping ----------
+keyCount = 16
+// Advanced inputs (hidden in key-inputs mode; their values still count): [element, current value, default]
+advSpec = [
+  [viewof lfGate, lfGate, v("landfill_gate_metro")], [viewof passThrough, passThrough, v("w_passthrough")], [viewof contM3, contM3, v("f_cont_m3")], [viewof maxPayload, maxPayload, v("f_max_payload")],
+  [viewof rho11, rho11, v("f_rho11")], [viewof roadPerKm, roadPerKm, v("f_road_km")], [viewof roadFix, roadFix, v("f_road_fix")], [viewof localKm, localKm, v("f_local_km")],
+  [viewof railPerKm, railPerKm, v("f_rail_km")], [viewof railFix, railFix, v("f_rail_fix")], [viewof liftExtra, liftExtra, v("f_lift_extra")], [viewof seaPerKm, seaPerKm, v("f_sea_km")],
+  [viewof bassRate, bassRate, v("f_bass")], [viewof portFix, portFix, v("f_port_fix")], [viewof availability, availability, v("w_availability")], [viewof fixedFurnace, fixedFurnace, v("w_fixed_furnace")],
+  [viewof fixedSite, fixedSite, v("w_fixed_site")], [viewof varOpex, varOpex, v("w_var_opex")], [viewof sortCost, sortCost, v("w_sort_cost")], [viewof buildYears, buildYears, v("w_build_years")],
+  [viewof effElec, effElec, v("w_eff_elec")], [viewof nonComb, nonComb, v("w_noncomb")], [viewof ashShare, ashShare, v("w_ash")], [viewof inflation, inflation, v("w_inflation")],
+  [viewof taxRate, taxRate, v("tax_rate")], [viewof taxLife, taxLife, v("w_tax_life")], [viewof depMethod, depMethod, "dv"], [viewof cwShare, cwShare, v("w_cw_share")],
+  [viewof tenor, tenor, v("w_tenor")], [viewof repay, repay, "annuity"], [viewof feeRate, feeRate, v("w_fee_rate")], [viewof thinCapMode, thinCapMode, "frt"]
+]
+advCount = advSpec.length
+// Compare after snapping the default to the slider's own step/range, so an untouched slider never counts as changed
+snap = (el, x) => { const i = el.querySelector("input[type=range]"); if (!i) return x; const lo = +i.min, hi = +i.max, st = +i.step || 0; let y = Math.min(hi, Math.max(lo, x)); if (st) y = lo + Math.round((y - lo) / st) * st; return y; }
+advChanged = advSpec.filter(([el, val, def]) => typeof def === "number" ? Math.abs(val - snap(el, def)) > 1e-9 : val !== def)
+resetAdv = () => {
+  for (const [el, , def] of advSpec) { el.value = def; el.dispatchEvent(new Event("input", {bubbles: true})); }
+}
+```
+
+```{ojs}
+//| echo: false
 freightRaw.length && councils.length ? document.createElement("span") : warnBox(T(
   `Data check: data/councils.csv and data/council_freight.csv must both be present and from the same build (run work/scripts/merge.py). Without council_freight.csv no council can be priced.`,
   `数据检查：data/councils.csv 与 data/council_freight.csv 必须同时存在且为同一版本（运行 work/scripts/merge.py）。缺少 council_freight.csv 时无法计算任何市政。`))
@@ -220,7 +273,7 @@ Plot.plot({
 }
 ```
 
-<p class="figure-note"><span class="en"><b>This is the furnace's feedstock, not the whole market.</b> In 2023–24 Victoria generated about 14.2 Mt of waste: 9.9 Mt was recovered (mostly rubble, metals and organics) and 4.3 Mt went to landfill. Of that, 1.0 Mt was construction rubble and 3.3 Mt was household and commercial waste, and about 2.5 Mt of the 3.3 Mt is material that can burn. Burnable household and commercial waste landfilled in Victoria, by material, 2015–16 to 2024–25 (solid), with projections (faded). The Victorian series is shown for every site because it sets the commercial (C&I) pool and the waste trend used for all councils. Energy content uses typical as-discarded values per material (food 4.7, garden 6.5, biosolids 2.0, paper 16.5, textiles 18, timber 18.6, plastics 32.6 MJ/kg). Sources: DCCEEW NWRR 2026; Tchobanoglous, Theisen & Vigil, <i>Integrated Solid Waste Management</i> (1993), Table 4-16.</span><span class="zh"><b>此图为焚烧原料，而非整个市场。</b>2023–24年度维州共产生约1420万吨垃圾：990万吨被回收（主要为建筑废料、金属和有机物），430万吨填埋；其中100万吨为建筑废料，330万吨为生活及工商业垃圾，其中约250万吨为可燃物。维州填埋的可燃生活及工商业垃圾（按成分），2015–16至2024–25年度（实色）及预测（浅色）。各厂址均显示维州数据，因为它决定工商业垃圾总量及所有市政的垃圾量趋势。热值采用各成分典型丢弃状态值（厨余4.7、园林6.5、污泥2.0、纸16.5、纺织18、木材18.6、塑料32.6兆焦/千克）。来源：国家废物数据库2026；Tchobanoglous等《Integrated Solid Waste Management》(1993) 表4-16。</span></p>
+<p class="figure-note"><span class="en"><b>This is the furnace's feedstock, not the whole market.</b> In 2023–24 Victoria generated about 14.2 Mt of waste: 9.9 Mt was recovered (mostly rubble, metals and organics) and 4.3 Mt went to landfill. Of that, 1.0 Mt was construction rubble and 3.3 Mt was household and commercial waste, and about 2.5 Mt of the 3.3 Mt is material that can burn. Burnable household and commercial waste landfilled in Victoria, by material, 2015–16 to 2024–25 (solid), with projections (faded). The Victorian series is shown for every site because it sets the commercial (C&I) pool and the waste trend used for all councils. Energy content uses typical as-discarded values per material (food 4.7, garden 6.5, biosolids 2.0, paper 16.5, textiles 18, timber 18.6, plastics 32.6 MJ/kg). Data sources: <a href="../appendix/sources.html#ref-28">[28]</a> <a href="../appendix/sources.html#ref-77">[77]</a></span><span class="zh"><b>此图为焚烧原料，而非整个市场。</b>2023–24年度维州共产生约1420万吨垃圾：990万吨被回收（主要为建筑废料、金属和有机物），430万吨填埋；其中100万吨为建筑废料，330万吨为生活及工商业垃圾，其中约250万吨为可燃物。维州填埋的可燃生活及工商业垃圾（按成分），2015–16至2024–25年度（实色）及预测（浅色）。各厂址均显示维州数据，因为它决定工商业垃圾总量及所有市政的垃圾量趋势。热值采用各成分典型丢弃状态值（厨余4.7、园林6.5、污泥2.0、纸16.5、纺织18、木材18.6、塑料32.6兆焦/千克）。数据来源：<a href="../appendix/sources.html#ref-28">[28]</a> <a href="../appendix/sources.html#ref-77">[77]</a></span></p>
 
 
 ## [2 · Price: who will send us their waste]{.en}[2 · 价格：谁会把垃圾交给我们]{.zh}
@@ -244,7 +297,7 @@ viewof levyScen = Inputs.radio(["base", "low", "high"], {value: "base", label: L
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
 ```
 
-<details><summary><span class="en">Landfill, levy and freight assumptions (same defaults as the map)</span><span class="zh">填埋、征税与运费假设（与地图默认值相同）</span></summary>
+<div class="adv-input"><p class="ctl-group"><span class="en">Landfill, levy and freight assumptions (same defaults as the map)</span><span class="zh">填埋、征税与运费假设（与地图默认值相同）</span></p>
 
 ```{ojs}
 //| echo: false
@@ -264,7 +317,7 @@ viewof bassRate = Inputs.range([300, 2000], {value: v("f_bass"), step: 50, label
 viewof portFix = Inputs.range([100, 800], {value: v("f_port_fix"), step: 25, label: lab("f_port_fix", "Port charges per end A$/container", "每端港口费 澳元/箱")})
 ```
 
-</details>
+</div>
 :::
 
 ::: {.column width="60%"}
@@ -320,7 +373,7 @@ viewof capexSite = Inputs.range([50, 400], {value: v("w_capex_site"), step: 10, 
 viewof capexFurnace = Inputs.range([100, 350], {value: v("w_capex_furnace"), step: 10, label: lab("w_capex_furnace", "Capex per furnace (A$m)", "单炉投资（百万澳元）")})
 ```
 
-<details><summary><span class="en">Availability and running cost assumptions</span><span class="zh">可用率与运营成本假设</span></summary>
+<div class="adv-input"><p class="ctl-group"><span class="en">Availability and running cost assumptions</span><span class="zh">可用率与运营成本假设</span></p>
 
 ```{ojs}
 //| echo: false
@@ -331,7 +384,7 @@ viewof varOpex = Inputs.range([10, 60], {value: v("w_var_opex"), step: 5, label:
 viewof sortCost = Inputs.range([0, 40], {value: v("w_sort_cost"), step: 1, label: lab("w_sort_cost", "Pre-sorting cost (A$/t received)", "预分拣成本（澳元/吨）")})
 ```
 
-</details>
+</div>
 :::
 
 ::: {.column width="60%"}
@@ -387,7 +440,7 @@ viewof debtShare = Inputs.range([0, 0.8], {value: v("w_debt_share"), step: 0.05,
 viewof debtRate = Inputs.range([0.05, 0.12], {value: v("w_debt_rate"), step: 0.0025, label: lab("w_debt_rate", "Interest rate (all-in, nominal)", "贷款利率（综合，名义）")})
 ```
 
-<details><summary><span class="en">Plant, tax and loan assumptions</span><span class="zh">工厂、税务与贷款假设</span></summary>
+<div class="adv-input"><p class="ctl-group"><span class="en">Plant, tax and loan assumptions</span><span class="zh">工厂、税务与贷款假设</span></p>
 
 ```{ojs}
 //| echo: false
@@ -415,7 +468,7 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
   format: k => ({frt: L("Fixed ratio: interest ≤ 30% of tax EBITDA", "固定比率：利息≤应税EBITDA的30%"), tpdt: L("Third-party debt: all interest deductible", "第三方债务：利息全额抵扣")})[k]})
 ```
 
-</details>
+</div>
 :::
 
 ::: {.column width="60%"}
@@ -781,7 +834,7 @@ eqPaybackYear = ops.find(d => d.eqCum >= 0)?.year
 //| echo: false
 // Results bar fixed to the bottom of the screen
 {
-  const item = (label, value) => html`<div class="rb-item"><span class="rb-label">${label}</span><span class="rb-value">${value}</span></div>`;
+  const item = (label, value, cls = "") => html`<div class="rb-item ${cls}"><span class="rb-label">${label}</span><span class="rb-value">${value}</span></div>`;
   return html`<div class="results-bar">
     ${item(T("Site", "厂址"), siteInfo[site].short)}
     ${item(T("Capex", "投资"), `A$${fmtM(capex)}m`)}
@@ -792,6 +845,7 @@ eqPaybackYear = ops.find(d => d.eqCum >= 0)?.year
     ${item(T("Payback (from opening)", "回收期（自投运）"), paybackYear ? `${paybackYear - cod + 1} ${T("yrs", "年")}` : "—")}
     ${item(T("NPV · APV", "净现值 · APV"), `A$${fmtM(npv)}m · ${fmtM(fin.apv)}m`)}
     ${item(T("IRR project · equity", "IRR 项目 · 股东"), `${irr === null ? "—" : (irr*100).toFixed(1) + "%"} · ${fin.irrE === null ? "—" : (fin.irrE*100).toFixed(1) + "%"}`)}
+    ${mode === "simple" && advChanged.length ? item(T("Hidden inputs changed", "隐藏参数已改"), String(advChanged.length), "rb-warn") : ""}
   </div>`;
 }
 ```

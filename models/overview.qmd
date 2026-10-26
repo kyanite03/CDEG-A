@@ -9,6 +9,7 @@ title: "[Interactive models]{.en}[互动模型]{.zh}"
 ::: {.en}
 Each model is a page of sliders. Move any input and the charts and results update at once. Every page works in English and Chinese and loads inside mainland China.
 
+-   **Key inputs or developer.** A switch at the top of each model shows only the key inputs by default. Choose **All inputs (developer)** to adjust every assumption. The choice carries across the model pages.
 -   **Defaults** come from the [Assumptions register](../appendix/assumptions.qmd), with a source and status for each. CDEG's own figures should replace them first, especially costs per tonne and the meter ex-works price.
 -   **All figures are indicative.** They are planning estimates to test, not forecasts.
 
@@ -18,12 +19,12 @@ Each model is a page of sliders. Move any input and the charts and results updat
 | [Council price map](council-map.qmd) (Model 3) | Which councils would send waste to a Latrobe site, at what gate fee? | 3.1e; siting |
 | [Meter distributor model](meter-distributor.qmd) | How big is the meter market, what do approvals cost, and what profit can CDEG expect? | 3.2; 6.6 |
 | [O&M contract model](om-contract.qmd) | What does an O&M contract earn CDEG, and how fast does it repay the entry budget? | 3.2; Table 16 |
-| [Partner ranking](partner-ranking.qmd) | Which partners suit each business line? | In development |
 :::
 
 ::: {.zh}
 每个模型都是一个由滑块组成的页面。调整任何参数，图表和结果都会立即更新。所有页面均支持中英文，并可在中国大陆正常访问。
 
+-   **关键参数或开发者模式。** 每个模型顶部的开关默认只显示关键参数；选择**全部参数（开发者）**可调整所有假设。该选择在各模型页面间保持一致。
 -   **默认值**来自[假设参数](../appendix/assumptions.qmd)页，每项都注明来源和状态。应首先用集团自己的数据替换，尤其是吨成本和水表出厂价。
 -   **所有结果仅供参考。** 它们是有待检验的规划估算，而不是预测。
 
@@ -33,5 +34,4 @@ Each model is a page of sliders. Move any input and the charts and results updat
 | [市政价格地图](council-map.qmd)（模型3） | 在什么处理费下，哪些市政会把垃圾送往拉筹伯谷场址？ | 3.1e；选址 |
 | [水表代理模型](meter-distributor.qmd) | 水表市场有多大，认证需要多少费用，集团可以预期多少利润？ | 3.2；6.6 |
 | [委托运营模型](om-contract.qmd) | 一份运营合同能为集团带来多少收益，多快能收回进入预算？ | 3.2；表16 |
-| [合作方排名](partner-ranking.qmd) | 哪些合作方适合各业务线？ | 开发中 |
 :::

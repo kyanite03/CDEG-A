@@ -55,3 +55,15 @@ form.site-radio > div > label { display: block; margin: 0 0 .2rem; }
 /* Source tag after an input label: report reference number(s), or [Assumption] */
 .src-tag { font-size: .72em; color: #77756e; white-space: nowrap; }
 .src-tag a, a.src-tag { color: inherit; text-decoration: underline dotted; }
+/* Key-inputs vs developer mode: advanced controls are hidden, not removed, so their values persist */
+body:not(.dev-mode) .adv-input { display: none !important; }
+body.dev-mode .adv-input { border-left: 3px solid #c9c7bf; padding-left: .4rem; }
+.mode-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; background: #f7f7f5; border: 1px solid #e3e2de; border-radius: 8px; padding: .4rem .75rem; margin: 1rem 0; }
+.mode-bar form { margin: 0 !important; }
+.mode-note { font-size: .8rem; color: #52514e; }
+.mode-note button { font-size: .78rem; padding: .1rem .5rem; margin-left: .35rem; border: 1px solid #b5b3ab; border-radius: 5px; background: #fff; cursor: pointer; }
+.ctl-group { font-size: .72rem; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #77756e; margin: .4rem 0 .1rem; }
+.rb-item.rb-warn .rb-value { color: #b4471b; }
+/* Data sources line under a chart: report reference numbers, each linked to the Sources page */
+.data-src { font-size: .8rem; color: #77756e; margin: -.25rem 0 .75rem; }
+.data-src a { color: inherit; text-decoration: underline dotted; margin-right: .2rem; }

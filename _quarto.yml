@@ -69,8 +69,6 @@ website:
             text: "O&M contract model · 委托运营模型"
           - href: models/meter-distributor.qmd
             text: "Meter distributor model · 水表代理模型"
-          - href: models/partner-ranking.qmd
-            text: "Partner ranking · 合作方排名"
       - text: "Appendix · 附录"
         menu:
           - href: appendix/sources.qmd

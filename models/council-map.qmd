@@ -131,6 +131,57 @@ missingIds.length ? html`<p class="assump-warning" style="color:#b3261e;font-wei
 
 ```{ojs}
 //| echo: false
+//| output: false
+// Key-inputs vs developer mode, shared by all model pages: remembered per browser (if storage is available); ?mode=dev in the URL also opens developer mode
+viewof mode = {
+  let start = "simple";
+  try { if (new URLSearchParams(location.search).get("mode") === "dev" || window.localStorage.getItem("modelMode") === "dev") start = "dev"; } catch (e) {}
+  return Inputs.radio(["simple", "dev"], {value: start, label: L("Inputs shown", "显示参数"),
+    format: k => ({simple: L("Key inputs", "关键参数"), dev: L("All inputs (developer)", "全部参数（开发者）")})[k]});
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  document.body.classList.toggle("dev-mode", mode === "dev");
+  try { window.localStorage.setItem("modelMode", mode); } catch (e) {}
+  const n = advChanged.length;
+  return html`<div class="mode-bar">${viewof mode}<span class="mode-note">${
+    mode === "dev"
+      ? html`${L(`Showing all ${advCount + keyCount} inputs. Advanced ones have a grey edge.`, `显示全部${advCount + keyCount}个参数，高级参数左侧有灰色边线。`)}${n ? html`<button onclick=${resetAdv}>${L("Reset advanced inputs", "恢复高级参数默认值")}</button>` : ""}`
+      : n
+        ? html`${L(`${n} hidden input${n > 1 ? "s differ" : " differs"} from the defaults and ${n > 1 ? "still count" : "still counts"} in the results.`, `${n}个隐藏参数已偏离默认值，并仍计入结果。`)}<button onclick=${resetAdv}>${L("Reset them", "恢复默认")}</button>`
+        : L(`Showing ${keyCount} key inputs; ${advCount} more in developer mode.`, `显示${keyCount}个关键参数；开发者模式另有${advCount}个。`)
+  }</span></div>`;
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// ---------- Key-inputs vs developer mode bookkeeping ----------
+keyCount = 7
+// Advanced inputs (hidden in key-inputs mode; their values still count): [element, current value, default]
+advSpec = [
+  [viewof contM3, contM3, v("f_cont_m3")], [viewof maxPayload, maxPayload, v("f_max_payload")], [viewof rho11, rho11, v("f_rho11")], [viewof roadPerKm, roadPerKm, v("f_road_km")],
+  [viewof roadFix, roadFix, v("f_road_fix")], [viewof localKm, localKm, v("f_local_km")], [viewof railPerKm, railPerKm, v("f_rail_km")], [viewof railFix, railFix, v("f_rail_fix")],
+  [viewof liftExtra, liftExtra, v("f_lift_extra")], [viewof seaPerKm, seaPerKm, v("f_sea_km")], [viewof bassRate, bassRate, v("f_bass")], [viewof portFix, portFix, v("f_port_fix")],
+  [viewof gVicMetro, gVicMetro, v("landfill_gate_metro")], [viewof gVicRural, gVicRural, v("c_gate_vic_rural")], [viewof gNSWm, gNSWm, v("c_gate_nsw_mla")], [viewof gNSWr, gNSWr, v("c_gate_nsw_rla")],
+  [viewof gNSW, gNSW, v("c_gate_nsw")], [viewof gSAm, gSAm, v("c_gate_sa_metro")], [viewof gSA, gSA, v("c_gate_sa")], [viewof gACT, gACT, v("c_gate_act")],
+  [viewof gTAS, gTAS, v("c_gate_tas")]
+]
+advCount = advSpec.length
+// Compare after snapping the default to the slider's own step/range, so an untouched slider never counts as changed
+snap = (el, x) => { const i = el.querySelector("input[type=range]"); if (!i) return x; const lo = +i.min, hi = +i.max, st = +i.step || 0; let y = Math.min(hi, Math.max(lo, x)); if (st) y = lo + Math.round((y - lo) / st) * st; return y; }
+advChanged = advSpec.filter(([el, val, def]) => typeof def === "number" ? Math.abs(val - snap(el, def)) > 1e-9 : val !== def)
+resetAdv = () => {
+  for (const [el, , def] of advSpec) { el.value = def; el.dispatchEvent(new Event("input", {bubbles: true})); }
+}
+```
+
+```{ojs}
+//| echo: false
 {
   const geoNames = new Set(geo.features.map(f => f.properties.name));
   const csvNames = new Set(councils.map(c => c.name));
@@ -158,7 +209,7 @@ viewof threshold = Inputs.range([0, 0.25], {value: v("c_threshold"), step: 0.01,
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
 ```
 
-<details><summary><span class="en">Container and freight assumptions</span><span class="zh">集装箱与运费假设</span></summary>
+<div class="adv-input"><p class="ctl-group"><span class="en">Container and freight assumptions</span><span class="zh">集装箱与运费假设</span></p>
 
 ```{ojs}
 //| echo: false
@@ -191,7 +242,7 @@ viewof gACT = Inputs.range([60, 220], {value: v("c_gate_act"), step: 1, label: l
 viewof gTAS = Inputs.range([60, 220], {value: v("c_gate_tas"), step: 5, label: lab("c_gate_tas", "Tasmania", "塔斯马尼亚")})
 ```
 
-</details>
+</div>
 :::
 
 ::: {.column width="64%"}
@@ -223,15 +274,15 @@ viewof showRoutes = Inputs.toggle({label: L("Show freight network", "显示货�
 
 ```{ojs}
 //| echo: false
-// Map views: "full" (incl. Tasmania), "mainland", "vicmetro" (Vic + NSW metro levy area + ACT + metro Adelaide),
-// "melgipps" only for the Latrobe site. Rebuilt when the site changes; keeps the previous choice when it is still offered.
+// Map views, smallest first: "melgipps" (Latrobe site only, the default), "vicmetro" (Vic + NSW metro levy area + ACT + metro Adelaide),
+// "mainland", "full" (incl. Tasmania). Rebuilt when the site changes; keeps the previous choice when it is still offered.
 VIEW_FORMAT = ({full: L("Full map (incl. Tasmania)", "全图（含塔斯马尼亚）"), mainland: L("Full mainland map", "大陆全图"),
   vicmetro: L("Vic + interstate metro", "维州+州外都市区"), melgipps: L("Melbourne + Gippsland", "墨尔本+吉普斯兰")})
 // Remembers the user's last view choice across rebuilds of the selector (plain object, not reactive)
-viewMemory = ({last: "full"})
+viewMemory = ({last: "melgipps"})
 viewof view = {
-  const opts = site === "LATROBE" ? ["full", "mainland", "vicmetro", "melgipps"] : ["full", "mainland", "vicmetro"];
-  const value = opts.includes(viewMemory.last) ? viewMemory.last : "full";
+  const opts = site === "LATROBE" ? ["melgipps", "vicmetro", "mainland", "full"] : ["vicmetro", "mainland", "full"];
+  const value = opts.includes(viewMemory.last) ? viewMemory.last : opts[0];
   const input = Inputs.radio(opts, {value, format: k => VIEW_FORMAT[k], label: L("Map view", "地图范围")});
   input.addEventListener("input", () => { viewMemory.last = input.value; });
   return input;
