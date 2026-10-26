@@ -128,10 +128,10 @@ viewof mode = {
 //| echo: false
 //| output: false
 // ---------- Key-inputs vs developer mode bookkeeping ----------
-keyCount = 12
+keyCount = 11
 // Advanced inputs (hidden in key-inputs mode; their values still count): [element, current value, default]
 advSpec = [
-  [viewof tpd, tpd, v("w_tpd")], [viewof fixedSite, fixedSite, v("w_fixed_site")], [viewof rangeLow, rangeLow, v("o_range_low")], [viewof rangeHigh, rangeHigh, v("o_range_high")],
+  [viewof tpd, tpd, v("w_tpd")], [viewof fixedSite, fixedSite, v("w_fixed_site")], 
   [viewof discount, discount, v("o_discount")]
 ]
 advCount = advSpec.length
@@ -245,25 +245,22 @@ The operator's fee is its cost per tonne plus a margin. The chart sets the resul
 //| echo: false
 viewof markup = Inputs.range([0, 0.3], {value: v("o_markup"), step: 0.005, label: lab("o_markup", "Operator margin on cost", "运营方成本加成率")})
 viewof ownerShare = Inputs.range([0, 1], {value: v("o_owner_share"), step: 0.05, label: lab("o_owner_share", "Share of spares and consumables the owner buys", "业主直接采购的备件与耗材比例")})
-viewof roundFee = Inputs.toggle({value: true, label: L("Round the fee to the nearest A$5", "运营费取整至5澳元")})
 ```
-
-<div class="adv-input"><p class="ctl-group"><span class="en">Benchmark range assumptions</span><span class="zh">基准区间假设</span></p>
 
 ```{ojs}
 //| echo: false
-viewof rangeLow = Inputs.range([30, 90], {value: v("o_range_low"), step: 5, label: lab("o_range_low", "Low end of range (A$/t)", "区间下限（澳元/吨）")})
-viewof rangeHigh = Inputs.range([80, 150], {value: v("o_range_high"), step: 5, label: lab("o_range_high", "High end of range (A$/t)", "区间上限（澳元/吨）")})
+//| output: false
+// Our benchmark range from the research (a reference band, not an input)
+rangeLow = v("o_range_low")
+rangeHigh = v("o_range_high")
 ```
-
-</div>
 :::
 
 ::: {.column width="60%"}
 ```{ojs}
 //| echo: false
 feeRaw = costT * (1 + markup)
-fee = roundFee ? Math.round(feeRaw / 5) * 5 : feeRaw
+fee = Math.round(feeRaw / 5) * 5
 profitT = fee - costT
 // Margin as a share of revenue, the basis for CDEG's profit in section 4
 netMargin = fee > 0 ? profitT / fee : 0
@@ -294,7 +291,7 @@ netMargin = fee > 0 ? profitT / fee : 0
 ```{ojs}
 //| echo: false
 html`<div class="kpi-row">
-  ${tile(T("O&M fee", "运营费"), `A$${fee.toFixed(0)}/t`, roundFee ? T(`A$${feeRaw.toFixed(1)}/t before rounding`, `取整前${feeRaw.toFixed(1)}澳元/吨`) : T("not rounded", "未取整"), fee < rangeLow || fee > rangeHigh)}
+  ${tile(T("O&M fee", "运营费"), `A$${fee.toFixed(0)}/t`, T(`A$${feeRaw.toFixed(1)}/t before rounding to A$5`, `取整至5澳元前为${feeRaw.toFixed(1)}澳元/吨`), fee < rangeLow || fee > rangeHigh)}
   ${tile(T("Margin per tonne", "每吨利润"), `A$${profitT.toFixed(1)}/t`, T(`${(netMargin * 100).toFixed(1)}% of the fee`, `占运营费${(netMargin * 100).toFixed(1)}%`), profitT <= 0)}
   ${tile(T("Against our range", "与我方区间对比"), fee < rangeLow ? T("Below", "低于") : fee > rangeHigh ? T("Above", "高于") : T("Inside", "区间内"), `A$${rangeLow}–${rangeHigh}/t`, fee < rangeLow || fee > rangeHigh)}
 </div>`
@@ -306,11 +303,11 @@ html`<div class="kpi-row">
 $$\phi = c\,(1 + \mu)$$
 
 ::: {.en .eq-defs}
-$\phi$ O&M fee per tonne, rounded to the nearest A\$5 by default · $\mu$ margin.
+$\phi$ O&M fee per tonne, rounded to the nearest A\$5 · $\mu$ margin.
 :::
 
 ::: {.zh .eq-defs}
-$\phi$ 每吨运营费，默认取整至5澳元 · $\mu$ 利润率。
+$\phi$ 每吨运营费，取整至5澳元 · $\mu$ 利润率。
 :::
 :::
 
@@ -518,7 +515,7 @@ Each chart's equation is shown under it. For the full method, data sources and l
 ::: {.en .dev-only}
 - **Operator-controlled cost** = (fixed cost per furnace × furnaces + site overhead) ÷ tonnes a year + variable cost. Tonnes a year = furnaces × furnace size × 365 × availability. At the defaults (3 × 500 t/d at 90%), fixed costs of A\$18m a year over 492,750 t are about A\$37/t, plus A\$30/t variable, about A\$67/t in all \[26\].
 - **Left out**: pre-sorting (A\$15/t in Model 1), ash disposal and reagents, which we assume the owner pays directly.
-- **O&M fee** = operator cost × (1 + margin), rounded to the nearest A\$5 by default. A 10–15% margin gives about A\$74–77/t; the default 12.5% rounds to A\$75/t \[Assumption\].
+- **O&M fee** = operator cost × (1 + margin), rounded to the nearest A\$5. A 10–15% margin gives about A\$74–77/t; the default 12.5% rounds to A\$75/t \[Assumption\].
 - **Benchmark**: Metro Vancouver's contractor-run plant costs about C\$93–112/t (roughly A\$100–125/t) to operate, excluding ash and debt service \[74\] \[Industry\]. It is an older plant, so we put it at the top of our A\$60–110/t range.
 - **Market sizes** use the August 2025 licences (2.35 Mt in all) and the one fee per tonne from section 2 for every plant.
 - **Contracts** also use that one cost and fee per tonne, from the plant in section 1. A two-line plant or Melbourne Water's plant would have a somewhat different cost per tonne, because fixed costs spread over fewer tonnes.
@@ -531,7 +528,7 @@ Each chart's equation is shown under it. For the full method, data sources and l
 ::: {.zh .dev-only}
 - **运营方可控成本** =（单炉固定成本 × 炉数 + 厂区管理费用）÷ 年处理量 + 变动成本。年处理量 = 炉数 × 单炉规模 × 365 × 可用率。按默认值（3台500吨/日、可用率90%），每年1,800万澳元固定成本分摊到492,750吨，约37澳元/吨，加上30澳元/吨变动成本，合计约67澳元/吨 \[26\]。
 - **不计入**：预分拣（模型1中为15澳元/吨）、灰渣处置和药剂，假设由业主直接支付。
-- **运营费** = 运营方成本 ×（1 + 利润率），默认取整至5澳元。10–15%的利润率对应约74–77澳元/吨；默认12.5%取整为75澳元/吨 \[假设\]。
+- **运营费** = 运营方成本 ×（1 + 利润率），取整至5澳元。10–15%的利润率对应约74–77澳元/吨；默认12.5%取整为75澳元/吨 \[假设\]。
 - **基准**：温哥华都会区委托运营的焚烧厂运营成本约93–112加元/吨（约100–125澳元/吨），不含灰渣处置和偿债 \[74\] \[行业\]。该厂较老，因此位于我们60–110澳元/吨区间的上端。
 - **市场规模**采用2025年8月的许可量（合计235万吨），所有电厂均采用第2节的同一每吨运营费。
 - **合同**同样采用第1节电厂的每吨成本和运营费。两条线电厂或Melbourne Water电厂的每吨成本会略有不同，因为固定成本分摊到的吨数较少。

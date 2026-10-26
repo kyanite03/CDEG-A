@@ -150,13 +150,13 @@ viewof mode = {
 keyCount = 16
 // Advanced inputs (hidden in key-inputs mode; their values still count): [element, current value, default]
 advSpec = [
-  [viewof lfGate, lfGate, v("landfill_gate_metro")], [viewof passThrough, passThrough, v("w_passthrough")], [viewof contM3, contM3, v("f_cont_m3")], [viewof maxPayload, maxPayload, v("f_max_payload")],
+  [viewof lfGate, lfGate, v("landfill_gate_metro")], [viewof passThrough, passThrough, v("w_passthrough")], 
   [viewof rho11, rho11, v("f_rho11")], [viewof roadPerKm, roadPerKm, v("f_road_km")], [viewof roadFix, roadFix, v("f_road_fix")], [viewof localKm, localKm, v("f_local_km")],
   [viewof railPerKm, railPerKm, v("f_rail_km")], [viewof railFix, railFix, v("f_rail_fix")], [viewof liftExtra, liftExtra, v("f_lift_extra")], [viewof seaPerKm, seaPerKm, v("f_sea_km")],
   [viewof bassRate, bassRate, v("f_bass")], [viewof portFix, portFix, v("f_port_fix")], [viewof availability, availability, v("w_availability")], [viewof fixedFurnace, fixedFurnace, v("w_fixed_furnace")],
   [viewof fixedSite, fixedSite, v("w_fixed_site")], [viewof varOpex, varOpex, v("w_var_opex")], [viewof sortCost, sortCost, v("w_sort_cost")], [viewof buildYears, buildYears, v("w_build_years")],
   [viewof effElec, effElec, v("w_eff_elec")], [viewof nonComb, nonComb, v("w_noncomb")], [viewof ashShare, ashShare, v("w_ash")], [viewof inflation, inflation, v("w_inflation")],
-  [viewof taxRate, taxRate, v("tax_rate")], [viewof taxLife, taxLife, v("w_tax_life")], [viewof depMethod, depMethod, "dv"], [viewof cwShare, cwShare, v("w_cw_share")],
+  [viewof depMethod, depMethod, "dv"], [viewof cwShare, cwShare, v("w_cw_share")],
   [viewof tenor, tenor, v("w_tenor")], [viewof repay, repay, "annuity"], [viewof feeRate, feeRate, v("w_fee_rate")], [viewof thinCapMode, thinCapMode, "frt"]
 ]
 advCount = advSpec.length
@@ -329,14 +329,23 @@ viewof levyScen = Inputs.radio(["base", "low", "high"], {value: "base", label: L
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
 ```
 
+```{ojs}
+//| echo: false
+//| output: false
+// Fixed by the container type (no slider): 20 ft sealed waste container and its payload limit
+contM3 = v("f_cont_m3")
+maxPayload = v("f_max_payload")
+// Fixed by law (no slider): 30% company tax (CDEG is above the A$50m base-rate threshold) and the ATO's 30-year effective life
+taxRate = v("tax_rate")
+taxLife = v("w_tax_life")
+```
+
 <div class="adv-input"><p class="ctl-group"><span class="en">Landfill, levy and freight assumptions (same defaults as the map)</span><span class="zh">填埋、征税与运费假设（与地图默认值相同）</span></p>
 
 ```{ojs}
 //| echo: false
 viewof lfGate = Inputs.range([40, 160], {value: v("landfill_gate_metro"), step: 5, label: lab("landfill_gate_metro", "Vic metro landfill gate fee excl. levy (other zones move with it)", "维州大都市填埋处理费（不含税，其他区域随之变动）")})
 viewof passThrough = Inputs.range([0, 1], {value: v("w_passthrough"), step: 0.05, label: lab("w_passthrough", "Levy rises passed into our fee", "填埋税涨幅计入处理费比例")})
-viewof contM3 = Inputs.range([25, 40], {value: v("f_cont_m3"), step: 1, label: lab("f_cont_m3", "20 ft container volume (m³)", "20英尺箱容积（立方米）")})
-viewof maxPayload = Inputs.range([18, 28], {value: v("f_max_payload"), step: 1, label: lab("f_max_payload", "Max payload (t)", "最大载重（吨）")})
 viewof rho11 = Inputs.range([0.40, 0.80], {value: v("f_rho11"), step: 0.01, label: lab("f_rho11", "Compacted density at 11 MJ/kg (t/m³)", "11兆焦/千克时压实密度（吨/立方米）")})
 viewof roadPerKm = Inputs.range([2, 6], {value: v("f_road_km"), step: 0.1, label: lab("f_road_km", "Road A$ per container-km", "公路 澳元/箱公里")})
 viewof roadFix = Inputs.range([0, 400], {value: v("f_road_fix"), step: 10, label: lab("f_road_fix", "Road loading A$/container", "公路装箱 澳元/箱")})
@@ -509,13 +518,11 @@ viewof effElec = Inputs.range([0.15, 0.30], {value: v("w_eff_elec"), step: 0.01,
 viewof nonComb = Inputs.range([0, 0.5], {value: v("w_noncomb"), step: 0.05, label: lab("w_noncomb", "Non-burnable share of commercial waste", "工商业垃圾中不可燃比例")})
 viewof ashShare = Inputs.range([0, 0.25], {value: v("w_ash"), step: 0.01, label: lab("w_ash", "Ash landfilled (% of input)", "灰渣填埋比例")})
 viewof inflation = Inputs.range([0, 0.06], {value: v("w_inflation"), step: 0.005, label: lab("w_inflation", "Inflation", "通胀率")})
-viewof taxRate = Inputs.range([0, 0.3], {value: v("tax_rate"), step: 0.05, label: lab("tax_rate", "Company tax", "企业所得税率")})
 ```
 
 ```{ojs}
 //| echo: false
 html`<p class="kpi-note" style="margin:.8rem 0 .2rem"><b>${L("Tax depreciation", "税务折旧")}</b></p>`
-viewof taxLife = Inputs.range([20, 40], {value: v("w_tax_life"), step: 1, label: lab("w_tax_life", "Plant tax life (years; ATO: 30)", "设备税务寿命（年；ATO：30）")})
 viewof depMethod = Inputs.radio(["dv", "pc"], {value: "dv", label: L("Method", "折旧方法"),
   format: k => ({dv: L("Diminishing value", "余额递减法"), pc: L("Prime cost (straight line)", "直线法")})[k]})
 viewof cwShare = Inputs.range([0, 0.3], {value: v("w_cw_share"), step: 0.05, label: lab("w_cw_share", "Buildings share of capex (2.5%/yr)", "建筑物占投资比例（每年2.5%）")})

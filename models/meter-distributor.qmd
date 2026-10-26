@@ -438,7 +438,7 @@ viewof ramp = Inputs.range([1, 5], {value: v("m_ramp"), step: 1, label: lab("m_r
 viewof overhead = adv(Inputs.range([50000, 1200000], {value: route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct"), step: 10000, label: lab(route === "dist" ? "m_overhead_dist" : "m_overhead_direct", "Annual overhead once selling (A$)", "销售后年度固定费用（澳元）")}))
 viewof invMonths = adv(Inputs.range([0, 6], {value: v("m_inv_months"), step: 1, label: lab("m_inv_months", "Stock in Australia (months)", "在澳库存（月）")}))
 viewof discount = adv(Inputs.range([0.02, 0.12], {value: v("m_discount"), step: 0.005, label: lab("m_discount", "Discount rate (real; ≈8% nominal)", "折现率（实际；≈8%名义）")}))
-viewof taxRate = adv(Inputs.range([0, 0.3], {value: v("tax_rate"), step: 0.05, label: lab("tax_rate", "Company tax rate", "企业所得税率")}))
+taxRate = v("tax_rate")   // fixed by law: 30% (CDEG is above the A$50m base-rate threshold)
 ```
 ::::
 :::: {.column width="60%"}
@@ -448,22 +448,23 @@ viewof taxRate = adv(Inputs.range([0, 0.3], {value: v("tax_rate"), step: 0.05, l
 //| output: false
 // Year-by-year P&L. pr overrides any input (used by the sensitivity chart).
 model = (s, pr = {}) => {
-  const P = {price, exRMB, fx, shareMax, overhead, distMargin, rnd, life, openShare, ...pr};
+  const P = {price, exRMB, fx, shareMax, overhead, distMargin, rnd, life, openShare, ramp, adaptMonths, ...pr};
+  const aT = 2027 + (P.adaptMonths + nmiMonths) / 12, fsT = aT + tenderMonths / 12;
   let cum = 0, dcum = 0, loss = 0, invPrev = 0;
   const oneOff = v("nmi_test_cn") / P.fx + P.rnd + nmiFee + wmCost + 90000;
   return years.map(y => {
     const e = env(s, y);
     const stock = connections * 1e6 * Math.pow(1 + newConn, y - 2027);
     const open = (stock / P.life * e.accel + stock * newConn * e.newConn) * Math.min(0.95, e.open - openShare + P.openShare);
-    const sellFrac = Math.max(0, Math.min(1, y + 1 - firstSaleT));             // share of this year after first sale
-    const yrsSelling = Math.max(0, y + 1 - firstSaleT);
-    const units = open * P.shareMax * Math.min(1, yrsSelling / ramp) * sellFrac;
+    const sellFrac = Math.max(0, Math.min(1, y + 1 - fsT));                    // share of this year after first sale
+    const yrsSelling = Math.max(0, y + 1 - fsT);
+    const units = open * P.shareMax * Math.min(1, yrsSelling / P.ramp) * sellFrac;
     const p = P.price * e.price, ex = P.exRMB / (P.fx * e.fx);
     const landed = ex * (1 + duty) + freight;
     const revenue = units * p;
     const cogs = units * (landed + qa) + revenue * warranty;
     const distCost = revenue * P.distMargin;
-    const pilotThisYear = (approvalT >= y && approvalT < y + 1) ? pilotUnits * (landed + qa) + (pilotUnits > 0 ? 30000 : 0) : 0;
+    const pilotThisYear = (aT >= y && aT < y + 1) ? pilotUnits * (landed + qa) + (pilotUnits > 0 ? 30000 : 0) : 0;
     const fixed = P.overhead * sellFrac + bdPre * (1 - sellFrac) + (sellFrac > 0 ? 5000 : 0);
     const once = y === 2027 ? oneOff : 0;
     const ebit = revenue - cogs - distCost - fixed - pilotThisYear - once;
@@ -537,7 +538,7 @@ Plot.plot({
 
 ```{ojs}
 //| echo: false
-html`<div style="overflow-x:auto"><table class="table table-sm council-table">
+html`<div class="dev-only" style="overflow-x:auto"><table class="table table-sm council-table">
 <thead><tr><th></th>${rows.map(d => html`<th class="num">${d.year}</th>`)}</tr></thead>
 <tbody>
 ${[
@@ -567,7 +568,7 @@ advSpec = [
   [viewof nmiCost, nmiCost, v("m_nmi")], [viewof wmCost, wmCost, v("m_watermark")], [viewof tenderMonths, tenderMonths, v("m_tender_months")], [viewof pilotUnits, pilotUnits, v("m_pilot")], [viewof bdPre, bdPre, v("m_bdpre")],
   [viewof fx, fx, v("m_fx")], [viewof freight, freight, v("m_freight")], [viewof duty, duty, v("m_duty")], [viewof qa, qa, v("m_qa")], [viewof warranty, warranty, v("m_warranty")],
   [viewof distMargin, distMargin, route === "dist" ? v("m_dist") : 0], [viewof factoryMargin, factoryMargin, v("m_factory")],
-  [viewof overhead, overhead, route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct")], [viewof invMonths, invMonths, v("m_inv_months")], [viewof discount, discount, v("m_discount")], [viewof taxRate, taxRate, v("tax_rate")]
+  [viewof overhead, overhead, route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct")], [viewof invMonths, invMonths, v("m_inv_months")], [viewof discount, discount, v("m_discount")]
 ]
 advCount = advSpec.length
 // Compare after snapping the default to the slider's own step/range, so an untouched slider never counts as changed
@@ -620,25 +621,28 @@ Each bar moves one input 20% up and down from its current setting and shows how 
 
 ```{ojs}
 //| echo: false
+// [key, label, current value, shown in key-inputs mode]; key-inputs mode compares only the sliders it shows
 sensKeys = [
-  ["price", T("Price to utility", "采购价"), price],
-  ["exRMB", T("Ex-works price", "出厂价"), exRMB],
-  ["shareMax", T("Market share won", "市场份额"), shareMax],
-  ["fx", T("Exchange rate", "汇率"), fx],
-  ["overhead", T("Annual overhead", "年度固定费用"), overhead],
-  ["distMargin", T("Distributor margin", "代理商利润率"), distMargin],
-  ["openShare", T("Demand open to new suppliers", "可争取需求比例"), openShare],
-  ["life", T("Replacement cycle", "更换周期"), life],
-  ["rnd", T("Adaptation R&D", "适配研发"), rnd]
+  ["price", T("Price to utility", "采购价"), price, true],
+  ["exRMB", T("Ex-works price", "出厂价"), exRMB, true],
+  ["shareMax", T("Market share won", "市场份额"), shareMax, true],
+  ["ramp", T("Years to full share", "达到完全份额年数"), ramp, true],
+  ["adaptMonths", T("Adaptation + China tests (months)", "适配及国内检测（月）"), adaptMonths, true],
+  ["rnd", T("Adaptation R&D", "适配研发"), rnd, true],
+  ["fx", T("Exchange rate", "汇率"), fx, false],
+  ["overhead", T("Annual overhead", "年度固定费用"), overhead, false],
+  ["distMargin", T("Distributor margin", "代理商利润率"), distMargin, false],
+  ["openShare", T("Demand open to new suppliers", "可争取需求比例"), openShare, false],
+  ["life", T("Replacement cycle", "更换周期"), life, false]
 ]
-sens = sensKeys.map(([k, label, base]) => {
+sens = sensKeys.filter(d => mode === "dev" || d[3]).map(([k, label, base]) => {
   const lo = npvOf(model(scen, {[k]: base * 0.8})), hi = npvOf(model(scen, {[k]: base * 1.2}));
   return {k, label, lo: lo - npv, hi: hi - npv, span: Math.abs(hi - lo)};
 }).sort((a, b) => b.span - a.span)
 sensLong = sens.flatMap(d => [{label: d.label, dir: "−20%", x: d.lo}, {label: d.label, dir: "+20%", x: d.hi}])
 Plot.plot({
   width: PW,
-  height: 300, marginLeft: 190,
+  height: 40 + 26 * sens.length, marginLeft: 190,
   x: {label: T("Change in NPV (A$m)", "净现值变化（百万澳元）"), grid: true, transform: d => d / 1e6},
   y: {label: null, domain: sens.map(d => d.label)},
   color: {legend: true, domain: ["−20%", "+20%"], range: [C.recession, C.base]},

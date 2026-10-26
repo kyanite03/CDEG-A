@@ -181,7 +181,7 @@ viewof mode = {
 keyCount = 7
 // Advanced inputs (hidden in key-inputs mode; their values still count): [element, current value, default]
 advSpec = [
-  [viewof contM3, contM3, v("f_cont_m3")], [viewof maxPayload, maxPayload, v("f_max_payload")], [viewof rho11, rho11, v("f_rho11")], [viewof roadPerKm, roadPerKm, v("f_road_km")],
+  [viewof rho11, rho11, v("f_rho11")], [viewof roadPerKm, roadPerKm, v("f_road_km")],
   [viewof roadFix, roadFix, v("f_road_fix")], [viewof localKm, localKm, v("f_local_km")], [viewof railPerKm, railPerKm, v("f_rail_km")], [viewof railFix, railFix, v("f_rail_fix")],
   [viewof liftExtra, liftExtra, v("f_lift_extra")], [viewof seaPerKm, seaPerKm, v("f_sea_km")], [viewof bassRate, bassRate, v("f_bass")], [viewof portFix, portFix, v("f_port_fix")],
   [viewof gVicMetro, gVicMetro, v("landfill_gate_metro")], [viewof gVicRural, gVicRural, v("c_gate_vic_rural")], [viewof gNSWm, gNSWm, v("c_gate_nsw_mla")], [viewof gNSWr, gNSWr, v("c_gate_nsw_rla")],
@@ -226,12 +226,18 @@ viewof threshold = Inputs.range([0, 0.25], {value: v("c_threshold"), step: 0.01,
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
 ```
 
+```{ojs}
+//| echo: false
+//| output: false
+// Fixed by the container type (no slider): 20 ft sealed waste container and its payload limit
+contM3 = v("f_cont_m3")
+maxPayload = v("f_max_payload")
+```
+
 <div class="adv-input"><p class="ctl-group"><span class="en">Container and freight assumptions</span><span class="zh">集装箱与运费假设</span></p>
 
 ```{ojs}
 //| echo: false
-viewof contM3 = Inputs.range([25, 40], {value: v("f_cont_m3"), step: 1, label: lab("f_cont_m3", "20 ft container volume (m³)", "20英尺箱容积（立方米）")})
-viewof maxPayload = Inputs.range([18, 28], {value: v("f_max_payload"), step: 1, label: lab("f_max_payload", "Max payload (t)", "最大载重（吨）")})
 viewof rho11 = Inputs.range([0.40, 0.80], {value: v("f_rho11"), step: 0.01, label: lab("f_rho11", "Compacted density at 11 MJ/kg (t/m³)", "11兆焦/千克时压实密度（吨/立方米）")})
 viewof roadPerKm = Inputs.range([2, 6], {value: v("f_road_km"), step: 0.1, label: lab("f_road_km", "Road A$ per container-km", "公路 澳元/箱公里")})
 viewof roadFix = Inputs.range([0, 400], {value: v("f_road_fix"), step: 10, label: lab("f_road_fix", "Road loading A$/container", "公路装箱 澳元/箱")})
