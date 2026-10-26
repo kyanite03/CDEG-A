@@ -24,7 +24,7 @@ m_duty,Import duty (HS 9028.20 under ChAFTA),进口关税（ChAFTA项下HS 9028.
 m_qa,Local verification and QA per meter,在澳检定与质检（每只）,3,A$/meter,1,6,M2,estimate,Avnet runs a meter test lab in Bayswater for SEW
 m_warranty,Warranty provision,质保准备金,0.03,share of price,0.01,0.06,,assumption,battery and electronics failures within warranty
 m_dist,Distributor margin (distributor route),代理商利润率（代理模式）,0.15,share of price,0.08,0.25,M1,estimate,Avnet is Huizhong's exclusive ANZ agent
-m_factory,Factory margin on ex-works price (operating-margin proxy),工厂出厂价利润率（以经营利润率近似）,0.25,share,0.10,0.40,M10,estimate,Huizhong operating margin ~24-25% (2024-25); gross margin is higher, so this is conservative
+m_factory,Factory margin on ex-works price (operating-margin proxy),工厂出厂价利润率（以经营利润率近似）,0.25,share,0.10,0.40,M10,estimate,Huizhong operating margin ~24-25% (2024-25). Its ultrasonic-meter gross margin was ~41% in H1 2024, so a gross-margin view would be higher; 25% is conservative
 m_nmi,NMI pattern approval (one meter family),NMI型式批准（一个系列）,40000,A$,15000,100000,M4,to verify,set + hourly fees; less if NMI accepts China lab results
 m_watermark,WaterMark + AS/NZS 4020 first year,WaterMark认证+AS/NZS 4020首年费用,25000,A$,10000,40000,M7,industry estimate,annual renewals ~A$3-6k
 m_rnd,Product adaptation for Australia,澳洲适配研发,150000,A$,0,400000,,assumption,battery life to utility spec; AU fittings; firmware; data hosting; network certification

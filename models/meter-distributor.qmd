@@ -804,7 +804,7 @@ Each chart's equation is shown under it. For the full method, data sources and l
 - **Recession** lasts two years from the chosen start: new connections −30%, early upgrades paused, tender prices −5%, and the A\$ buys 12% less RMB. Replacement of worn meters continues, because utilities must keep meters accurate and their budgets are fixed in five-year price determinations. A recession mainly squeezes margin through the exchange rate, not volume.
 - **Costs**: landed cost = ex-works ÷ FX × (1 + duty) + freight. One-off costs fall in 2027. Pilot meters are given free in the approval year. Overhead starts at the first sale; before that, bid costs apply. Losses carry forward for tax. Stock in Australia ties up cash.
 - **Discount rate**: 5.5% real, which equals the WtE payback model's 8% nominal at 2.5% inflation, so the two models use the same hurdle.
-- **Not modelled**: installation (usually a separate contract), software and data-platform fees (a possible extra revenue line), large-diameter commercial meters, NZ, and inflation (all figures are real 2027 A\$). The group view taxes the factory margin in China at the rate set (25%, or 15% for a certified high-tech enterprise) but leaves out transfer-pricing adjustments.
+- **Not modelled**: installation (usually a separate contract), software and data-platform fees (a possible extra revenue line), large-diameter commercial meters, NZ, and inflation (all figures are real 2027 A\$). The group view taxes the factory margin in China at the rate set (25%, or 15% for a certified high-tech enterprise) but leaves out transfer-pricing adjustments. The ex-works price cannot be set freely: a sale from CDEG's factory to its own Australian company must be at an arm's-length price that both the Chinese and Australian tax authorities accept, so it should be benchmarked before it is used to plan.
 - **Biggest unknowns**: Huijin's ex-works price for an Australian-spec meter, whether the battery meets utility specifications without redesign, and whether NMI accepts Chinese test results. CDEG can check all three itself.
 :::
 
@@ -814,6 +814,6 @@ Each chart's equation is shown under it. For the full method, data sources and l
 - **衰退**自所选年份起持续两年：新增用户−30%、提前升级暂停、招标价格−5%、澳元兑人民币贬值12%。磨损水表的更换不会停止，因为水务公司必须保证计量准确，且预算由五年水价核定锁定。衰退主要通过汇率压缩利润，而非减少销量。
 - **成本**：到岸成本=出厂价÷汇率×（1+关税）+运费。一次性费用计入2027年。试点水表在获批当年免费提供。固定费用自首单开始计算，此前计投标费用。亏损可结转抵税。在澳库存占用现金。
 - **折现率**：实际5.5%，在2.5%通胀下等于垃圾发电回收期模型的8%名义折现率，两个模型的门槛一致。
-- **未纳入**：安装（通常另行招标）、软件和数据平台服务费（可作为额外收入）、大口径商用水表、新西兰市场、通胀（所有金额为2027年不变价澳元）。集团视角按所设税率对工厂利润在国内征税（25%，经认定的高新技术企业为15%），但未考虑转让定价调整。
+- **未纳入**：安装（通常另行招标）、软件和数据平台服务费（可作为额外收入）、大口径商用水表、新西兰市场、通胀（所有金额为2027年不变价澳元）。集团视角按所设税率对工厂利润在国内征税（25%，经认定的高新技术企业为15%），但未考虑转让定价调整。出厂价不能随意设定：集团工厂向其澳洲子公司销售须采用中澳两国税务机关均认可的独立交易价格，因此在用于规划前应先做好可比定价分析。
 - **最大不确定性**：汇锦澳洲规格水表的出厂价、电池是否无需重新设计即可满足水务公司要求、NMI是否采信国内检测结果。这三项均可由集团自行核实。
 :::
