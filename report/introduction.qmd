@@ -31,7 +31,7 @@ Water is the core business. WtE earned RMB 752m in 2025, 8.3% of revenue, at a 4
 
 兴蓉环境运营约440万吨/日供水、500万吨/日污水处理和130万吨/日再生水，另有3,116吨/日污泥处理和1,950吨/日厨余垃圾处理能力 \[20\]。其四座垃圾焚烧发电厂——万兴一期、二期、三期和隆丰——合计12,000吨/日（含万兴三期）\[20\]。集团整体另有7,230吨/日垃圾转运能力和约15万吨/年危险废物处理能力 \[18\]。
 
-![](../assets/img/christine-fig2.jpg){fig-alt="兴蓉环境2025年分产品营收"}
+![](../assets/img/christine-fig2-zh.jpg){fig-alt="兴蓉环境2025年分产品营收"}
 
 *图1：兴蓉环境2025年分产品营收。来源：\[20\]。*
 
@@ -41,7 +41,7 @@ Water is the core business. WtE earned RMB 752m in 2025, 8.3% of revenue, at a 4
 ## [1.2 What CDEG can and cannot export]{.en}[1.2 集团能输出与不能输出的能力]{.zh}
 
 ::: {.en}
-CDEG's exportable strength is operating skill. It ran about 6,900 t/d of grate WtE before Wanxing III \[20\]. Xingrong announced on 7 May 2026 that Wanxing III had completed its 72+24-hour full-load trial \[21, 22\]. By August 2026 the plant was feeding the grid, and its tipping fee was still being set \[21\]. CDEG's furnaces co-fire about 10% sludge \[2\]. Wanxing III is designed for 800 t/d of sludge and 800 t/d of food waste \[22\] \[Company\], a design figure rather than an operating record. CDEG states that its flue-gas train meets EU requirements: SNCR, semi-dry and dry scrubbing, activated carbon, baghouse and SCR \[3\] \[Company\]. Its daily emissions are published on China's national disclosure platform \[23\].
+CDEG's exportable strength is operating skill. It ran about 6,900 t/d of grate WtE before Wanxing III \[20\]. Xingrong announced on 7 May 2026 that Wanxing III had completed its 72+24-hour full-load trial \[21, 22\]. By August 2026 the plant was feeding the grid, and its tipping fee was still being set \[21\]. CDEG's furnaces co-fire about 10% sludge \[2\]. Wanxing III is designed for 800 t/d of sludge and 800 t/d of food waste \[22\] \[Company\], a design figure rather than an operating record. CDEG states that its flue-gas train meets EU requirements: SNCR, semi-dry and dry scrubbing, activated carbon, baghouse and SCR \[3\] \[Company\]. Its daily emissions are published on the Ministry of Ecology and Environment's WtE plant monitoring disclosure platform \[23\].
 
 Three other assets travel with conditions:
 
@@ -58,7 +58,7 @@ Three things do not travel:
 :::
 
 ::: {.zh}
-集团可输出的核心优势是运营能力。万兴三期投产前，集团运营约6,900吨/日的炉排炉焚烧产能 \[20\]。兴蓉环境于2026年5月7日公告万兴三期已完成72+24小时满负荷试运行 \[21, 22\]。截至2026年8月，该厂已并网发电，垃圾处理费仍在核定中 \[21\]。集团焚烧炉掺烧约10%污泥 \[2\]。万兴三期设计处理污泥800吨/日、厨余垃圾800吨/日 \[22\] \[企业\]，这是设计值，而非运行记录。集团称其烟气净化系统满足欧盟要求：SNCR、半干法与干法脱酸、活性炭喷射、布袋除尘和SCR \[3\] \[企业\]。其日均排放数据在国家公开平台发布 \[23\]。
+集团可输出的核心优势是运营能力。万兴三期投产前，集团运营约6,900吨/日的炉排炉焚烧产能 \[20\]。兴蓉环境于2026年5月7日公告万兴三期已完成72+24小时满负荷试运行 \[21, 22\]。截至2026年8月，该厂已并网发电，垃圾处理费仍在核定中 \[21\]。集团焚烧炉掺烧约10%污泥 \[2\]。万兴三期设计处理污泥800吨/日、厨余垃圾800吨/日 \[22\] \[企业\]，这是设计值，而非运行记录。集团称其烟气净化系统满足欧盟要求：SNCR、半干法与干法脱酸、活性炭喷射、布袋除尘和SCR \[3\] \[企业\]。其日均排放数据在生态环境部“生活垃圾焚烧发电厂自动监测数据公开平台”发布 \[23\]。
 
 另有几项能力可以有条件地输出：
 
@@ -161,7 +161,7 @@ Victoria comes first because it has the most licensed WtE tonnage, a high and ri
 | 2025年焚烧发电收入 | 7.52亿元；毛利率45.6%；售电10.20亿千瓦时 | 2025年年报 \[20\] |
 | 水表 | 姊妹公司汇锦生产；兴蓉环境2025年采购8,575万元；尚无OIML证书 | \[20, 24\] |
 | 运营关键指标 | 可用率、吨垃圾发电量、吨成本 | 待集团提供 |
-| 原始CEMS数据 | 小时均值与年均值；二噁英检测 | 待集团提供 |
+| 原始烟气在线监测（CEMS）数据 | 小时均值与年均值；二噁英检测 | 待集团提供 |
 | 水表价格与销量 | 出厂价；海外客户 | 待集团提供 |
 :::
 :::

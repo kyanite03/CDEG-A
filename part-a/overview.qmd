@@ -1,5 +1,5 @@
 ---
-title: "[Part A: Business models]{.en}[第一部分：商业模式]{.zh}"
+title: "[Part A: Business models]{.en}[A部分：商业模式]{.zh}"
 ---
 
 <p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>

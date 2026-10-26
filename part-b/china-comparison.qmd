@@ -29,7 +29,7 @@ title: "[Australia vs China regulation]{.en}[中澳监管对比]{.zh}"
 | Dioxins (ng TEQ/Nm³) | 0.1 | 0.1 | \<0.01–0.04 | periodic tests; request |
 :::
 
-*Sources: \[23, 118–120\]. Wanxing values are furnace 1 daily averages for one day, taken from the public platform. They are a snapshot until the full hourly and annual series is available. EU limits are a benchmark here, not a Victorian legal limit \[46\].*
+*Sources: \[23, 118–120\]. Wanxing values are furnace 1 daily averages for one day, taken from the MEE's WtE plant monitoring disclosure platform. They are a snapshot until the full hourly and annual series is available. EU limits are a benchmark here, not a Victorian legal limit \[46\].*
 
 ![](../assets/img/christine-fig11.jpg){fig-alt="Wanxing daily averages as a share of EU daily limits"}
 
@@ -53,7 +53,7 @@ title: "[Australia vs China regulation]{.en}[中澳监管对比]{.zh}"
 | 二噁英（纳克TEQ/标准立方米） | 0.1 | 0.1 | \<0.01–0.04 | 定期检测；需向集团索取 |
 :::
 
-*来源：\[23, 118–120\]。万兴数据为1号炉单日的日均值，取自公开平台。在取得完整的小时和年度数据之前，这只是一个快照。此处的欧盟限值是参照基准，而非维州的法定限值 \[46\]。*
+*来源：\[23, 118–120\]。万兴数据为1号炉单日的日均值，取自生态环境部生活垃圾焚烧发电厂自动监测数据公开平台。在取得完整的小时和年度数据之前，这只是一个快照。此处的欧盟限值是参照基准，而非维州的法定限值 \[46\]。*
 
 ![](../assets/img/christine-fig11.jpg){fig-alt="万兴日均排放占欧盟日均限值的比例"}
 

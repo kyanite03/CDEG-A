@@ -7,6 +7,8 @@ title: "[Interactive models]{.en}[互动模型]{.zh}"
 ## [How to use]{.en}[使用说明]{.zh}
 
 ::: {.en}
+These models test the main assumptions behind CDEG's entry into Victoria, Australia. The waste-to-energy models are built around a plant in the Latrobe Valley, on the former Hazelwood power station site about 150 km east of Melbourne.
+
 Each model is a page of sliders. Move any input and the charts and results update at once. Every page works in English and Chinese and loads inside mainland China.
 
 -   **Key inputs or developer.** A switch at the top of each model starts on **Key inputs**: the main sliders across the top, larger charts and one equation under each. Choose **All inputs (developer)** to adjust every assumption and read the full explanations, method and limits. The choice carries across the model pages.
@@ -18,22 +20,24 @@ Each model is a page of sliders. Move any input and the charts and results updat
 |---|---|---|
 | [WtE project payback](wte-payback.qmd) (Model 1) | What gate fee, load and licence does a Latrobe Valley plant need to pay its way? | 3.4; Waste-to-energy page |
 | [Council price map](council-map.qmd) (Model 3) | Which councils would send waste to a Latrobe site, at what gate fee? | 3.1e; siting |
-| [Meter distributor model](meter-distributor.qmd) | How big is the meter market, what do approvals cost, and what profit can CDEG expect? | 3.2; 6.6 |
+| [Smart water meter profit model](meter-distributor.qmd) | How big is the meter market, what do approvals cost, and what profit can CDEG expect? | 3.2; 6.6 |
 | [O&M contract model](om-contract.qmd) | What does an O&M contract earn CDEG, and how fast does it repay the entry budget? | 3.2; Table 16 |
 :::
 
 ::: {.zh}
+这些模型用于检验集团进入澳洲维多利亚州（维州）市场的主要假设。垃圾焚烧发电模型以拉筹伯谷（Latrobe Valley）的电厂为例，厂址为墨尔本以东约150公里的原Hazelwood电厂旧址。
+
 每个模型都是一个由滑块组成的页面。调整任何参数，图表和结果都会立即更新。所有页面均支持中英文，并可在中国大陆正常访问。
 
 -   **关键参数或开发者模式。** 每个模型顶部的开关默认为**关键参数**：主要滑块排在顶部，图表更大，每张图下方列出一个公式。选择**全部参数（开发者）**可调整所有假设，并查看完整说明、方法和局限。该选择在各模型页面间保持一致。
--   **代码。** 模型代码已开源：[github.com/kyanite03/CDEG-A](https://github.com/kyanite03/CDEG-A/tree/main/models)。每个模型为一页代码，集团可用自己的数据运行自己的副本。
+-   **代码。** 模型代码已开源：[github.com/kyanite03/CDEG-A](https://github.com/kyanite03/CDEG-A/tree/main/models)。每个模型对应一页代码，集团可用自身数据运行独立副本。
 -   **默认值**来自[假设参数](../appendix/assumptions.qmd)页，每项都注明来源和状态。应首先用集团自己的数据替换，尤其是吨成本和水表出厂价。
 -   **所有结果仅供参考。** 它们是有待检验的规划估算，而不是预测。
 
 | 模型 | 回答的问题 | 对应报告章节 |
 |---|---|---|
-| [垃圾发电项目回收期](wte-payback.qmd)（模型1） | 拉筹伯谷电厂需要多高的处理费、负荷和许可量才能收回投资？ | 3.4；垃圾焚烧发电页 |
+| [垃圾发电项目回收期](wte-payback.qmd)（模型1） | 拉筹伯谷电厂需要多高的处理费、负荷和许可量才能收回投资？ | 3.4；垃圾焚烧发电章节 |
 | [市政价格地图](council-map.qmd)（模型3） | 在什么处理费下，哪些市政会把垃圾送往拉筹伯谷场址？ | 3.1e；选址 |
-| [水表代理模型](meter-distributor.qmd) | 水表市场有多大，认证需要多少费用，集团可以预期多少利润？ | 3.2；6.6 |
+| [智能水表盈利模型](meter-distributor.qmd) | 水表市场有多大，认证需要多少费用，集团可以预期多少利润？ | 3.2；6.6 |
 | [委托运营模型](om-contract.qmd) | 一份运营合同能为集团带来多少收益，多快能收回进入预算？ | 3.2；表16 |
 :::

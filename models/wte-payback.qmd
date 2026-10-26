@@ -72,7 +72,7 @@ compData = csv("../data/vic_waste_components.csv" + V)
 C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890"})
 fmtM = v => (v / 1e6).toFixed(0)
 // Chinese figures use 万 and 亿 (groups of four digits) instead of k and m
-wan = x => { const s = x < 0 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
+wan = x => { const s = x <= -0.5 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
 kt = v => (v / 1e3).toFixed(0)
 // Paragraph from our own trusted strings that contain <b> tags
 rich = s => { const p = document.createElement("p"); p.className = "kpi-note explain"; p.innerHTML = s; return p; }
@@ -86,6 +86,8 @@ aMd = (v, d) => T(`A$${(v / 1e6).toFixed(d)}m`, `${wan(v)}澳元`)
 perTs = x => T(`A$${x}/t`, `${x}澳元/吨`)
 mjkg = s => T(`${s} MJ/kg`, `${s}兆焦/千克`)
 tK = v => T(`${kt(v)} kt`, `${wan(v)}吨`)
+// Axis scale for tonnes: kt in English, 万吨 in Chinese
+tDiv = lang === "zh" ? 1e4 : 1e3
 siteInfo = ({
   LATROBE: {en: "Latrobe Valley (Hazelwood, Vic)", zh: "拉筹伯谷（Hazelwood，维州）", short: "Latrobe", shortZh: "拉筹伯谷", state: "VIC", zone: "VIC_RURAL"},
   NARROMINE: {en: "Narromine (NSW)", zh: "纳罗迈恩（新州）", short: "Narromine", shortZh: "纳罗迈恩", state: "NSW", zone: "NSW_NOLEVY"},
@@ -297,7 +299,7 @@ Plot.plot({
   const a = totals.find(d => d.year === 2016), b = totals.find(d => d.year === 2025), z = totals.find(d => d.year === 2036);
   return rich(T(
     `Since 2016 tonnes are up ${((b.mt / a.mt - 1) * 100).toFixed(0)}% (${a.mt.toFixed(2)} → ${b.mt.toFixed(2)} Mt) and have fallen since the 2020–21 peak, but <b>the energy in the waste is up ${((b.pj / a.pj - 1) * 100).toFixed(0)}%</b> (${a.pj.toFixed(0)} → ${b.pj.toFixed(0)} PJ). Food-and-garden bins took wet, low-energy food out of the red bin (food −${((1 - b.food / a.food) * 100).toFixed(0)}%), leaving more paper, plastics and textiles, so the average rose from ${a.cv.toFixed(1)} to ${b.cv.toFixed(1)} MJ/kg. In this scenario, 2036 has ${z.mt.toFixed(2)} Mt at ${z.cv.toFixed(1)} MJ/kg = ${z.pj.toFixed(0)} PJ.`,
-    `自2016年以来吨数增长${((b.mt / a.mt - 1) * 100).toFixed(0)}%（${wan(a.mt * 1e6)} → ${wan(b.mt * 1e6)}吨），且自2020–21年峰值后下降，但<b>垃圾所含能量增长了${((b.pj / a.pj - 1) * 100).toFixed(0)}%</b>（${a.pj.toFixed(0)} → ${b.pj.toFixed(0)}拍焦）。厨余与园林垃圾分类把含水量高、热值低的厨余从红桶中分出（厨余减少${((1 - b.food / a.food) * 100).toFixed(0)}%），纸、塑料和纺织品占比上升，平均热值由${a.cv.toFixed(1)}升至${b.cv.toFixed(1)}兆焦/千克。此情景下2036年为${wan(z.mt * 1e6)}吨，热值${z.cv.toFixed(1)}兆焦/千克，合计${z.pj.toFixed(0)}拍焦。`));
+    `自2016年以来吨数增长${((b.mt / a.mt - 1) * 100).toFixed(0)}%（${wan(a.mt * 1e6)} → ${wan(b.mt * 1e6)}吨），且自2020–21年峰值后下降，但<b>垃圾所含能量增长了${((b.pj / a.pj - 1) * 100).toFixed(0)}%</b>（${a.pj.toFixed(0)} → ${b.pj.toFixed(0)}拍焦）。厨余与园林垃圾分类把含水量高、热值低的厨余从红桶（家庭一般垃圾桶）中分出（厨余减少${((1 - b.food / a.food) * 100).toFixed(0)}%），纸、塑料和纺织品占比上升，平均热值由${a.cv.toFixed(1)}升至${b.cv.toFixed(1)}兆焦/千克。此情景下2036年为${wan(z.mt * 1e6)}吨，热值${z.cv.toFixed(1)}兆焦/千克，合计${z.pj.toFixed(0)}拍焦。`));
 }
 ```
 
@@ -380,7 +382,7 @@ Plot.plot({
   width: PW,
   height: 280, marginLeft: 50,
   x: {label: T(`Gate fee, 2027 A$/t (supply at ${siteInfo[site].short} in ${cod})`, `处理费，2027年澳元/吨（${cod}年运至${siteInfo[site].short}的供应量）`)},
-  y: {label: T("Waste customers would send (kt/yr)", "客户愿送垃圾量（千吨/年）"), grid: true, transform: d => d / 1e3},
+  y: {label: T("Waste customers would send (kt/yr)", "客户愿送垃圾量（万吨/年）"), grid: true, transform: d => d / tDiv},
   color: {legend: true, domain: ["council", "ci"], range: [C.base, "#86b6ef"], tickFormat: d => d === "council" ? T("Council kerbside", "市政路边垃圾") : T("Commercial (C&I, Melbourne area)", "工商业垃圾（墨尔本地区）")},
   marks: [
     Plot.areaY(supplyCurve, {x: "gf", y: "t", fill: "type", curve: "step-after", fillOpacity: 0.9}),
@@ -456,7 +458,7 @@ Plot.plot({
   width: PW,
   height: 280, marginLeft: 50,
   x: {label: null, tickFormat: d => String(d)},
-  y: {label: T("kt per year", "千吨/年"), grid: true, transform: d => d / 1e3, domain: [0, Math.min(Math.max(capacity, licShown) * 1.8, Math.max(capacity, licShown, d3.max(ops, d => d.supply)) * 1.1) / 1e3]},
+  y: {label: T("kt per year", "万吨/年"), grid: true, transform: d => d / tDiv, domain: [0, Math.min(Math.max(capacity, licShown) * 1.8, Math.max(capacity, licShown, d3.max(ops, d => d.supply)) * 1.1) / tDiv]},
   clip: true,
   marks: [
     Plot.areaY(ops, {x: "year", y: "tonnes", fill: C.base, fillOpacity: 0.25}),
@@ -603,9 +605,9 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
   const up = fin.irrE !== null && noDebt.irrE !== null && fin.irrE > noDebt.irrE;
   return rich(T(
     `<b>Depreciation.</b> Tax depreciation of A$${fmtM(capex)}m saves A$${fmtM(fin.depPV)}m of tax in present value (counting only years the project is profitable enough to use it). The old rule (all capex straight line over 25 years) would give a project NPV of A$${fmtM(sl.npvU)}m, against A$${fmtM(fin.npvU)}m now. ` +
-    `<b>Debt.</b> ${debtShare > 0 ? `Borrowing ${(debtShare*100).toFixed(0)}% of capex at ${(debtRate*100).toFixed(2)}% adds <b>A$${fmtM(fin.apv - fin.npvU)}m</b> of value (APV A$${fmtM(fin.apv)}m vs NPV A$${fmtM(fin.npvU)}m): interest saves tax, less fees. ${thinCapMode === "frt" ? `The 30% thin-cap limit holds back A$${fmtM(denied)}m of interest deductions in total, which are carried forward or lapse. ` : ""}${lossYrs ? `In ${lossYrs} operating year${lossYrs > 1 ? "s" : ""} the project pays no tax, so the shield waits until profits arrive. ` : ""}Equity IRR moves from ${pc(noDebt.irrE)} to ${pc(fin.irrE)}. ${up ? "Most of that rise is leverage (more risk for shareholders), not extra value; the value added is the APV difference." : `It falls because the project earns only ${pc(fin.irrU)} before financing, barely above the after-tax cost of debt (${pc(debtRate * (1 - taxRate))}), and fees and delayed deductions take the rest. Debt raises the equity return only when the project out-earns its debt.`}` : `Move the debt slider to see the interest tax shield and the equity return.`}`,
+    `<b>Debt.</b> ${debtShare > 0 ? `Borrowing ${(debtShare*100).toFixed(0)}% of capex at ${(debtRate*100).toFixed(2)}% adds <b>A$${fmtM(fin.apv - fin.npvU)}m</b> of value (APV A$${fmtM(fin.apv)}m vs NPV A$${fmtM(fin.npvU)}m): interest saves tax, less fees. ${thinCapMode === "frt" && denied >= 5e5 ? `The 30% thin-cap limit holds back A$${fmtM(denied)}m of interest deductions in total, which are carried forward or lapse. ` : ""}${lossYrs ? `In ${lossYrs} operating year${lossYrs > 1 ? "s" : ""} the project pays no tax, so the shield waits until profits arrive. ` : ""}Equity IRR moves from ${pc(noDebt.irrE)} to ${pc(fin.irrE)}. ${up ? "Most of that rise is leverage (more risk for shareholders), not extra value; the value added is the APV difference." : `It falls because the project earns only ${pc(fin.irrU)} before financing, barely above the after-tax cost of debt (${pc(debtRate * (1 - taxRate))}), and fees and delayed deductions take the rest. Debt raises the equity return only when the project out-earns its debt.`}` : `Move the debt slider to see the interest tax shield and the equity return.`}`,
     `<b>折旧：</b>${wan(capex)}澳元投资的税务折旧节省所得税现值${wan(fin.depPV)}澳元（仅计项目盈利、可实际抵扣的年份）。若按旧口径（全部投资25年直线折旧），项目净现值为${wan(sl.npvU)}澳元，现为${wan(fin.npvU)}澳元。` +
-    `<b>债务：</b>${debtShare > 0 ? `以${(debtRate*100).toFixed(2)}%利率借入投资的${(debtShare*100).toFixed(0)}%，增加价值<b>${wan(fin.apv - fin.npvU)}澳元</b>（调整现值APV ${wan(fin.apv)}澳元 vs 净现值${wan(fin.npvU)}澳元）：利息抵税，扣除融资费用。${thinCapMode === "frt" ? `30%资本弱化上限累计限制利息抵扣${wan(denied)}澳元（结转或失效）。` : ""}${lossYrs ? `有${lossYrs}个运营年度项目无需纳税，税盾须待盈利后才能实现。` : ""}股东内部收益率由${pc(noDebt.irrE)}变为${pc(fin.irrE)}。${up ? "上升主要来自杠杆（股东承担更多风险），而非新增价值；新增价值即APV差额。" : `下降是因为项目融资前收益率仅${pc(fin.irrU)}，仅略高于税后债务成本（${pc(debtRate * (1 - taxRate))}），加上融资费用和抵扣延后。只有项目收益高于债务成本时，债务才会提高股东回报。`}` : `移动债务滑块可查看利息税盾和股东回报。`}`));
+    `<b>债务：</b>${debtShare > 0 ? `以${(debtRate*100).toFixed(2)}%利率借入投资的${(debtShare*100).toFixed(0)}%，增加价值<b>${wan(fin.apv - fin.npvU)}澳元</b>（调整现值APV ${wan(fin.apv)}澳元 vs 净现值${wan(fin.npvU)}澳元）：利息抵税，扣除融资费用。${thinCapMode === "frt" && denied >= 5e5 ? `30%资本弱化上限累计限制利息抵扣${wan(denied)}澳元（结转或失效）。` : ""}${lossYrs ? `有${lossYrs}个运营年度项目无需纳税，税盾须待盈利后才能实现。` : ""}股东内部收益率由${pc(noDebt.irrE)}变为${pc(fin.irrE)}。${up ? "上升主要来自杠杆（股东承担更多风险），而非新增价值；新增价值即APV差额。" : `下降是因为项目融资前收益率仅${pc(fin.irrU)}，仅略高于税后债务成本（${pc(debtRate * (1 - taxRate))}），加上融资费用和抵扣延后。只有项目收益高于债务成本时，债务才会提高股东回报。`}` : `移动债务滑块可查看利息税盾和股东回报。`}`));
 }
 ```
 

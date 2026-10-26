@@ -34,7 +34,7 @@ website:
       - text: "A · Business models · 商业模式"
         menu:
           - href: part-a/overview.qmd
-            text: "Part A: Business models · 第一部分：商业模式"
+            text: "Part A: Business models · A部分：商业模式"
           - href: part-a/wte.qmd
             text: "Waste-to-energy · 垃圾焚烧发电"
           - href: part-a/sludge-water.qmd
@@ -48,7 +48,7 @@ website:
       - text: "B · Compliance · 合规"
         menu:
           - href: part-b/overview.qmd
-            text: "Part B: Compliance · 第二部分：合规"
+            text: "Part B: Compliance · B部分：合规"
           - href: part-b/pathways.qmd
             text: "Approval pathways · 审批路径"
           - href: part-b/shortcuts.qmd
@@ -68,7 +68,7 @@ website:
           - href: models/om-contract.qmd
             text: "O&M contract model · 委托运营模型"
           - href: models/meter-distributor.qmd
-            text: "Meter distributor model · 水表代理模型"
+            text: "Smart water meter profit model · 智能水表盈利模型"
       - text: "Appendix · 附录"
         menu:
           - href: appendix/sources.qmd

@@ -93,7 +93,7 @@ PW = mode === "dev" ? 640 : Math.max(640, width)
 C = ({base: "#2a78d6", optimal: "#1baf7a", recession: "#eb6834", ink: "#52514e", grey: "#b5b3ab"})
 // Chinese uses 万 and 亿 (groups of four digits) instead of k and m
 fmtA = x => {
-  const s = x < 0 ? "−" : "", a = Math.abs(x);
+  const s = x <= -0.5 ? "−" : "", a = Math.abs(x);
   if (lang === "zh") return a >= 1e8 ? `${s}${(a/1e8).toFixed(2)}亿澳元` : a >= 1e6 ? `${s}${(a/1e4).toFixed(0)}万澳元` : a >= 1e4 ? `${s}${(a/1e4).toFixed(1)}万澳元` : `${s}${d3.format(",.0f")(a)}澳元`;
   return a >= 1e6 ? `${s}A$${(a/1e6).toFixed(1)}m` : a >= 1e3 ? `${s}A$${(a/1e3).toFixed(0)}k` : `${s}A$${a.toFixed(0)}`;
 }

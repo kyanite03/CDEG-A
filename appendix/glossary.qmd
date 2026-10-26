@@ -16,8 +16,9 @@ title: "[Glossary]{.en}[术语表]{.zh}"
 | Operation and maintenance (O&M) | 运营管理 | Running a plant for its owner under contract |
 | Gate fee / tipping fee | 进场处理费 / 垃圾处理费 | Fee per tonne of waste received ("gate fee" in Australia, "tipping fee" in China) |
 | Lower heating value (LHV) | 低位热值 | Usable heat per kilogram of waste |
-| CEMS | 在线监测 | Continuous stack emissions monitoring |
+| CEMS | 烟气在线监测系统 | Continuous stack emissions monitoring |
 | FOGO | 食物和园林有机垃圾分类 | Food organics and garden organics kerbside collection |
+| Red-bin garbage | 红桶垃圾 | Household general waste from the red-lid kerbside bin; the feedstock for WtE |
 | TEEP test | 技术、环境、经济可行性测试 | Proof that commercial waste cannot practicably be recycled before it is burnt |
 | Pattern approval | 计量型式批准 | NMI approval for a meter type used in trade |
 | BOT / BOO | 建设-运营-移交 / 建设-拥有-运营 | Concession models used in China |
@@ -39,8 +40,9 @@ title: "[Glossary]{.en}[术语表]{.zh}"
 | 运营管理 | Operation and maintenance (O&M) | 根据合同为业主运营电厂 |
 | 进场处理费 / 垃圾处理费 | Gate fee / tipping fee | 每吨垃圾的接收费用（澳洲称gate fee，中国称垃圾处理费） |
 | 低位热值 | Lower heating value (LHV) | 每千克垃圾的可用热量 |
-| 在线监测 | CEMS | 烟囱排放连续监测系统 |
+| 烟气在线监测系统 | CEMS | 烟囱排放连续监测系统 |
 | 食物和园林有机垃圾分类 | FOGO | 厨余与园林有机垃圾的路边分类收集 |
+| 红桶垃圾 | Red-bin garbage | 澳洲家庭一般垃圾（红盖路边垃圾桶），即焚烧发电的原料 |
 | 技术、环境、经济可行性测试 | TEEP test | 证明工商业垃圾在焚烧前无法合理回收 |
 | 计量型式批准 | Pattern approval | NMI对用于贸易结算的水表型号的批准 |
 | 建设-运营-移交 / 建设-拥有-运营 | BOT / BOO | 中国采用的特许经营模式 |

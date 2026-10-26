@@ -23,7 +23,7 @@ Which councils would send their red-bin waste to our plant? Pick a site and a ga
 :::
 
 ::: {.zh .simple-only}
-哪些市政会把红桶垃圾送到我方工厂？选择厂址和处理费。**蓝色**市政会转向我方，**黄色**为观望中，**灰色**仍选择填埋。价格为2026–27年度澳元/吨，不含GST。
+哪些市政会把红桶垃圾（家庭一般垃圾，澳洲用红盖路边桶收集）送到我方工厂？选择厂址和处理费。**蓝色**市政会转向我方，**黄色**为观望中，**灰色**仍选择填埋。价格为2026–27年度澳元/吨，不含GST。
 
 [默认值为基于公开资料的估算，仅供参考。可输入自己的数据：输入内容不会被保存或发送到任何地方。]{.model-caveat}
 :::
@@ -112,7 +112,7 @@ STATUS = ["win", "fence", "lose", "nodata"]
 statusColor = ({win: "#2a78d6", fence: "#eda100", lose: "#c9c7c0", nodata: "#f1f0ec"})
 fmt = v => Number.isFinite(v) ? T(`A$${v.toFixed(0)}`, `${v.toFixed(0)}澳元`) : "—"
 // Chinese figures use 万 and 亿 (groups of four digits) instead of k and m
-wan = x => { const s = x < 0 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
+wan = x => { const s = x <= -0.5 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
 // Tooltip units: English unchanged; Chinese uses 万 and Chinese units
 fmtT = v => Number.isFinite(v) ? T(`A$${v.toFixed(0)}/t`, `${v.toFixed(0)}澳元/吨`) : "—"
 perTs = x => T(`A$${x}/t`, `${x}澳元/吨`)
@@ -474,13 +474,15 @@ html`<div class="kpi-row">
 //| echo: false
 {
   const cell = (v, d = 0) => Number.isFinite(v) ? v.toFixed(d) : "—";
+  // Tonnes: kt in English, 万吨 in Chinese
+  const tc = v => Number.isFinite(v) ? (lang === "zh" ? (v / 1e4).toFixed(1) : (v / 1e3).toFixed(0)) : "—";
   const flagTxt = {ok: T("no precinct rule", "无区域限制"), blocked: T("not permitted (NSW EfW precincts)", "不许可（新州指定区域）"), caution: T("land not confirmed", "用地未确定")};
   const t = html`<table class="council-table site-compare"><thead><tr>
-    <th>${T("Site", "厂址")}</th><th>${T("Status", "状态")}</th><th class="num">${T("Councils won", "争取市政")}</th><th class="num">${T("Tonnes won (kt/yr)", "可得吨数（千吨/年）")}</th>
-    <th class="num">MJ/kg</th><th class="num">${T("On the fence (kt)", "观望（千吨）")}</th><th class="num">${T("Legal-risk kt", "法律风险千吨")}</th><th>${T("Won by mode (kt): road / rail / sea", "按方式（千吨）：公路/铁路/海运")}</th></tr></thead>
+    <th>${T("Site", "厂址")}</th><th>${T("Status", "状态")}</th><th class="num">${T("Councils won", "争取市政")}</th><th class="num">${T("Tonnes won (kt/yr)", "可得吨数（万吨/年）")}</th>
+    <th class="num">${T("MJ/kg", "兆焦/千克")}</th><th class="num">${T("On the fence (kt)", "观望（万吨）")}</th><th class="num">${T("Legal-risk kt", "法律风险（万吨）")}</th><th>${T("Won by mode (kt): road / rail / sea", "按方式（万吨）：公路/铁路/海运")}</th></tr></thead>
     <tbody>${allSites.map(({s, rows: r}) => { const k = summary(r); return html`<tr class=${s.id === site ? "sel" : ""}>
-      <td>${T(s.short, s.shortZh)}</td><td>${flagTxt[s.flag]}</td><td class="num">${k.won.length}</td><td class="num">${cell(k.wonT / 1e3)}</td><td class="num">${k.wonT ? cell(k.cv, 2) : "—"}</td>
-      <td class="num">${cell(k.fenceT / 1e3)}</td><td class="num">${cell(k.riskT / 1e3)}</td><td>${["road", "rail", "sea"].map(m => cell(k.byMode[m] / 1e3)).join(" / ")}</td></tr>`; })}</tbody></table>`;
+      <td>${T(s.short, s.shortZh)}</td><td>${flagTxt[s.flag]}</td><td class="num">${k.won.length}</td><td class="num">${tc(k.wonT)}</td><td class="num">${k.wonT ? cell(k.cv, 2) : "—"}</td>
+      <td class="num">${tc(k.fenceT)}</td><td class="num">${tc(k.riskT)}</td><td>${["road", "rail", "sea"].map(m => tc(k.byMode[m])).join(" / ")}</td></tr>`; })}</tbody></table>`;
   return html`<div><p class="kpi-note"><b>${T("All three sites at the current settings", "当前设置下三个厂址对比")}</b></p>${t}</div>`;
 }
 ```
@@ -537,7 +539,7 @@ $P_c$ 我方对市政 $c$ 的到厂价格 · $g$ 我方处理费 · $B_{c,k}$ �
   width: PW,
     height: 240, marginLeft: 50,
     x: {label: T("Gate fee (A$/t)", "处理费（澳元/吨）")},
-    y: {label: T(`Red-bin garbage to ${siteById.get(site).short} (kt/yr)`, `运至${siteById.get(site).shortZh}的红桶垃圾（千吨/年）`), grid: true},
+    y: {label: T(`Red-bin garbage to ${siteById.get(site).short} (kt/yr)`, `运至${siteById.get(site).shortZh}的红桶垃圾（万吨/年）`), grid: true, transform: d => lang === "zh" ? d / 10 : d},
     color: {domain: ["win", "fence"], range: [statusColor.win, statusColor.fence], legend: true, tickFormat: s => statusLabel[s]},
     marks: [
       Plot.areaY(curve, {x: "g", y: "kt", fill: "s", order: ["win", "fence"], curve: "step-after"}),
@@ -558,7 +560,7 @@ $P_c$ 我方对市政 $c$ 的到厂价格 · $g$ 我方处理费 · $B_{c,k}$ �
   return Plot.plot({
   width: PW,
     height: 240, marginLeft: 130, marginRight: 50,
-    x: {label: T("Red-bin garbage (kt/yr)", "红桶垃圾（千吨/年）"), grid: true},
+    x: {label: T("Red-bin garbage (kt/yr)", "红桶垃圾（万吨/年）"), grid: true, transform: d => lang === "zh" ? d / 10 : d},
     y: {label: null, domain: order.map(d => d.name)},
     color: {domain: ["win", "fence"], range: [statusColor.win, statusColor.fence]},
     marks: [

@@ -89,7 +89,7 @@ In China, local government makes the decisions.
 
 -   **Waste supply:** It grants a 25–30-year BOT or BOO concession, now generally up to 40 years \[20, 38\], and pays a tipping fee per tonne \[20, 39\].
 -   **Main revenue:** Electricity earns about two-thirds of revenue. The first 280 kWh per tonne earns a benchmark RMB 0.65/kWh, about RMB 182/t, and the rest earns the local coal-power price \[39, 40\]. The tipping fee, about RMB 100/t, provides the other third \[39\] \[Industry\]. Plants connected since September 2020 share this subsidy with local government, and the central share is being phased out \[41\].
--   **Emissions:** Since 2020, automatic monitoring data can be used as evidence of violations \[42\], and plants publish their data on a public MEE platform \[23\].
+-   **Emissions:** Since 2020, automatic monitoring data can be used as evidence of violations \[42\], and plants publish their data on the MEE's WtE plant monitoring disclosure platform \[23\].
 -   **Feedstock and siting:** CDEG's plants do no front-end sorting \[2\]. CDEG's rule of thumb is that a plant should generally be no more than about 50 km from the city it serves \[2\]. In Victoria that is a starting point, not a rule (3.1e).
 
 In Victoria, a private developer must win a cap licence, EPA development and operating licences, and planning approval \[43\] (2.3).
@@ -120,7 +120,7 @@ CDEG's own Lahore (Pakistan) and Uzbekistan projects stopped for policy reasons 
 
 -   **垃圾供应：** 地方政府授予25–30年的BOT或BOO特许经营权，目前一般可达40年 \[20, 38\]，并按吨支付垃圾处理费 \[20, 39\]。
 -   **主要收入：** 售电约占收入的三分之二。每吨垃圾前280千瓦时上网电量享受0.65元/千瓦时的标杆电价，约合182元/吨，其余电量按当地燃煤标杆电价结算 \[39, 40\]。垃圾处理费约100元/吨，占另外三分之一 \[39\] \[行业\]。2020年9月以后并网的项目，补贴由地方政府分担，中央补贴逐步退出 \[41\]。
--   **排放：** 自2020年起，自动监测数据可作为认定违法行为的证据 \[42\]，电厂在生态环境部公开平台发布数据 \[23\]。
+-   **排放：** 自2020年起，自动监测数据可作为认定违法行为的证据 \[42\]，电厂在生态环境部“生活垃圾焚烧发电厂自动监测数据公开平台”发布数据 \[23\]。
 -   **原料与选址：** 集团电厂不做前端分拣 \[2\]。集团的经验是，电厂一般不应距服务城市超过约50公里 \[2\]。在维州，这只是起点，而非规则（3.1e）。
 
 在维州，私营开发商必须取得配额许可、EPA开发许可和运营许可，以及规划批准 \[43\]（2.3）。
@@ -151,5 +151,5 @@ See [Part B: Approval pathways](../part-b/pathways.qmd).
 :::
 
 ::: {.zh}
-见[第二部分：审批路径](../part-b/pathways.qmd)。
+见[B部分：审批路径](../part-b/pathways.qmd)。
 :::

@@ -48,7 +48,7 @@ We have no interviews yet, so each persona is built from what the customer has p
 :::
 :::
 
-## [4.3 Persona: regional water corporation]{.en}[4.3 客户画像：地区水务公司]{.zh}
+## [4.3 Persona: regional water corporation]{.en}[4.3 客户画像：区域水务公司]{.zh}
 
 ::: {.en}
 ::: {.placeholder}

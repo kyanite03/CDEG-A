@@ -35,7 +35,7 @@ Neither stream needs a cap licence or equity. A pilot or service contract may st
 ::: tw
 | 垃圾流 | 2024–25年填埋量 | 买方 | 现有参与者 | 时间 | 集团提供什么 |
 |---|---|---|---|---|---|
-| 生物固体 | 16.7万吨 | Melbourne Water；地区水务公司 | TRILITY（Barwon干化设施，6万吨/年）\[60, 61\]；RMIT PYROCO热解 \[62\] | Melbourne Water可行性研究2026–31年；Barwon PPP约2032年到期 [待核实]{.verify} | 污泥干化与焚烧运营、技术服务 |
+| 生物固体 | 16.7万吨 | Melbourne Water；区域水务公司 | TRILITY（Barwon干化设施，6万吨/年）\[60, 61\]；RMIT PYROCO热解 \[62\] | Melbourne Water可行性研究2026–31年；Barwon PPP约2032年到期 [待核实]{.verify} | 污泥干化与焚烧运营、技术服务 |
 | 厨余有机垃圾 | 43.7万吨 | 市政；有机物处理企业（如Repurpose It，20万吨/年 \[63\]） | 全州80家有机物处理设施、8座厌氧消化设施 \[29\] | 2030年前所有家庭实行FOGO \[34\] | 去杂质和厌氧消化设备，以及试点 |
 :::
 

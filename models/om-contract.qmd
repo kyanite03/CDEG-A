@@ -58,7 +58,7 @@ C = ({base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890", dark: "
 fmtM = v => (v / 1e6).toFixed(1)
 kt = v => (v / 1e3).toFixed(0)
 // Chinese figures use 万 and 亿 (groups of four digits) instead of k and m
-wan = x => { const s = x < 0 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
+wan = x => { const s = x <= -0.5 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
 perT = (x, d = 0) => T(`A$${x.toFixed(d)}/t`, `${x.toFixed(d)}澳元/吨`)
 mA = v => T(`A$${fmtM(v)}m`, `${wan(v)}澳元`)
 aMd = (v, d) => T(`A$${(v / 1e6).toFixed(d)}m`, `${wan(v)}澳元`)
@@ -297,7 +297,7 @@ netMargin = fee > 0 ? profitT / fee : 0
 ```{ojs}
 //| echo: false
 html`<div class="kpi-row">
-  ${tile(T("O&M fee", "运营费"), perT(fee), T(`A$${feeRaw.toFixed(1)}/t before rounding to A$5`, `取整至5澳元前为${feeRaw.toFixed(1)}澳元/吨`), fee < rangeLow || fee > rangeHigh)}
+  ${tile(T("O&M fee", "运营费"), perT(fee), T(`A$${feeRaw.toFixed(1)}/t before rounding to A$5`, `取整前为${feeRaw.toFixed(1)}澳元/吨（按5澳元取整）`), fee < rangeLow || fee > rangeHigh)}
   ${tile(T("Margin per tonne", "每吨利润"), perT(profitT, 1), T(`${(netMargin * 100).toFixed(1)}% of the fee`, `占运营费${(netMargin * 100).toFixed(1)}%`), profitT <= 0)}
   ${tile(T("Against our range", "与我方区间对比"), fee < rangeLow ? T("Below", "低于") : fee > rangeHigh ? T("Above", "高于") : T("Inside", "区间内"), T(`A$${rangeLow}–${rangeHigh}/t`, `${rangeLow}–${rangeHigh}澳元/吨`), fee < rangeLow || fee > rangeHigh)}
 </div>`
@@ -313,7 +313,7 @@ $\phi$ O&M fee per tonne, rounded to the nearest A\$5 · $\mu$ margin.
 :::
 
 ::: {.zh .eq-defs}
-$\phi$ 每吨运营费，取整至5澳元 · $\mu$ 利润率。
+$\phi$ 每吨运营费，按5澳元取整 · $\mu$ 利润率。
 :::
 :::
 
@@ -324,7 +324,7 @@ Seven Victorian licences cover 2.35 Mt a year. Three large holders (Cleanaway 76
 :::
 
 ::: {.zh .dev-only}
-维州七张许可证合计每年235万吨。三家大型持证方（Cleanaway 76万吨、HiQ 75万吨、Melbourne Water 45万吨）尚未确定运营方。HiQ的炉排供应商Kanadevia Inova可随设备提供运营服务，因此HiQ可能不会招标。部分业主会自行运营电厂。
+维州七张许可证合计每年235万吨。三家大型持证方（Cleanaway 76万吨、HiQ 75万吨、Melbourne Water 45万吨）尚未公开运营方；其中HiQ的炉排供应商Kanadevia Inova可随设备提供运营服务，因此HiQ可能不会招标。部分业主会自行运营电厂。
 :::
 
 :::: {.columns .model-row}
@@ -534,7 +534,7 @@ Each chart's equation is shown under it. For the full method, data sources and l
 ::: {.zh .dev-only}
 - **运营方可控成本** =（单炉固定成本 × 炉数 + 厂区管理费用）÷ 年处理量 + 变动成本。年处理量 = 炉数 × 单炉规模 × 365 × 可用率。按默认值（3台500吨/日、可用率90%），每年1,800万澳元固定成本分摊到492,750吨，约37澳元/吨，加上30澳元/吨变动成本，合计约67澳元/吨 \[26\]。
 - **不计入**：预分拣（模型1中为15澳元/吨）、灰渣处置和药剂，假设由业主直接支付。
-- **运营费** = 运营方成本 ×（1 + 利润率），取整至5澳元。10–15%的利润率对应约74–77澳元/吨；默认12.5%取整为75澳元/吨 \[假设\]。
+- **运营费** = 运营方成本 ×（1 + 利润率），按5澳元取整。10–15%的利润率对应约74–77澳元/吨；默认12.5%取整为75澳元/吨 \[假设\]。
 - **基准**：温哥华都会区委托运营的焚烧厂运营成本约93–112加元/吨（约100–125澳元/吨），不含灰渣处置和偿债 \[74\] \[行业\]。该厂较老，因此位于我们60–110澳元/吨区间的上端。
 - **市场规模**采用2025年8月的许可量（合计235万吨），所有电厂均采用第2节的同一每吨运营费。
 - **合同**同样采用第1节电厂的每吨成本和运营费。两条线电厂或Melbourne Water电厂的每吨成本会略有不同，因为固定成本分摊到的吨数较少。
