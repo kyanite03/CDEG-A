@@ -33,4 +33,7 @@ report/*.pdf
 # DeepSeek review (local only)
 DEEPSEEK_REVIEW.md
 deepseek-review-findings.md
+DEEPSEEK_RESEARCH.md
+deepseek-research-findings.md
+CDEG-internal-review.md
 .deepcode/

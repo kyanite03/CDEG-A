@@ -10,6 +10,7 @@ include-in-header:
     <link rel="stylesheet" href="../assets/models.css">
     <script src="../assets/vendor/d3.min.js"></script>
     <script src="../assets/vendor/plot.umd.min.js"></script>
+    <script src="../assets/scenarios.js"></script>
     <script src="../assets/vendor/htl.min.js"></script>
     <script src="../assets/vendor/inputs.min.js"></script>
     <style>
@@ -74,7 +75,7 @@ registerFailed = !registerRes.ok
 A = Object.fromEntries(registerRes.a.map(d => [d.id, d]))
 REF = Object.fromEntries(registerRes.s.map(d => [d.id, d.ref]))
 // Fallback defaults (same values as data/assumptions.csv) so a missing row cannot blank the page
-DEFAULTS = ({m_adapt_months: 6, m_bdpre: 150000, m_connections: 10, m_discount: 0.055, m_dist: 0.15, m_duty: 0, m_exworks: 400, m_factory: 0.25, m_freight: 2.5, m_fx: 4.7, m_inv_months: 3, m_life: 12, m_newconn: 0.016, m_nmi: 40000, m_open: 0.5, m_overhead_direct: 650000, m_overhead_dist: 200000, m_pilot: 1000, m_price: 135, m_qa: 3, m_ramp: 3, m_recstart: 2029, m_rnd: 150000, m_share: 0.05, m_tender_months: 6, m_warranty: 0.03, m_watermark: 25000, nmi_test_cn: 200000, tax_rate: 0.3})
+DEFAULTS = ({m_adapt_months: 6, m_bdpre: 150000, m_connections: 10, m_discount: 0.055, m_dist: 0.15, m_duty: 0, m_exworks: 400, m_factory: 0.25, m_cn_tax: 0.25, m_bom_mat: 220, m_bom_lab: 40, m_bom_oh: 40, m_freight: 0.6, m_fx: 4.7, m_inv_months: 3, m_life: 12, m_newconn: 0.016, m_nmi: 40000, m_open: 0.5, m_overhead_direct: 650000, m_overhead_dist: 200000, m_pilot: 1000, m_price: 135, m_qa: 3, m_ramp: 3, m_recstart: 2029, m_rnd: 150000, m_share: 0.05, m_tender_months: 6, m_warranty: 0.03, m_watermark: 25000, nmi_test_cn: 200000, tax_rate: 0.3})
 num = x => typeof x === "number" && Number.isFinite(x)
 missingIds = Object.keys(DEFAULTS).filter(id => !num(A[id]?.value)).map(id => A[id] && A[id].value != null ? `${id} (invalid)` : id)
 // The CSV wins; DEFAULTS are used only when a row is missing or its value is not a finite number
@@ -143,6 +144,113 @@ viewof mode = {
   }</span></div>`;
 }
 ```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Every input on the page, for saving and loading scenarios (re-registered whenever an input is rebuilt)
+scenarioInputs = CDEGScenarios.register("meter-distributor", {ownBom: viewof ownBom, bomMat: viewof bomMat, bomLab: viewof bomLab, bomOh: viewof bomOh, scen: viewof scen, recStart: viewof recStart, connections: viewof connections, life: viewof life, newConn: viewof newConn, openShare: viewof openShare, nmiAccepts: viewof nmiAccepts, adaptMonths: viewof adaptMonths, rnd: viewof rnd, nmiCost: viewof nmiCost, wmCost: viewof wmCost, tenderMonths: viewof tenderMonths, pilotUnits: viewof pilotUnits, bdPre: viewof bdPre, route: viewof route, price: viewof price, exRMB: viewof exRMB, groupView: viewof groupView, fx: viewof fx, freight: viewof freight, duty: viewof duty, qa: viewof qa, warranty: viewof warranty, distMargin: viewof distMargin, factoryMarginIn: viewof factoryMarginIn, cnTax: viewof cnTax, shareMax: viewof shareMax, ramp: viewof ramp, overhead: viewof overhead, invMonths: viewof invMonths, discount: viewof discount})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Current results for the CSV download; kept on window so the scenario bar is not rebuilt when results change
+window.__cdegResults = () => CDEGScenarios.downloadCSV("cdeg-meter-distributor-results.csv", rows, [
+    ["Year / 年份", d => d.year],
+    ["Scenario / 情景", d => d.scenario],
+    ["Meters sold / 销量", d => d.units],
+    ["Revenue A$ / 收入", d => d.revenue],
+    ["Landed cost, QA, warranty A$ / 到岸成本、质检、质保", d => -d.cogs],
+    ["Distributor margin A$ / 代理商利润", d => -d.distCost],
+    ["Overhead and bids A$ / 固定费用与投标", d => -d.fixed],
+    ["Approvals, R&D, pilot A$ / 审批、研发、试点", d => -(d.once + d.pilot)],
+    ["EBIT A$ / 息税前利润", d => d.ebit],
+    ["Tax and stock build A$ / 税费与备货", d => -(d.tax + d.dInv)],
+    ["Cash A$ / 现金流", d => d.cash],
+    ["Factory margin after China tax A$ / 工厂税后利润", d => d.factory],
+    ["Cumulative A$ / 累计", d => d.cumulative]
+  ])
+```
+
+```{ojs}
+//| echo: false
+scenarioBar = {
+  const page = "meter-distributor";
+  const name = html`<input type="text" placeholder="Name · 名称">`;
+  const sel = html`<select></select>`;
+  const msg = html`<span class="scen-msg"></span>`;
+  const refresh = () => sel.replaceChildren(...CDEGScenarios.list(page).map(n => html`<option>${n}</option>`));
+  const btn = (en, zh, fn) => { const b = html`<button type="button">${L(en, zh)}</button>`; b.onclick = fn; return b; };
+  const file = html`<input type="file" accept=".json,application/json" hidden>`;
+  file.onchange = async () => {
+    try { await CDEGScenarios.importFile(page, file.files[0]); refresh(); msg.textContent = "✓"; } catch (e) { msg.textContent = e.message; }
+    file.value = "";
+  };
+  refresh();
+  return html`<details class="scen-bar"><summary>${L("Scenarios: save, load, export", "情景：保存、载入、导出")}</summary>
+    <div class="scen-row">${name}${btn("Save current inputs", "保存当前参数", () => { const n = name.value.trim() || new Date().toISOString().slice(0, 16).replace("T", " "); CDEGScenarios.save(page, n); refresh(); sel.value = n; msg.textContent = "✓"; })}</div>
+    <div class="scen-row">${sel}${btn("Load", "载入", () => sel.value && CDEGScenarios.load(page, sel.value))}${btn("Delete", "删除", () => { if (sel.value) { CDEGScenarios.remove(page, sel.value); refresh(); } })}</div>
+    <div class="scen-row">${btn("Export to file", "导出到文件", () => CDEGScenarios.exportFile(page))}${btn("Import file", "导入文件", () => file.click())}${file}${btn("Download results (CSV)", "下载结果（CSV）", () => window.__cdegResults && window.__cdegResults())}${msg}</div>
+    <p class="scen-note">${L("Saved only in this browser, or in files you export. Nothing is sent anywhere. Exported files open on any computer with this page.", "仅保存在本浏览器或您导出的文件中，不会发送到任何地方。导出的文件可在任何电脑上用本页面导入。")}</p></details>`;
+}
+```
+
+::: {.own-data}
+
+<p class="own-title"><span class="en">CDEG's own factory cost</span><span class="zh">集团自己的工厂成本</span></p>
+
+```{ojs}
+//| echo: false
+//| output: false
+// CDEG's own bill of materials for the Australian-spec meter. Kept in this browser only.
+ownKey = "cdeg-own-meter"
+ownSaved = { try { return JSON.parse(window.localStorage.getItem(ownKey)) || {}; } catch (e) { return {}; } }
+ov = (k, id) => num(ownSaved[k]) ? ownSaved[k] : v(id)
+```
+
+```{ojs}
+//| echo: false
+viewof ownBom = Inputs.toggle({value: ownSaved.on === true, label: L("Use CDEG's own factory cost", "使用集团自己的工厂成本")})
+```
+
+::: {.own-fields}
+```{ojs}
+//| echo: false
+viewof bomMat = Inputs.range([0, 600], {value: ov("mat", "m_bom_mat"), step: 5, label: lab("m_bom_mat", "Materials per meter (RMB)", "每只材料成本（元）")})
+viewof bomLab = Inputs.range([0, 200], {value: ov("lab", "m_bom_lab"), step: 1, label: lab("m_bom_lab", "Direct labour per meter (RMB)", "每只直接人工（元）")})
+viewof bomOh = Inputs.range([0, 200], {value: ov("oh", "m_bom_oh"), step: 1, label: lab("m_bom_oh", "Manufacturing overhead per meter (RMB)", "每只制造费用（元）")})
+```
+:::
+
+```{ojs}
+//| echo: false
+bom = bomMat + bomLab + bomOh
+{
+  document.body.classList.toggle("own-on", ownBom);
+  try { window.localStorage.setItem(ownKey, JSON.stringify({on: ownBom, mat: bomMat, lab: bomLab, oh: bomOh})); } catch (e) {}
+  const clear = html`<button type="button">${L("Clear my figures", "清除我的数据")}</button>`;
+  clear.onclick = () => { try { window.localStorage.removeItem(ownKey); } catch (e) {} location.reload(); };
+  const m = (exRMB - bom) / exRMB;
+  return ownBom
+    ? html`<p class="own-result">${L(`Factory cost RMB ${bom} a meter. At the ex-works price of RMB ${exRMB} (section 3) the factory margin is`, `每只工厂成本${bom}元。按出厂价${exRMB}元（第3节）计，工厂利润率为`)} <b>${pct(m)}</b>${L(` (benchmark ${pct(v("m_factory"))}). This replaces the factory-margin slider and counts in the group view.`, `（基准${pct(v("m_factory"))}），并取代工厂利润率滑块，计入集团视角。`)}${clear}</p>
+       ${m < 0 ? html`<p class="own-note" style="color:#b4471b">${L("The factory cost is above the ex-works price, so the factory loses money on each meter.", "工厂成本高于出厂价，工厂每只水表亏损。")}</p>` : ""}`
+    : html`<p class="own-note">${L("Switch on to enter CDEG's own bill of materials for the Australian-spec meter; the factory margin is then worked out from it and the ex-works price. Your figures stay in this browser (and in any file you export below) and are never sent anywhere.", "开启后可输入集团澳洲规格水表的物料清单，工厂利润率将按其与出厂价计算。您的数据只保存在本浏览器（以及您在下方导出的文件）中，不会发送到任何地方。")}</p>`;
+}
+```
+:::
+
+```{ojs}
+//| echo: false
+//| output: false
+// Factory margin used by the model: from CDEG's own cost when switched on, otherwise the slider (greyed out while replaced)
+factoryMargin = ownBom ? (exRMB - bom) / exRMB : factoryMarginIn
+{
+  viewof factoryMarginIn.classList.toggle("own-replaced", ownBom);
+  viewof factoryMarginIn.querySelectorAll("input").forEach(i => { i.disabled = ownBom; });
+}
+```
+
 
 ## [1 · The market: how many meters Australia buys each year]{.en}[1 · 市场：澳洲每年采购多少只水表]{.zh}
 
@@ -330,11 +438,11 @@ $t_{\text{sale}}$ 首个商业订单时间 · $m_a$ 适配及国内检测（月�
 ## [3 · What each meter earns]{.en}[3 · 每只水表的利润]{.zh}
 
 ::: {.en .dev-only}
-Huizhong's 2023 NSW contract works out to about A\$150 a meter, and that price already includes Avnet's margin, so CDEG must be able to sell below it. The bar shows where each dollar of the utility's price goes. The **contribution** is what is left per meter to pay for overheads and approvals. Turn on the group view to add the factory's own margin on the ex-works price, which stays with CDEG in China.
+Huizhong's 2024 NSW contract works out to about A\$150 a meter, and that price already includes Avnet's margin, so CDEG must be able to sell below it. The bar shows where each dollar of the utility's price goes. The **contribution** is what is left per meter to pay for overheads and approvals. Turn on the group view to add the factory's own margin on the ex-works price, which stays with CDEG in China.
 :::
 
 ::: {.zh .dev-only}
-汇中2023年新州合同折合每只约150澳元，且已包含Avnet的代理利润，因此集团的售价必须低于这一水平。下图显示水务公司支付的每一澳元的去向。**边际贡献**是每只水表扣除可变成本后用于覆盖固定费用和审批费用的部分。开启集团视角后，会加上工厂出厂价中的利润，这部分留在国内归集团所有。
+汇中2024年新州合同折合每只约150澳元，且已包含Avnet的代理利润，因此集团的售价必须低于这一水平。下图显示水务公司支付的每一澳元的去向。**边际贡献**是每只水表扣除可变成本后用于覆盖固定费用和审批费用的部分。开启集团视角后，会加上工厂出厂价中的利润，这部分留在国内归集团所有。
 :::
 
 ::::: {.columns .model-row}
@@ -347,12 +455,13 @@ viewof price = Inputs.range([90, 180], {value: v("m_price"), step: 1, label: lab
 viewof exRMB = Inputs.range([250, 650], {value: v("m_exworks"), step: 10, label: lab("m_exworks", "Ex-works price, AU spec (RMB)", "出厂价，澳洲规格（元）")})
 viewof groupView = Inputs.toggle({value: false, label: L("Group view: add factory margin", "集团视角：计入工厂利润")})
 viewof fx = adv(Inputs.range([4.2, 5.2], {value: v("m_fx"), step: 0.05, label: lab("m_fx", "Exchange rate (RMB per A$)", "汇率（人民币/澳元）")}))
-viewof freight = adv(Inputs.range([1, 6], {value: v("m_freight"), step: 0.5, label: lab("m_freight", "Freight to warehouse per meter (A$)", "运至仓库（每只，澳元）")}))
+viewof freight = adv(Inputs.range([0.2, 3], {value: v("m_freight"), step: 0.1, label: lab("m_freight", "Freight to warehouse per meter (A$)", "运至仓库（每只，澳元）")}))
 viewof duty = adv(Inputs.range([0, 0.05], {value: v("m_duty"), step: 0.01, label: lab("m_duty", "Import duty", "进口关税")}))
 viewof qa = adv(Inputs.range([0, 8], {value: v("m_qa"), step: 0.5, label: lab("m_qa", "Verification + QA per meter (A$)", "检定与质检（每只，澳元）")}))
 viewof warranty = adv(Inputs.range([0, 0.08], {value: v("m_warranty"), step: 0.005, label: lab("m_warranty", "Warranty (share of price)", "质保（占售价）")}))
 viewof distMargin = adv(Inputs.range([0, 0.3], {value: route === "dist" ? v("m_dist") : 0, step: 0.01, label: lab("m_dist", "Distributor margin (share of price)", "代理利润率（占售价）")}))
-viewof factoryMargin = adv(Inputs.range([0, 0.4], {value: v("m_factory"), step: 0.01, label: lab("m_factory", "Factory gross margin", "工厂毛利率")}))
+viewof factoryMarginIn = adv(Inputs.range([0, 0.4], {value: v("m_factory"), step: 0.01, label: lab("m_factory", "Factory margin (operating)", "工厂利润率（经营口径）")}))
+viewof cnTax = adv(Inputs.range([0, 0.25], {value: v("m_cn_tax"), step: 0.01, label: lab("m_cn_tax", "China tax on factory profit", "工厂利润在国内的所得税")}))
 ```
 ::::
 :::: {.column width="60%"}
@@ -367,14 +476,14 @@ unit = (fxMult = 1, priceMult = 1) => {
   };
   const landed = ex + parts.duty + freight;
   const contrib = p - Object.values(parts).reduce((s, x) => s + x, 0);
-  return {p, ex, landed, parts, contrib, factory: ex * factoryMargin};
+  return {p, ex, landed, parts, contrib, factory: ex * factoryMargin * (1 - cnTax)};
 }
 u = unit()
 contribShown = u.contrib + (groupView ? u.factory : 0)
 wf = [
   {k: T("Distributor", "代理商"), v: u.parts.dist, c: C.grey},
   {k: T("Ex-works (factory)", "出厂价（工厂）"), v: u.ex - (groupView ? u.factory : 0), c: C.ink},
-  ...(groupView ? [{k: T("Factory margin (CDEG)", "工厂利润（集团）"), v: u.factory, c: C.optimal}] : []),
+  ...(groupView ? [{k: T("Factory margin after China tax (CDEG)", "工厂税后利润（集团）"), v: u.factory, c: C.optimal}] : []),
   {k: T("Duty + freight + QA", "关税+运费+质检"), v: u.parts.duty + freight + qa, c: "#9a9890"},
   {k: T("Warranty", "质保"), v: u.parts.warranty, c: "#c9c7bf"},
   {k: T("Contribution (Australia)", "边际贡献（澳洲）"), v: u.contrib, c: u.contrib >= 0 ? C.base : C.recession}
@@ -405,7 +514,7 @@ html`<div class="map-legend">${wf.map(d => html`<span><span class="sw" style="ba
   ${tile(T("Landed cost per meter", "到岸成本（每只）"), T(`A$${u.landed.toFixed(0)}`, `${u.landed.toFixed(0)}澳元`), T(`RMB ${exRMB} ex-works = A$${u.ex.toFixed(0)}`, `出厂价${exRMB}元=${u.ex.toFixed(0)}澳元`))}
   ${tile(groupView ? T("Contribution per meter (group)", "每只边际贡献（集团）") : T("Contribution per meter", "每只边际贡献"), fmtA(contribShown), T(`${pct(contribShown / price)} of the utility price`, `占采购价${pct(contribShown / price)}`))}
   ${tile(T("Break-even volume", "盈亏平衡销量"), u.contrib > 0 ? `${fmtK(overhead / u.contrib)}${T(" /yr", "只/年")}` : "—", u.contrib > 0 ? T(`to cover ${fmtA(overhead)} a year of overhead`, `覆盖每年${fmtA(overhead)}固定费用`) : T("price is below variable cost", "售价低于可变成本"))}
-  ${tile(T("Room under Huizhong", "低于汇中的空间"), fmtA(150 - price), T("below ~A$150 per meter (NSW, 2023)", "低于每只约150澳元（新州，2023）"))}
+  ${tile(T("Room under Huizhong", "低于汇中的空间"), fmtA(150 - price), T("below ~A$150 per meter (NSW, 2024)", "低于每只约150澳元（新州，2024）"))}
 </div>`
 ```
 ::::
@@ -417,11 +526,11 @@ html`<div class="map-legend">${wf.map(d => html`<span><span class="sw" style="ba
 $$u = P - \frac{X}{FX}\,(1 + d) - f - q - w P - \delta P$$
 
 ::: {.en .eq-defs}
-$u$ contribution per meter · $P$ price to the utility · $X$ ex-works price (RMB) · $d$ import duty · $f$ freight · $q$ verification and QA · $w$ warranty share · $\delta$ distributor margin. The group view adds the factory's margin, $\mu_f X / FX$.
+$u$ contribution per meter · $P$ price to the utility · $X$ ex-works price (RMB) · $d$ import duty · $f$ freight · $q$ verification and QA · $w$ warranty share · $\delta$ distributor margin. The group view adds the factory's margin after Chinese tax, $(1 - \tau_c)\,\mu_f X / FX$, where $\mu_f$ is the factory margin and $\tau_c$ the Chinese tax rate.
 :::
 
 ::: {.zh .eq-defs}
-$u$ 每只水表边际贡献 · $P$ 对水务公司售价 · $X$ 出厂价（人民币） · $d$ 进口关税 · $f$ 运费 · $q$ 检定与质检 · $w$ 质保比例 · $\delta$ 代理利润率。集团视角另加工厂利润 $\mu_f X / FX$。
+$u$ 每只水表边际贡献 · $P$ 对水务公司售价 · $X$ 出厂价（人民币） · $d$ 进口关税 · $f$ 运费 · $q$ 检定与质检 · $w$ 质保比例 · $\delta$ 代理利润率。集团视角另加工厂税后利润 $(1 - \tau_c)\,\mu_f X / FX$，其中 $\mu_f$ 为工厂利润率，$\tau_c$ 为国内所得税率。
 :::
 :::
 
@@ -478,7 +587,7 @@ model = (s, pr = {}) => {
     const tax = Math.max(0, taxable) * taxRate;
     const inv = units * landed * invMonths / 12, dInv = inv - invPrev; invPrev = inv;
     const cash = ebit - tax - dInv;
-    const factory = units * ex * factoryMargin;
+    const factory = units * ex * factoryMargin * (1 - cnTax);   // factory profit after Chinese tax
     const df = Math.pow(1 + discount, -(y - 2027 + 0.5));
     cum += cash + (groupView ? factory : 0); dcum += (cash + (groupView ? factory : 0)) * df;
     return {scenario: s, year: y, open, units, revenue, cogs, distCost, fixed, pilot: pilotThisYear, once, ebit, tax, dInv, cash, factory, cumulative: cum, discounted: dcum, gm: revenue ? (revenue - cogs - distCost) / revenue : null};
@@ -556,7 +665,7 @@ ${[
   [T("Approvals, R&D, pilot", "审批、研发、试点"), d => fmtA(-(d.once + d.pilot))],
   [T("EBIT", "息税前利润"), d => fmtA(d.ebit)],
   [T("Tax and stock build", "税费与备货"), d => fmtA(-(d.tax + d.dInv))],
-  ...(groupView ? [[T("Factory margin (China)", "工厂利润（国内）"), d => fmtA(d.factory)]] : []),
+  ...(groupView ? [[T("Factory margin after China tax", "工厂税后利润（国内）"), d => fmtA(d.factory)]] : []),
   [T("Cumulative cash", "累计现金流"), d => fmtA(d.cumulative)]
 ].map(([k, f]) => html`<tr><td>${k}</td>${rows.map(d => html`<td class="num">${f(d)}</td>`)}</tr>`)}
 </tbody></table></div>`
@@ -573,7 +682,7 @@ advSpec = [
   [viewof connections, connections, v("m_connections")], [viewof life, life, v("m_life")], [viewof newConn, newConn, v("m_newconn")], [viewof openShare, openShare, v("m_open")],
   [viewof nmiCost, nmiCost, v("m_nmi")], [viewof wmCost, wmCost, v("m_watermark")], [viewof tenderMonths, tenderMonths, v("m_tender_months")], [viewof pilotUnits, pilotUnits, v("m_pilot")], [viewof bdPre, bdPre, v("m_bdpre")],
   [viewof fx, fx, v("m_fx")], [viewof freight, freight, v("m_freight")], [viewof duty, duty, v("m_duty")], [viewof qa, qa, v("m_qa")], [viewof warranty, warranty, v("m_warranty")],
-  [viewof distMargin, distMargin, route === "dist" ? v("m_dist") : 0], [viewof factoryMargin, factoryMargin, v("m_factory")],
+  [viewof distMargin, distMargin, route === "dist" ? v("m_dist") : 0], [viewof factoryMarginIn, factoryMarginIn, v("m_factory")], [viewof cnTax, cnTax, v("m_cn_tax")],
   [viewof overhead, overhead, route === "dist" ? v("m_overhead_dist") : v("m_overhead_direct")], [viewof invMonths, invMonths, v("m_inv_months")], [viewof discount, discount, v("m_discount")]
 ]
 advCount = advSpec.length
@@ -688,7 +797,7 @@ Each chart's equation is shown under it. For the full method, data sources and l
 - **Recession** lasts two years from the chosen start: new connections −30%, early upgrades paused, tender prices −5%, and the A\$ buys 12% less RMB. Replacement of worn meters continues, because utilities must keep meters accurate and their budgets are fixed in five-year price determinations. A recession mainly squeezes margin through the exchange rate, not volume.
 - **Costs**: landed cost = ex-works ÷ FX × (1 + duty) + freight. One-off costs fall in 2027. Pilot meters are given free in the approval year. Overhead starts at the first sale; before that, bid costs apply. Losses carry forward for tax. Stock in Australia ties up cash.
 - **Discount rate**: 5.5% real, which equals the WtE payback model's 8% nominal at 2.5% inflation, so the two models use the same hurdle.
-- **Not modelled**: installation (usually a separate contract), software and data-platform fees (a possible extra revenue line), large-diameter commercial meters, NZ, inflation (all figures are real 2027 A\$), and Chinese tax on the factory margin.
+- **Not modelled**: installation (usually a separate contract), software and data-platform fees (a possible extra revenue line), large-diameter commercial meters, NZ, and inflation (all figures are real 2027 A\$). The group view taxes the factory margin in China at the rate set (25%, or 15% for a certified high-tech enterprise) but leaves out transfer-pricing adjustments.
 - **Biggest unknowns**: Huijin's ex-works price for an Australian-spec meter, whether the battery meets utility specifications without redesign, and whether NMI accepts Chinese test results. CDEG can check all three itself.
 :::
 
@@ -698,6 +807,6 @@ Each chart's equation is shown under it. For the full method, data sources and l
 - **衰退**自所选年份起持续两年：新增用户−30%、提前升级暂停、招标价格−5%、澳元兑人民币贬值12%。磨损水表的更换不会停止，因为水务公司必须保证计量准确，且预算由五年水价核定锁定。衰退主要通过汇率压缩利润，而非减少销量。
 - **成本**：到岸成本=出厂价÷汇率×（1+关税）+运费。一次性费用计入2027年。试点水表在获批当年免费提供。固定费用自首单开始计算，此前计投标费用。亏损可结转抵税。在澳库存占用现金。
 - **折现率**：实际5.5%，在2.5%通胀下等于垃圾发电回收期模型的8%名义折现率，两个模型的门槛一致。
-- **未纳入**：安装（通常另行招标）、软件和数据平台服务费（可作为额外收入）、大口径商用水表、新西兰市场、通胀（所有金额为2027年不变价澳元）、工厂利润在国内的税负。
+- **未纳入**：安装（通常另行招标）、软件和数据平台服务费（可作为额外收入）、大口径商用水表、新西兰市场、通胀（所有金额为2027年不变价澳元）。集团视角按所设税率对工厂利润在国内征税（25%，经认定的高新技术企业为15%），但未考虑转让定价调整。
 - **最大不确定性**：汇锦澳洲规格水表的出厂价、电池是否无需重新设计即可满足水务公司要求、NMI是否采信国内检测结果。这三项均可由集团自行核实。
 :::

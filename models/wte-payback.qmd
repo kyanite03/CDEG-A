@@ -10,6 +10,7 @@ include-in-header:
     <link rel="stylesheet" href="../assets/models.css">
     <script src="../assets/vendor/d3.min.js"></script>
     <script src="../assets/vendor/plot.umd.min.js"></script>
+    <script src="../assets/scenarios.js"></script>
     <script src="../assets/vendor/htl.min.js"></script>
     <script src="../assets/vendor/inputs.min.js"></script>
 ---
@@ -156,6 +157,60 @@ viewof mode = {
 ```{ojs}
 //| echo: false
 //| output: false
+// Every input on the page, for saving and loading scenarios (re-registered whenever an input is rebuilt)
+scenarioInputs = CDEGScenarios.register("wte-payback", {site: viewof site, capMt: viewof capMt, partner: viewof partner, wasteScen: viewof wasteScen, gateFee: viewof gateFee, threshold: viewof threshold, levyScen: viewof levyScen, modes: viewof modes, lfGate: viewof lfGate, passThrough: viewof passThrough, rho11: viewof rho11, roadPerKm: viewof roadPerKm, roadFix: viewof roadFix, localKm: viewof localKm, railPerKm: viewof railPerKm, railFix: viewof railFix, liftExtra: viewof liftExtra, seaPerKm: viewof seaPerKm, bassRate: viewof bassRate, portFix: viewof portFix, tpd: viewof tpd, furnaces: viewof furnaces, capexSite: viewof capexSite, capexFurnace: viewof capexFurnace, availability: viewof availability, fixedFurnaceIn: viewof fixedFurnaceIn, fixedSite: viewof fixedSite, varOpexIn: viewof varOpexIn, sortCost: viewof sortCost, powerPrice: viewof powerPrice, discount: viewof discount, debtShare: viewof debtShare, debtRate: viewof debtRate, buildYears: viewof buildYears, effElec: viewof effElec, nonComb: viewof nonComb, ashShare: viewof ashShare, inflation: viewof inflation, depMethod: viewof depMethod, cwShare: viewof cwShare, tenor: viewof tenor, repay: viewof repay, feeRate: viewof feeRate, thinCapMode: viewof thinCapMode, ownOn: viewof ownOn, ownStaff: viewof ownStaff, ownMaint: viewof ownMaint, ownVar: viewof ownVar, auWage: viewof auWage, maintUplift: viewof maintUplift, varUplift: viewof varUplift, auOther: viewof auOther, ownFx: viewof ownFx})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Current results for the CSV download; kept on window so the scenario bar is not rebuilt when results change
+window.__cdegResults = () => CDEGScenarios.downloadCSV("cdeg-wte-payback-results.csv", rows, [
+    ["Year / 年份", d => d.year],
+    ["Phase / 阶段", d => d.building ? "construction" : "operation"],
+    ["Tonnes / 吨", d => d.tonnes ?? 0],
+    ["Gate fee A$/t / 处理费", d => d.fee ?? ""],
+    ["Revenue A$ / 收入", d => d.revenue],
+    ["Fixed cost A$ / 固定成本", d => d.fixed],
+    ["Variable cost A$ / 变动成本", d => d.variable],
+    ["EBITDA A$", d => d.ebitda],
+    ["Capex A$ / 建设投资", d => d.capexT],
+    ["Tax (no debt) A$ / 所得税（无债务）", d => d.taxU],
+    ["Project cash A$ / 项目现金流", d => d.cash],
+    ["Cumulative A$ / 累计", d => d.cumulative],
+    ["Discounted cumulative A$ / 折现累计", d => d.discounted],
+    ["Equity cash A$ / 股东现金流", d => d.eqCash],
+    ["Debt balance A$ / 未偿债务", d => d.bal],
+    ["DSCR", d => d.dscr ?? ""]
+  ])
+```
+
+```{ojs}
+//| echo: false
+scenarioBar = {
+  const page = "wte-payback";
+  const name = html`<input type="text" placeholder="Name · 名称">`;
+  const sel = html`<select></select>`;
+  const msg = html`<span class="scen-msg"></span>`;
+  const refresh = () => sel.replaceChildren(...CDEGScenarios.list(page).map(n => html`<option>${n}</option>`));
+  const btn = (en, zh, fn) => { const b = html`<button type="button">${L(en, zh)}</button>`; b.onclick = fn; return b; };
+  const file = html`<input type="file" accept=".json,application/json" hidden>`;
+  file.onchange = async () => {
+    try { await CDEGScenarios.importFile(page, file.files[0]); refresh(); msg.textContent = "✓"; } catch (e) { msg.textContent = e.message; }
+    file.value = "";
+  };
+  refresh();
+  return html`<details class="scen-bar"><summary>${L("Scenarios: save, load, export", "情景：保存、载入、导出")}</summary>
+    <div class="scen-row">${name}${btn("Save current inputs", "保存当前参数", () => { const n = name.value.trim() || new Date().toISOString().slice(0, 16).replace("T", " "); CDEGScenarios.save(page, n); refresh(); sel.value = n; msg.textContent = "✓"; })}</div>
+    <div class="scen-row">${sel}${btn("Load", "载入", () => sel.value && CDEGScenarios.load(page, sel.value))}${btn("Delete", "删除", () => { if (sel.value) { CDEGScenarios.remove(page, sel.value); refresh(); } })}</div>
+    <div class="scen-row">${btn("Export to file", "导出到文件", () => CDEGScenarios.exportFile(page))}${btn("Import file", "导入文件", () => file.click())}${file}${btn("Download results (CSV)", "下载结果（CSV）", () => window.__cdegResults && window.__cdegResults())}${msg}</div>
+    <p class="scen-note">${L("Saved only in this browser, or in files you export. Nothing is sent anywhere. Exported files open on any computer with this page.", "仅保存在本浏览器或您导出的文件中，不会发送到任何地方。导出的文件可在任何电脑上用本页面导入。")}</p></details>`;
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
 // ---------- Key-inputs vs developer mode bookkeeping ----------
 keyCount = 16
 // Advanced inputs (hidden in key-inputs mode; their values still count): [element, current value, default]
@@ -163,8 +218,8 @@ advSpec = [
   [viewof lfGate, lfGate, v("landfill_gate_metro")], [viewof passThrough, passThrough, v("w_passthrough")], 
   [viewof rho11, rho11, v("f_rho11")], [viewof roadPerKm, roadPerKm, v("f_road_km")], [viewof roadFix, roadFix, v("f_road_fix")], [viewof localKm, localKm, v("f_local_km")],
   [viewof railPerKm, railPerKm, v("f_rail_km")], [viewof railFix, railFix, v("f_rail_fix")], [viewof liftExtra, liftExtra, v("f_lift_extra")], [viewof seaPerKm, seaPerKm, v("f_sea_km")],
-  [viewof bassRate, bassRate, v("f_bass")], [viewof portFix, portFix, v("f_port_fix")], [viewof availability, availability, v("w_availability")], [viewof fixedFurnace, fixedFurnace, v("w_fixed_furnace")],
-  [viewof fixedSite, fixedSite, v("w_fixed_site")], [viewof varOpex, varOpex, v("w_var_opex")], [viewof sortCost, sortCost, v("w_sort_cost")], [viewof buildYears, buildYears, v("w_build_years")],
+  [viewof bassRate, bassRate, v("f_bass")], [viewof portFix, portFix, v("f_port_fix")], [viewof availability, availability, v("w_availability")], [viewof fixedFurnaceIn, fixedFurnaceIn, v("w_fixed_furnace")],
+  [viewof fixedSite, fixedSite, v("w_fixed_site")], [viewof varOpexIn, varOpexIn, v("w_var_opex")], [viewof sortCost, sortCost, v("w_sort_cost")], [viewof buildYears, buildYears, v("w_build_years")],
   [viewof effElec, effElec, v("w_eff_elec")], [viewof nonComb, nonComb, v("w_noncomb")], [viewof ashShare, ashShare, v("w_ash")], [viewof inflation, inflation, v("w_inflation")],
   [viewof depMethod, depMethod, "dv"], [viewof cwShare, cwShare, v("w_cw_share")],
   [viewof tenor, tenor, v("w_tenor")], [viewof repay, repay, "annuity"], [viewof feeRate, feeRate, v("w_fee_rate")], [viewof thinCapMode, thinCapMode, "frt"]
@@ -183,6 +238,71 @@ resetAdv = () => {
 freightRaw.length && councils.length ? document.createElement("span") : warnBox(T(
   `Data check: data/councils.csv and data/council_freight.csv must both be present and from the same build (run work/scripts/merge.py). Without council_freight.csv no council can be priced.`,
   `数据检查：data/councils.csv 与 data/council_freight.csv 必须同时存在且为同一版本（运行 work/scripts/merge.py）。缺少 council_freight.csv 时无法计算任何市政。`))
+```
+
+::: {.own-data}
+
+<p class="own-title"><span class="en">CDEG's own running costs</span><span class="zh">集团自己的运营成本</span></p>
+
+```{ojs}
+//| echo: false
+//| output: false
+// CDEG's own staffing and Chengdu costs, converted to an Australian plant. Kept in this browser only and shared by the WtE and O&M pages.
+ownKey = "cdeg-own-wte"
+ownSaved = { try { return JSON.parse(window.localStorage.getItem(ownKey)) || {}; } catch (e) { return {}; } }
+ov = (k, id) => num(ownSaved[k]) ? ownSaved[k] : v(id)
+```
+
+```{ojs}
+//| echo: false
+viewof ownOn = Inputs.toggle({value: ownSaved.on === true, label: L("Use CDEG's own costs", "使用集团自己的成本")})
+```
+
+::: {.own-fields}
+```{ojs}
+//| echo: false
+viewof ownStaff = Inputs.range([5, 80], {value: ov("staff", "w_own_staff"), step: 1, label: lab("w_own_staff", "Staff per furnace line (FTE)", "每条焚烧线人员（人）")})
+viewof ownMaint = Inputs.range([0, 30], {value: ov("maint", "w_own_maint"), step: 0.5, label: lab("w_own_maint", "Maintenance and spares per furnace (RMB m/yr)", "单炉维护与备件（百万元/年）")})
+viewof ownVar = Inputs.range([0, 300], {value: ov("var", "w_own_var"), step: 5, label: lab("w_own_var", "Consumables and other variable cost (RMB/t)", "耗材及其他变动成本（元/吨）")})
+viewof auWage = Inputs.range([80, 220], {value: ov("wage", "w_au_wage"), step: 5, label: lab("w_au_wage", "Australian all-in cost per employee (A$k/yr)", "澳洲人均全口径用工成本（千澳元/年）")})
+viewof maintUplift = Inputs.range([1, 2.5], {value: ov("maintUp", "w_maint_uplift"), step: 0.05, label: lab("w_maint_uplift", "Australia factor on maintenance and spares", "澳洲维护与备件成本系数")})
+viewof varUplift = Inputs.range([1, 3], {value: ov("varUp", "w_var_uplift"), step: 0.05, label: lab("w_var_uplift", "Australia factor on consumables", "澳洲耗材价格系数")})
+viewof auOther = Inputs.range([0, 3], {value: ov("other", "w_au_other"), step: 0.1, label: lab("w_au_other", "Australia-only fixed costs per furnace (A$m/yr)", "澳洲特有单炉固定成本（百万澳元/年）")})
+viewof ownFx = Inputs.range([4.2, 5.2], {value: ov("fx", "m_fx"), step: 0.05, label: lab("m_fx", "Exchange rate (RMB per A$)", "汇率（人民币/澳元）")})
+```
+:::
+
+```{ojs}
+//| echo: false
+// Australian equivalent of CDEG's figures; replaces the two benchmark sliders when switched on
+own = ({fixedFurnace: ownStaff * auWage / 1000 + ownMaint / ownFx * maintUplift + auOther, varOpex: ownVar / ownFx * varUplift})
+{
+  document.body.classList.toggle("own-on", ownOn);
+  try { window.localStorage.setItem(ownKey, JSON.stringify({on: ownOn, staff: ownStaff, maint: ownMaint, var: ownVar, wage: auWage, maintUp: maintUplift, varUp: varUplift, other: auOther, fx: ownFx})); } catch (e) {}
+  const clear = html`<button type="button">${L("Clear my figures", "清除我的数据")}</button>`;
+  clear.onclick = () => { try { window.localStorage.removeItem(ownKey); } catch (e) {} location.reload(); };
+  return ownOn
+    ? html`<p class="own-result">${L("Australian equivalent of your figures", "您的数据换算为澳洲成本")}: <b>${T(`A$${own.fixedFurnace.toFixed(1)}m`, `${wan(own.fixedFurnace * 1e6)}澳元`)}</b> ${L("fixed per furnace a year", "单炉年固定成本")} · <b>${perTs(own.varOpex.toFixed(0))}</b> ${L("variable", "变动成本")} ${L(`(benchmarks A$${v("w_fixed_furnace")}m and A$${v("w_var_opex")}/t). These replace the two benchmark sliders below.`, `（基准为${wan(v("w_fixed_furnace") * 1e6)}澳元和${v("w_var_opex")}澳元/吨），并取代下方两个基准滑块。`)}${clear}</p>
+       <p class="own-note">${L("Fixed = staff × Australian cost per employee + maintenance ÷ exchange rate × Australia factor + Australia-only costs. Variable = consumables ÷ exchange rate × Australia factor.", "固定成本 = 人员 × 澳洲人均用工成本 + 维护费 ÷ 汇率 × 澳洲系数 + 澳洲特有成本；变动成本 = 耗材 ÷ 汇率 × 澳洲系数。")}</p>`
+    : html`<p class="own-note">${L("Switch on to enter CDEG's own staffing and Chengdu costs; the model converts them to an Australian plant. Your figures stay in this browser (and in any file you export below) and are never sent anywhere.", "开启后可输入集团自己的人员配置和成都成本，模型会将其换算为澳洲电厂成本。您的数据只保存在本浏览器（以及您在下方导出的文件）中，不会发送到任何地方。")}</p>`;
+}
+```
+:::
+
+
+
+```{ojs}
+//| echo: false
+//| output: false
+// Running costs used by the model: CDEG's own figures when switched on, otherwise the benchmark sliders (greyed out while replaced)
+fixedFurnace = ownOn ? own.fixedFurnace : fixedFurnaceIn
+varOpex = ownOn ? own.varOpex : varOpexIn
+{
+  for (const el of [viewof fixedFurnaceIn, viewof varOpexIn]) {
+    el.classList.toggle("own-replaced", ownOn);
+    el.querySelectorAll("input").forEach(i => { i.disabled = ownOn; });
+  }
+}
 ```
 
 ## [1 · Market: licence and feedstock]{.en}[1 · 市场：许可配额与原料]{.zh}
@@ -442,9 +562,9 @@ viewof capexFurnace = Inputs.range([100, 350], {value: v("w_capex_furnace"), ste
 ```{ojs}
 //| echo: false
 viewof availability = Inputs.range([0.75, 0.95], {value: v("w_availability"), step: 0.01, label: lab("w_availability", "Availability", "可用率")})
-viewof fixedFurnace = Inputs.range([2, 12], {value: v("w_fixed_furnace"), step: 0.5, label: lab("w_fixed_furnace", "Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
+viewof fixedFurnaceIn = Inputs.range([2, 12], {value: v("w_fixed_furnace"), step: 0.5, label: lab("w_fixed_furnace", "Fixed cost per furnace (A$m/yr)", "单炉固定成本（百万澳元/年）")})
 viewof fixedSite = Inputs.range([0, 10], {value: v("w_fixed_site"), step: 0.5, label: lab("w_fixed_site", "Site overhead (A$m/yr)", "厂区管理费用（百万澳元/年）")})
-viewof varOpex = Inputs.range([10, 60], {value: v("w_var_opex"), step: 5, label: lab("w_var_opex", "Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
+viewof varOpexIn = Inputs.range([10, 60], {value: v("w_var_opex"), step: 5, label: lab("w_var_opex", "Variable cost (A$/t burned)", "变动成本（澳元/吨）")})
 viewof sortCost = Inputs.range([0, 40], {value: v("w_sort_cost"), step: 1, label: lab("w_sort_cost", "Pre-sorting cost (A$/t received)", "预分拣成本（澳元/吨）")})
 ```
 

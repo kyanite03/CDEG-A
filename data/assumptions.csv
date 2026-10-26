@@ -19,12 +19,12 @@ m_open,Share of demand open to new suppliers before 2032,2032年前对新供应�
 m_price,Utility price per DN20 smart meter (meter only),水务公司采购价（DN20智能水表，仅表具）,135,A$/meter,90,180,M1,calculated,Huizhong NSW contract ~A$150 incl. Avnet margin
 m_exworks,Ex-works price DN20 NB-IoT ultrasonic (AU spec),出厂价（DN20 NB-IoT超声波，澳洲规格）,400,RMB/meter,250,650,,assumption,CDEG has not yet given a unit price; replace first
 m_fx,Exchange rate,汇率,4.7,RMB per A$,4.2,5.2,,assumption,check on the day
-m_freight,Sea freight + port + broker + 3PL per meter,海运+港口+报关+仓储（每只）,2.5,A$/meter,1.5,5,,estimate,~8-10k boxed DN20 meters per 40ft container
+m_freight,Sea freight + port + broker + 3PL per meter,海运+港口+报关+仓储（每只）,0.6,A$/meter,0.3,1.5,,estimate,A$4-6k all-in per 40ft container (sea + port + broker + delivery) / ~8-10k boxed DN20 meters
 m_duty,Import duty (HS 9028.20 under ChAFTA),进口关税（ChAFTA项下HS 9028.20）,0,share,0,0.05,,to verify,GST 10% is recoverable and excluded
 m_qa,Local verification and QA per meter,在澳检定与质检（每只）,3,A$/meter,1,6,M2,estimate,Avnet runs a meter test lab in Bayswater for SEW
 m_warranty,Warranty provision,质保准备金,0.03,share of price,0.01,0.06,,assumption,battery and electronics failures within warranty
 m_dist,Distributor margin (distributor route),代理商利润率（代理模式）,0.15,share of price,0.08,0.25,M1,estimate,Avnet is Huizhong's exclusive ANZ agent
-m_factory,Factory gross margin on ex-works price,工厂出厂价毛利率,0.25,share,0.10,0.40,M10,estimate,Huizhong operating margin ~24-25% (2024-25)
+m_factory,Factory margin on ex-works price (operating-margin proxy),工厂出厂价利润率（以经营利润率近似）,0.25,share,0.10,0.40,M10,estimate,Huizhong operating margin ~24-25% (2024-25); gross margin is higher, so this is conservative
 m_nmi,NMI pattern approval (one meter family),NMI型式批准（一个系列）,40000,A$,15000,100000,M4,to verify,set + hourly fees; less if NMI accepts China lab results
 m_watermark,WaterMark + AS/NZS 4020 first year,WaterMark认证+AS/NZS 4020首年费用,25000,A$,10000,40000,M7,industry estimate,annual renewals ~A$3-6k
 m_rnd,Product adaptation for Australia,澳洲适配研发,150000,A$,0,400000,,assumption,battery life to utility spec; AU fittings; firmware; data hosting; network certification
@@ -88,7 +88,7 @@ o_range_high,"O&M fee range, high end",运营费区间上限,110,A$/t,80,150,,as
 o_self_op,Share of owners who run plants themselves,业主自行运营比例,0.5,share,0,1,,assumption,
 o_budget,CDEG entry budget 2027-29,集团进入预算（2027–29年）,9.6,A$m,3,20,,assumption,team estimate (report Table 15)
 o_term,O&M contract length,运营合同期限,10,years,5,25,,assumption,
-o_discount,O&M discount rate (real),运营合同折现率（实际）,0.08,share,0.04,0.14,,assumption,same as Model 1 cost of capital
+o_discount,O&M discount rate (real),运营合同折现率（实际）,0.055,share,0.02,0.12,,assumption,equals Model 1's 8% nominal at 2.5% inflation (cash flows are in today's A$)
 m_recstart,Recession start year,衰退开始年份,2029,year,2028,2033,,assumption,recession scenario only
 m_adapt_months,Adaptation and China tests,适配及国内检测,6,months,0,18,,assumption,
 m_tender_months,Approval to first order,获批至首单,6,months,0,18,,assumption,
@@ -97,3 +97,14 @@ m_share,Share of open demand won,获得的可争取需求份额,0.05,share,0.01,
 m_ramp,Years to full share,达到完全份额年数,3,years,1,5,,assumption,
 m_inv_months,Stock held in Australia,在澳库存,3,months,0,6,,assumption,
 m_discount,Meter discount rate (real),水表模型折现率（实际）,0.055,share,0.02,0.12,,assumption,equals 8% nominal at 2.5% inflation
+w_own_staff,Staff per furnace line (CDEG figure),每条焚烧线人员（集团数据）,25,FTE,10,60,,assumption,Replace with CDEG's own staffing per line. Default set so the converted cost matches the A$5m per furnace benchmark
+w_own_maint,Maintenance and spares per furnace (CDEG figure),单炉维护与备件（集团数据）,4,RMB m/yr,1,15,,assumption,Replace with CDEG's Chengdu figure
+w_own_var,Consumables and other variable cost (CDEG figure),耗材及其他变动成本（集团数据）,95,RMB/t,30,200,,assumption,Replace with CDEG's Chengdu figure. Default matches the A$30/t benchmark
+w_au_wage,Australian all-in cost per plant employee,澳洲电厂人均全口径用工成本,140,A$k/yr,100,200,,to verify,"Wage plus super, payroll tax, workers' compensation and leave"
+w_maint_uplift,Australia factor on maintenance and spares,澳洲维护与备件成本系数,1.3,multiple,1,2,,assumption,Freight and duty on spares from China plus local contractor rates
+w_var_uplift,Australia factor on consumables,澳洲耗材价格系数,1.5,multiple,1,2.5,,assumption,"Local prices for reagents, water and consumables against Chengdu"
+w_au_other,Australia-only fixed costs per furnace,澳洲特有单炉固定成本,0.4,A$m/yr,0,1.5,,assumption,"Insurance, EPA licence fees and monitoring not incurred in Chengdu"
+m_bom_mat,"Meter materials per meter, AU spec (CDEG figure)",水表材料成本（澳洲规格，集团数据）,220,RMB/meter,100,400,,assumption,Replace with CDEG's BOM. Default set so materials + labour + overhead give the 25% factory margin on RMB 400
+m_bom_lab,Meter direct labour per meter (CDEG figure),水表直接人工（集团数据）,40,RMB/meter,10,120,,assumption,Replace with CDEG's BOM
+m_bom_oh,Meter manufacturing overhead per meter (CDEG figure),水表制造费用（集团数据）,40,RMB/meter,10,120,,assumption,Replace with CDEG's BOM
+m_cn_tax,China tax on factory profit,工厂利润在国内的所得税,0.25,share,0,0.25,,to verify,25% standard enterprise income tax; 15% for a certified high-tech enterprise

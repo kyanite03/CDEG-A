@@ -10,6 +10,7 @@ include-in-header:
     <link rel="stylesheet" href="../assets/models.css">
     <script src="../assets/vendor/d3.min.js"></script>
     <script src="../assets/vendor/plot.umd.min.js"></script>
+    <script src="../assets/scenarios.js"></script>
     <script src="../assets/vendor/htl.min.js"></script>
     <script src="../assets/vendor/inputs.min.js"></script>
 ---
@@ -179,6 +180,53 @@ viewof mode = {
         ? html`${L(`${n} hidden input${n > 1 ? "s differ" : " differs"} from the defaults and ${n > 1 ? "still count" : "still counts"} in the results.`, `${n}个隐藏参数已偏离默认值，并仍计入结果。`)}<button onclick=${resetAdv}>${L("Reset them", "恢复默认")}</button>`
         : L(`Showing ${keyCount} key inputs; ${advCount} more in developer mode.`, `显示${keyCount}个关键参数；开发者模式另有${advCount}个。`)
   }</span></div>`;
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Every input on the page, for saving and loading scenarios (re-registered whenever an input is rebuilt)
+scenarioInputs = CDEGScenarios.register("council-map", {site: viewof site, gateFee: viewof gateFee, threshold: viewof threshold, modes: viewof modes, rho11: viewof rho11, roadPerKm: viewof roadPerKm, roadFix: viewof roadFix, localKm: viewof localKm, railPerKm: viewof railPerKm, railFix: viewof railFix, liftExtra: viewof liftExtra, seaPerKm: viewof seaPerKm, bassRate: viewof bassRate, portFix: viewof portFix, gVicMetro: viewof gVicMetro, gVicRural: viewof gVicRural, gNSWm: viewof gNSWm, gNSWr: viewof gNSWr, gNSW: viewof gNSW, gSAm: viewof gSAm, gSA: viewof gSA, gACT: viewof gACT, gTAS: viewof gTAS, colourBy: viewof colourBy, showRoutes: viewof showRoutes})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+// Current results for the CSV download; kept on window so the scenario bar is not rebuilt when results change
+window.__cdegResults = () => CDEGScenarios.downloadCSV("cdeg-council-map-results.csv", priced, [
+    ["Council / 市政", d => d.name],
+    ["State / 州", d => d.state],
+    ["Status / 状态", d => d.status],
+    ["Red-bin t/yr / 红桶垃圾吨", d => d.garbage_t],
+    ["MJ/kg / 兆焦/千克", d => d.cv_mj_kg],
+    ["Pays today A$/t / 当前成本", d => d.current],
+    ["Our price A$/t / 我方价格", d => d.offer],
+    ["Route / 运输方式", d => d.how ?? ""],
+    ["Highest winning gate fee A$/t / 可争取最高处理费", d => d.maxGate]
+  ])
+```
+
+```{ojs}
+//| echo: false
+scenarioBar = {
+  const page = "council-map";
+  const name = html`<input type="text" placeholder="Name · 名称">`;
+  const sel = html`<select></select>`;
+  const msg = html`<span class="scen-msg"></span>`;
+  const refresh = () => sel.replaceChildren(...CDEGScenarios.list(page).map(n => html`<option>${n}</option>`));
+  const btn = (en, zh, fn) => { const b = html`<button type="button">${L(en, zh)}</button>`; b.onclick = fn; return b; };
+  const file = html`<input type="file" accept=".json,application/json" hidden>`;
+  file.onchange = async () => {
+    try { await CDEGScenarios.importFile(page, file.files[0]); refresh(); msg.textContent = "✓"; } catch (e) { msg.textContent = e.message; }
+    file.value = "";
+  };
+  refresh();
+  return html`<details class="scen-bar"><summary>${L("Scenarios: save, load, export", "情景：保存、载入、导出")}</summary>
+    <div class="scen-row">${name}${btn("Save current inputs", "保存当前参数", () => { const n = name.value.trim() || new Date().toISOString().slice(0, 16).replace("T", " "); CDEGScenarios.save(page, n); refresh(); sel.value = n; msg.textContent = "✓"; })}</div>
+    <div class="scen-row">${sel}${btn("Load", "载入", () => sel.value && CDEGScenarios.load(page, sel.value))}${btn("Delete", "删除", () => { if (sel.value) { CDEGScenarios.remove(page, sel.value); refresh(); } })}</div>
+    <div class="scen-row">${btn("Export to file", "导出到文件", () => CDEGScenarios.exportFile(page))}${btn("Import file", "导入文件", () => file.click())}${file}${btn("Download results (CSV)", "下载结果（CSV）", () => window.__cdegResults && window.__cdegResults())}${msg}</div>
+    <p class="scen-note">${L("Saved only in this browser, or in files you export. Nothing is sent anywhere. Exported files open on any computer with this page.", "仅保存在本浏览器或您导出的文件中，不会发送到任何地方。导出的文件可在任何电脑上用本页面导入。")}</p></details>`;
 }
 ```
 

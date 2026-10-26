@@ -1,5 +1,5 @@
 ---
-title: "[5 · Competitor analysis]{.en}[五 · 竞争分析]{.zh}"
+title: "[5 · Competitor analysis]{.en}[5 · 竞争分析]{.zh}"
 ---
 
 <p class="owner"><span class="en">Authors: Christine (Kuntong) Jiang (5.1–5.3) · Janeika Jeyakanthan (5.2 meters and water, 5.4)</span><span class="zh">作者：江坤彤（5.1–5.3）· Janeika Jeyakanthan（5.2水表与水务、5.4）</span></p>
@@ -69,7 +69,7 @@ The operating market is thin. One large plant runs, one is in receivership, and 
 ::: {.en}
 **Chinese meters already hold Australian approvals and the big metro contracts, so CDEG competes on integration and leak analytics, not on price alone.**
 
--   **Huizhong, through Avnet:** supplies South East Water's digital meter program \[10, 65\]. Avnet is its exclusive agent and runs a meter test lab in Melbourne \[27\]. Huizhong also won a 2024 contract worth about US\$140m to supply an Australian city \[11\].
+-   **Huizhong, through Avnet:** supplies South East Water's digital meter program \[10, 65\]. Avnet is its exclusive agent and runs a meter test lab in Melbourne \[27\]. Huizhong also won a 2024 contract worth A\$28–29m to supply 191,000 meters to a NSW city, about A\$150 a meter \[11\].
 -   **Sanchuan and Ningbo Water Meter:** both hold NMI certificates of approval (14/3/70 and 14/3/22) \[9\].
 -   **Landis+Gyr:** holds NMI approval 14/3/72 \[9\] and won a major South East Water smart-water contract in 2021 \[103\].
 -   **Sagemcom:** Yarra Valley Water's digital meter supplier \[66\].
@@ -82,7 +82,7 @@ The operating market is thin. One large plant runs, one is in receivership, and 
 ::: {.zh}
 **中国水表已取得澳洲认证并拿下墨尔本大型合同，因此集团应凭借系统集成和漏损分析竞争，而不能只靠价格。**
 
--   **汇中（经Avnet）：** 为东南水务的数字水表项目供货 \[10, 65\]。Avnet是其独家代理，并在墨尔本设有水表检测实验室 \[27\]。汇中还于2024年赢得约1.4亿美元的澳洲城市供货合同 \[11\]。
+-   **汇中（经Avnet）：** 为东南水务的数字水表项目供货 \[10, 65\]。Avnet是其独家代理，并在墨尔本设有水表检测实验室 \[27\]。汇中还于2024年赢得新州一座城市19.1万只水表的供货合同，金额2,800–2,900万澳元，约合每只150澳元 \[11\]。
 -   **三川和宁波水表：** 均已取得NMI型式批准证书（14/3/70和14/3/22）\[9\]。
 -   **Landis+Gyr：** 持有NMI批准14/3/72 \[9\]，2021年赢得东南水务的大型智能水务合同 \[103\]。
 -   **Sagemcom：** 雅拉谷水务的数字水表供应商 \[66\]。

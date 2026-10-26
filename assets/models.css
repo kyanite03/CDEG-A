@@ -82,3 +82,23 @@ body:not(.dev-mode) .model-row > .column:first-child form[class*="inputs-"] > la
 body:not(.dev-mode) .model-row > .column:first-child > .cell > .code-copy-outer-scaffold { display: none; }
 body:not(.dev-mode) .model-row > .column:first-child > .cell > .cell-output-display:not(:has(form)) { grid-column: 1 / -1; }
 .model-caveat { display: block; font-size: .8rem; color: #77756e; margin-top: -.4rem; }
+/* CDEG's own figures: a panel near the top of each cost model; the fields show only when switched on */
+.own-data { border: 1px solid #b9d3f2; background: #f5f9fe; border-radius: 8px; padding: .5rem .9rem .6rem; margin: 1rem 0; }
+.own-data .own-title { font-weight: 600; margin: .1rem 0 .3rem; }
+.own-data .own-note { font-size: .8rem; color: #52514e; margin: .3rem 0 0; }
+.own-data .own-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .1rem 1.25rem; }
+.own-data .own-fields > .cell { display: contents; }
+.own-data .own-fields .code-copy-outer-scaffold { display: none; }
+.own-data form[class*="inputs-"] { --label-width: 100%; --input-width: 100%; flex-wrap: wrap; margin: .2rem 0; font-size: .85rem; }
+body:not(.own-on) .own-data .own-fields { display: none; }
+.own-data .own-result { font-size: .9rem; margin: .4rem 0 0; }
+.own-data button { font-size: .8rem; margin-left: .5rem; }
+/* Sliders replaced by the own-figures panel */
+.own-replaced { opacity: .45; }
+/* Scenarios: save, load, export */
+.scen-bar { background: #f7f7f5; border: 1px solid #e3e2de; border-radius: 8px; padding: .35rem .75rem; margin: 0 0 1rem; font-size: .85rem; }
+.scen-bar summary { cursor: pointer; font-weight: 600; }
+.scen-bar .scen-row { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: .4rem 0; }
+.scen-bar input[type=text], .scen-bar select { font-size: .85rem; padding: .15rem .35rem; min-width: 12rem; }
+.scen-bar button { font-size: .8rem; }
+.scen-bar .scen-note { font-size: .75rem; color: #77756e; margin: .2rem 0 0; }

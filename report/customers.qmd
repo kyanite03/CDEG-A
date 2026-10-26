@@ -1,5 +1,5 @@
 ---
-title: "[4 · Customer insights]{.en}[四 · 客户洞察]{.zh}"
+title: "[4 · Customer insights]{.en}[4 · 客户洞察]{.zh}"
 ---
 
 <p class="owner"><span class="en">Authors: Janeika Jeyakanthan (4.1–4.3) · Christine (Kuntong) Jiang (4.4)</span><span class="zh">作者：Janeika Jeyakanthan（4.1–4.3）· 江坤彤（4.4）</span></p>

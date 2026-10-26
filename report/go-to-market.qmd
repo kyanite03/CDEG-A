@@ -1,5 +1,5 @@
 ---
-title: "[6 · Go-to-market plan]{.en}[六 · 进入市场计划]{.zh}"
+title: "[6 · Go-to-market plan]{.en}[6 · 进入市场计划]{.zh}"
 ---
 
 <p class="owner"><span class="en">Authors: Janeika Jeyakanthan (6.1, 6.4) · Christine (Kuntong) Jiang (6.2, 6.3) · Kai Marsh (6.5–6.7) · whole team (7)</span><span class="zh">作者：Janeika Jeyakanthan（6.1、6.4）· 江坤彤（6.2、6.3）· 马凯（6.5–6.7）· 全体成员（7）</span></p>
@@ -312,7 +312,7 @@ CDEG moves up the ladder only where the risks allow.
 
 *Source: [WtE market size](../part-a/wte.qmd#wte-market) and Model 1 \[26\]. Availability bonuses and penalties, and liability under guarantees, are not included (6.7, risk 12).*
 
-**Feasibility.** CDEG group revenue is about RMB 12.9bn \[18\], so a A\$9–10m entry budget is small for it. The real constraint is time. Until about 2030, the meter business (EBIT about A\$0.66m by its fifth year \[27\]), the pilots and technical services keep the team funded and visible. That is why the plan has two speeds.
+**Feasibility.** CDEG group revenue is about RMB 12.9bn \[18\], so a A\$9–10m entry budget is small for it. The real constraint is time. Until about 2030, the meter business (EBIT about A\$0.74m by its fifth year \[27\]), the pilots and technical services keep the team funded and visible. That is why the plan has two speeds.
 :::
 
 ::: {.zh}
@@ -347,7 +347,7 @@ CDEG moves up the ladder only where the risks allow.
 
 *来源：[焚烧市场规模](../part-a/wte.qmd#wte-market)和模型1 \[26\]。不含可用率奖惩及担保责任（6.7，风险12）。*
 
-**可行性：** 集团营收约129亿元 \[18\]，900–1,000万澳元的进入预算对集团而言规模很小。真正的约束是时间。在约2030年之前，水表业务（第5年息税前利润约66万澳元 \[27\]）、试点和技术服务维持团队的资金和市场存在感。这就是方案分两步走的原因。
+**可行性：** 集团营收约129亿元 \[18\]，900–1,000万澳元的进入预算对集团而言规模很小。真正的约束是时间。在约2030年之前，水表业务（第5年息税前利润约74万澳元 \[27\]）、试点和技术服务维持团队的资金和市场存在感。这就是方案分两步走的原因。
 :::
 
 ## [6.7 Risks]{.en}[6.7 风险]{.zh}
@@ -428,7 +428,7 @@ CDEG moves up the ladder only where the risks allow.
 :::
 :::
 
-## [7 Recommendations and next steps]{.en}[七 · 建议与下一步]{.zh}
+## [7 Recommendations and next steps]{.en}[7 · 建议与下一步]{.zh}
 
 ::: {.en}
 **Recommendation: go, asset-light and in two speeds. Entry costs about A\$9.6m over 2027–29. Pilot, service and meter revenue starts in 2027–28; O&M revenue starts about 2030–31, or 2032 if plants slip. One O&M contract repays the entry cost in about three to four years.**

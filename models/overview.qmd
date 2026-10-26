@@ -13,6 +13,8 @@ Each model is a page of sliders. Move any input and the charts and results updat
 
 -   **Key inputs or developer.** A switch at the top of each model starts on **Key inputs**: the main sliders across the top, larger charts and one equation under each. Choose **All inputs (developer)** to adjust every assumption and read the full explanations, method and limits. The choice carries across the model pages.
 -   **Code.** The models are open source: [github.com/kyanite03/CDEG-A](https://github.com/kyanite03/CDEG-A/tree/main/models). Each model is one page of code, so CDEG can run its own copy with its own figures.
+-   **CDEG's own figures.** The WtE, O&M and meter models each have a panel for CDEG's own data: staffing and Chengdu running costs (converted to an Australian plant), or the meter's bill of materials. Switched on, these replace our benchmarks. The figures stay in the browser and are never sent anywhere.
+-   **Scenarios.** Every model can save its inputs under a name, export them to a file to share inside CDEG or open on another computer, and download its results as CSV.
 -   **Defaults** come from the [Assumptions register](../appendix/assumptions.qmd), with a source and status for each. CDEG's own figures should replace them first, especially costs per tonne and the meter ex-works price.
 -   **All figures are indicative.** They are planning estimates to test, not forecasts.
 
@@ -31,6 +33,8 @@ Each model is a page of sliders. Move any input and the charts and results updat
 
 -   **关键参数或开发者模式。** 每个模型顶部的开关默认为**关键参数**：主要滑块排在顶部，图表更大，每张图下方列出一个公式。选择**全部参数（开发者）**可调整所有假设，并查看完整说明、方法和局限。该选择在各模型页面间保持一致。
 -   **代码。** 模型代码已开源：[github.com/kyanite03/CDEG-A](https://github.com/kyanite03/CDEG-A/tree/main/models)。每个模型对应一页代码，集团可用自身数据运行独立副本。
+-   **集团自己的数据。** 垃圾焚烧、委托运营和水表模型均设有集团自有数据面板：人员配置和成都运营成本（换算为澳洲电厂成本），或水表的物料清单。开启后将取代我们的基准值。数据只保存在浏览器中，不会发送到任何地方。
+-   **情景。** 每个模型都可按名称保存参数，导出为文件以便在集团内部共享或在其他电脑上打开，并可将结果下载为CSV。
 -   **默认值**来自[假设参数](../appendix/assumptions.qmd)页，每项都注明来源和状态。应首先用集团自己的数据替换，尤其是吨成本和水表出厂价。
 -   **所有结果仅供参考。** 它们是有待检验的规划估算，而不是预测。
 

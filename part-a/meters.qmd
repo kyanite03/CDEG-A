@@ -11,7 +11,7 @@ title: "[Smart water meters]{.en}[智能水表]{.zh}"
 
 -   A retail water utility tenders for meters and pays about A\$135 per DN20 smart meter, meter only \[27\].
 -   On the distributor route, the distributor takes about 15% of the price and runs local verification and warehousing, as Avnet does for Huizhong with its Melbourne test lab \[10, 27\].
--   The manufacturer is paid an ex-works price and bears sea freight to Australia (about A\$2.5 a meter) and warranty \[27\].
+-   The manufacturer is paid an ex-works price and bears sea freight to Australia (under A\$1 a meter) and warranty \[27\].
 -   Installation and the data platform (for example Iota's Lentic) are bought separately by the utility \[67\].
 
 ::: {.placeholder}
@@ -24,7 +24,7 @@ title: "[Smart water meters]{.en}[智能水表]{.zh}"
 
 -   零售水务公司对水表进行招标，每只DN20智能水表（仅表具）约支付135澳元 \[27\]。
 -   在代理模式下，代理商约获得售价的15%，并负责本地检定和仓储，例如Avnet利用其墨尔本检测实验室为汇中提供服务 \[10, 27\]。
--   生产商获得出厂价，承担运往澳洲的海运费（每只约2.5澳元）和质保 \[27\]。
+-   生产商获得出厂价，承担运往澳洲的海运费（每只不到1澳元）和质保 \[27\]。
 -   安装和数据平台（如Iota的Lentic）由水务公司另行采购 \[67\]。
 
 ::: {.placeholder}
@@ -53,7 +53,7 @@ Three Chinese makers already hold NMI approval or a major contract: Huizhong thr
 | Utility price per DN20 smart meter | A\$135 | A\$90–180 | Calculated from Huizhong's contract |
 | Ex-works price (DN20 NB-IoT, Australian spec) | RMB 400 | RMB 250–650 | Assumption; CDEG to replace |
 | Exchange rate | RMB 4.7 per A\$ | 4.2–5.2 | Check on the day |
-| Freight, port, broker and warehousing | A\$2.5 a meter | A\$1.5–5 | Estimate |
+| Freight, port, broker and warehousing | A\$0.6 a meter | A\$0.3–1.5 | Estimate |
 | Import duty (ChAFTA) | 0% | 0–5% | [to verify]{.verify} |
 | Local verification and QA | A\$3 a meter | A\$1–6 | Estimate |
 | Warranty provision | 3% of price | 1–6% | Assumption |
@@ -76,7 +76,7 @@ Three Chinese makers already hold NMI approval or a major contract: Huizhong thr
 | 水务公司采购价（DN20智能水表） | 135澳元 | 90–180澳元 | 根据汇中合同计算 |
 | 出厂价（DN20 NB-IoT，澳洲规格） | 400元 | 250–650元 | 假设；待集团替换 |
 | 汇率 | 4.7元/澳元 | 4.2–5.2 | 以当日为准 |
-| 海运、港口、报关和仓储 | 每只2.5澳元 | 1.5–5澳元 | 估算 |
+| 海运、港口、报关和仓储 | 每只0.6澳元 | 0.3–1.5澳元 | 估算 |
 | 进口关税（ChAFTA） | 0% | 0–5% | [待核实]{.verify} |
 | 本地检定与质检 | 每只3澳元 | 1–6澳元 | 估算 |
 | 质保准备金 | 售价的3% | 1–6% | 假设 |
@@ -107,9 +107,9 @@ Three Chinese makers already hold NMI approval or a major contract: Huizhong thr
 ## [What it means for CDEG]{.en}[对成都环境集团的意义]{.zh}
 
 ::: {.en}
-**Meters are a near-term but crowded line: a small profit on its own, worth doing for the utility relationships it builds.** The market is about one million meters a year, half of it open before 2032 (Report 3.2). With NMI approval about mid-2028, the base case reaches about 43,000 meters and an EBIT of about A\$0.66m by year 5 \[27\]. The best entry is through a distributor with a test lab, starting with a non-billing pilot at a regional water corporation before its September 2027 price submission, and selling drainage sensors and leak analytics alongside the meter (Report 6.2).
+**Meters are a near-term but crowded line: a small profit on its own, worth doing for the utility relationships it builds.** The market is about one million meters a year, half of it open before 2032 (Report 3.2). With NMI approval about mid-2028, the base case reaches about 43,000 meters and an EBIT of about A\$0.74m by year 5 \[27\]. The best entry is through a distributor with a test lab, starting with a non-billing pilot at a regional water corporation before its September 2027 price submission, and selling drainage sensors and leak analytics alongside the meter (Report 6.2).
 :::
 
 ::: {.zh}
-**水表是近期可启动但竞争激烈的业务：单独来看利润不大，但值得做，因为它能建立与水务公司的关系。** 市场每年约100万只水表，2032年前约一半开放（报告3.2）。若约2028年中取得NMI批准，基准情景下到第5年销量约4.3万只，息税前利润约66万澳元 \[27\]。最佳进入方式是通过拥有检测实验室的代理商，先在区域水务公司2027年9月价格申报前开展非计费试点，并将排水传感器和漏损分析与水表一起销售（报告6.2）。
+**水表是近期可启动但竞争激烈的业务：单独来看利润不大，但值得做，因为它能建立与水务公司的关系。** 市场每年约100万只水表，2032年前约一半开放（报告3.2）。若约2028年中取得NMI批准，基准情景下到第5年销量约4.3万只，息税前利润约74万澳元 \[27\]。最佳进入方式是通过拥有检测实验室的代理商，先在区域水务公司2027年9月价格申报前开展非计费试点，并将排水传感器和漏损分析与水表一起销售（报告6.2）。
 :::

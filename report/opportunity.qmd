@@ -1,5 +1,5 @@
 ---
-title: "[3 · Market opportunity]{.en}[三 · 市场机会]{.zh}"
+title: "[3 · Market opportunity]{.en}[3 · 市场机会]{.zh}"
 ---
 
 <p class="owner"><span class="en">Authors: Kai Marsh (3.1 a, b, e; 3.2 WtE; 3.3; 3.4) · Janeika Jeyakanthan (3.1 c, d; 3.2 meters; 3.5)</span><span class="zh">作者：马凯（3.1 a、b、e；3.2焚烧；3.3；3.4）· Janeika Jeyakanthan（3.1 c、d；3.2水表；3.5）</span></p>
@@ -88,7 +88,7 @@ R&D can run as a research contract from China, without an Australian entity (ste
 -   **Result:** about 1.0 million meters a year. At A\$135 per DN20 meter that is about A\$135m a year \[27\] \[Inferred\].
 -   **Open share:** about 50% before 2032, because South East Water and Yarra Valley Water are contracted until about then \[27\]. That leaves about 0.5 million meters, or about A\$67m a year.
 
-**What CDEG could win.** In the meter model's base case, NMI approval arrives about July 2028. By year 5 CDEG sells about 43,000 meters a year, for about A\$5.8m of revenue and an EBIT of about A\$0.66m \[27\]. The result depends most on CDEG's ex-works price, the price it bids and the exchange rate, so CDEG's own figures should replace the defaults first. [Open the model](../models/meter-distributor.qmd).
+**What CDEG could win.** In the meter model's base case, NMI approval arrives about July 2028. By year 5 CDEG sells about 43,000 meters a year, for about A\$5.8m of revenue and an EBIT of about A\$0.74m \[27\]. The result depends most on CDEG's ex-works price, the price it bids and the exchange rate, so CDEG's own figures should replace the defaults first. [Open the model](../models/meter-distributor.qmd).
 :::
 
 ::: {.zh}
@@ -101,7 +101,7 @@ R&D can run as a research contract from China, without an Australian entity (ste
 -   **结果：** 每年约100万只水表。按每只DN20水表135澳元计，约1.35亿澳元/年 \[27\] \[推断\]。
 -   **开放比例：** 2032年前约50%，因为东南水务和雅拉谷水务的合同大约持续到那时 \[27\]。即每年约50万只，约6,700万澳元。
 
-**集团可以争取多少：** 在水表模型的基准情景中，约2028年7月取得NMI型式批准。到第5年，集团每年销售约4.3万只水表，收入约580万澳元，息税前利润约66万澳元 \[27\]。结果最受集团出厂价、投标价和汇率影响，因此应首先用集团自己的数据替换默认值。[打开模型](../models/meter-distributor.qmd)。
+**集团可以争取多少：** 在水表模型的基准情景中，约2028年7月取得NMI型式批准。到第5年，集团每年销售约4.3万只水表，收入约580万澳元，息税前利润约74万澳元 \[27\]。结果最受集团出厂价、投标价和汇率影响，因此应首先用集团自己的数据替换默认值。[打开模型](../models/meter-distributor.qmd)。
 :::
 
 ## [3.5 SWOT to TOWS]{.en}[3.5 SWOT与TOWS]{.zh}

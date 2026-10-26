@@ -1,5 +1,5 @@
 ---
-title: "[1 · Introduction]{.en}[一 · 引言]{.zh}"
+title: "[1 · Introduction]{.en}[1 · 引言]{.zh}"
 ---
 
 <p class="owner"><span class="en">Author: Christine (Kuntong) Jiang</span><span class="zh">作者：江坤彤</span></p>
@@ -17,7 +17,7 @@ title: "[1 · Introduction]{.en}[一 · 引言]{.zh}"
 ::: {.en}
 Chengdu Environment Investment Group (CDEG) is a state-owned enterprise (SOE) owned by the City of Chengdu. It has 135 subsidiaries and about 8,200 staff, and holds a domestic AAA credit rating \[18, 19\] \[Company\]. It controls the listed Xingrong Environment (000598.SZ), whose 2025 revenue was RMB 9.07bn \[20\]. Xingrong figures below are Xingrong's, not the whole group's.
 
-Xingrong runs about 4.4 Mt/d of water supply, 5.0 Mt/d of wastewater treatment and 1.3 Mt/d of reclaimed water, plus 3,116 t/d of sludge and 1,950 t/d of food-waste treatment \[20\]. Its four WtE plants, Wanxing I, II and III and Longfeng, total 12,000 t/d including Wanxing III \[20\]. The wider group also transfers 7,230 t/d of waste and treats about 150,000 t/yr of hazardous waste \[18\].
+Xingrong runs about 4.4 Mt/d of water supply, 5.0 Mt/d of wastewater treatment and 1.3 Mt/d of reclaimed water, plus 3,116 t/d of sludge and 1,950 t/d of food-waste treatment \[20\]. Its four WtE plants, Wanxing I, II and III and Longfeng, take 12,000 t/d of household waste, including Wanxing III's 5,100 t/d; Wanxing III also treats food waste and sludge \[20\]. The wider group also transfers 7,230 t/d of waste and treats about 150,000 t/yr of hazardous waste \[18\].
 
 ![](../assets/img/christine-fig2.jpg){fig-alt="Xingrong Environment revenue by product, 2025"}
 
@@ -29,7 +29,7 @@ Water is the core business. WtE earned RMB 752m in 2025, 8.3% of revenue, at a 4
 ::: {.zh}
 成都环境投资集团（简称“成都环境集团”或“集团”）是成都市属国有企业，拥有135家子公司、约8,200名员工，国内信用评级AAA \[18, 19\] \[企业\]。集团控股上市公司兴蓉环境（000598.SZ），后者2025年营收90.7亿元 \[20\]。以下兴蓉环境的数据仅代表兴蓉环境，不代表整个集团。
 
-兴蓉环境运营约440万吨/日供水、500万吨/日污水处理和130万吨/日再生水，另有3,116吨/日污泥处理和1,950吨/日厨余垃圾处理能力 \[20\]。其四座垃圾焚烧发电厂——万兴一期、二期、三期和隆丰——合计12,000吨/日（含万兴三期）\[20\]。集团整体另有7,230吨/日垃圾转运能力和约15万吨/年危险废物处理能力 \[18\]。
+兴蓉环境运营约440万吨/日供水、500万吨/日污水处理和130万吨/日再生水，另有3,116吨/日污泥处理和1,950吨/日厨余垃圾处理能力 \[20\]。其四座垃圾焚烧发电厂——万兴一期、二期、三期和隆丰——合计处理生活垃圾12,000吨/日，其中万兴三期5,100吨/日；万兴三期另处理厨余垃圾和污泥 \[20\]。集团整体另有7,230吨/日垃圾转运能力和约15万吨/年危险废物处理能力 \[18\]。
 
 ![](../assets/img/christine-fig2-zh.jpg){fig-alt="兴蓉环境2025年分产品营收"}
 

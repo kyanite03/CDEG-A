@@ -1,5 +1,5 @@
 ---
-title: "[2 · Market context]{.en}[二 · 市场背景]{.zh}"
+title: "[2 · Market context]{.en}[2 · 市场背景]{.zh}"
 ---
 
 <p class="owner"><span class="en">Authors: Kai Marsh (2.1, 2.3) · Christine (Kuntong) Jiang (2.2)</span><span class="zh">作者：马凯（2.1、2.3）· 江坤彤（2.2）</span></p>

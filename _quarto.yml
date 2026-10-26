@@ -8,6 +8,7 @@ project:
     - data/
     - assets/vendor/
     - assets/csv-table.js
+    - assets/scenarios.js
 
 website:
   title: "CDEG in Australia · 成都环境集团·澳洲"
