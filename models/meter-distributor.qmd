@@ -91,11 +91,17 @@ lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
 // Chart width: full content width in key-inputs mode (charts sit below the inputs), 640 beside the controls in developer mode
 PW = mode === "dev" ? 640 : Math.max(640, width)
 C = ({base: "#2a78d6", optimal: "#1baf7a", recession: "#eb6834", ink: "#52514e", grey: "#b5b3ab"})
+// Chinese uses 万 and 亿 (groups of four digits) instead of k and m
 fmtA = x => {
   const s = x < 0 ? "−" : "", a = Math.abs(x);
+  if (lang === "zh") return a >= 1e8 ? `${s}${(a/1e8).toFixed(2)}亿澳元` : a >= 1e6 ? `${s}${(a/1e4).toFixed(0)}万澳元` : a >= 1e4 ? `${s}${(a/1e4).toFixed(1)}万澳元` : `${s}${d3.format(",.0f")(a)}澳元`;
   return a >= 1e6 ? `${s}A$${(a/1e6).toFixed(1)}m` : a >= 1e3 ? `${s}A$${(a/1e3).toFixed(0)}k` : `${s}A$${a.toFixed(0)}`;
 }
-fmtK = x => x >= 1e6 ? `${(x/1e6).toFixed(2)}m` : x >= 1e3 ? `${(x/1e3).toFixed(1)}k` : x.toFixed(0)
+fmtK = x => lang === "zh"
+  ? (x >= 1e8 ? `${(x/1e8).toFixed(2)}亿` : x >= 1e4 ? `${(x/1e4).toFixed(1)}万` : d3.format(",.0f")(x))
+  : (x >= 1e6 ? `${(x/1e6).toFixed(2)}m` : x >= 1e3 ? `${(x/1e3).toFixed(1)}k` : x.toFixed(0))
+// Axis scale for meter counts: thousands in English, 万 (ten thousands) in Chinese
+kDiv = lang === "zh" ? 1e4 : 1e3
 pct = x => `${(x*100).toFixed(0)}%`
 tile = (label, value, sub) => html`<div class="kpi"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
 years = d3.range(2027, 2037)
@@ -190,7 +196,7 @@ Plot.plot({
   width: PW,
   height: 280, marginLeft: 55, marginRight: 140,
   x: {label: null, tickFormat: d => String(d)},
-  y: {label: T("Meters per year (thousand)", "每年水表数（千只）"), grid: true, transform: d => d / 1e3, domain: [0, d3.max(mkt, d => d.total) / 1e3 * 1.05]},
+  y: {label: T("Meters per year (thousand)", "每年水表数（万只）"), grid: true, transform: d => d / kDiv, domain: [0, d3.max(mkt, d => d.total) / kDiv * 1.05]},
   color: {domain: ["base", "optimal", "recession"], range: [C.base, C.optimal, C.recession]},
   marks: [
     Plot.ruleY([0]),
@@ -268,7 +274,7 @@ nmiFee = nmiAccepts ? nmiCost * 0.5 : nmiCost
 approvalT = 2027 + (adaptMonths + nmiMonths) / 12
 firstSaleT = approvalT + tenderMonths / 12
 chinaTestA = v("nmi_test_cn") / fx       // RMB 200k China test report (CDEG figure)
-ymLabel = t => { const y = Math.floor(t), m = Math.round((t - y) * 12); const mm = m === 12 ? 0 : m, yy = m === 12 ? y + 1 : y; return `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][mm]} ${yy}`; }
+ymLabel = t => { const y = Math.floor(t), m = Math.round((t - y) * 12); const mm = m === 12 ? 0 : m, yy = m === 12 ? y + 1 : y; return lang === "zh" ? `${yy}年${mm + 1}月` : `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][mm]} ${yy}`; }
 phases = [
   {k: T("Adapt + China tests", "适配+国内检测"), a: 2027, b: 2027 + adaptMonths / 12},
   {k: T("NMI pattern approval", "NMI型式批准"), a: 2027 + adaptMonths / 12, b: approvalT},
@@ -310,14 +316,14 @@ html`<div class="kpi-row">
 <p class="figure-note"><span class="en"><span class="dev-only">The Victorian regional water corporations set their spending for 1 July 2028 onward in submissions to the Essential Services Commission due 13 September 2027, so a meter approved by mid-2028 can be in those budgets. NMI fees, network certification (A$40k) and legal set-up (A$50k) are team estimates, to verify. </span>Data sources: <a href="../appendix/sources.html#ref-91">[91]</a> <a href="../appendix/sources.html#ref-24">[24]</a> <a href="../appendix/sources.html#ref-137">[137]</a></span><span class="zh"><span class="dev-only">维州区域水务公司须于2027年9月13日前向基本服务委员会（ESC）提交2028年7月1日起的支出计划，因此2028年中前获批的水表可纳入其预算。NMI费用、网络认证（4万澳元）和法务设立（5万澳元）为团队估算，待核实。</span>数据来源：<a href="../appendix/sources.html#ref-91">[91]</a> <a href="../appendix/sources.html#ref-24">[24]</a> <a href="../appendix/sources.html#ref-137">[137]</a></span></p>
 
 ::: {.eq-box}
-$$t_{\text{sale}} = 2027 + \frac{m_a + m_N + m_t}{12} \qquad U = \frac{R_{\text{CN}}}{FX} + C_{\text{R\&D}} + C_N + C_W + 90\text{k}$$
+$$t_{\text{sale}} = 2027 + \frac{m_a + m_N + m_t}{12} \qquad U = \frac{R_{\text{CN}}}{FX} + C_{\text{R\&D}} + C_N + C_W + C_L$$
 
 ::: {.en .eq-defs}
-$t_{\text{sale}}$ first commercial sale · $m_a$ adaptation and China tests (months) · $m_N$ NMI approval, 12 months (6, at half the fee, if NMI accepts the China lab report) · $m_t$ approval to first order · $U$ up-front cost (A\$) · $R_{\text{CN}}$ China test report, RMB 200,000 · $FX$ RMB per A\$ · $C_{\text{R\&D}}$ adaptation · $C_N$ NMI fees · $C_W$ WaterMark and AS/NZS 4020 · 90k network certification and legal set-up.
+$t_{\text{sale}}$ first commercial sale · $m_a$ adaptation and China tests (months) · $m_N$ NMI approval, 12 months (6, at half the fee, if NMI accepts the China lab report) · $m_t$ approval to first order · $U$ up-front cost (A\$) · $R_{\text{CN}}$ China test report, RMB 200,000 · $FX$ RMB per A\$ · $C_{\text{R\&D}}$ adaptation · $C_N$ NMI fees · $C_W$ WaterMark and AS/NZS 4020 · $C_L$ network certification and legal set-up, A\$90,000.
 :::
 
 ::: {.zh .eq-defs}
-$t_{\text{sale}}$ 首个商业订单时间 · $m_a$ 适配及国内检测（月） · $m_N$ NMI型式批准，12个月（若NMI采信国内检测报告则为6个月、费用减半） · $m_t$ 获批至首单 · $U$ 启动投资（澳元） · $R_{\text{CN}}$ 国内检测报告，20万元人民币 · $FX$ 人民币/澳元汇率 · $C_{\text{R\&D}}$ 适配研发 · $C_N$ NMI费用 · $C_W$ WaterMark及AS/NZS 4020 · 90k为网络认证和法务设立。
+$t_{\text{sale}}$ 首个商业订单时间 · $m_a$ 适配及国内检测（月） · $m_N$ NMI型式批准，12个月（若NMI采信国内检测报告则为6个月、费用减半） · $m_t$ 获批至首单 · $U$ 启动投资（澳元） · $R_{\text{CN}}$ 国内检测报告，20万元人民币 · $FX$ 人民币/澳元汇率 · $C_{\text{R\&D}}$ 适配研发 · $C_N$ NMI费用 · $C_W$ WaterMark及AS/NZS 4020 · $C_L$ 网络认证和法务设立，9万澳元。
 :::
 :::
 
@@ -396,9 +402,9 @@ Plot.plot({
 //| echo: false
 html`<div class="map-legend">${wf.map(d => html`<span><span class="sw" style="background:${d.c}"></span>${d.k}</span>`)}</div>
 <div class="kpi-row">
-  ${tile(T("Landed cost per meter", "到岸成本（每只）"), `A$${u.landed.toFixed(0)}`, T(`RMB ${exRMB} ex-works = A$${u.ex.toFixed(0)}`, `出厂价${exRMB}元=${u.ex.toFixed(0)}澳元`))}
+  ${tile(T("Landed cost per meter", "到岸成本（每只）"), T(`A$${u.landed.toFixed(0)}`, `${u.landed.toFixed(0)}澳元`), T(`RMB ${exRMB} ex-works = A$${u.ex.toFixed(0)}`, `出厂价${exRMB}元=${u.ex.toFixed(0)}澳元`))}
   ${tile(groupView ? T("Contribution per meter (group)", "每只边际贡献（集团）") : T("Contribution per meter", "每只边际贡献"), fmtA(contribShown), T(`${pct(contribShown / price)} of the utility price`, `占采购价${pct(contribShown / price)}`))}
-  ${tile(T("Break-even volume", "盈亏平衡销量"), u.contrib > 0 ? `${fmtK(overhead / u.contrib)} ${T("/yr", "只/年")}` : "—", u.contrib > 0 ? T(`to cover ${fmtA(overhead)} a year of overhead`, `覆盖每年${fmtA(overhead)}固定费用`) : T("price is below variable cost", "售价低于可变成本"))}
+  ${tile(T("Break-even volume", "盈亏平衡销量"), u.contrib > 0 ? `${fmtK(overhead / u.contrib)}${T(" /yr", "只/年")}` : "—", u.contrib > 0 ? T(`to cover ${fmtA(overhead)} a year of overhead`, `覆盖每年${fmtA(overhead)}固定费用`) : T("price is below variable cost", "售价低于可变成本"))}
   ${tile(T("Room under Huizhong", "低于汇中的空间"), fmtA(150 - price), T("below ~A$150 per meter (NSW, 2023)", "低于每只约150澳元（新州，2023）"))}
 </div>`
 ```
@@ -493,7 +499,7 @@ Plot.plot({
   width: PW,
   height: 260, marginLeft: 55, marginRight: 110,
   x: {label: null, tickFormat: d => String(d)},
-  y: {label: T("CDEG meters sold per year (thousand)", "集团年销量（千只）"), grid: true, transform: d => d / 1e3},
+  y: {label: T("CDEG meters sold per year (thousand)", "集团年销量（万只）"), grid: true, transform: d => d / kDiv},
   color: {domain: ["base", "optimal", "recession"], range: [C.base, C.optimal, C.recession]},
   marks: [
     Plot.ruleY([0]),
@@ -512,8 +518,8 @@ Plot.plot({
 ```{ojs}
 //| echo: false
 html`<div class="kpi-row">
-  ${tile(T("First sales year", "首个销售年度"), firstFull ? `${fmtK(firstFull.units)} ${T("meters", "只")}` : "—", firstFull ? T(`${firstFull.year}: ${fmtA(firstFull.revenue)} revenue`, `${firstFull.year}年：收入${fmtA(firstFull.revenue)}`) : "")}
-  ${tile(T("Fifth year of sales", "销售第五年"), `${fmtK(y5.units)} ${T("meters", "只")}`, T(`${y5.year}: ${fmtA(y5.revenue)} revenue, ${pct(y5.units / mkt.find(d => d.scenario === scen && d.year === y5.year).total)} of national market`, `${y5.year}年：收入${fmtA(y5.revenue)}，占全国市场${pct(y5.units / mkt.find(d => d.scenario === scen && d.year === y5.year).total)}`))}
+  ${tile(T("First sales year", "首个销售年度"), firstFull ? `${fmtK(firstFull.units)}${T(" meters", "只")}` : "—", firstFull ? T(`${firstFull.year}: ${fmtA(firstFull.revenue)} revenue`, `${firstFull.year}年：收入${fmtA(firstFull.revenue)}`) : "")}
+  ${tile(T("Fifth year of sales", "销售第五年"), `${fmtK(y5.units)}${T(" meters", "只")}`, T(`${y5.year}: ${fmtA(y5.revenue)} revenue, ${pct(y5.units / mkt.find(d => d.scenario === scen && d.year === y5.year).total)} of national market`, `${y5.year}年：收入${fmtA(y5.revenue)}，占全国市场${pct(y5.units / mkt.find(d => d.scenario === scen && d.year === y5.year).total)}`))}
   ${tile(T("Fifth-year profit (EBIT)", "第五年息税前利润"), fmtA(y5.ebit + (groupView ? y5.factory : 0)), groupView ? T(`incl. ${fmtA(y5.factory)} factory margin`, `含工厂利润${fmtA(y5.factory)}`) : T(`gross margin ${y5.gm === null ? "–" : pct(y5.gm)} after distributor`, `扣除代理后毛利率${y5.gm === null ? "–" : pct(y5.gm)}`))}
   ${tile(T("Payback", "回收期"), paybackYear ? String(paybackYear) : T("not by 2036", "2036年前未回本"), T("cumulative cash turns positive", "累计现金流转正"))}
   ${tile(T("NPV to 2036", "净现值（至2036年）"), fmtA(npv), T(`at ${(discount*100).toFixed(1)}%, no terminal value`, `折现率${(discount*100).toFixed(1)}%，不含终值`))}

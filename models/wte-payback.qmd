@@ -71,6 +71,8 @@ comps = csv("../data/waste_components.csv" + V)
 compData = csv("../data/vic_waste_components.csv" + V)
 C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890"})
 fmtM = v => (v / 1e6).toFixed(0)
+// Chinese figures use 万 and 亿 (groups of four digits) instead of k and m
+wan = x => { const s = x < 0 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
 kt = v => (v / 1e3).toFixed(0)
 // Paragraph from our own trusted strings that contain <b> tags
 rich = s => { const p = document.createElement("p"); p.className = "kpi-note explain"; p.innerHTML = s; return p; }
@@ -79,9 +81,9 @@ startYear = 2027
 opYears = 25
 // Candidate sites (same three as the council price map). Static object: no T(), so the radio is never rebuilt.
 siteInfo = ({
-  LATROBE: {en: "Latrobe Valley (Hazelwood, Vic)", zh: "拉筹伯谷（Hazelwood，维州）", short: "Latrobe", state: "VIC", zone: "VIC_RURAL"},
-  NARROMINE: {en: "Narromine (NSW)", zh: "Narromine（新州）", short: "Narromine", state: "NSW", zone: "NSW_NOLEVY"},
-  PORT_AUGUSTA: {en: "Port Augusta (SA)", zh: "奥古斯塔港（南澳）", short: "Port Augusta", state: "SA", zone: "SA_NONMETRO"}
+  LATROBE: {en: "Latrobe Valley (Hazelwood, Vic)", zh: "拉筹伯谷（Hazelwood，维州）", short: "Latrobe", shortZh: "拉筹伯谷", state: "VIC", zone: "VIC_RURAL"},
+  NARROMINE: {en: "Narromine (NSW)", zh: "纳罗迈恩（新州）", short: "Narromine", shortZh: "纳罗迈恩", state: "NSW", zone: "NSW_NOLEVY"},
+  PORT_AUGUSTA: {en: "Port Augusta (SA)", zh: "奥古斯塔港（南澳）", short: "Port Augusta", shortZh: "奥古斯塔港", state: "SA", zone: "SA_NONMETRO"}
 })
 // ----- Assumptions register: defaults and sources for every input (data/assumptions.csv + data/sources.csv) -----
 // A failed fetch falls back to DEFAULTS (with a warning) instead of blanking the page
@@ -219,7 +221,7 @@ Plot.plot({
     Plot.ruleX([2025], {stroke: "#52514e", strokeDasharray: "2,3"}),
     Plot.text([2025], {x: d => d, frameAnchor: "top", dx: 4, dy: 4, textAnchor: "start", fontSize: 11, fill: "#52514e", text: () => T("Projection →", "预测 →")}),
     vicSite ? Plot.ruleY([capMt], {stroke: "#0b0b0b", strokeDasharray: "4,3"}) : null,
-    vicSite ? Plot.text([capMt], {x: 2016, y: d => d, dy: -7, textAnchor: "start", fill: "#0b0b0b", fontSize: 11, text: () => T(`WtE cap ${capMt} Mt`, `焚烧上限${capMt}百万吨`)}) : null,
+    vicSite ? Plot.text([capMt], {x: 2016, y: d => d, dy: -7, textAnchor: "start", fill: "#0b0b0b", fontSize: 11, text: () => T(`WtE cap ${capMt} Mt`, `焚烧上限${wan(capMt * 1e6)}吨`)}) : null,
     Plot.tip(totals, Plot.pointerX({x: "year", y: "mt", title: d => `${d.year <= 2025 ? `FY${d.year - 1}–${String(d.year).slice(2)}` : `${d.year} (${T("projection", "预测")})`}\n` +
       compOrder.slice().reverse().map(c => `${compLabel[c]}: ${(d[c] * 1000).toFixed(0)} kt`).join("\n") + `\n${T("Total", "合计")}: ${d.mt.toFixed(2)} Mt`}))
   ]
@@ -235,13 +237,13 @@ Plot.plot({
   const r1 = 2.6 * effElec / 0.97;
   if (site === "LATROBE") return rich(T(
     `<b>Latrobe Valley (Hazelwood):</b> Victorian licence applies. Licence available to us = (cap ${capMt} Mt − 2.35 Mt allocated) + partner = <b>${kt(vicLicence)} kt/yr</b>, so at most <b>${maxFurnaces}</b> furnace${maxFurnaces > 1 ? "s" : ""} of ${kt(perFurnace)} kt.`,
-    `<b>拉筹伯谷（Hazelwood）：</b>适用维州许可。我方可用许可 =（上限${capMt}百万吨 − 已分配235万吨）+ 合作方 = <b>${kt(vicLicence)}千吨/年</b>，即最多<b>${maxFurnaces}</b>台${kt(perFurnace)}千吨焚烧炉。`));
+    `<b>拉筹伯谷（Hazelwood）：</b>适用维州许可。我方可用许可 =（上限${wan(capMt * 1e6)}吨 − 已分配235万吨）+ 合作方 = <b>${wan(vicLicence)}吨/年</b>，即最多<b>${maxFurnaces}</b>台${wan(perFurnace)}吨焚烧炉。`));
   if (site === "NARROMINE") return warnBox(T(
     `<b>Narromine is not a permitted location for thermal energy from waste in NSW.</b> The Protection of the Environment Operations (General) Amendment (Thermal Energy from Waste) Regulation 2022 allows it only in four precincts: West Lithgow, Parkes, Richmond Valley and Southern Goulburn-Mulwaree (NSW EPA energy-recovery FAQ). This case is modelled "as if permitted". NSW has no tonnage cap, so the Victorian cap and partner do not apply (greyed); the EPA licence would be sized to the plant, and the furnace limit here is the feedstock customers would send at the lowest fee on the slider (A$60/t): <b>${kt(feedstockMax)} kt/yr → at most ${maxFurnaces} furnace${maxFurnaces > 1 ? "s" : ""}</b> (ceiling 12). NSW waste carried by road more than 150 km (straight line) from where it is generated meets the proximity principle (POEO (Waste) Regulation 2014 cl. 71); such routes are flagged, not excluded.`,
-    `<b>Narromine不是新州允许建设焚烧发电的地点。</b>2022年《环境保护运营（一般）修订（垃圾焚烧发电）条例》仅允许在四个区域建设：West Lithgow、Parkes、Richmond Valley和Southern Goulburn-Mulwaree（新州环保局能源回收常见问题）。此情景按“假设获准”测算。新州无总量上限，因此维州上限及合作方不适用（灰显）；环保许可将按工厂规模核发，此处焚烧炉上限取滑块最低处理费（60澳元/吨）下客户愿送量：<b>${kt(feedstockMax)}千吨/年 → 最多${maxFurnaces}台</b>（上限12台）。新州垃圾经公路运离产生地直线距离超过150公里时受“就近原则”（2014年废物条例第71条）约束；此类线路仅标注、不剔除。`));
+    `<b>Narromine不是新州允许建设焚烧发电的地点。</b>2022年《环境保护运营（一般）修订（垃圾焚烧发电）条例》仅允许在四个区域建设：West Lithgow、Parkes、Richmond Valley和Southern Goulburn-Mulwaree（新州环保局能源回收常见问题）。此情景按“假设获准”测算。新州无总量上限，因此维州上限及合作方不适用（灰显）；环保许可将按工厂规模核发，此处焚烧炉上限取滑块最低处理费（60澳元/吨）下客户愿送量：<b>${wan(feedstockMax)}吨/年 → 最多${maxFurnaces}台</b>（上限12台）。新州垃圾经公路运离产生地直线距离超过150公里时受“就近原则”（2014年废物条例第71条）约束；此类线路仅标注、不剔除。`));
   return warnBox(T(
     `<b>Port Augusta: land not confirmed.</b> The former Northern Power Station site was sold to Cu-River Mining in 2019 for a bulk trans-shipment port, and a 270 MW battery is planned there, so a plant would have to share or lease land. SA has no tonnage cap or precinct rule, so the Victorian cap and partner do not apply (greyed); the furnace limit here is the feedstock customers would send at A$60/t: <b>${kt(feedstockMax)} kt/yr → at most ${maxFurnaces} furnace${maxFurnaces > 1 ? "s" : ""}</b> (ceiling 12). EPA SA's thermal EfW position statement (April 2020) instead sets conditions: residual waste only, <b>R1 energy efficiency ≥ 0.65</b>, the SA refuse-derived-fuel standard, community engagement and real-time emissions monitoring (WMRR summary, 6 Jul 2021). Rough R1 check at ${(effElec * 100).toFixed(0)}% net electrical efficiency (electricity only, R1 ≈ 2.6 × efficiency ÷ 0.97, ignoring imported energy): <b>${r1.toFixed(2)}</b>${r1 < 0.65 ? " — below 0.65; it needs about 24% or more, or heat export" : " — meets 0.65"}.`,
-    `<b>奥古斯塔港：用地未确认。</b>原Northern电站场地已于2019年出售给Cu-River Mining用于散货转运港，并规划建设270兆瓦储能电站，工厂需共用或租赁土地。南澳无总量上限或区域限制，因此维州上限及合作方不适用（灰显）；此处焚烧炉上限取60澳元/吨下客户愿送量：<b>${kt(feedstockMax)}千吨/年 → 最多${maxFurnaces}台</b>（上限12台）。南澳环保局2020年4月焚烧发电立场声明设定条件：仅限残余垃圾、<b>R1能效≥0.65</b>、南澳垃圾衍生燃料标准、社区参与及实时排放监测（WMRR 2021年7月6日综述）。按${(effElec * 100).toFixed(0)}%净发电效率粗算R1（仅发电，R1 ≈ 2.6 × 效率 ÷ 0.97，不计外购能源）：<b>${r1.toFixed(2)}</b>${r1 < 0.65 ? "——低于0.65，需约24%以上效率或供热" : "——达到0.65"}。`));
+    `<b>奥古斯塔港：用地未确认。</b>原Northern电站场地已于2019年出售给Cu-River Mining用于散货转运港，并规划建设270兆瓦储能电站，工厂需共用或租赁土地。南澳无总量上限或区域限制，因此维州上限及合作方不适用（灰显）；此处焚烧炉上限取60澳元/吨下客户愿送量：<b>${wan(feedstockMax)}吨/年 → 最多${maxFurnaces}台</b>（上限12台）。南澳环保局2020年4月焚烧发电立场声明设定条件：仅限残余垃圾、<b>R1能效≥0.65</b>、南澳垃圾衍生燃料标准、社区参与及实时排放监测（WMRR 2021年7月6日综述）。按${(effElec * 100).toFixed(0)}%净发电效率粗算R1（仅发电，R1 ≈ 2.6 × 效率 ÷ 0.97，不计外购能源）：<b>${r1.toFixed(2)}</b>${r1 < 0.65 ? "——低于0.65，需约24%以上效率或供热" : "——达到0.65"}。`));
 }
 ```
 
@@ -289,7 +291,7 @@ Plot.plot({
   const a = totals.find(d => d.year === 2016), b = totals.find(d => d.year === 2025), z = totals.find(d => d.year === 2036);
   return rich(T(
     `Since 2016 tonnes are up ${((b.mt / a.mt - 1) * 100).toFixed(0)}% (${a.mt.toFixed(2)} → ${b.mt.toFixed(2)} Mt) and have fallen since the 2020–21 peak, but <b>the energy in the waste is up ${((b.pj / a.pj - 1) * 100).toFixed(0)}%</b> (${a.pj.toFixed(0)} → ${b.pj.toFixed(0)} PJ). Food-and-garden bins took wet, low-energy food out of the red bin (food −${((1 - b.food / a.food) * 100).toFixed(0)}%), leaving more paper, plastics and textiles, so the average rose from ${a.cv.toFixed(1)} to ${b.cv.toFixed(1)} MJ/kg. In this scenario, 2036 has ${z.mt.toFixed(2)} Mt at ${z.cv.toFixed(1)} MJ/kg = ${z.pj.toFixed(0)} PJ.`,
-    `自2016年以来吨数增长${((b.mt / a.mt - 1) * 100).toFixed(0)}%（${a.mt.toFixed(2)} → ${b.mt.toFixed(2)}百万吨），且自2020–21年峰值后下降，但<b>垃圾所含能量增长了${((b.pj / a.pj - 1) * 100).toFixed(0)}%</b>（${a.pj.toFixed(0)} → ${b.pj.toFixed(0)}拍焦）。厨余与园林垃圾分类把含水量高、热值低的厨余从红桶中分出（厨余减少${((1 - b.food / a.food) * 100).toFixed(0)}%），纸、塑料和纺织品占比上升，平均热值由${a.cv.toFixed(1)}升至${b.cv.toFixed(1)}兆焦/千克。此情景下2036年为${z.mt.toFixed(2)}百万吨，热值${z.cv.toFixed(1)}兆焦/千克，合计${z.pj.toFixed(0)}拍焦。`));
+    `自2016年以来吨数增长${((b.mt / a.mt - 1) * 100).toFixed(0)}%（${wan(a.mt * 1e6)} → ${wan(b.mt * 1e6)}吨），且自2020–21年峰值后下降，但<b>垃圾所含能量增长了${((b.pj / a.pj - 1) * 100).toFixed(0)}%</b>（${a.pj.toFixed(0)} → ${b.pj.toFixed(0)}拍焦）。厨余与园林垃圾分类把含水量高、热值低的厨余从红桶中分出（厨余减少${((1 - b.food / a.food) * 100).toFixed(0)}%），纸、塑料和纺织品占比上升，平均热值由${a.cv.toFixed(1)}升至${b.cv.toFixed(1)}兆焦/千克。此情景下2036年为${wan(z.mt * 1e6)}吨，热值${z.cv.toFixed(1)}兆焦/千克，合计${z.pj.toFixed(0)}拍焦。`));
 }
 ```
 
@@ -377,9 +379,9 @@ Plot.plot({
   marks: [
     Plot.areaY(supplyCurve, {x: "gf", y: "t", fill: "type", curve: "step-after", fillOpacity: 0.9}),
     Plot.ruleY([capacity], {stroke: "#0b0b0b", strokeWidth: 1.5}),
-    Plot.text([capacity], {x: 260, y: d => d, dy: -7, textAnchor: "end", fontSize: 11, fill: "#0b0b0b", text: () => T(`${furnaces} furnace${furnaces > 1 ? "s" : ""}: ${kt(capacity)} kt`, `${furnaces}台炉：${kt(capacity)}千吨`)}),
+    Plot.text([capacity], {x: 260, y: d => d, dy: -7, textAnchor: "end", fontSize: 11, fill: "#0b0b0b", text: () => T(`${furnaces} furnace${furnaces > 1 ? "s" : ""}: ${kt(capacity)} kt`, `${furnaces}台炉：${wan(capacity)}吨`)}),
     vicSite ? Plot.ruleY([licence], {stroke: C.low, strokeDasharray: "4,3", strokeWidth: 1.5}) : null,
-    vicSite ? Plot.text([licence], {x: 62, y: d => d, dy: -7, textAnchor: "start", fontSize: 11, fill: "#b4471b", text: () => T(`Licence ${kt(licence)} kt`, `许可${kt(licence)}千吨`)}) : null,
+    vicSite ? Plot.text([licence], {x: 62, y: d => d, dy: -7, textAnchor: "start", fontSize: 11, fill: "#b4471b", text: () => T(`Licence ${kt(licence)} kt`, `许可${wan(licence)}吨`)}) : null,
     Plot.ruleX([gateFee], {stroke: "#0b0b0b", strokeDasharray: "2,2"}),
     Plot.dot([{gf: gateFee, t: supplyAt(gateFee, cod).total}], {x: "gf", y: "t", r: 5, fill: "#0b0b0b", stroke: "white", strokeWidth: 2}),
     Plot.tip(supplyCurve.filter(d => d.type === "council"), Plot.pointerX({x: "gf", y: d => supplyAt(d.gf, cod).total, title: d => { const s = supplyAt(d.gf, cod); return `${T("Gate fee", "处理费")}: A$${d.gf}/t\n${T("Councils", "市政")}: ${kt(s.kerb)} kt (${s.nCouncils})\n${T("Commercial", "工商业")}: ${kt(s.ci)} kt\n${T("Total", "合计")}: ${kt(s.total)} kt`; }}))
@@ -392,10 +394,10 @@ Plot.plot({
 {
   const m = supplyAt(gateFee, startYear), s = supplyAt(gateFee, cod);
   const modeName = {road: T("road", "公路"), rail: T("rail", "铁路"), sea: T("sea", "海运")};
-  const byMode = Object.entries(s.byMode).filter(([, t]) => t > 0).map(([k, t]) => `${modeName[k]} ${kt(t)} ${T("kt", "千吨")}`).join(", ");
+  const byMode = Object.entries(s.byMode).filter(([, t]) => t > 0).map(([k, t]) => `${modeName[k]} ${T(`${kt(t)} kt`, `${wan(t)}吨`)}`).join(T(", ", "，"));
   return rich(T(
     `Raise the fee and customers drop away. The plant burns the lowest of ${vicSite ? "three lines: what customers send (shaded), furnace capacity (black) and the licence (orange)" : "two lines: what customers send (shaded) and furnace capacity (black); no state cap applies at this site"}. <b>Check against the map:</b> at A$${gateFee}/t in 2027 prices, ${m.nCouncils} of ${councils.length} priced councils (${kt(m.kerbRaw)} kt of red-bin waste at their reported tonnes) switch to ${siteInfo[site].short} — the same count the council price map shows for the same site and inputs. In ${cod}: ${kt(s.kerb)} kt from councils${byMode ? ` (${byMode})` : ""} + ${kt(s.ci)} kt commercial, which costs about A$${s.ciPerT.toFixed(0)}/t to bring from Melbourne.${s.legalN ? ` <b>${s.legalN} NSW council${s.legalN > 1 ? "s" : ""} (${kt(s.legalT)} kt)</b> would use a route flagged under the NSW proximity principle (legal check needed).` : ""}${skippedCouncils.length ? ` ${skippedCouncils.length} areas without data are skipped (e.g. ${skippedCouncils.slice(0, 2).map(d => d.name).join(", ")}).` : ""}`,
-    `处理费越高，客户越少。工厂实际处理量取${vicSite ? "三者最小值：客户愿送量（阴影）、焚烧炉产能（黑线）和许可配额（橙线）" : "两者最小值：客户愿送量（阴影）和焚烧炉产能（黑线）；此厂址无州级总量上限"}。<b>与地图核对：</b>按2027年价格、处理费${gateFee}澳元/吨时，${councils.length}个计价市政中有${m.nCouncils}个（按其报告吨数共${kt(m.kerbRaw)}千吨红桶垃圾）会转送至${siteInfo[site].short}，与相同厂址和参数下市政价格地图显示的数量一致。${cod}年：市政${kt(s.kerb)}千吨${byMode ? `（${byMode}）` : ""} + 工商业${kt(s.ci)}千吨，由墨尔本运来约每吨${s.ciPerT.toFixed(0)}澳元。${s.legalN ? `<b>${s.legalN}个新州市政（${kt(s.legalT)}千吨）</b>的线路受新州“就近原则”标注（需法律核查）。` : ""}${skippedCouncils.length ? `${skippedCouncils.length}个无数据区域未计入（如${skippedCouncils.slice(0, 2).map(d => d.name).join("、")}）。` : ""}`));
+    `处理费越高，客户越少。工厂实际处理量取${vicSite ? "三者最小值：客户愿送量（阴影）、焚烧炉产能（黑线）和许可配额（橙线）" : "两者最小值：客户愿送量（阴影）和焚烧炉产能（黑线）；此厂址无州级总量上限"}。<b>与地图核对：</b>按2027年价格、处理费${gateFee}澳元/吨时，${councils.length}个计价市政中有${m.nCouncils}个（按其报告吨数共${wan(m.kerbRaw)}吨红桶垃圾）会转送至${siteInfo[site].shortZh}，与相同厂址和参数下市政价格地图显示的数量一致。${cod}年：市政${wan(s.kerb)}吨${byMode ? `（${byMode}）` : ""} + 工商业${wan(s.ci)}吨，由墨尔本运来约每吨${s.ciPerT.toFixed(0)}澳元。${s.legalN ? `<b>${s.legalN}个新州市政（${wan(s.legalT)}吨）</b>的线路受新州“就近原则”标注（需法律核查）。` : ""}${skippedCouncils.length ? `${skippedCouncils.length}个无数据区域未计入（如${skippedCouncils.slice(0, 2).map(d => d.name).join("、")}）。` : ""}`));
 }
 ```
 :::
@@ -468,7 +470,7 @@ Plot.plot({
 //| echo: false
 rich(T(
   `${furnaces} × ${tpd} t/day furnaces = ${kt(capacity)} kt/yr. In ${cod} the plant receives ${kt(first.tonnes)} kt, about ${kt(first.tonnes / furnaces)} kt per furnace, so it runs at <b>${(first.util*100).toFixed(0)}% of capacity</b> (limited by ${limitName[first.limit]}). <b>Weighted energy of the intake: ${first.cv.toFixed(1)} MJ/kg</b> = ${kt(first.kerbT)} kt of council red-bin waste at ${first.kerbCV.toFixed(1)} MJ/kg (each council's own value, weighted by its tonnes) + ${kt(first.ciT)} kt of commercial waste at ${first.ciCV.toFixed(1)} MJ/kg. That is ${(first.tonnes * first.cv / 1e6).toFixed(1)} PJ a year, or about ${first.kwh.toFixed(0)} kWh of electricity per tonne. Fixed costs are A$${(fixedTotal/1e6).toFixed(0)}m/yr whether the furnaces are full or not: <b>A$${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}/t</b> at this load. About ${first.stations} transfer station${first.stations === 1 ? "" : "s"} (150 kt each) would be needed for council waste from more than 100 km away.`,
-  `${furnaces}台 × ${tpd}吨/日 = ${kt(capacity)}千吨/年。${cod}年接收${kt(first.tonnes)}千吨，每台约${kt(first.tonnes / furnaces)}千吨，<b>负荷率${(first.util*100).toFixed(0)}%</b>（受${limitName[first.limit]}限制）。<b>进料加权热值${first.cv.toFixed(1)}兆焦/千克</b> = 市政红桶垃圾${kt(first.kerbT)}千吨，热值${first.kerbCV.toFixed(1)}兆焦/千克（按各市政吨数加权）+ 工商业垃圾${kt(first.ciT)}千吨，热值${first.ciCV.toFixed(1)}兆焦/千克。合计每年${(first.tonnes * first.cv / 1e6).toFixed(1)}拍焦，每吨约发电${first.kwh.toFixed(0)}千瓦时。无论是否满负荷，固定成本均为每年${(fixedTotal/1e6).toFixed(0)}百万澳元，在此负荷下为<b>每吨${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}澳元</b>。100公里以外的市政垃圾约需${first.stations}座转运站（每座15万吨）。`))
+  `${furnaces}台 × ${tpd}吨/日 = ${wan(capacity)}吨/年。${cod}年接收${wan(first.tonnes)}吨，每台约${wan(first.tonnes / furnaces)}吨，<b>负荷率${(first.util*100).toFixed(0)}%</b>（受${limitName[first.limit]}限制）。<b>进料加权热值${first.cv.toFixed(1)}兆焦/千克</b> = 市政红桶垃圾${wan(first.kerbT)}吨，热值${first.kerbCV.toFixed(1)}兆焦/千克（按各市政吨数加权）+ 工商业垃圾${wan(first.ciT)}吨，热值${first.ciCV.toFixed(1)}兆焦/千克。合计每年${(first.tonnes * first.cv / 1e6).toFixed(1)}拍焦，每吨约发电${first.kwh.toFixed(0)}千瓦时。无论是否满负荷，固定成本均为每年${wan(fixedTotal)}澳元，在此负荷下为<b>每吨${(fixedTotal/Math.max(first.tonnes,1)).toFixed(0)}澳元</b>。100公里以外的市政垃圾约需${first.stations}座转运站（每座15万吨）。`))
 ```
 :::
 ::::
@@ -570,16 +572,16 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
 //| echo: false
 {
   const tile = (label, value, sub, warn) => html`<div class="kpi" style="${warn ? "border-color:#eb6834;background:#fdf1ec" : ""}"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`;
-  const M = v => `A$${fmtM(v)}m`, P = v => v === null ? "—" : `${(v * 100).toFixed(1)}%`;
+  const M = v => T(`A$${fmtM(v)}m`, `${wan(v)}澳元`), P = v => v === null ? "—" : `${(v * 100).toFixed(1)}%`;
   const lowCover = fin.minDSCR !== null && fin.minDSCR < 1.3;
   return html`<div class="kpi-row">
     ${tile(T("Project NPV", "项目净现值"), M(fin.npvU), T(`no debt, at ${(discount*100).toFixed(1)}%`, `无债务，折现率${(discount*100).toFixed(1)}%`))}
-    ${tile(T("Debt tax shield", "债务税盾"), M(fin.pvTS - fin.pvFee), T(`PV of shield A$${fmtM(fin.pvTS)}m less fees A$${fmtM(fin.pvFee)}m`, `税盾现值${fmtM(fin.pvTS)}减费用${fmtM(fin.pvFee)}百万澳元`))}
+    ${tile(T("Debt tax shield", "债务税盾"), M(fin.pvTS - fin.pvFee), T(`PV of shield A$${fmtM(fin.pvTS)}m less fees A$${fmtM(fin.pvFee)}m`, `税盾现值${wan(fin.pvTS)}澳元减费用${wan(fin.pvFee)}澳元`))}
     ${tile("APV", M(fin.apv), T("NPV + debt tax shield", "净现值 + 债务税盾"))}
     ${tile(T("Project IRR", "项目内部收益率"), P(fin.irrU), T("after tax, no debt", "税后，无债务"))}
     ${tile(T("Equity IRR", "股东内部收益率"), P(fin.irrE), debtShare > 0 ? T(`with ${(debtShare*100).toFixed(0)}% debt`, `债务比例${(debtShare*100).toFixed(0)}%`) : T("no debt", "无债务"))}
     ${tile(T("Min debt cover (DSCR)", "最低偿债覆盖率"), fin.minDSCR === null ? "—" : `${fin.minDSCR.toFixed(2)}×`, fin.minDSCR === null ? T("no debt", "无债务") : lowCover ? T(`in ${startYear + fin.minDSCRyear}; below 1.30×, lenders unlikely to lend this much`, `${startYear + fin.minDSCRyear}年；低于1.30倍，银行难以按此额度放贷`) : T(`in ${startYear + fin.minDSCRyear}; average ${fin.avgDSCR.toFixed(2)}×`, `${startYear + fin.minDSCRyear}年；平均${fin.avgDSCR.toFixed(2)}倍`), lowCover)}
-    ${tile(T("Equity in", "股东投入"), M(fin.equityIn), T(`debt at opening A$${fmtM(fin.P0)}m`, `投运时债务${fmtM(fin.P0)}百万澳元`))}
+    ${tile(T("Equity in", "股东投入"), M(fin.equityIn), T(`debt at opening A$${fmtM(fin.P0)}m`, `投运时债务${wan(fin.P0)}澳元`))}
   </div>`;
 }
 ```
@@ -596,8 +598,8 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
   return rich(T(
     `<b>Depreciation.</b> Tax depreciation of A$${fmtM(capex)}m saves A$${fmtM(fin.depPV)}m of tax in present value (counting only years the project is profitable enough to use it). The old rule (all capex straight line over 25 years) would give a project NPV of A$${fmtM(sl.npvU)}m, against A$${fmtM(fin.npvU)}m now. ` +
     `<b>Debt.</b> ${debtShare > 0 ? `Borrowing ${(debtShare*100).toFixed(0)}% of capex at ${(debtRate*100).toFixed(2)}% adds <b>A$${fmtM(fin.apv - fin.npvU)}m</b> of value (APV A$${fmtM(fin.apv)}m vs NPV A$${fmtM(fin.npvU)}m): interest saves tax, less fees. ${thinCapMode === "frt" ? `The 30% thin-cap limit holds back A$${fmtM(denied)}m of interest deductions in total, which are carried forward or lapse. ` : ""}${lossYrs ? `In ${lossYrs} operating year${lossYrs > 1 ? "s" : ""} the project pays no tax, so the shield waits until profits arrive. ` : ""}Equity IRR moves from ${pc(noDebt.irrE)} to ${pc(fin.irrE)}. ${up ? "Most of that rise is leverage (more risk for shareholders), not extra value; the value added is the APV difference." : `It falls because the project earns only ${pc(fin.irrU)} before financing, barely above the after-tax cost of debt (${pc(debtRate * (1 - taxRate))}), and fees and delayed deductions take the rest. Debt raises the equity return only when the project out-earns its debt.`}` : `Move the debt slider to see the interest tax shield and the equity return.`}`,
-    `<b>折旧：</b>A$${fmtM(capex)}m投资的税务折旧节省所得税现值${fmtM(fin.depPV)}百万澳元（仅计项目盈利、可实际抵扣的年份）。若按旧口径（全部投资25年直线折旧），项目净现值为${fmtM(sl.npvU)}百万澳元，现为${fmtM(fin.npvU)}百万澳元。` +
-    `<b>债务：</b>${debtShare > 0 ? `以${(debtRate*100).toFixed(2)}%利率借入投资的${(debtShare*100).toFixed(0)}%，增加价值<b>${fmtM(fin.apv - fin.npvU)}百万澳元</b>（调整现值APV ${fmtM(fin.apv)} vs 净现值${fmtM(fin.npvU)}百万澳元）：利息抵税，扣除融资费用。${thinCapMode === "frt" ? `30%资本弱化上限累计限制利息抵扣${fmtM(denied)}百万澳元（结转或失效）。` : ""}${lossYrs ? `有${lossYrs}个运营年度项目无需纳税，税盾须待盈利后才能实现。` : ""}股东内部收益率由${pc(noDebt.irrE)}变为${pc(fin.irrE)}。${up ? "上升主要来自杠杆（股东承担更多风险），而非新增价值；新增价值即APV差额。" : `下降是因为项目融资前收益率仅${pc(fin.irrU)}，仅略高于税后债务成本（${pc(debtRate * (1 - taxRate))}），加上融资费用和抵扣延后。只有项目收益高于债务成本时，债务才会提高股东回报。`}` : `移动债务滑块可查看利息税盾和股东回报。`}`));
+    `<b>折旧：</b>${wan(capex)}澳元投资的税务折旧节省所得税现值${wan(fin.depPV)}澳元（仅计项目盈利、可实际抵扣的年份）。若按旧口径（全部投资25年直线折旧），项目净现值为${wan(sl.npvU)}澳元，现为${wan(fin.npvU)}澳元。` +
+    `<b>债务：</b>${debtShare > 0 ? `以${(debtRate*100).toFixed(2)}%利率借入投资的${(debtShare*100).toFixed(0)}%，增加价值<b>${wan(fin.apv - fin.npvU)}澳元</b>（调整现值APV ${wan(fin.apv)}澳元 vs 净现值${wan(fin.npvU)}澳元）：利息抵税，扣除融资费用。${thinCapMode === "frt" ? `30%资本弱化上限累计限制利息抵扣${wan(denied)}澳元（结转或失效）。` : ""}${lossYrs ? `有${lossYrs}个运营年度项目无需纳税，税盾须待盈利后才能实现。` : ""}股东内部收益率由${pc(noDebt.irrE)}变为${pc(fin.irrE)}。${up ? "上升主要来自杠杆（股东承担更多风险），而非新增价值；新增价值即APV差额。" : `下降是因为项目融资前收益率仅${pc(fin.irrU)}，仅略高于税后债务成本（${pc(debtRate * (1 - taxRate))}），加上融资费用和抵扣延后。只有项目收益高于债务成本时，债务才会提高股东回报。`}` : `移动债务滑块可查看利息税盾和股东回报。`}`));
 }
 ```
 
@@ -622,7 +624,7 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
     ]
   })}${rich(T(
     `Too cheap and every tonne loses money; too dear and customers leave the furnaces idle. With ${furnaces} furnace${furnaces > 1 ? "s" : ""}, project NPV peaks at a gate fee of about <b>A$${best.gf}/t</b> (A$${fmtM(best.npv)}m).`,
-    `太便宜则每吨亏损，太贵则客户流失、炉子闲置。${furnaces}台炉时，处理费约<b>${best.gf}澳元/吨</b>时项目净现值最高（${fmtM(best.npv)}百万澳元）。`))}</div>`
+    `太便宜则每吨亏损，太贵则客户流失、炉子闲置。${furnaces}台炉时，处理费约<b>${best.gf}澳元/吨</b>时项目净现值最高（${wan(best.npv)}澳元）。`))}</div>`
 }
 ```
 :::
@@ -917,14 +919,14 @@ eqPaybackYear = ops.find(d => d.eqCum >= 0)?.year
 {
   const item = (label, value, cls = "") => html`<div class="rb-item ${cls}"><span class="rb-label">${label}</span><span class="rb-value">${value}</span></div>`;
   return html`<div class="results-bar">
-    ${item(T("Site", "厂址"), siteInfo[site].short)}
-    ${item(T("Capex", "投资"), `A$${fmtM(capex)}m`)}
+    ${item(T("Site", "厂址"), T(siteInfo[site].short, siteInfo[site].shortZh))}
+    ${item(T("Capex", "投资"), T(`A$${fmtM(capex)}m`, `${wan(capex)}澳元`))}
     ${item(T("Furnaces", "焚烧炉"), `${furnaces} / ${maxFurnaces}`)}
     ${item(T("Load", "负荷率"), `${(first.util*100).toFixed(0)}%`)}
-    ${item(T("Intake energy", "进料热值"), first.tonnes > 0 ? `${first.cv.toFixed(1)} MJ/kg` : "—")}
+    ${item(T("Intake energy", "进料热值"), first.tonnes > 0 ? T(`${first.cv.toFixed(1)} MJ/kg`, `${first.cv.toFixed(1)}兆焦/千克`) : "—")}
     ${item(vicSite ? T("Market share", "市场份额") : T("Share of feedstock", "原料份额"), `${(first.tonnes / (marketMt*1e6) * 100).toFixed(0)}%`)}
-    ${item(T("Payback (from opening)", "回收期（自投运）"), paybackYear ? `${paybackYear - cod + 1} ${T("yrs", "年")}` : "—")}
-    ${item(T("NPV · APV", "净现值 · APV"), `A$${fmtM(npv)}m · ${fmtM(fin.apv)}m`)}
+    ${item(T("Payback (from opening)", "回收期（自投运）"), paybackYear ? `${paybackYear - cod + 1}${T(" yrs", "年")}` : "—")}
+    ${item(T("NPV · APV", "净现值 · APV"), T(`A$${fmtM(npv)}m · ${fmtM(fin.apv)}m`, `${wan(npv)} · ${wan(fin.apv)}澳元`))}
     ${item(T("IRR project · equity", "IRR 项目 · 股东"), `${irr === null ? "—" : (irr*100).toFixed(1) + "%"} · ${fin.irrE === null ? "—" : (fin.irrE*100).toFixed(1) + "%"}`)}
     ${mode === "simple" && advChanged.length ? item(T("Hidden inputs changed", "隐藏参数已改"), String(advChanged.length), "rb-warn") : ""}
   </div>`;

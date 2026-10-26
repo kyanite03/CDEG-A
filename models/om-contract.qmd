@@ -57,6 +57,10 @@ T = (en, zh) => lang === "zh" ? zh : en
 C = ({base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "#9a9890", dark: "#0b0b0b"})
 fmtM = v => (v / 1e6).toFixed(1)
 kt = v => (v / 1e3).toFixed(0)
+// Chinese figures use 万 and 亿 (groups of four digits) instead of k and m
+wan = x => { const s = x < 0 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
+perT = (x, d = 0) => T(`A$${x.toFixed(d)}/t`, `${x.toFixed(d)}澳元/吨`)
+mA = v => T(`A$${fmtM(v)}m`, `${wan(v)}澳元`)
 tile = (label, value, sub, warn) => html`<div class="kpi" style="${warn ? "border-color:#eb6834;background:#fdf1ec" : ""}"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
 // Victorian WtE licences, August 2025 (same figures as Model 1)
 LIC = ({total: v("lic_total") * 1e6, cleanaway: v("lic_cleanaway") * 1e3, hiq: v("lic_hiq") * 1e3, mw: v("lic_mw") * 1e3})
@@ -208,10 +212,10 @@ costT = plant.fixedT + varOpex * (1 - ownerShare)
 ```{ojs}
 //| echo: false
 html`<div class="kpi-row">
-  ${tile(T("Tonnes a year", "年处理量"), `${kt(plant.tonnes)} kt`, T(`${furnaces} × ${tpd} t/d × 365 × ${Math.round(availability * 100)}%`, `${furnaces} × ${tpd}吨/日 × 365 × ${Math.round(availability * 100)}%`))}
-  ${tile(T("Fixed cost", "固定成本"), `A$${plant.fixedT.toFixed(0)}/t`, T(`A$${(plant.fixed / 1e6).toFixed(1)}m a year`, `每年${(plant.fixed / 1e6).toFixed(1)}百万澳元`))}
-  ${tile(T("Variable cost", "变动成本"), `A$${(varOpex * (1 - ownerShare)).toFixed(0)}/t`, ownerShare > 0 ? T(`A$${varOpex}/t less ${Math.round(ownerShare * 100)}% paid by owner`, `${varOpex}澳元/吨，扣除业主承担的${Math.round(ownerShare * 100)}%`) : T("consumables and maintenance", "耗材与维护"))}
-  ${tile(T("Operator-controlled cost", "运营方可控成本"), `A$${costT.toFixed(0)}/t`, T("before margin", "未计利润"))}
+  ${tile(T("Tonnes a year", "年处理量"), T(`${kt(plant.tonnes)} kt`, `${wan(plant.tonnes)}吨`), T(`${furnaces} × ${tpd} t/d × 365 × ${Math.round(availability * 100)}%`, `${furnaces} × ${tpd}吨/日 × 365 × ${Math.round(availability * 100)}%`))}
+  ${tile(T("Fixed cost", "固定成本"), perT(plant.fixedT), T(`A$${(plant.fixed / 1e6).toFixed(1)}m a year`, `每年${wan(plant.fixed)}澳元`))}
+  ${tile(T("Variable cost", "变动成本"), perT(varOpex * (1 - ownerShare)), ownerShare > 0 ? T(`A$${varOpex}/t less ${Math.round(ownerShare * 100)}% paid by owner`, `${varOpex}澳元/吨，扣除业主承担的${Math.round(ownerShare * 100)}%`) : T("consumables and maintenance", "耗材与维护"))}
+  ${tile(T("Operator-controlled cost", "运营方可控成本"), perT(costT), T("before margin", "未计利润"))}
 </div>`
 ```
 :::
@@ -279,7 +283,7 @@ netMargin = fee > 0 ? profitT / fee : 0
       Plot.barX(rows, {y: "k", x1: "x1", x2: "x2", fill: "c", fillOpacity: 0.5}),
       Plot.barX([{k: ours, x1: 0, x2: costT}], {y: "k", x1: "x1", x2: "x2", fill: C.base, fillOpacity: 0.35}),
       Plot.barX([{k: ours, x1: costT, x2: Math.max(fee, costT)}], {y: "k", x1: "x1", x2: "x2", fill: C.base}),
-      Plot.text([{k: ours, x: Math.max(fee, costT)}], {y: "k", x: "x", text: () => `A$${fee.toFixed(0)}/t`, dx: 6, textAnchor: "start", fontSize: 11, fontWeight: 600}),
+      Plot.text([{k: ours, x: Math.max(fee, costT)}], {y: "k", x: "x", text: () => perT(fee), dx: 6, textAnchor: "start", fontSize: 11, fontWeight: 600}),
       Plot.tip([{k: ours}], Plot.pointerY({y: "k", x: () => fee, title: () => `${T("Cost", "成本")}: A$${costT.toFixed(1)}/t\n${T("Margin", "利润")}: A$${profitT.toFixed(1)}/t\n${T("Fee", "运营费")}: A$${fee.toFixed(1)}/t`}))
     ]
   });
@@ -291,9 +295,9 @@ netMargin = fee > 0 ? profitT / fee : 0
 ```{ojs}
 //| echo: false
 html`<div class="kpi-row">
-  ${tile(T("O&M fee", "运营费"), `A$${fee.toFixed(0)}/t`, T(`A$${feeRaw.toFixed(1)}/t before rounding to A$5`, `取整至5澳元前为${feeRaw.toFixed(1)}澳元/吨`), fee < rangeLow || fee > rangeHigh)}
-  ${tile(T("Margin per tonne", "每吨利润"), `A$${profitT.toFixed(1)}/t`, T(`${(netMargin * 100).toFixed(1)}% of the fee`, `占运营费${(netMargin * 100).toFixed(1)}%`), profitT <= 0)}
-  ${tile(T("Against our range", "与我方区间对比"), fee < rangeLow ? T("Below", "低于") : fee > rangeHigh ? T("Above", "高于") : T("Inside", "区间内"), `A$${rangeLow}–${rangeHigh}/t`, fee < rangeLow || fee > rangeHigh)}
+  ${tile(T("O&M fee", "运营费"), perT(fee), T(`A$${feeRaw.toFixed(1)}/t before rounding to A$5`, `取整至5澳元前为${feeRaw.toFixed(1)}澳元/吨`), fee < rangeLow || fee > rangeHigh)}
+  ${tile(T("Margin per tonne", "每吨利润"), perT(profitT, 1), T(`${(netMargin * 100).toFixed(1)}% of the fee`, `占运营费${(netMargin * 100).toFixed(1)}%`), profitT <= 0)}
+  ${tile(T("Against our range", "与我方区间对比"), fee < rangeLow ? T("Below", "低于") : fee > rangeHigh ? T("Above", "高于") : T("Inside", "区间内"), T(`A$${rangeLow}–${rangeHigh}/t`, `${rangeLow}–${rangeHigh}澳元/吨`), fee < rangeLow || fee > rangeHigh)}
 </div>`
 ```
 :::
@@ -434,11 +438,11 @@ Plot.plot({
 ```{ojs}
 //| echo: false
 html`<div class="kpi-row">
-  ${tile(T("Contract tonnes", "合同吨数"), `${kt(contractT)} kt`, contract === "two" ? T(`2 × ${tpd} t/d at ${Math.round(availability * 100)}%`, `2 × ${tpd}吨/日，可用率${Math.round(availability * 100)}%`) : contract === "mw" ? T("Melbourne Water licence", "Melbourne Water许可量") : T(`${furnaces} furnaces`, `${furnaces}台炉`))}
-  ${tile(T("Contract revenue", "合同收入"), `A$${fmtM(revenue)}m`, T(`a year at A$${fee.toFixed(0)}/t`, `每年，按${fee.toFixed(0)}澳元/吨`))}
-  ${tile(T("CDEG profit", "集团利润"), `A$${fmtM(profit)}m`, T(`a year, ${(netMargin * 100).toFixed(1)}% of revenue`, `每年，占收入${(netMargin * 100).toFixed(1)}%`), profit <= 0)}
-  ${tile(T("Payback", "回收期"), payback ? `${payback.toFixed(1)} ${T("yrs", "年")}` : "—", T(`A$${budget.toFixed(1)}m entry budget`, `进入预算${budget.toFixed(1)}百万澳元`), !payback || payback > term)}
-  ${tile(T("NPV over the contract", "合同期净现值"), `A$${fmtM(npv)}m`, T(`${term} years at ${(discount * 100).toFixed(1)}%, less budget`, `${term}年，折现率${(discount * 100).toFixed(1)}%，扣除预算`), npv < 0)}
+  ${tile(T("Contract tonnes", "合同吨数"), T(`${kt(contractT)} kt`, `${wan(contractT)}吨`), contract === "two" ? T(`2 × ${tpd} t/d at ${Math.round(availability * 100)}%`, `2 × ${tpd}吨/日，可用率${Math.round(availability * 100)}%`) : contract === "mw" ? T("Melbourne Water licence", "Melbourne Water许可量") : T(`${furnaces} furnaces`, `${furnaces}台炉`))}
+  ${tile(T("Contract revenue", "合同收入"), mA(revenue), T(`a year at A$${fee.toFixed(0)}/t`, `每年，按${fee.toFixed(0)}澳元/吨`))}
+  ${tile(T("CDEG profit", "集团利润"), mA(profit), T(`a year, ${(netMargin * 100).toFixed(1)}% of revenue`, `每年，占收入${(netMargin * 100).toFixed(1)}%`), profit <= 0)}
+  ${tile(T("Payback", "回收期"), payback ? `${payback.toFixed(1)}${T(" yrs", "年")}` : "—", T(`A$${budget.toFixed(1)}m entry budget`, `进入预算${wan(budget * 1e6)}澳元`), !payback || payback > term)}
+  ${tile(T("NPV over the contract", "合同期净现值"), mA(npv), T(`${term} years at ${(discount * 100).toFixed(1)}%, less budget`, `${term}年，折现率${(discount * 100).toFixed(1)}%，扣除预算`), npv < 0)}
 </div>`
 ```
 
@@ -478,13 +482,13 @@ breakEven = costT + budgetA / (contractT * annuity)
 {
   const item = (label, value, cls = "") => html`<div class="rb-item ${cls}"><span class="rb-label">${label}</span><span class="rb-value">${value}</span></div>`;
   return html`<div class="results-bar">
-    ${item(T("Operator cost", "运营成本"), `A$${costT.toFixed(0)}/t`)}
-    ${item(T("O&M fee", "运营费"), `A$${fee.toFixed(0)}/t`)}
+    ${item(T("Operator cost", "运营成本"), perT(costT))}
+    ${item(T("O&M fee", "运营费"), perT(fee))}
     ${item(T("Margin", "利润率"), `${(netMargin * 100).toFixed(1)}%`)}
-    ${item(T("Reachable market", "可争取市场"), `A$${(reachable * fee / 1e6).toFixed(0)}m`)}
-    ${item(T("Contract revenue", "合同收入"), `A$${fmtM(revenue)}m`)}
-    ${item(T("CDEG profit", "集团利润"), `A$${fmtM(profit)}m`)}
-    ${item(T("Payback", "回收期"), payback ? `${payback.toFixed(1)} ${T("yrs", "年")}` : "—")}
+    ${item(T("Reachable market", "可争取市场"), T(`A$${(reachable * fee / 1e6).toFixed(0)}m`, `${wan(reachable * fee)}澳元`))}
+    ${item(T("Contract revenue", "合同收入"), mA(revenue))}
+    ${item(T("CDEG profit", "集团利润"), mA(profit))}
+    ${item(T("Payback", "回收期"), payback ? `${payback.toFixed(1)}${T(" yrs", "年")}` : "—")}
     ${mode === "simple" && advChanged.length ? item(T("Hidden inputs changed", "隐藏参数已改"), String(advChanged.length), "rb-warn") : ""}
   </div>`;
 }

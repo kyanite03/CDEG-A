@@ -111,6 +111,9 @@ statusLabel = ({win: T("Sends us its waste", "会交给我方"), fence: T("On th
 STATUS = ["win", "fence", "lose", "nodata"]
 statusColor = ({win: "#2a78d6", fence: "#eda100", lose: "#c9c7c0", nodata: "#f1f0ec"})
 fmt = v => Number.isFinite(v) ? `A$${v.toFixed(0)}` : "—"
+// Chinese figures use 万 and 亿 (groups of four digits) instead of k and m
+wan = x => { const s = x < 0 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
+ktYr = v => T(`${(v / 1e3).toFixed(0)} kt/yr`, `${wan(v)}吨/年`)
 fmt1 = (v, d = 1) => Number.isFinite(v) ? v.toFixed(d) : "—"
 esc = s => String(s ?? "").replace(/[&<>"]/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[ch])
 rich = s => { const p = document.createElement("p"); p.className = "kpi-note explain"; p.innerHTML = s; return p; }
@@ -340,7 +343,7 @@ viewof view = {
       `${T("Red-bin garbage", "红桶垃圾")}: ${fmt1(d.garbage_t / 1e3)} kt (${d.tonnage_status === "actual" ? T("actual", "实际") : T("estimate", "估算")}, ${esc(d.garbage_year ?? "")}) · ${fmt1(d.cv_mj_kg)} MJ/kg<br>` +
       `${T("Organics bin", "有机垃圾桶")}: ${serviceLabel[d.organics_service] ?? "—"}${d.organics_service !== "none" && Number.isFinite(d.organics_coverage) ? ` (${(d.organics_coverage * 100).toFixed(0)}% ${T("coverage", "覆盖")})` : ""}<br>` +
       `${T("Pays landfill today", "当前填埋成本")}: ${fmt(d.current)}/t (${T("gate", "处理费")} ${fmt(d.current - d.levy)} + ${T("levy", "税")} ${fmt(d.levy)})<br>` +
-      `${T("To", "运至")} ${T(S.short, S.shortZh)}: ${d.tpc.toFixed(1)} t/${T("container", "箱")} · ${opts || T("no allowed option", "无可用方式")}<br>` +
+      `${T("To", "运至")} ${T(S.short, S.shortZh)}: ${d.tpc.toFixed(1)}${T(" t/container", "吨/箱")} · ${opts || T("no allowed option", "无可用方式")}<br>` +
       `${T("Our price", "我方价格")}: ${fmt(gateFee)} + ${d.how ? modeLabel[d.how] : "—"} ${fmt(d.delivery)} = ${fmt(d.offer)}/t · ${T("saving", "节省")} ${Number.isFinite(d.offer) ? ((d.current - d.offer) / d.current * 100).toFixed(0) + "%" : "—"} (${T("needs", "需")} ${(threshold * 100).toFixed(0)}%)<br>` +
       `${T("Highest gate fee that wins it", "可争取的最高处理费")}: ${fmt(d.maxGate)}` +
       (ch ? `<br><span class="tip-dim">${esc(String(ch.route_note).slice(0, 170))}</span>` : "") +
@@ -455,10 +458,10 @@ K = summary(rows)
 tile = (label, value, sub) => html`<div class="kpi"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
 html`<div class="kpi-row">
   ${tile(T("Councils that send us waste", "会交给我方的市政"), `${K.won.length} / ${priced.length}`, T(`at A$${gateFee}/t to ${siteById.get(site).short}; ${K.fence.length} more on the fence`, `处理费${gateFee}澳元/吨，运至${siteById.get(site).shortZh}；另有${K.fence.length}个观望`))}
-  ${tile(T("Tonnes won", "可得吨数"), `${(K.wonT / 1e3).toFixed(0)} kt/yr`, T(`${(K.wonT / K.totT * 100).toFixed(0)}% of ${(K.totT / 1e6).toFixed(2)} Mt priced on the map`, `占地图内定价总量${(K.totT / 1e6).toFixed(2)}百万吨的${(K.wonT / K.totT * 100).toFixed(0)}%`))}
-  ${tile(T("Weighted energy of intake", "进料加权热值"), K.wonT ? `${K.cv.toFixed(2)} MJ/kg` : "—", T(`tonnage-weighted across ${K.won.length} councils; ${K.wonT ? (K.wonT * K.cv / 1e6).toFixed(1) : 0} PJ/yr`, `按${K.won.length}个市政吨数加权；合计${K.wonT ? (K.wonT * K.cv / 1e6).toFixed(1) : 0}拍焦/年`))}
-  ${tile(T("On the fence", "观望中"), `${(K.fenceT / 1e3).toFixed(0)} kt/yr`, K.fence.length ? T(`all won at A$${Math.floor(K.fenceGate / 5) * 5}/t or less`, `处理费降至${Math.floor(K.fenceGate / 5) * 5}澳元/吨即可全部争取`) : T("none at this price", "此价格下无"))}
-  ${tile(T("Won tonnes with NSW legal risk", "存在新州法律风险的可得吨数"), `${(K.riskT / 1e3).toFixed(0)} kt/yr`, T("cheapest route breaches the 150 km proximity rule unless the energy-recovery defence applies", "最便宜路线超出150公里就近原则，除非适用能源回收抗辩"))}
+  ${tile(T("Tonnes won", "可得吨数"), ktYr(K.wonT), T(`${(K.wonT / K.totT * 100).toFixed(0)}% of ${(K.totT / 1e6).toFixed(2)} Mt priced on the map`, `占地图内定价总量${wan(K.totT)}吨的${(K.wonT / K.totT * 100).toFixed(0)}%`))}
+  ${tile(T("Weighted energy of intake", "进料加权热值"), K.wonT ? T(`${K.cv.toFixed(2)} MJ/kg`, `${K.cv.toFixed(2)}兆焦/千克`) : "—", T(`tonnage-weighted across ${K.won.length} councils; ${K.wonT ? (K.wonT * K.cv / 1e6).toFixed(1) : 0} PJ/yr`, `按${K.won.length}个市政吨数加权；合计${K.wonT ? (K.wonT * K.cv / 1e6).toFixed(1) : 0}拍焦/年`))}
+  ${tile(T("On the fence", "观望中"), ktYr(K.fenceT), K.fence.length ? T(`all won at A$${Math.floor(K.fenceGate / 5) * 5}/t or less`, `处理费降至${Math.floor(K.fenceGate / 5) * 5}澳元/吨即可全部争取`) : T("none at this price", "此价格下无"))}
+  ${tile(T("Won tonnes with NSW legal risk", "存在新州法律风险的可得吨数"), ktYr(K.riskT), T("cheapest route breaches the 150 km proximity rule unless the energy-recovery defence applies", "最便宜路线超出150公里就近原则，除非适用能源回收抗辩"))}
 </div>`
 ```
 
@@ -492,7 +495,7 @@ html`<div class="kpi-row">
   const seaWins = mainlandSea.filter(d => d.how === "sea");
   if (!syd && !adl) return rich(T(`<b>Sea or rail?</b> To ${S.short} there is no mainland sea option (no container port at the site), so only Tasmania and the Bass Strait islands ship: by Bass Strait to the Port of Melbourne, then by rail.`,
                                  `<b>海运还是铁路？</b>运往${S.shortZh}无大陆海运选项（厂址无集装箱港口），只有塔州及巴斯海峡岛屿经海运至墨尔本港后转铁路。`));
-  const f = x => x ? `A$${x.rate.toFixed(2)}` : "—";
+  const f = x => x ? T(`A$${x.rate.toFixed(2)}`, `${x.rate.toFixed(2)}澳元`) : "—";
   const part = (x, en) => x ? `${en} a container costs about A$${x.railBox.toFixed(0)} by rail against A$${x.seaBox.toFixed(0)} by sea` : "";
   return rich(T(
     `<b>Sea or rail?</b> To ${S.short}: ${[part(syd, "from Sydney"), part(adl, "from Adelaide")].filter(Boolean).join("; ")}. Shipping pays port charges at both ends plus rail from the Port of Melbourne, so at A$${seaPerKm.toFixed(2)} per container-km sea is cheapest for ${seaWins.length} of ${mainlandSea.length} mainland councils with a sea option. Sea beats rail once coastal freight falls below about <b>${f(syd)}</b> per container-km from Sydney${adl ? ` and <b>${f(adl)}</b> from Adelaide` : ""}. Mainland coastal lanes are notional: there is no regular domestic container service on them.`,
