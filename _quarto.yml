@@ -85,6 +85,9 @@ format:
     theme: [cosmo, assets/theme.scss]
     css: assets/lang.css
     include-in-header: assets/lang-toggle.html
+    # Numbered citations like [2] link to the Sources page
+    filters:
+      - assets/cite-links.lua
     toc: true
     toc-depth: 3
     smooth-scroll: true
