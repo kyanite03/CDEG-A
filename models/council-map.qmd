@@ -110,9 +110,14 @@ serviceLabel = ({fogo: T("food + garden (FOGO)", "厨余+园林（FOGO）"), go:
 statusLabel = ({win: T("Sends us its waste", "会交给我方"), fence: T("On the fence", "观望中"), lose: T("Too expensive", "太贵"), nodata: T("No data / out of scope", "无数据/不在范围内")})
 STATUS = ["win", "fence", "lose", "nodata"]
 statusColor = ({win: "#2a78d6", fence: "#eda100", lose: "#c9c7c0", nodata: "#f1f0ec"})
-fmt = v => Number.isFinite(v) ? `A$${v.toFixed(0)}` : "—"
+fmt = v => Number.isFinite(v) ? T(`A$${v.toFixed(0)}`, `${v.toFixed(0)}澳元`) : "—"
 // Chinese figures use 万 and 亿 (groups of four digits) instead of k and m
 wan = x => { const s = x < 0 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
+// Tooltip units: English unchanged; Chinese uses 万 and Chinese units
+fmtT = v => Number.isFinite(v) ? T(`A$${v.toFixed(0)}/t`, `${v.toFixed(0)}澳元/吨`) : "—"
+perTs = x => T(`A$${x}/t`, `${x}澳元/吨`)
+mjkg = s => T(`${s} MJ/kg`, `${s}兆焦/千克`)
+ktT = (v, d = 0) => Number.isFinite(v) ? T(`${(v / 1e3).toFixed(d)} kt`, `${wan(v)}吨`) : "—"
 ktYr = v => T(`${(v / 1e3).toFixed(0)} kt/yr`, `${wan(v)}吨/年`)
 fmt1 = (v, d = 1) => Number.isFinite(v) ? v.toFixed(d) : "—"
 esc = s => String(s ?? "").replace(/[&<>"]/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[ch])
@@ -336,15 +341,15 @@ viewof view = {
     if (d.status === "nodata") return `<b>${esc(d.name)}</b> · ${statusLabel.nodata}<br>` +
       `${d.state ?? ""}${d.zone ? " · " + (zoneLabel[d.zone] ?? d.zone) : ""}<br>` +
       `<span class="tip-dim">${esc(String(d.notes ?? T("No council kerbside tonnage.", "无市政路边垃圾吨数。")).slice(0, 180))}</span>`;
-    const opts = Object.entries(d.perT).map(([m, o]) => `${modeLabel[m]} ${fmt(o.perT)}/t${o.notional ? T(" (notional)", "（示意）") : ""}`).join(", ");
+    const opts = Object.entries(d.perT).map(([m, o]) => `${modeLabel[m]} ${fmtT(o.perT)}${o.notional ? T(" (notional)", "（示意）") : ""}`).join(", ");
     const ch = d.chosen;
     return `<b>${esc(d.name)}</b> · ${statusLabel[d.status]}<br>` +
-      `${zoneLabel[d.zone] ?? d.zone} · ${T("levy", "税")} ${fmt(d.levy)}/t<br>` +
-      `${T("Red-bin garbage", "红桶垃圾")}: ${fmt1(d.garbage_t / 1e3)} kt (${d.tonnage_status === "actual" ? T("actual", "实际") : T("estimate", "估算")}, ${esc(d.garbage_year ?? "")}) · ${fmt1(d.cv_mj_kg)} MJ/kg<br>` +
+      `${zoneLabel[d.zone] ?? d.zone} · ${T("levy", "税")} ${fmtT(d.levy)}<br>` +
+      `${T("Red-bin garbage", "红桶垃圾")}: ${ktT(d.garbage_t, 1)} (${d.tonnage_status === "actual" ? T("actual", "实际") : T("estimate", "估算")}, ${esc(d.garbage_year ?? "")}) · ${mjkg(fmt1(d.cv_mj_kg))}<br>` +
       `${T("Organics bin", "有机垃圾桶")}: ${serviceLabel[d.organics_service] ?? "—"}${d.organics_service !== "none" && Number.isFinite(d.organics_coverage) ? ` (${(d.organics_coverage * 100).toFixed(0)}% ${T("coverage", "覆盖")})` : ""}<br>` +
-      `${T("Pays landfill today", "当前填埋成本")}: ${fmt(d.current)}/t (${T("gate", "处理费")} ${fmt(d.current - d.levy)} + ${T("levy", "税")} ${fmt(d.levy)})<br>` +
+      `${T("Pays landfill today", "当前填埋成本")}: ${fmtT(d.current)} (${T("gate", "处理费")} ${fmt(d.current - d.levy)} + ${T("levy", "税")} ${fmt(d.levy)})<br>` +
       `${T("To", "运至")} ${T(S.short, S.shortZh)}: ${d.tpc.toFixed(1)}${T(" t/container", "吨/箱")} · ${opts || T("no allowed option", "无可用方式")}<br>` +
-      `${T("Our price", "我方价格")}: ${fmt(gateFee)} + ${d.how ? modeLabel[d.how] : "—"} ${fmt(d.delivery)} = ${fmt(d.offer)}/t · ${T("saving", "节省")} ${Number.isFinite(d.offer) ? ((d.current - d.offer) / d.current * 100).toFixed(0) + "%" : "—"} (${T("needs", "需")} ${(threshold * 100).toFixed(0)}%)<br>` +
+      `${T("Our price", "我方价格")}: ${fmt(gateFee)} + ${d.how ? modeLabel[d.how] : "—"} ${fmt(d.delivery)} = ${fmtT(d.offer)} · ${T("saving", "节省")} ${Number.isFinite(d.offer) ? ((d.current - d.offer) / d.current * 100).toFixed(0) + "%" : "—"} (${T("needs", "需")} ${(threshold * 100).toFixed(0)}%)<br>` +
       `${T("Highest gate fee that wins it", "可争取的最高处理费")}: ${fmt(d.maxGate)}` +
       (ch ? `<br><span class="tip-dim">${esc(String(ch.route_note).slice(0, 170))}</span>` : "") +
       (ch && ch.legal_flag === "cl71_risk" ? `<br><span class="tip-risk">${T("Legal risk: NSW proximity principle (POEO Waste Reg cl. 71, >150 km) – relies on the energy-recovery defence; legal check needed.", "法律风险：新州就近原则（POEO废物条例第71条，>150公里）——依赖能源回收抗辩，需法律核实。")}</span>` : "");
@@ -537,7 +542,7 @@ $P_c$ 我方对市政 $c$ 的到厂价格 · $g$ 我方处理费 · $B_{c,k}$ �
     marks: [
       Plot.areaY(curve, {x: "g", y: "kt", fill: "s", order: ["win", "fence"], curve: "step-after"}),
       Plot.ruleX([gateFee], {stroke: "#0b0b0b", strokeDasharray: "2,2"}),
-      Plot.tip(curve.filter(d => d.s === "win"), Plot.pointerX({x: "g", y: "kt", title: d => `${T("Gate fee", "处理费")}: A$${d.g}/t\n${T("Won", "可得")}: ${d.kt.toFixed(0)} kt\n${T("On the fence", "观望")}: ${curve.find(e => e.g === d.g && e.s === "fence").kt.toFixed(0)} kt`}))
+      Plot.tip(curve.filter(d => d.s === "win"), Plot.pointerX({x: "g", y: "kt", title: d => `${T("Gate fee", "处理费")}: ${perTs(d.g)}\n${T("Won", "可得")}: ${ktT(d.kt * 1e3)}\n${T("On the fence", "观望")}: ${ktT(curve.find(e => e.g === d.g && e.s === "fence").kt * 1e3)}`}))
     ]
   });
 }
@@ -559,7 +564,7 @@ $P_c$ 我方对市政 $c$ 的到厂价格 · $g$ 我方处理费 · $B_{c,k}$ �
     marks: [
       Plot.barX(order, {y: "name", x: d => d.garbage_t / 1e3, fill: "status", rx: 2}),
       Plot.text(order, {y: "name", x: d => d.garbage_t / 1e3, text: d => `${fmt1(d.cv_mj_kg)} MJ/kg`, dx: 4, textAnchor: "start", fontSize: 10, fill: "#52514e"}),
-      Plot.tip(order, Plot.pointerY({y: "name", x: d => d.garbage_t / 1e3, title: d => `${d.name}: ${fmt1(d.garbage_t / 1e3)} kt · ${fmt1(d.cv_mj_kg)} MJ/kg · ${statusLabel[d.status]} · ${d.how ? modeLabel[d.how] : "—"}`}))
+      Plot.tip(order, Plot.pointerY({y: "name", x: d => d.garbage_t / 1e3, title: d => `${d.name}: ${ktT(d.garbage_t, 1)} · ${mjkg(fmt1(d.cv_mj_kg))} · ${statusLabel[d.status]} · ${d.how ? modeLabel[d.how] : "—"}`}))
     ]
   });
 }

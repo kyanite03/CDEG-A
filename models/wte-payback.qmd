@@ -80,6 +80,12 @@ warnBox = s => { const p = rich(s); p.classList.remove("explain"); p.style.cssTe
 startYear = 2027
 opYears = 25
 // Candidate sites (same three as the council price map). Static object: no T(), so the radio is never rebuilt.
+// Tooltip units: English unchanged; Chinese uses 万/亿 and Chinese units
+aM = v => T(`A$${fmtM(v)}m`, `${wan(v)}澳元`)
+aMd = (v, d) => T(`A$${(v / 1e6).toFixed(d)}m`, `${wan(v)}澳元`)
+perTs = x => T(`A$${x}/t`, `${x}澳元/吨`)
+mjkg = s => T(`${s} MJ/kg`, `${s}兆焦/千克`)
+tK = v => T(`${kt(v)} kt`, `${wan(v)}吨`)
 siteInfo = ({
   LATROBE: {en: "Latrobe Valley (Hazelwood, Vic)", zh: "拉筹伯谷（Hazelwood，维州）", short: "Latrobe", shortZh: "拉筹伯谷", state: "VIC", zone: "VIC_RURAL"},
   NARROMINE: {en: "Narromine (NSW)", zh: "纳罗迈恩（新州）", short: "Narromine", shortZh: "纳罗迈恩", state: "NSW", zone: "NSW_NOLEVY"},
@@ -222,8 +228,8 @@ Plot.plot({
     Plot.text([2025], {x: d => d, frameAnchor: "top", dx: 4, dy: 4, textAnchor: "start", fontSize: 11, fill: "#52514e", text: () => T("Projection →", "预测 →")}),
     vicSite ? Plot.ruleY([capMt], {stroke: "#0b0b0b", strokeDasharray: "4,3"}) : null,
     vicSite ? Plot.text([capMt], {x: 2016, y: d => d, dy: -7, textAnchor: "start", fill: "#0b0b0b", fontSize: 11, text: () => T(`WtE cap ${capMt} Mt`, `焚烧上限${wan(capMt * 1e6)}吨`)}) : null,
-    Plot.tip(totals, Plot.pointerX({x: "year", y: "mt", title: d => `${d.year <= 2025 ? `FY${d.year - 1}–${String(d.year).slice(2)}` : `${d.year} (${T("projection", "预测")})`}\n` +
-      compOrder.slice().reverse().map(c => `${compLabel[c]}: ${(d[c] * 1000).toFixed(0)} kt`).join("\n") + `\n${T("Total", "合计")}: ${d.mt.toFixed(2)} Mt`}))
+    Plot.tip(totals, Plot.pointerX({x: "year", y: "mt", title: d => `${d.year <= 2025 ? `FY${d.year - 1}–${String(d.year).slice(2)}` : `${d.year}${T(" (projection)", "（预测）")}`}\n` +
+      compOrder.slice().reverse().map(c => `${compLabel[c]}: ${T(`${(d[c] * 1000).toFixed(0)} kt`, `${wan(d[c] * 1e6)}吨`)}`).join("\n") + `\n${T("Total", "合计")}: ${T(`${d.mt.toFixed(2)} Mt`, `${wan(d.mt * 1e6)}吨`)}`}))
   ]
 })
 ```
@@ -260,7 +266,7 @@ Plot.plot({
     Plot.ruleY([0]),
     Plot.line(totals.filter(d => d.year <= 2025), {x: "year", y: "cv", stroke: "#0b0b0b", strokeWidth: 2}),
     Plot.line(totals.filter(d => d.year >= 2025), {x: "year", y: "cv", stroke: "#0b0b0b", strokeWidth: 2, strokeDasharray: "5,3"}),
-    Plot.tip(totals, Plot.pointerX({x: "year", y: "cv", title: d => `${d.year}: ${d.cv.toFixed(1)} MJ/kg`}))
+    Plot.tip(totals, Plot.pointerX({x: "year", y: "cv", title: d => `${d.year}: ${mjkg(d.cv.toFixed(1))}`}))
   ]
 })
 ```
@@ -278,7 +284,7 @@ Plot.plot({
     Plot.ruleY([0]),
     Plot.line(totals.filter(d => d.year <= 2025), {x: "year", y: "pj", stroke: "#0b0b0b", strokeWidth: 2}),
     Plot.line(totals.filter(d => d.year >= 2025), {x: "year", y: "pj", stroke: "#0b0b0b", strokeWidth: 2, strokeDasharray: "5,3"}),
-    Plot.tip(totals, Plot.pointerX({x: "year", y: "pj", title: d => `${d.year}: ${d.pj.toFixed(1)} PJ (≈ ${(d.pj / 3.6 * 0.2).toFixed(1)} TWh ${T("of electricity at 20% efficiency", "电力，按20%效率")})`}))
+    Plot.tip(totals, Plot.pointerX({x: "year", y: "pj", title: d => `${d.year}: ${T(`${d.pj.toFixed(1)} PJ (≈ ${(d.pj / 3.6 * 0.2).toFixed(1)} TWh of electricity at 20% efficiency)`, `${d.pj.toFixed(1)}拍焦（约${(d.pj / 3.6 * 0.2).toFixed(1)}太瓦时电力，按20%效率）`)}`}))
   ]
 })
 ```
@@ -384,7 +390,7 @@ Plot.plot({
     vicSite ? Plot.text([licence], {x: 62, y: d => d, dy: -7, textAnchor: "start", fontSize: 11, fill: "#b4471b", text: () => T(`Licence ${kt(licence)} kt`, `许可${wan(licence)}吨`)}) : null,
     Plot.ruleX([gateFee], {stroke: "#0b0b0b", strokeDasharray: "2,2"}),
     Plot.dot([{gf: gateFee, t: supplyAt(gateFee, cod).total}], {x: "gf", y: "t", r: 5, fill: "#0b0b0b", stroke: "white", strokeWidth: 2}),
-    Plot.tip(supplyCurve.filter(d => d.type === "council"), Plot.pointerX({x: "gf", y: d => supplyAt(d.gf, cod).total, title: d => { const s = supplyAt(d.gf, cod); return `${T("Gate fee", "处理费")}: A$${d.gf}/t\n${T("Councils", "市政")}: ${kt(s.kerb)} kt (${s.nCouncils})\n${T("Commercial", "工商业")}: ${kt(s.ci)} kt\n${T("Total", "合计")}: ${kt(s.total)} kt`; }}))
+    Plot.tip(supplyCurve.filter(d => d.type === "council"), Plot.pointerX({x: "gf", y: d => supplyAt(d.gf, cod).total, title: d => { const s = supplyAt(d.gf, cod); return `${T("Gate fee", "处理费")}: ${perTs(d.gf)}\n${T("Councils", "市政")}: ${tK(s.kerb)}${T(` (${s.nCouncils})`, `（${s.nCouncils}个）`)}\n${T("Commercial", "工商业")}: ${tK(s.ci)}\n${T("Total", "合计")}: ${tK(s.total)}`; }}))
   ]
 })
 ```
@@ -461,7 +467,7 @@ Plot.plot({
     Plot.text([ops[ops.length - 1]], {x: "year", y: d => Math.min(d.supply, Math.max(capacity, licShown) * 1.75), text: () => T("Customers would send", "客户愿送量"), dy: -8, textAnchor: "end", fontSize: 11, fill: "#52514e"}),
     Plot.text([ops[0]], {x: "year", y: () => capacity, text: () => T("Furnace capacity", "焚烧炉产能"), dy: 10, dx: 4, textAnchor: "start", fontSize: 11, fill: "#0b0b0b"}),
     vicSite ? Plot.text([ops[0]], {x: "year", y: () => licence, text: () => T("Licence", "许可配额"), dy: -7, dx: 4, textAnchor: "start", fontSize: 11, fill: "#b4471b"}) : null,
-    Plot.tip(ops, Plot.pointerX({x: "year", y: "tonnes", title: d => `${d.year}\n${T("Burned", "处理量")}: ${kt(d.tonnes)} kt (${(d.util*100).toFixed(0)}% ${T("of capacity", "负荷率")})\n${T("Per furnace", "每台炉")}: ${kt(d.tonnes / furnaces)} kt\n${T("Customers would send", "客户愿送")}: ${kt(d.supply)} kt\n${T("Limited by", "限制因素")}: ${limitName[d.limit]}\n${T("Energy content", "热值")}: ${d.cv.toFixed(1)} MJ/kg\n${T("Gate fee", "处理费")}: A$${d.fee.toFixed(0)}/t`}))
+    Plot.tip(ops, Plot.pointerX({x: "year", y: "tonnes", title: d => `${d.year}\n${T("Burned", "处理量")}: ${tK(d.tonnes)}${T(` (${(d.util*100).toFixed(0)}% of capacity)`, `（负荷率${(d.util*100).toFixed(0)}%）`)}\n${T("Per furnace", "每台炉")}: ${tK(d.tonnes / furnaces)}\n${T("Customers would send", "客户愿送")}: ${tK(d.supply)}\n${T("Limited by", "限制因素")}: ${limitName[d.limit]}\n${T("Energy content", "热值")}: ${mjkg(d.cv.toFixed(1))}\n${T("Gate fee", "处理费")}: ${perTs(d.fee.toFixed(0))}`}))
   ]
 })
 ```
@@ -560,9 +566,9 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
       debtShare > 0 ? Plot.line(rows, {x: "year", y: "eqCum", stroke: () => series[2], strokeWidth: 2}) : null,
       debtShare > 0 ? Plot.line(rows, {x: "year", y: "bal", stroke: () => series[3], strokeWidth: 1.5, strokeDasharray: "5,3"}) : null,
       Plot.tip(rows, Plot.pointerX({x: "year", y: "cumulative", title: d => `${d.year}${d.building ? T(" (construction)", "（建设期）") : ""}\n` +
-        `${T("Project cash", "项目现金流")}: A$${m(d.cash)}m (${T("cumulative", "累计")} A$${(d.cumulative/1e6).toFixed(0)}m)\n` +
-        (d.building ? "" : `${T("EBITDA", "息税折旧摊销前利润")}: A$${m(d.ebitda)}m · ${T("tax depreciation", "税务折旧")}: A$${m(d.dep)}m\n${T("Tax (no debt)", "所得税（无债务）")}: A$${m(d.taxU)}m\n`) +
-        (debtShare > 0 ? `${T("Equity cash", "股东现金流")}: A$${m(d.eqCash)}m\n${d.building ? `${T("Interest added to loan", "资本化利息")}: A$${m(d.idc)}m` : `${T("Interest", "利息")}: A$${m(d.intPaid)}m · ${T("principal", "本金")}: A$${m(d.prin)}m`}\n${T("Interest tax shield", "利息税盾")}: A$${m(d.ts)}m\n${T("Debt outstanding", "未偿债务")}: A$${(d.bal/1e6).toFixed(0)}m${d.dscr != null ? `\nDSCR: ${d.dscr.toFixed(2)}×` : ""}` : "")}))
+        `${T("Project cash", "项目现金流")}: ${aMd(d.cash, 1)}${T(` (cumulative ${aMd(d.cumulative, 0)})`, `（累计${aMd(d.cumulative, 0)}）`)}\n` +
+        (d.building ? "" : `${T("EBITDA", "息税折旧摊销前利润")}: ${aMd(d.ebitda, 1)} · ${T("tax depreciation", "税务折旧")}: ${aMd(d.dep, 1)}\n${T("Tax (no debt)", "所得税（无债务）")}: ${aMd(d.taxU, 1)}\n`) +
+        (debtShare > 0 ? `${T("Equity cash", "股东现金流")}: ${aMd(d.eqCash, 1)}\n${d.building ? `${T("Interest added to loan", "资本化利息")}: ${aMd(d.idc, 1)}` : `${T("Interest", "利息")}: ${aMd(d.intPaid, 1)} · ${T("principal", "本金")}: ${aMd(d.prin, 1)}`}\n${T("Interest tax shield", "利息税盾")}: ${aMd(d.ts, 1)}\n${T("Debt outstanding", "未偿债务")}: ${aMd(d.bal, 0)}${d.dscr != null ? `\nDSCR: ${d.dscr.toFixed(2)}×` : ""}` : "")}))
     ]
   });
 }
@@ -620,7 +626,7 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
       Plot.line(sens, {x: "gf", y: "npv", stroke: debtShare > 0 ? () => series[0] : C.base, strokeWidth: 2}),
       debtShare > 0 ? Plot.line(sens, {x: "gf", y: "apv", stroke: () => series[1], strokeWidth: 1.5, strokeDasharray: "4,3"}) : null,
       Plot.dot([{gf: gateFee, npv}], {x: "gf", y: "npv", r: 5, fill: C.base, stroke: "white", strokeWidth: 2}),
-      Plot.tip(sens, Plot.pointerX({x: "gf", y: "npv", title: d => `${T("Gate fee", "处理费")}: A$${d.gf}/t\nNPV: A$${(d.npv/1e6).toFixed(0)}m${debtShare > 0 ? `\nAPV: A$${(d.apv/1e6).toFixed(0)}m` : ""}`}))
+      Plot.tip(sens, Plot.pointerX({x: "gf", y: "npv", title: d => `${T("Gate fee", "处理费")}: ${perTs(d.gf)}\nNPV: ${aMd(d.npv, 0)}${debtShare > 0 ? `\nAPV: ${aMd(d.apv, 0)}` : ""}`}))
     ]
   })}${rich(T(
     `Too cheap and every tonne loses money; too dear and customers leave the furnaces idle. With ${furnaces} furnace${furnaces > 1 ? "s" : ""}, project NPV peaks at a gate fee of about <b>A$${best.gf}/t</b> (A$${fmtM(best.npv)}m).`,

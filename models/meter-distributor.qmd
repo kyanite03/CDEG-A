@@ -392,7 +392,7 @@ Plot.plot({
     Plot.rectX(wfStack, {x1: "x1", x2: "x2", y1: 0, y2: 1, fill: "c", stroke: "white"}),
     Plot.text(wfStack.filter(d => Math.abs(d.v) > 9), {x: d => (d.x1 + d.x2) / 2, y: 0.5, text: d => `${d.v.toFixed(0)}`, fill: "white", fontSize: 11, fontWeight: 600}),
     Plot.ruleX([price], {stroke: C.ink}),
-    Plot.tip(wfStack, Plot.pointerX({x: d => (d.x1 + d.x2) / 2, y: 0.5, title: d => `${d.k}: A$${d.v.toFixed(1)}`}))
+    Plot.tip(wfStack, Plot.pointerX({x: d => (d.x1 + d.x2) / 2, y: 0.5, title: d => `${d.k}: ${T(`A$${d.v.toFixed(1)}`, `${d.v.toFixed(1)}澳元`)}`}))
   ],
   y: {axis: null, domain: [0, 1]}
 })

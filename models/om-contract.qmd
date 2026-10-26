@@ -61,6 +61,8 @@ kt = v => (v / 1e3).toFixed(0)
 wan = x => { const s = x < 0 ? "−" : "", a = Math.abs(x); return s + (a >= 1e8 ? `${(a/1e8).toFixed(2)}亿` : a >= 1e6 ? `${(a/1e4).toFixed(0)}万` : a >= 1e4 ? `${(a/1e4).toFixed(1)}万` : d3.format(",.0f")(a)); }
 perT = (x, d = 0) => T(`A$${x.toFixed(d)}/t`, `${x.toFixed(d)}澳元/吨`)
 mA = v => T(`A$${fmtM(v)}m`, `${wan(v)}澳元`)
+aMd = (v, d) => T(`A$${(v / 1e6).toFixed(d)}m`, `${wan(v)}澳元`)
+perTs = x => T(`A$${x}/t`, `${x}澳元/吨`)
 tile = (label, value, sub, warn) => html`<div class="kpi" style="${warn ? "border-color:#eb6834;background:#fdf1ec" : ""}"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
 // Victorian WtE licences, August 2025 (same figures as Model 1)
 LIC = ({total: v("lic_total") * 1e6, cleanaway: v("lic_cleanaway") * 1e3, hiq: v("lic_hiq") * 1e3, mw: v("lic_mw") * 1e3})
@@ -203,7 +205,7 @@ costT = plant.fixedT + varOpex * (1 - ownerShare)
       Plot.dot([{a: availability, total: costT}], {x: "a", y: "total", r: 5, fill: C.dark}),
       Plot.text([curve[0]], {x: "a", y: "fixed", text: () => T("Fixed", "固定成本"), dy: 12, dx: 4, textAnchor: "start", fontSize: 11, fill: "#1d5aa6"}),
       Plot.text([curve[0]], {x: "a", y: "total", text: () => T("Fixed + variable", "固定 + 变动"), dy: -8, dx: 4, textAnchor: "start", fontSize: 11, fill: C.dark}),
-      Plot.tip(curve, Plot.pointerX({x: "a", y: "total", title: d => `${T("Availability", "可用率")}: ${Math.round(d.a * 100)}%\n${T("Fixed", "固定成本")}: A$${d.fixed.toFixed(0)}/t\n${T("Operator total", "运营方合计")}: A$${d.total.toFixed(0)}/t`}))
+      Plot.tip(curve, Plot.pointerX({x: "a", y: "total", title: d => `${T("Availability", "可用率")}: ${Math.round(d.a * 100)}%\n${T("Fixed", "固定成本")}: ${perTs(d.fixed.toFixed(0))}\n${T("Operator total", "运营方合计")}: ${perTs(d.total.toFixed(0))}`}))
     ]
   });
 }
@@ -284,7 +286,7 @@ netMargin = fee > 0 ? profitT / fee : 0
       Plot.barX([{k: ours, x1: 0, x2: costT}], {y: "k", x1: "x1", x2: "x2", fill: C.base, fillOpacity: 0.35}),
       Plot.barX([{k: ours, x1: costT, x2: Math.max(fee, costT)}], {y: "k", x1: "x1", x2: "x2", fill: C.base}),
       Plot.text([{k: ours, x: Math.max(fee, costT)}], {y: "k", x: "x", text: () => perT(fee), dx: 6, textAnchor: "start", fontSize: 11, fontWeight: 600}),
-      Plot.tip([{k: ours}], Plot.pointerY({y: "k", x: () => fee, title: () => `${T("Cost", "成本")}: A$${costT.toFixed(1)}/t\n${T("Margin", "利润")}: A$${profitT.toFixed(1)}/t\n${T("Fee", "运营费")}: A$${fee.toFixed(1)}/t`}))
+      Plot.tip([{k: ours}], Plot.pointerY({y: "k", x: () => fee, title: () => `${T("Cost", "成本")}: ${perTs(costT.toFixed(1))}\n${T("Margin", "利润")}: ${perTs(profitT.toFixed(1))}\n${T("Fee", "运营费")}: ${perTs(fee.toFixed(1))}`}))
     ]
   });
 }
@@ -353,8 +355,8 @@ Plot.plot({
   y: {label: null, domain: market.map(d => d.k)},
   marks: [
     Plot.barX(market, {y: "k", x: "v", fill: d => d.sel ? C.base : "#86b6ef"}),
-    Plot.text(market, {y: "k", x: "v", text: d => `A$${(d.v / 1e6).toFixed(0)}m`, dx: 6, textAnchor: "start", fontSize: 11}),
-    Plot.tip(market, Plot.pointerY({y: "k", x: "v", title: d => `${d.k}\n${(d.t / 1e6).toFixed(2)} Mt × A$${fee.toFixed(0)}/t = A$${(d.v / 1e6).toFixed(0)}m`}))
+    Plot.text(market, {y: "k", x: "v", text: d => `${aMd(d.v, 0)}`, dx: 6, textAnchor: "start", fontSize: 11}),
+    Plot.tip(market, Plot.pointerY({y: "k", x: "v", title: d => `${d.k}\n${T(`${(d.t / 1e6).toFixed(2)} Mt`, `${wan(d.t)}吨`)} × ${perTs(fee.toFixed(0))} = ${aMd(d.v, 0)}`}))
   ]
 })
 ```
@@ -363,7 +365,7 @@ Plot.plot({
 //| echo: false
 html`<table class="site-compare">
   <thead><tr><th>${T("Market", "市场")}</th><th class="num">${T("Tonnes a year", "年吨数")}</th><th class="num">${T("Value a year", "年价值")}</th></tr></thead>
-  <tbody>${market.map(d => html`<tr class=${d.sel ? "sel" : ""}><td>${d.k}</td><td class="num">${(d.t / 1e6).toFixed(2)} Mt</td><td class="num">A$${(d.v / 1e6).toFixed(0)}m</td></tr>`)}</tbody>
+  <tbody>${market.map(d => html`<tr class=${d.sel ? "sel" : ""}><td>${d.k}</td><td class="num">${T(`${(d.t / 1e6).toFixed(2)} Mt`, `${wan(d.t)}吨`)}</td><td class="num">${aMd(d.v, 0)}</td></tr>`)}</tbody>
 </table>`
 ```
 :::
@@ -430,7 +432,7 @@ Plot.plot({
   marks: [
     Plot.ruleY([0], {stroke: "#52514e"}),
     Plot.barY(cum, {x: "y", y: "c", fill: d => d.c >= 0 ? C.high : C.low, fillOpacity: 0.8}),
-    Plot.tip(cum, Plot.pointerX({x: "y", y: "c", title: d => `${T("Year", "第")} ${d.y}${T("", "年")}\n${T("Cumulative", "累计")}: A$${fmtM(d.c)}m`}))
+    Plot.tip(cum, Plot.pointerX({x: "y", y: "c", title: d => `${T(`Year ${d.y}`, `第${d.y}年`)}\n${T("Cumulative", "累计")}: ${mA(d.c)}`}))
   ]
 })
 ```
@@ -466,7 +468,7 @@ breakEven = costT + budgetA / (contractT * annuity)
       Plot.line(sens, {x: "f", y: "npv", stroke: C.base, strokeWidth: 2.5}),
       Plot.dot([{f: fee, npv: npvAt(fee)}], {x: "f", y: "npv", r: 5, fill: C.dark}),
       Plot.text([{f: breakEven}], {x: "f", y: () => npvAt(140), text: () => T(`Break-even A$${breakEven.toFixed(0)}/t`, `盈亏平衡 ${breakEven.toFixed(0)}澳元/吨`), dx: -6, textAnchor: "end", fontSize: 11, fill: "#b4471b"}),
-      Plot.tip(sens, Plot.pointerX({x: "f", y: "npv", title: d => `${T("O&M fee", "运营费")}: A$${d.f}/t\n${T("Margin", "利润")}: A$${(d.f - costT).toFixed(1)}/t\nNPV: A$${fmtM(d.npv)}m`}))
+      Plot.tip(sens, Plot.pointerX({x: "f", y: "npv", title: d => `${T("O&M fee", "运营费")}: ${perTs(d.f)}\n${T("Margin", "利润")}: ${perTs((d.f - costT).toFixed(1))}\nNPV: ${mA(d.npv)}`}))
     ]
   });
 }
