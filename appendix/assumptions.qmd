@@ -1,19 +1,22 @@
 ---
 title: "[Assumptions register]{.en}[假设参数]{.zh}"
+include-in-header:
+  text: |
+    <script src="../assets/csv-table.js"></script>
 ---
 
-<p class="owner"><span class="en">Owner: Everyone</span><span class="zh">负责人：全体成员</span></p>
+<p class="owner"><span class="en">Authors: CDEG–A team</span><span class="zh">作者：CDEG–A小组</span></p>
 
 ## [All model inputs]{.en}[所有模型参数]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Rendered from data/assumptions.csv: every default, its range, source and status
-:::
+Every default used by the interactive models, with its range, source and status. Source IDs refer to the model source register on the [Sources](sources.qmd) page. The models read the same file, so this table always matches them.
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 来自 data/assumptions.csv：默认值、范围、来源和状态
+互动模型使用的全部默认值，以及其范围、来源和状态。来源编号对应[资料来源](sources.qmd)页的模型数据来源表。模型读取的是同一个数据文件，因此本表始终与模型一致。
 :::
+
+::: tw
+<div class="csv-table" data-src="../data/assumptions.csv" data-kind="assumptions"></div>
 :::

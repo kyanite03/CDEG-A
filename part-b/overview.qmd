@@ -2,7 +2,7 @@
 title: "[Part B: Compliance]{.en}[第二部分：合规]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ::: {.en}
 *Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
@@ -28,29 +28,34 @@ The approvals for a waste-to-energy plant, and CDEG's own corporate approvals, a
 **Table B1. Victoria against NSW, WA, QLD and SA (levies 2026–27 unless stated)**
 
 ::: tw
-  Dimension                          VIC                                                                                               NSW                                                                                                    WA                                                             QLD                                                     SA (and ACT, TAS)
-  ---------------------------------- ------------------------------------------------------------------------------------------------- ------------------------------------------------------------------------------------------------------ -------------------------------------------------------------- ------------------------------------------------------- ------------------------------------------------------------------------------------------
-  Thermal WtE policy                 2.5 Mt/yr cap, 94% allocated \[1, 30\]                                                            Designated precincts only: Parkes, Southern Goulburn–Mulwaree, West Lithgow; Tomago proposed \[113\]   Permitted; the only state with large plants built \[45\]       Prefers waste-to-fuels; A\$45m budget support \[45\]    SA: no large project; ACT bans thermal WtE \[45\]
-  Landfill levy (metro / regional)   A\$177.19 / A\$88.42 \[4\]                                                                        A\$180.20 / A\$103.80; parts of southern NSW pay none \[114\]                                          About A\$90 (Perth) \[115\] [to verify]{.verify}                           A\$125 (2025–26), rising to A\$165 by 2029–30 \[116\]   SA A\$171 / A\$85.50; ACT domestic gate fee A\$121.75 incl. GST; TAS A\$70.50 \[26, 45\]
-  Household sorting                  Four bins; deadline 1 Jul 2027 (not yet legislated); FOGO for all households by 2030 \[34, 35\]   FOGO for households by 2030; large food-waste generators from July 2026 \[114\]                        FOGO rollout in Perth and Peel [to verify]{.verify}                        Council-led [to verify]{.verify}                                    Three bins common [to verify]{.verify}
-  Red-bin energy (assumed service)   9.6–12.4 MJ/kg by council \[26\]                                                                  About 10.9 MJ/kg (garden bin assumed) \[26, 76\]                                                       —                                                              —                                                       About 10.9 MJ/kg (garden bin assumed)
-  Waste generated                    15.7 Mt (2024–25) \[28\]                                                                          21.4 Mt (2023–24), 66% recycled \[117\]                                                                7.4 Mt (2023–24), 65% recycled \[117\]                         9.81 Mt (2023–24), 57.1% recovered \[117\]              —
-  Projects                           7 cap licences; Maryvale approved (Appendix A)                                                    Parkes (Cleanaway, Tadweer, Tribe) \[96\]; Woodlawn under assessment \[99\]                            Kwinana operating; East Rockingham in receivership (Table 6)   Swanbank withdrawn in 2022 \[100\]                      —
-  Read for CDEG                      **Lead market**                                                                                   Second market; Sydney waste can reach a Latrobe site only by rail, at about A\$103/t \[26\]            Commissioning or O&M for distressed assets                     Fastest-rising levy                                     Small; Adelaide reachable by rail (Model 3)
+| Dimension | VIC | NSW | WA | QLD | SA (and ACT, TAS) |
+|---|---|---|---|---|---|
+| Thermal WtE policy | 2.5 Mt/yr cap, 94% allocated \[1, 30\] | Designated precincts only: Parkes, Southern Goulburn–Mulwaree, West Lithgow; Tomago proposed \[113\] | Permitted; the only state with large plants built \[45\] | Prefers waste-to-fuels; A\$45m budget support \[45\] | SA: no large project; ACT bans thermal WtE \[45\] |
+| Landfill levy (metro / regional) | A\$177.19 / A\$88.42 \[4\] | A\$180.20 / A\$103.80; parts of southern NSW pay none \[114\] | About A\$90 (Perth) \[115\] [to verify]{.verify} | A\$125 (2025–26), rising to A\$165 by 2029–30 \[116\] | SA A\$171 / A\$85.50; ACT domestic gate fee A\$121.75 incl. GST; TAS A\$70.50 \[26, 45\] |
+| Household sorting | Four bins; deadline 1 Jul 2027 (not yet legislated); FOGO for all households by 2030 \[34, 35\] | FOGO for households by 2030; large food-waste generators from July 2026 \[114\] | FOGO rollout in Perth and Peel [to verify]{.verify} | Council-led [to verify]{.verify} | Three bins common [to verify]{.verify} |
+| Red-bin energy (assumed service) | 9.6–12.4 MJ/kg by council \[26\] | About 10.9 MJ/kg (garden bin assumed) \[26, 76\] | — | — | About 10.9 MJ/kg (garden bin assumed) |
+| Waste generated | 15.7 Mt (2024–25) \[28\] | 21.4 Mt (2023–24), 66% recycled \[117\] | 7.4 Mt (2023–24), 65% recycled \[117\] | 9.81 Mt (2023–24), 57.1% recovered \[117\] | — |
+| Projects | 7 cap licences; Maryvale approved (Appendix A) | Parkes (Cleanaway, Tadweer, Tribe) \[96\]; Woodlawn under assessment \[99\] | Kwinana operating; East Rockingham in receivership (Table 6) | Swanbank withdrawn in 2022 \[100\] | — |
+| Read for CDEG | **Lead market** | Second market; Sydney waste can reach a Latrobe site only by rail, at about A\$103/t \[26\] | Commissioning or O&M for distressed assets | Fastest-rising levy | Small; Adelaide reachable by rail (Model 3) |
 :::
 
 **Why sorting matters for the furnace.** The more food a state takes out of the red bin, the richer and smaller its residual stream becomes (3.3). Victoria and NSW both mandate FOGO by 2030, so residual waste in the two largest markets will move towards the top of CDEG's grate window over a plant's life.
 :::
 
 ::: {.zh}
-- 维州：250万吨上限、填埋税177.19澳元/吨、2030年前全部家庭实行FOGO。
-- 新州：仅限指定区域建设焚烧厂，填埋税180.20澳元/吨。
-- 西澳：已建成两座大型焚烧厂（Kwinana、East Rockingham）。
-- 昆州：填埋税上涨最快。
-- 南澳：规模较小。
-- 维州是首选市场。
+**表B1：维州与新州、西澳、昆州和南澳对比（除另有说明外，填埋税为2026–27年数据）**
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
+::: tw
+| 维度 | 维州 | 新州 | 西澳 | 昆州 | 南澳（及首都领地、塔州） |
+|---|---|---|---|---|---|
+| 热处理焚烧发电政策 | 250万吨/年上限，已分配94% \[1, 30\] | 仅限指定区域：Parkes、Southern Goulburn–Mulwaree、West Lithgow；Tomago为拟议区域 \[113\] | 允许；唯一建成大型电厂的州 \[45\] | 倾向垃圾制燃料；4,500万澳元预算支持 \[45\] | 南澳：无大型项目；首都领地禁止热处理焚烧发电 \[45\] |
+| 填埋税（大都市/地区） | 177.19 / 88.42澳元 \[4\] | 180.20 / 103.80澳元；新州南部部分地区不征收 \[114\] | 约90澳元（珀斯）\[115\] [待核实]{.verify} | 125澳元（2025–26年），2029–30年升至165澳元 \[116\] | 南澳171 / 85.50澳元；首都领地生活垃圾处理费121.75澳元（含GST）；塔州70.50澳元 \[26, 45\] |
+| 家庭垃圾分类 | 四桶分类；截止日期2027年7月1日（尚未立法）；2030年前所有家庭实行FOGO \[34, 35\] | 2030年前家庭实行FOGO；大型厨余产生单位自2026年7月起 \[114\] | 珀斯和皮尔地区推行FOGO [待核实]{.verify} | 由市政主导 [待核实]{.verify} | 三桶分类较普遍 [待核实]{.verify} |
+| 红桶垃圾热值（假设的服务类型） | 各市政9.6–12.4兆焦/千克 \[26\] | 约10.9兆焦/千克（假设有园林垃圾桶）\[26, 76\] | — | — | 约10.9兆焦/千克（假设有园林垃圾桶） |
+| 废物产生量 | 1,570万吨（2024–25年）\[28\] | 2,140万吨（2023–24年），回收66% \[117\] | 740万吨（2023–24年），回收65% \[117\] | 981万吨（2023–24年），资源化57.1% \[117\] | — |
+| 项目 | 7张配额许可；Maryvale已获批（附录A） | Parkes（Cleanaway、Tadweer、Tribe）\[96\]；Woodlawn审批中 \[99\] | Kwinana运营中；East Rockingham破产接管（表6） | Swanbank于2022年撤回 \[100\] | — |
+| 对集团的含义 | **首选市场** | 第二市场；悉尼垃圾只能通过铁路运至拉筹伯谷场址，约103澳元/吨 \[26\] | 为困境资产提供调试或运营服务 | 填埋税上涨最快 | 规模小；阿德莱德可通过铁路覆盖（模型3） |
 :::
+
+**分类为何影响焚烧炉：** 一个州从红桶中分出的厨余越多，其剩余垃圾的热值就越高、量就越少（3.3）。维州和新州都要求在2030年前实行FOGO，因此在两个最大的市场，剩余垃圾的热值在电厂寿命期内将逐步移向集团炉排适应范围的上端。
 :::

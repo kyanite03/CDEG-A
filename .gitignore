@@ -23,3 +23,5 @@ desktop.ini
 .idea/
 .Rproj.user/
 *.Rproj
+
+**/*.quarto_ipynb

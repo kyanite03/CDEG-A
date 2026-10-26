@@ -2,7 +2,7 @@
 title: "[Waste-to-energy]{.en}[垃圾焚烧发电]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ::: {.en}
 *Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
@@ -22,25 +22,60 @@ CDEG's minimum economic line is 500 t/d, and below 250 t/d is too small \[2\]. I
 **Table 3. Licence holders against CDEG's size test**
 
 ::: tw
-  Holder (site)                  Cap t/yr   ≈ t/d   Technology                                                                           Status                                                                                            Fit
-  ------------------------------ ---------- ------- ------------------------------------------------------------------------------------ ------------------------------------------------------------------------------------------------- -----------------------------------------------------------------------
-  Cleanaway (Wollert)            760,000    2,080   Not announced; open technology EOI \[56\]                                            EPA application to be re-filed; EQT takeover by Mar 2027 \[32, 33\]                               High, if the new owner outsources O&M
-  HiQ (Bulla, near Sunbury)      750,000    2,050   Grate, Kanadevia Inova (Appendix A)                                                  No planning approval; the Opposition pledged to scrap it \[57\]                                   High technically; highest political risk
-  Melbourne Water (ETP or WTP)   450,000    1,230   Open; plant burning residual waste with waste heat drying sludge under study \[7\]   Feasibility 2026–31; private participation possible \[7\]; biosolids tender Mar–Jun 2025 \[58\]   Highest: matches CDEG's sludge co-firing \[2\]
-  Recovered Energy Laverton      280,000    770     Gasification (Appendix A)                                                            Holds both licences; no start date or operator \[59\]                                             Conditional: below the two-line minimum; no gasification record \[2\]
+| Holder (site) | Cap t/yr | ≈ t/d | Technology | Status | Size test |
+|---|---|---|---|---|---|
+| Cleanaway (Wollert) | 760,000 | 2,080 | Not announced; open technology EOI \[56\] | EPA application to be re-filed; EQT takeover by Mar 2027 \[32, 33\] | Passes |
+| HiQ (Bulla, near Sunbury) | 750,000 | 2,050 | Grate, Kanadevia Inova (Appendix A) | No planning approval; the Opposition pledged to scrap it \[57\] | Passes |
+| Melbourne Water (ETP or WTP) | 450,000 | 1,230 | Open; plant burning residual waste with waste heat drying sludge under study \[7\] | Feasibility 2026–31; private participation possible \[7\]; biosolids tender Mar–Jun 2025 \[58\] | Passes |
+| Recovered Energy Laverton | 280,000 | 770 | Gasification (Appendix A) | Holds both licences; no start date or operator \[59\] | Below the two-line minimum |
 :::
 
 *Sources as cited; t/d = cap ÷ 365 \[Inferred\]. Liquid Power (50,000), Zerogen (45,000) and Knox (15,000) are each below one 250 t/d line \[1\]. Maryvale is not a target because Veolia operates it inside the consortium (Appendix A).*
+
+**Table 3a. Pros and cons of each licence holder for CDEG**
+
+::: tw
+| Holder | Pros for CDEG | Cons for CDEG |
+|---|---|---|
+| Cleanaway (Wollert) | Largest licence; technology EOI still open, so the operator role is undecided \[56\]; national leader with the balance sheet to build \[95\]; fewer community submissions name its site (14%) than HiQ's \[6\] | EPA application withdrawn to re-file \[32\]; choices may wait for EQT, the new owner \[33\]; it is an operator itself and already partners with Tadweer, a state-owned rival, in NSW \[96\] |
+| HiQ (Bulla) | Large licence; grate technology chosen (Kanadevia Inova), the type CDEG runs; no operator announced | No planning approval; the Opposition pledged to scrap it \[57\]; 56% of community submissions name Sunbury or Bulla \[6\]; the vendor may bundle O&M |
+| Melbourne Water | Plans to dry sludge with waste heat, which matches CDEG's sludge co-firing \[2, 7\]; biosolids work is open now, outside the cap \[58\]; private participation possible \[7\] | Still at feasibility to 2031, with the site not chosen \[7\]; smallest of the three; a state water authority will want an Australian lead partner, and SOCI duties apply (6.2, 2.3) |
+| Recovered Energy Laverton | Holds both licences \[59\] | Below CDEG's two-line minimum; gasification, where CDEG has no record \[2\]; no start date |
+:::
+
+*This report does not rank the licence holders. Which suits CDEG depends on its appetite for political risk and on each holder's choice of operator model.*
 :::
 
 ::: {.zh}
-- 三家许可持有方符合集团两条线的规模要求：Cleanaway（76万吨）、HiQ（75万吨）、Melbourne Water（45万吨）。
-- Recovered Energy Laverton（28万吨）为有条件目标。
-- 均未开工，运营机会约在2030–31年。
+**有三家许可持有方的规模足以支撑集团的两条线项目。目前均未建成，因此运营机会约在2030–31年出现。**
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
+集团单条线的最低经济规模为500吨/日，低于250吨/日则规模过小 \[2\]。集团的书面答复还指出，一个项目至少应有两条线（1,000–1,500吨/日），以便一条线停运时电厂仍能运行 \[3\]。一条500吨/日的生产线在90%可用率下每年处理约16.5万吨。
+
+**表3：许可持有方与集团规模要求对照**
+
+::: tw
+| 持有方（场址） | 配额（吨/年） | 约合吨/日 | 技术 | 状态 | 规模要求 |
+|---|---|---|---|---|---|
+| Cleanaway（Wollert） | 760,000 | 2,080 | 未公布；技术意向征集进行中 \[56\] | EPA申请将重新提交；EQT收购预计2027年3月前完成 \[32, 33\] | 符合 |
+| HiQ（Bulla，近Sunbury） | 750,000 | 2,050 | 炉排炉，Kanadevia Inova（附录A） | 尚无规划批准；反对党承诺取消该项目 \[57\] | 符合 |
+| Melbourne Water（ETP或WTP） | 450,000 | 1,230 | 未定；正在研究焚烧剩余垃圾并以余热干化污泥的电厂 \[7\] | 2026–31年可行性研究；可能引入私营参与 \[7\]；2025年3–6月生物固体招标 \[58\] | 符合 |
+| Recovered Energy Laverton | 280,000 | 770 | 气化（附录A） | 持有两类许可；无开工日期或运营方 \[59\] | 低于两条线下限 |
 :::
+
+*来源如注；吨/日 = 配额 ÷ 365 \[推断\]。Liquid Power（5万吨）、Zerogen（4.5万吨）和Knox（1.5万吨）均不足一条250吨/日的生产线 \[1\]。Maryvale不是目标，因为Veolia在联合体内负责运营（附录A）。*
+
+**表3a：各许可持有方对集团的利弊**
+
+::: tw
+| 持有方 | 对集团的有利因素 | 对集团的不利因素 |
+|---|---|---|
+| Cleanaway（Wollert） | 许可量最大；技术意向征集仍在进行，运营方角色尚未确定 \[56\]；全国龙头，有能力投资建设 \[95\]；点名其场址的社区意见（14%）少于HiQ \[6\] | EPA申请已撤回待重新提交 \[32\]；决策可能要等新业主EQT \[33\]；其本身就是运营商，且已在新州与国有竞争对手Tadweer合作 \[96\] |
+| HiQ（Bulla） | 许可量大；已选定炉排技术（Kanadevia Inova），与集团运营的类型相同；未公布运营方 | 尚无规划批准；反对党承诺取消该项目 \[57\]；56%的社区意见点名Sunbury或Bulla \[6\]；设备商可能捆绑运营 |
+| Melbourne Water | 计划利用余热干化污泥，与集团的污泥掺烧经验吻合 \[2, 7\]；配额外的生物固体业务现在即可开展 \[58\]；可能引入私营参与 \[7\] | 可行性研究持续到2031年，场址未定 \[7\]；三家中规模最小；州属水务机构会要求澳洲牵头伙伴，且须履行SOCI义务（6.2、2.3） |
+| Recovered Energy Laverton | 持有两类许可 \[59\] | 低于集团两条线下限；采用气化技术，集团无相关业绩 \[2\]；无开工日期 |
+:::
+
+*本报告不对许可持有方进行排序。哪一家更适合集团，取决于集团对政治风险的承受度以及各持有方选择的运营模式。*
 :::
 
 ## [Market size]{.en}[市场规模]{.zh}
@@ -55,12 +90,12 @@ CDEG's minimum economic line is 500 t/d, and below 250 t/d is too small \[2\]. I
 **Table 5. WtE O&M market in Victoria (annual, 2027 A\$, from about 2030)**
 
 ::: tw
-  Layer               Definition                                                                                                     Mt/yr       At A\$75/t   Range
-  ------------------- -------------------------------------------------------------------------------------------------------------- ----------- ------------ -------------
-  TAM                 All cap-licensed tonnes                                                                                        2.35        A\$176m      A\$141–259m
-  SAM                 Licences that pass CDEG's size test: Cleanaway, HiQ, Melbourne Water                                           1.96        A\$147m      A\$118–216m
-  Risk-adjusted SAM   Without HiQ (political risk) = 1.21 Mt; half that if owners self-operate or take vendor-bundled O&M            0.60–1.21   A\$45–91m    A\$36–133m
-  SOM (scenario)      One contract by about 2031: a two-line plant (2 × 500 t/d at 90% = 330,000 t) or Melbourne Water (450,000 t)   0.33–0.45   A\$25–34m    A\$20–50m
+| Layer | Definition | Mt/yr | At A\$75/t | Range |
+|---|---|---|---|---|
+| TAM | All cap-licensed tonnes | 2.35 | A\$176m | A\$141–259m |
+| SAM | Licences that pass CDEG's size test: Cleanaway, HiQ, Melbourne Water | 1.96 | A\$147m | A\$118–216m |
+| Risk-adjusted SAM | Without HiQ (political risk) = 1.21 Mt; half that if owners self-operate or take vendor-bundled O&M | 0.60–1.21 | A\$45–91m | A\$36–133m |
+| SOM (scenario) | One contract by about 2031: a two-line plant (2 × 500 t/d at 90% = 330,000 t) or Melbourne Water (450,000 t) | 0.33–0.45 | A\$25–34m | A\$20–50m |
 :::
 
 *Sources: tonnes \[1\]; value per tonne \[26, 74\]. All values are \[Inferred\].*
@@ -69,13 +104,26 @@ The SOM is a scenario of winning one contract, and it is revenue, not profit. At
 :::
 
 ::: {.zh}
-- 计算公式：市场规模 = 处理量 × 每吨运营价值（基准75澳元/吨，范围60–110）。
-- 总市场1.76亿澳元/年；可服务市场（三家许可）1.47亿澳元。
-- 考虑风险后约0.45–0.91亿澳元；单个合同年收入约0.25–0.34亿澳元，按10–15%利润率计约250–510万澳元。
+**维州获许可电厂建成后，每年运营支出约1.76亿澳元。考虑政治风险和业主自营后，可竞争部分为0.45–0.91亿澳元。一份合同每年可为集团带来约0.25–0.34亿澳元收入。**
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
+**公式：** 市场价值 = 处理吨数 × 每吨运营价值。
+
+**每吨运营价值：** 即业主向运营方支付的费用：人员、维护和耗材，加上运营方利润。预分拣、灰渣处置和药剂按代收代付处理。在模型1中，这些由运营方控制的成本在90%可用率下约为67澳元/吨：固定成本约37澳元/吨，加上变动成本30澳元/吨 \[26\]。加上10–15%的利润，约为75澳元/吨 \[假设\]。温哥华都市区由承包商运营的电厂运营成本约为93–112加元/吨（约合100–125澳元），不含灰渣处置和还本付息 \[74\] \[行业\]。该厂较老，处于我们60–110澳元/吨区间的上端。应以集团自己的吨成本替换这一数据 [待核实]{.verify}。
+
+**表5：维州焚烧运营市场（年度，2027年澳元，约自2030年起）**
+
+::: tw
+| 层级 | 定义 | 百万吨/年 | 按75澳元/吨 | 范围 |
+|---|---|---|---|---|
+| 总潜在市场（TAM） | 全部配额许可吨数 | 2.35 | 1.76亿澳元 | 1.41–2.59亿澳元 |
+| 可服务市场（SAM） | 符合集团规模要求的许可：Cleanaway、HiQ、Melbourne Water | 1.96 | 1.47亿澳元 | 1.18–2.16亿澳元 |
+| 风险调整后的可服务市场 | 不含HiQ（政治风险）= 121万吨；若业主自营或采用设备商捆绑运营，则减半 | 0.60–1.21 | 0.45–0.91亿澳元 | 0.36–1.33亿澳元 |
+| 可获得市场（SOM，情景） | 约2031年前赢得一份合同：两条线电厂（2 × 500吨/日，90%可用率 = 33万吨）或Melbourne Water（45万吨） | 0.33–0.45 | 0.25–0.34亿澳元 | 0.20–0.50亿澳元 |
 :::
+
+*来源：吨数 \[1\]；每吨价值 \[26, 74\]。所有数值均为 \[推断\]。*
+
+可获得市场是赢得一份合同的情景，指的是收入而非利润。按10–15%的运营利润率计，集团每年约可获得250–510万澳元（6.6）。在全国范围内，约有15个项目、合计约400万吨/年处于开发阶段 \[45\]，若全部建成，按相同费率每年约值3亿澳元。这是上行空间，而非基准情形。
 :::
 
 ## [Waste composition and technical fit]{.en}[垃圾成分与技术适配]{.zh}
@@ -85,7 +133,7 @@ The SOM is a scenario of winning one contract, and it is revenue, not profit. At
 
 **How sorting works.** Victoria is moving to one statewide four-bin standard: general waste (red), mixed recycling (yellow), FOGO (lime) and glass (purple). The state sets the standard and the levy, and each council runs its own collection and disposal contracts \[34, 35\]. Only red-bin and commercial residual waste can go to WtE, and both must meet the permitted-waste rules in Table 2 \[36\]. Commercial loads need the most checking, because clean cardboard and deposit containers must be pulled out before the furnace. That is a sorting job for a local partner, since CDEG runs no general-waste sorting plant \[2\].
 
-**Heating value.** Christine's comparison set Chinese household waste at about 3–6.7 MJ/kg against 9–11 MJ/kg for European residual waste \[75\]. Model 1 measures Victoria directly:
+**Heating value.** Published comparisons put Chinese household waste at about 3–6.7 MJ/kg against 9–11 MJ/kg for European residual waste \[75\]. Model 1 measures Victoria directly:
 
 -   It applies NSW EPA red-bin audit compositions by organics service \[76\] to standard heating values for each material \[77\].
 -   It weights the result by each Victorian council's organics coverage \[37\].
@@ -105,16 +153,35 @@ Across all burnable waste landfilled, food fell 35% between 2015–16 and 2024�
 -   **More plastic means more acid gas**, at the moment real-time public emissions reporting is coming (2.3).
 -   **Fewer tonnes, but not less fuel.** Falling tonnes do not mean falling energy, which supports the power case. Shrinking tonnes still raise utilisation risk for owners (6.7).
 
-CDEG says it needs no front-end sorting in China \[3\]. Victoria's permitted-waste rules make a sorting step necessary here, which is why the partner matters. Model 2 (waste-fit check, Janeika, in progress) will turn these inputs into a per-plant check against the grate window (Appendix E).
+CDEG says it needs no front-end sorting in China \[3\]. Victoria's permitted-waste rules make a sorting step necessary here, which is why the partner matters. Model 2 (waste-fit check, in progress) will turn these inputs into a per-plant check against the grate window (Appendix E).
 :::
 
 ::: {.zh}
-- 维州红桶垃圾热值约9.6–12.4兆焦/千克，高于万兴三期设计值（9.0），但在其4.6–14兆焦/千克适应范围内。
-- 实行FOGO后热值更高，同等热负荷下每条线处理吨数减少，塑料增加也带来更多酸性气体。
+**维州红桶垃圾热值为9.6–12.4兆焦/千克，高于万兴三期9.0兆焦/千克的设计点，但在其4.6–14兆焦/千克的适应范围内。随着FOGO把厨余分出，热值还在上升。**
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
-:::
+**分类如何运作：** 维州正在推行全州统一的“四桶”标准：其他垃圾（红桶）、混合可回收物（黄桶）、FOGO（绿桶）和玻璃（紫桶）。州政府制定标准和填埋税，各市政自行负责收运和处置合同 \[34, 35\]。只有红桶垃圾和工商业剩余垃圾可以进入焚烧厂，且都必须符合表2中的准入垃圾规则 \[36\]。工商业垃圾需要最多的检查，因为干净的纸板和押金回收容器必须在入炉前分拣出来。这项分拣工作需要本地伙伴承担，因为集团没有运营一般垃圾分拣厂 \[2\]。
+
+**热值：** 公开的对比资料显示，中国生活垃圾热值约为3–6.7兆焦/千克，而欧洲剩余垃圾为9–11兆焦/千克 \[75\]。模型1直接测算维州的数据：
+
+-   将新州EPA按有机垃圾服务类型划分的红桶垃圾审计成分 \[76\] 与各类物料的标准热值 \[77\] 相结合。
+-   按维州各市政的有机垃圾收集覆盖率加权 \[37\]。
+
+没有有机垃圾桶的地区，红桶垃圾热值约为9.6兆焦/千克；有园林垃圾桶的为10.9兆焦/千克；实行FOGO的为12.4兆焦/千克 \[26\] \[推断\]。
+
+在全部填埋的可燃垃圾中，2015–16年至2024–25年间厨余减少了35%，塑料和纸张则有所增加。按仅计可燃物的口径，平均热值从15.2升至16.7兆焦/千克。总能量增加21%，而吨数增加11% \[26, 28\]。
+
+![](../assets/img/report-fig-0.png){fig-alt="不同有机垃圾服务下的红桶垃圾热值与万兴三期炉排适应范围对比"}
+
+*图3：来源：\[3, 26, 76–78\]。成都数据早于中国强制垃圾分类。*
+
+**对集团的意义：**
+
+-   **每条线处理吨数减少：** 炉排受热负荷限制。一条按9兆焦/千克垃圾设计的500吨/日生产线，在10–12兆焦/千克时只能处理约375–450吨/日 \[推断\]。维州新电厂会按本地垃圾设计额定能力，但集团的500吨/日最低规模应以热负荷表述。
+-   **运行范围宽：** FOGO会把垃圾热值推向14兆焦/千克的上限。Bromelton（昆州）按8.8–14.6兆焦/千克设计 \[79\]。集团的经验在于处理成分多变的垃圾，而不是单一热值。
+-   **塑料增加意味着酸性气体增加**，而此时正值实时公开排放报告即将推行（2.3）。
+-   **吨数减少，但燃料并未减少：** 吨数下降并不意味着能量下降，这支持售电方面的论证。但吨数缩减仍会提高业主的产能利用率风险（6.7）。
+
+集团表示其在国内不需要前端分拣 \[3\]。维州的准入垃圾规则使分拣环节成为必需，这正是合作伙伴的重要性所在。模型2（垃圾适配性检验，开发中）将把这些输入转化为针对每座电厂、对照炉排适应范围的检验（附录E）。
 :::
 
 ## [How the money flows and what it costs]{.en}[资金流向与成本]{.zh}
@@ -122,23 +189,23 @@ CDEG says it needs no front-end sorting in China \[3\]. Victoria's permitted-was
 ::: {.en}
 **A Latrobe plant pays its way only at a gate fee of about A\$205–240/t and high load. Availability is the biggest lever an operator controls, although capex, price and the levy path swing value more.**
 
-**Revenue stack.** Australian estimates put WtE revenue at about 60% gate fees, 25% electricity and 15% metals and other products \[45\]. Industry sources quote gate fees of A\$150–250/t \[45\]. Kwinana's contracted fee is about A\$120/t \[80\]. That was set against a WA levy of about A\$90/t, roughly half Victoria's, and Victoria's higher levy is what lets a plant here charge A\$205–240/t. Victoria's own regulatory modelling assumes A\$237/t and power at A\$80.11/MWh \[81\] (via Christine's 2.2). Only the biogenic share of waste earns renewable certificates \[82\]. Wholesale power has fallen sharply in 2026 \[83\], so the gate fee carries the project.
+**Revenue stack.** Australian estimates put WtE revenue at about 60% gate fees, 25% electricity and 15% metals and other products \[45\]. Industry sources quote gate fees of A\$150–250/t \[45\]. Kwinana's contracted fee is about A\$120/t \[80\]. That was set against a WA levy of about A\$90/t, roughly half Victoria's, and Victoria's higher levy is what lets a plant here charge A\$205–240/t. Victoria's own regulatory modelling assumes A\$237/t and power at A\$80.11/MWh \[81\]. Only the biogenic share of waste earns renewable certificates \[82\]. Wholesale power has fallen sharply in 2026 \[83\], so the gate fee carries the project.
 
 **Table 6. What Australia's two built plants teach**
 
 ::: tw
-                         Kwinana (WA)                                                                                                                                                                               East Rockingham (WA)
-  ---------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ --------------------------------------------------------------------------------------
-  Capacity, technology   About 460,000 t/yr; Keppel Seghers grate, 2 lines                                                                                                                                          300,000 t/yr + 30,000 t biosolids; Kanadevia Inova grate
-  Capital cost           Budget A\$680m; outturn reportedly over A\$1bn (above A\$2,170/t of capacity) \[45\]                                                                                                       A\$511m (about A\$1,700/t) \[45\]
-  Finance and support    A\$275m equity (Macquarie, DIF) and about A\$400m debt including CEFC (up to A\$90m, since repaid); A\$23m ARENA grant \[45, 84, 85\]                                                      Bank debt with CEFC and ARENA \[84\]
-  Offtake                Preferred renewable-power supplier to WA councils (WALGA) \[85\]                                                                                                                           Part supply to Talison Lithium's Greenbushes site \[86\]
-  Waste supply           20-year council contracts (Rivers Regional Council, City of Kwinana) \[84\] [to verify]{.verify}                                                                                                       Waste-arising contracts, so councils can still cut waste
-  Outcome                First waste July 2024, full operation December 2025 \[45\]. ACCIONA bought it in March 2024 and now owns and operates it; Veolia's long-term O&M contract ended in early 2025 \[85, 87\]   Receivership in October 2024; ACCIONA's bid withdrawn after ACCC concerns \[88, 89\]
-  Lesson for CDEG        Owners and lenders most need on-time delivery and stable operation. Operators can be replaced, which is both an opening and a warning.                                                     
+|  | Kwinana (WA) | East Rockingham (WA) |
+|---|---|---|
+| Capacity, technology | About 460,000 t/yr; Keppel Seghers grate, 2 lines | 300,000 t/yr + 30,000 t biosolids; Kanadevia Inova grate |
+| Capital cost | Budget A\$680m; outturn reportedly over A\$1bn (above A\$2,170/t of capacity) \[45\] | A\$511m (about A\$1,700/t) \[45\] |
+| Finance and support | A\$275m equity (Macquarie, DIF) and about A\$400m debt including CEFC (up to A\$90m, since repaid); A\$23m ARENA grant \[45, 84, 85\] | Bank debt with CEFC and ARENA \[84\] |
+| Offtake | Preferred renewable-power supplier to WA councils (WALGA) \[85\] | Part supply to Talison Lithium's Greenbushes site \[86\] |
+| Waste supply | 20-year council contracts (Rivers Regional Council, City of Kwinana) \[84\] [to verify]{.verify} | Waste-arising contracts, so councils can still cut waste |
+| Outcome | First waste July 2024, full operation December 2025 \[45\]. ACCIONA bought it in March 2024 and now owns and operates it; Veolia's long-term O&M contract ended in early 2025 \[85, 87\] | Receivership in October 2024; ACCIONA's bid withdrawn after ACCC concerns \[88, 89\] |
+| Lesson for CDEG | Owners and lenders most need on-time delivery and stable operation. Operators can be replaced, which is both an opening and a warning. |  |
 :::
 
-*Compiled from Janeika's commercial-viability research (finance, supply, offtake), Christine's 5.2 (ACCIONA, ACCC) and Kai's market research (capex); sources as cited. Janeika's draft put Kwinana at 400,000 t and A\$668m; we use the larger reported capacity and outturn \[45\] [to verify]{.verify}.*
+*Sources as cited. Some sources give Kwinana as 400,000 t and A\$668m; we use the larger reported capacity and outturn \[45\] [to verify]{.verify}.*
 
 **Model 1.** The WtE payback model \[26\] follows a Latrobe Valley plant year by year from 2027, in four linked steps:
 
@@ -175,14 +242,58 @@ Defaults:
 :::
 
 ::: {.zh}
-- 收入约60%来自处理费、25%来自售电。
-- 拉筹伯谷三炉方案的盈亏平衡处理费约205澳元/吨；约240澳元/吨时净现值最高（+1.38亿澳元，内部收益率9.6%）。
-- 可用率每提高5个百分点，净现值约增加4000–4500万澳元，这是运营方能控制的杠杆。
-- 资本支出、电价和填埋税走势的影响更大。
+**拉筹伯谷电厂只有在处理费约205–240澳元/吨且高负荷运行时才能收回投资。可用率是运营方能控制的最大杠杆，但资本支出、处理费价格和填埋税走势对价值的影响更大。**
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
+**收入构成：** 澳洲的估计显示，焚烧发电收入约60%来自处理费，25%来自售电，15%来自金属及其他产品 \[45\]。行业来源报出的处理费为150–250澳元/吨 \[45\]。Kwinana的合同处理费约为120澳元/吨 \[80\]，这是以约90澳元/吨的西澳填埋税（约为维州的一半）为参照确定的；正是维州更高的填埋税，使这里的电厂可以收取205–240澳元/吨。维州自己的监管模型假设处理费为237澳元/吨、电价为80.11澳元/兆瓦时 \[81\]。只有垃圾中的生物质部分可以获得可再生能源证书 \[82\]。2026年批发电价大幅下跌 \[83\]，因此项目主要靠处理费支撑。
+
+**表6：澳洲两座已建成电厂的经验**
+
+::: tw
+|  | Kwinana（西澳） | East Rockingham（西澳） |
+|---|---|---|
+| 规模与技术 | 约46万吨/年；Keppel Seghers炉排，2条线 | 30万吨/年 + 3万吨生物固体；Kanadevia Inova炉排 |
+| 投资 | 预算6.8亿澳元；据报道实际超过10亿澳元（每吨处理能力超过2,170澳元）\[45\] | 5.11亿澳元（约1,700澳元/吨）\[45\] |
+| 融资与支持 | 2.75亿澳元股权（Macquarie、DIF）和约4亿澳元债务，含CEFC贷款（最高9,000万澳元，已偿还）；2,300万澳元ARENA拨款 \[45, 84, 85\] | 银行贷款，含CEFC和ARENA \[84\] |
+| 售电 | 西澳市政（WALGA）的优先可再生电力供应商 \[85\] | 部分电力供应Talison Lithium的Greenbushes矿区 \[86\] |
+| 垃圾供应 | 20年市政合同（Rivers Regional Council、City of Kwinana）\[84\] [待核实]{.verify} | 按实际产生量供应的合同，市政仍可减少垃圾量 |
+| 结果 | 2024年7月开始接收垃圾，2025年12月全面投运 \[45\]。ACCIONA于2024年3月收购并自行拥有和运营；Veolia的长期运营合同于2025年初结束 \[85, 87\] | 2024年10月进入破产接管；ACCIONA因ACCC的关注撤回收购 \[88, 89\] |
+| 对集团的启示 | 业主和贷款方最需要的是按时交付和稳定运行。运营方可以被替换，这既是机会，也是警示。 |  |
 :::
+
+*来源如注。部分资料给出的Kwinana规模和投资为40万吨和6.68亿澳元；我们采用报道中较大的产能和实际投资 \[45\] [待核实]{.verify}。*
+
+**模型1：** 焚烧回收期模型 \[26\] 从2027年起逐年测算一座拉筹伯谷电厂，分四个相互关联的步骤：
+
+1.  **许可决定焚烧炉数量。** 默认合作方为Melbourne Water（45万吨）加上15万吨未分配配额，即三台500吨/日焚烧炉。
+2.  **处理费决定谁送来垃圾。** 模型3中的每个市政只有在至少节省10%时才会转换。其余供应来自墨尔本的工商业垃圾。
+3.  **这些垃圾决定负荷和每吨能量。**
+4.  **负荷与固定成本的对比决定回收期。**
+
+默认参数：
+
+-   资本支出8.3亿澳元（场地2亿澳元，加每台焚烧炉2.1亿澳元）；固定成本每台焚烧炉每年500万澳元，另加场地300万澳元
+-   变动成本30澳元/吨，预分拣15澳元/吨；投入量的15%作为灰渣按大都市价格填埋
+-   电价80澳元/兆瓦时，净发电效率20%；填埋税每年上涨5%
+-   企业所得税30%，名义折现率8%
+
+![](../assets/img/report-fig-1.png){fig-alt="净现值与处理费的关系：低于205为负，在每吨240澳元时达到峰值"}
+
+*图4：来源：模型1 \[26\]，默认设置，为本报告重新运行。处理费高于约240澳元/吨时，市政和工商业客户转回填埋，焚烧炉无法满负荷运行。*
+
+**模型结果：**
+
+-   **价格：** 在150澳元/吨时，电厂很容易满负荷：首年（2030年）有81个市政送来垃圾，另有工商业垃圾。但每处理一吨都在亏损（净现值−2.18亿澳元，内部收益率5.1%）。盈亏平衡点约为205澳元/吨。净现值在约240澳元/吨时达到峰值（+1.38亿澳元，内部收益率9.6%，回收期10年）。在这一价格下，市政更愿意填埋，电厂依靠墨尔本工商业垃圾以89%的负荷运行。因此，以盈利为目标定价的电厂依赖的是工商业客户，而非市政合同 \[推断\]。
+-   **许可是决定性约束：** 没有合作方的许可，只有15万吨可用，电厂无法收回投资（净现值−9,900万澳元）。若使用HiQ的75万吨许可，可建五台焚烧炉，但在240澳元/吨时约一半产能闲置（净现值+9,600万澳元，低于三炉方案）。
+-   **政策可能逆转结论：** 如果填埋税只按CPI（每年2.5%）上涨，240澳元/吨时的净现值降至−1.46亿澳元；若持续每年上涨10%，则升至+4.89亿澳元。
+-   **市场假设很重要：** 若转换门槛为20%，净现值降至−2.40亿澳元；若填埋场处理费为70澳元，降至−7,000万澳元。两者都是需要与市政检验的假设（4.2）。
+
+![](../assets/img/report-fig-2.png){fig-alt="处理费每吨240澳元时净现值的敏感性分析"}
+
+*图5：来源：模型1 \[26\]，每次只改变一个参数，其余为默认值。*
+
+**对集团的意义：** 集团出售的不是资本支出节约，因为其设备系外购 \[2\]。集团出售的是可用率和运行成本。可用率提高5个百分点，对业主约值4,000–4,500万澳元净现值。固定成本或变动成本（不含预分拣）降低10%，价值1,200–1,500万澳元 \[推断\]。这些就是应向许可持有方展示的数字（6.2）。
+
+**局限：** 模型1未包括债务融资、大规模可再生能源证书（LGC）收入、金属回收、转运站投资，以及其他许可持有方对同一批垃圾的竞争。其能量参数采用教科书数值和新州审计成分，而非维州实验室数据 \[26\]。默认成本为基准值，待集团提供自身数据后调整。
 :::
 
 ## [Siting under Australian conditions]{.en}[澳洲条件下的选址]{.zh} {#siting}
@@ -207,14 +318,22 @@ So CDEG's 50 km rule of thumb gives way to "within the levy zone". A Latrobe hub
 :::
 
 ::: {.zh}
-- 拉筹伯谷燃煤电厂旧址（Hazelwood、Yallourn、Loy Yang A）具备工业用地、变电站和电厂人才。
-- 市政价格地图显示：在150澳元/吨处理费下，184个市政中有82个愿意把垃圾送到Morwell。
-- 决定覆盖范围的是填埋税区，而不是50公里距离。
-- 该方案需要许可伙伴，且处理费需高于约205澳元/吨，因此列为后续选项。
+拉筹伯谷有多个已关闭或即将关闭的燃煤电厂场址：
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
-:::
+-   Hazelwood，2017年关闭。其修复工程环境影响报告（EES）公示至2026年11月2日，听证会定于2027年2月。
+-   Yallourn，2028年中关闭。
+-   Loy Yang A，2035年关闭。
+
+这些场址具备工业用地、变电站和电厂专业人才 \[70–72\]。该地区已批准Maryvale垃圾发电项目 \[73\]。问题在于距墨尔本约150公里的运输成本。我们的市政价格地图（模型3）逐个市政给出答案 \[26\]：
+
+-   按公路或铁路运输、每个密封20英尺集装箱（约17.5–22吨/箱）计算运费。
+-   只有当我方处理费加运费比该市政自身的填埋价格低至少10%时，才计为争取到该市政。
+
+在150澳元/吨的处理费下（2026–27年价格），维州、新州南部、首都领地、悉尼和阿德莱德的184个市政中，有82个会把红桶垃圾送往Morwell，合计197万吨/年。另有25个市政差距在10%以内 \[26\] \[推断\]。这是可争取的供应量，约为三炉电厂处理能力的四倍，而不是电厂实际会接收的量。
+
+决定覆盖范围的是填埋税，而不是距离。位于35个市政组成的大都市填埋税区内的市政（包括吉朗、巴拉瑞特和本迪戈）都可以覆盖；位于新州填埋税区以外的新州南部市政则无法覆盖 \[26, 31\]。按目前的估算，对所有跨州市政而言，铁路运输都优于海运。
+
+因此，集团“50公里”的经验法则让位于“在填埋税区内”。拉筹伯谷枢纽仍是后期选项：它需要许可合作方（限制因素是配额，而不是运输），并且处理费需要高于205澳元/吨才能收回投资（3.4）。
 :::
 
 ## [China vs Australia]{.en}[中澳对比]{.zh}

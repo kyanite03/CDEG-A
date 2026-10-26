@@ -2,78 +2,114 @@
 title: "[Smart water meters]{.en}[智能水表]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ## [How the money flows]{.en}[资金流向]{.zh}
 
 ::: {.en}
+**Utilities buy meters by tender; the distributor, installer and data platform are each paid separately.**
+
+-   A retail water utility tenders for meters and pays about A\$135 per DN20 smart meter, meter only \[27\].
+-   On the distributor route, the distributor takes about 15% of the price and runs local verification and warehousing, as Avnet does for Huizhong with its Melbourne test lab \[10, 27\].
+-   The manufacturer is paid an ex-works price and bears sea freight to Australia (about A\$2.5 a meter) and warranty \[27\].
+-   Installation and the data platform (for example Iota's Lentic) are bought separately by the utility \[67\].
+
 ::: {.placeholder}
-- Utilities buy via tenders; distributors (e.g. Avnet) take a margin; installers and platforms separate
-- Diagram: who pays whom (to draw)
+- Diagram: who pays whom
 :::
 :::
 
 ::: {.zh}
+**水务公司通过招标采购水表；代理商、安装方和数据平台分别收费。**
+
+-   零售水务公司对水表进行招标，每只DN20智能水表（仅表具）约支付135澳元 \[27\]。
+-   在代理模式下，代理商约获得售价的15%，并负责本地检定和仓储，例如Avnet利用其墨尔本检测实验室为汇中提供服务 \[10, 27\]。
+-   生产商获得出厂价，承担运往澳洲的海运费（每只约2.5澳元）和质保 \[27\]。
+-   安装和数据平台（如Iota的Lentic）由水务公司另行采购 \[67\]。
+
 ::: {.placeholder}
-- 水务公司招标采购；代理商（如Avnet）赚取差价；安装和平台另行采购
-- 示意图：谁向谁付费（待绘制）
+- 示意图：谁向谁付费
 :::
 :::
 
 ## [Major players]{.en}[主要参与方]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Huizhong + Avnet, Sanchuan, Ningbo, Landis+Gyr, Sagemcom, Iota (Lentic)
-- Table from data/players.csv: owner, operator, technology, EPC, approvals held
-:::
+Three Chinese makers already hold NMI approval or a major contract: Huizhong through Avnet at South East Water, Sanchuan and Ningbo Water Meter. Landis+Gyr and Sagemcom supply the other metro programs, and Iota runs the Lentic data platform. Details and sources are in [Report 5.2](../report/competitors.qmd).
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 汇中+Avnet、三川、宁波水表、Landis+Gyr、Sagemcom、Iota（Lentic平台）
-- 表格数据来自 data/players.csv：业主、运营商、技术方、EPC、已获批文
-:::
+三家中国厂商已取得NMI批准或大型合同：汇中经Avnet供货东南水务，以及三川和宁波水表。Landis+Gyr和Sagemcom为其他大都市项目供货，Iota运营Lentic数据平台。详情及来源见[报告5.2](../report/competitors.qmd)。
 :::
 
 ## [Costs and prices]{.en}[成本与价格]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Capex, opex, prices and contract terms, each linked to data/assumptions.csv with source and date
+**Table M1. Meter model defaults (2027 A\$, excluding GST)**
+
+::: tw
+| Item | Default | Range | Status |
+|---|---|---|---|
+| Utility price per DN20 smart meter | A\$135 | A\$90–180 | Calculated from Huizhong's contract |
+| Ex-works price (DN20 NB-IoT, Australian spec) | RMB 400 | RMB 250–650 | Assumption; CDEG to replace |
+| Exchange rate | RMB 4.7 per A\$ | 4.2–5.2 | Check on the day |
+| Freight, port, broker and warehousing | A\$2.5 a meter | A\$1.5–5 | Estimate |
+| Import duty (ChAFTA) | 0% | 0–5% | [to verify]{.verify} |
+| Local verification and QA | A\$3 a meter | A\$1–6 | Estimate |
+| Warranty provision | 3% of price | 1–6% | Assumption |
+| Distributor margin | 15% of price | 8–25% | Estimate |
+| NMI pattern approval (one meter family) | A\$40,000 | A\$15,000–100,000 | [to verify]{.verify} |
+| WaterMark and AS/NZS 4020, first year | A\$25,000 | A\$10,000–40,000 | Industry estimate |
+| Product adaptation for Australia | A\$150,000 | A\$0–400,000 | Assumption |
+| Annual overhead: distributor route / own office | A\$200,000 / A\$650,000 | A\$100,000–1m | Assumption |
 :::
+
+*Source: meter model \[27\]; all inputs are in the [Assumptions register](../appendix/assumptions.qmd). [Open the model](../models/meter-distributor.qmd) to change any value.*
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 投资、运营成本、价格和合同条款，均链接至 data/assumptions.csv（含来源和日期）
+**表M1：水表模型默认值（2027年澳元，不含GST）**
+
+::: tw
+| 项目 | 默认值 | 范围 | 状态 |
+|---|---|---|---|
+| 水务公司采购价（DN20智能水表） | 135澳元 | 90–180澳元 | 根据汇中合同计算 |
+| 出厂价（DN20 NB-IoT，澳洲规格） | 400元 | 250–650元 | 假设；待集团替换 |
+| 汇率 | 4.7元/澳元 | 4.2–5.2 | 以当日为准 |
+| 海运、港口、报关和仓储 | 每只2.5澳元 | 1.5–5澳元 | 估算 |
+| 进口关税（ChAFTA） | 0% | 0–5% | [待核实]{.verify} |
+| 本地检定与质检 | 每只3澳元 | 1–6澳元 | 估算 |
+| 质保准备金 | 售价的3% | 1–6% | 假设 |
+| 代理商利润率 | 售价的15% | 8–25% | 估算 |
+| NMI型式批准（一个系列） | 4万澳元 | 1.5万–10万澳元 | [待核实]{.verify} |
+| WaterMark及AS/NZS 4020首年费用 | 2.5万澳元 | 1万–4万澳元 | 行业估算 |
+| 澳洲适配研发 | 15万澳元 | 0–40万澳元 | 假设 |
+| 年度固定费用：代理模式 / 自建团队 | 20万 / 65万澳元 | 10万–100万澳元 | 假设 |
 :::
+
+*来源：水表模型 \[27\]；全部参数见[假设参数](../appendix/assumptions.qmd)页。[打开模型](../models/meter-distributor.qmd)可修改任何参数。*
 :::
 
 ## [China vs Australia]{.en}[中澳对比]{.zh}
 
 ::: {.en}
 ::: {.placeholder}
-- How Chinese competitors are paid and priced in this line (teammate's research)
+- How Chinese competitors are paid and priced in this line
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
-- 该业务在中国的收费模式和价格水平（队友调研）
+- 该业务在中国的收费模式和价格水平
 :::
 :::
 
 ## [What it means for CDEG]{.en}[对成都环境集团的意义]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- One paragraph: fit, entry route, best partner
-:::
+**Meters are a near-term but crowded line: a small profit on its own, worth doing for the utility relationships it builds.** The market is about one million meters a year, half of it open before 2032 (Report 3.2). With NMI approval about mid-2028, the base case reaches about 43,000 meters and an EBIT of about A\$0.66m by year 5 \[27\]. The best entry is through a distributor with a test lab, starting with a non-billing pilot at a regional water corporation before its September 2027 price submission, and selling drainage sensors and leak analytics alongside the meter (Report 6.2).
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 一段话：契合度、进入路径、最佳合作方
-:::
+**水表是近期可启动但竞争激烈的业务：单独来看利润不大，但值得做，因为它能建立与水务公司的关系。** 市场每年约100万只水表，2032年前约一半开放（报告3.2）。若约2028年中取得NMI批准，基准情景下到第5年销量约4.3万只，息税前利润约66万澳元 \[27\]。最佳进入方式是通过拥有检测实验室的代理商，先在地区水务公司2027年9月价格申报前开展非计费试点，并将排水传感器和漏损分析与水表一起销售（报告6.2）。
 :::

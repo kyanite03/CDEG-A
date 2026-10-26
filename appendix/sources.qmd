@@ -1,13 +1,21 @@
 ---
 title: "[Sources]{.en}[资料来源]{.zh}"
+include-in-header:
+  text: |
+    <script src="../assets/csv-table.js"></script>
 ---
 
-<p class="owner"><span class="en">Owner: Everyone</span><span class="zh">负责人：全体成员</span></p>
+<p class="owner"><span class="en">Authors: CDEG–A team</span><span class="zh">作者：CDEG–A小组</span></p>
 
 ## [Report references]{.en}[报告参考文献]{.zh}
 
 ::: {.en}
 Numbered in order of first citation. "Company document" means CDEG's own material; "team model" means the CDEG–A interactive models.
+:::
+
+::: {.zh}
+按首次引用顺序编号，保留原文语言。“Company document”指集团自有资料；“team model”指CDEG–A小组的互动模型。
+:::
 
 1.  EPA Victoria. (2026). Waste to Energy Scheme licences (updated 27 August 2026). <https://www.epa.vic.gov.au/waste-energy-scheme-licences>
 2.  CDEG–A team. (2026, 15 October). Notes of call with Chengdu Environment Group \[not published\].
@@ -129,22 +137,17 @@ Numbered in order of first citation. "Company document" means CDEG's own materia
 118. Ministry of Ecology and Environment of China. (2014). GB 18485-2014 Standard for pollution control on the municipal solid waste incineration (amended 2019, MEE Announcement No. 56 of 2019). <https://www.mee.gov.cn/ywgz/fgbz/bz/bzwb/gthw/gtfwwrkzbz/201405/t20140530_276307.shtml>
 119. European Union. (2010). Directive 2010/75/EU on industrial emissions, Annex VI. <https://legislation.gov.uk/eudr/2010/75/annex/VI/part/3/adopted>
 120. European Commission. (2019). Implementing Decision (EU) 2019/2010 establishing best available techniques (BAT) conclusions for waste incineration. Official Journal of the European Union, L 312.
-:::
-
-::: {.zh}
-参考文献以英文原文列出。
-:::
 
 ## [Model source register]{.en}[模型数据来源]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Rendered from data/sources.csv for the interactive models
-:::
+Sources for the default values in the interactive models (IDs used in the [Assumptions register](assumptions.qmd)).
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 来自 data/sources.csv（互动模型数据来源）
+互动模型默认值的数据来源（编号用于[假设参数](assumptions.qmd)页）。
 :::
+
+::: tw
+<div class="csv-table" data-src="../data/sources.csv" data-kind="sources"></div>
 :::

@@ -2,7 +2,7 @@
 title: "[Approval pathways]{.en}[审批路径]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai (Christine: emission limits, China-side approvals)</span><span class="zh">负责人：马凯（江坤彤：排放限值、国内审批）</span></p>
+<p class="owner"><span class="en">Authors: Kai Marsh · Christine (Kuntong) Jiang (emission limits, China-side approvals)</span><span class="zh">作者：马凯 · 江坤彤（排放限值、国内审批）</span></p>
 
 ::: {.en}
 *Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
@@ -22,18 +22,18 @@ Recycling Victoria became EPA Victoria's Circular Economy division in mid-2026, 
 **Table 2. Approvals for a thermal WtE plant in Victoria, and who holds them**
 
 ::: tw
-  Approval                                  Body and law                                                                                 What it tests                                                                                                                                   Holder                        For CDEG
-  ----------------------------------------- -------------------------------------------------------------------------------------------- ----------------------------------------------------------------------------------------------------------------------------------------------- ----------------------------- ---------------------------------------------------------------------------------------------------------------------------
-  Cap licence                               EPA Circular Economy division; *Circular Economy (Waste Reduction and Recycling) Act 2021*   Nearness to feedstock and offtake, viability, permits held, jobs, energy output, fit and proper person, climate impact \[43\]                   Owner                         94% allocated; the government does not support raising the cap again \[30\] [to verify]{.verify}
-  EPA development, then operating licence   EPA; *Environment Protection Act 2017*; guideline 1559.1                                     Best available techniques; EU BAT is the practical reference (Appendix C) \[46\]. EPA tied Laverton North's approval to European limits \[2\]   Owner (operator named)        CDEG's emissions record supports the owner's case
-  Planning permit                           Council or Minister for Planning                                                             Siting, traffic, community. No minimum buffer distance \[7\]                                                                                    Owner                         Main social-licence hurdle (4.4)
-  Federal referral                          DCCEEW; *EPBC Act*                                                                           Matters of national environmental significance                                                                                                  Owner                         Site-specific
-  Grid connection                           AEMO and network owner                                                                       Connection studies, queue                                                                                                                       Owner                         Easier at former coal sites (3.1e)
-  Permitted-waste rules                     WtE Scheme scope guidance                                                                    No recyclables; deposit containers banned in any amount; commercial waste must pass the "not practicable to recycle" test \[36\]                Owner and operator            Needs sorting before the furnace (3.3)
-  Ash                                       EPA, case by case                                                                            Bottom ash: testing before use as aggregate. Fly ash: hazardous, needs treatment and licensed disposal \[7\] [to verify]{.verify}                           Owner and operator            CDEG reuses 100% of its slag and stabilises fly ash before landfill; resource routes for fly ash are in development \[3\]
-  Foreign investment                        FIRB; *Foreign Acquisitions and Takeovers Act 1975*                                          An SOE is a foreign government investor: \$0 threshold, and starting an Australian business needs approval \[16\]                               CDEG                          A Melbourne entity triggers FIRB. A service contract signed from China may not [to verify]{.verify} (legal advice)
-  Critical infrastructure                   Home Affairs; *SOCI Act 2018*                                                                Risk-management programs for owners of critical water and energy assets; duties pass to contractors \[55\]                                      Owner, passed to contractor   CDEG must pass the owner's supplier and personnel checks
-  China-side outbound approvals             NDRC (Order No. 49, from 1 Dec 2026), MOFCOM, SAFE, Chengdu SASAC \[17\]                     Outbound investment and foreign-exchange filing                                                                                                 CDEG                          Needed for a Melbourne entity and any parent guarantee
+| Approval | Body and law | What it tests | Holder | For CDEG |
+|---|---|---|---|---|
+| Cap licence | EPA Circular Economy division; *Circular Economy (Waste Reduction and Recycling) Act 2021* | Nearness to feedstock and offtake, viability, permits held, jobs, energy output, fit and proper person, climate impact \[43\] | Owner | 94% allocated; the government does not support raising the cap again \[30\] [to verify]{.verify} |
+| EPA development, then operating licence | EPA; *Environment Protection Act 2017*; guideline 1559.1 | Best available techniques; EU BAT is the practical reference (Appendix C) \[46\]. EPA tied Laverton North's approval to European limits \[2\] | Owner (operator named) | CDEG's emissions record supports the owner's case |
+| Planning permit | Council or Minister for Planning | Siting, traffic, community. No minimum buffer distance \[7\] | Owner | Main social-licence hurdle (4.4) |
+| Federal referral | DCCEEW; *EPBC Act* | Matters of national environmental significance | Owner | Site-specific |
+| Grid connection | AEMO and network owner | Connection studies, queue | Owner | Easier at former coal sites (3.1e) |
+| Permitted-waste rules | WtE Scheme scope guidance | No recyclables; deposit containers banned in any amount; commercial waste must pass the "not practicable to recycle" test \[36\] | Owner and operator | Needs sorting before the furnace (3.3) |
+| Ash | EPA, case by case | Bottom ash: testing before use as aggregate. Fly ash: hazardous, needs treatment and licensed disposal \[7\] [to verify]{.verify} | Owner and operator | CDEG reuses 100% of its slag and stabilises fly ash before landfill; resource routes for fly ash are in development \[3\] |
+| Foreign investment | FIRB; *Foreign Acquisitions and Takeovers Act 1975* | An SOE is a foreign government investor: \$0 threshold, and starting an Australian business needs approval \[16\] | CDEG | A Melbourne entity triggers FIRB. A service contract signed from China may not [to verify]{.verify} (legal advice) |
+| Critical infrastructure | Home Affairs; *SOCI Act 2018* | Risk-management programs for owners of critical water and energy assets; duties pass to contractors \[55\] | Owner, passed to contractor | CDEG must pass the owner's supplier and personnel checks |
+| China-side outbound approvals | NDRC (Order No. 49, from 1 Dec 2026), MOFCOM, SAFE, Chengdu SASAC \[17\] | Outbound investment and foreign-exchange filing | CDEG | Needed for a Melbourne entity and any parent guarantee |
 :::
 
 **The rules are tightening.** The parliamentary inquiry (August 2026) made 59 findings and 33 recommendations \[7\]. Four matter most for an operator:
@@ -49,13 +49,37 @@ The government has six months to respond, so its response is due around February
 :::
 
 ::: {.zh}
-- 一座焚烧厂需要四项项目审批：配额许可、EPA开发及运营许可、规划许可、并网，均由业主持有。
-- 集团作为运营方只需公司层面的审批：在墨尔本设立实体需FIRB批准（国企门槛为0澳元），以及国内发改委（2026年12月1日起施行第49号令）、商务部、外汇局和成都国资委的备案；还需配合业主履行关键基础设施（SOCI）风险管理义务。
-- 议会调查（2026年8月）提出59项结论和33项建议，包括实时公开排放数据和采用国际最佳标准；政府回应预计于2027年2月前后发布。
+**一座维州焚烧电厂需要四项单独的审批，而一家中国国企还需要两国的审批。因此，集团应以许可持有方承包商的身份进入，而不是以业主身份进入。**
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
+Recycling Victoria已于2026年年中并入维州EPA，成为其循环经济部门，因此现在由同一监管机构负责配额许可和环境许可 \[43\] [待核实]{.verify}（具体日期）。项目审批由业主持有。运营方在准入垃圾规则、灰渣处理和SOCI方面承担共同义务，集团还需要表2底部所列的公司层面审批。
+
+**表2：维州热处理焚烧电厂所需审批及持有方**
+
+::: tw
+| 审批 | 机构与法律 | 审查内容 | 持有方 | 对集团的意义 |
+|---|---|---|---|---|
+| 配额许可 | EPA循环经济部门；《2021年循环经济（减废与回收）法》 | 与原料和产品市场的距离、可行性、已持有的许可、就业、能源产出、适当人选审查、气候影响 \[43\] | 业主 | 已分配94%；政府不支持再次提高上限 \[30\] [待核实]{.verify} |
+| EPA开发许可，之后为运营许可 | EPA；《2017年环境保护法》；指南1559.1 | 最佳可行技术；欧盟BAT是实际参照（附录C）\[46\]。EPA将Laverton North的批准与欧洲限值挂钩 \[2\] | 业主（需指定运营方） | 集团的排放记录可支持业主的申请 |
+| 规划许可 | 市政或规划部长 | 选址、交通、社区。没有最低缓冲距离要求 \[7\] | 业主 | 社会许可的主要障碍（4.4） |
+| 联邦转介 | 联邦气候变化、能源、环境和水务部；《EPBC法》 | 具有国家环境意义的事项 | 业主 | 视场址而定 |
+| 并网 | AEMO和电网所有者 | 接入研究、排队 | 业主 | 燃煤电厂旧址更容易（3.1e） |
+| 准入垃圾规则 | 焚烧发电计划范围指南 | 不得含可回收物；押金回收容器无论多少一律禁止；工商业垃圾必须通过“无法合理回收”测试 \[36\] | 业主和运营方 | 入炉前需要分拣（3.3） |
+| 灰渣 | EPA，逐案审批 | 炉渣：作为骨料使用前须检测。飞灰：属危险废物，需处理并在有许可的场所处置 \[7\] [待核实]{.verify} | 业主和运营方 | 集团炉渣100%资源化利用，飞灰稳定化后填埋；飞灰资源化路线正在开发中 \[3\] |
+| 外国投资 | FIRB；《1975年外国收购与接管法》 | 国企属于外国政府投资者：门槛为0澳元，在澳洲开展新业务需要批准 \[16\] | 集团 | 设立墨尔本实体须经FIRB审批。从国内签订服务合同可能不需要 [待核实]{.verify}（需法律意见） |
+| 关键基础设施 | 内政部；《2018年关键基础设施安全法》（SOCI） | 关键水务和能源资产所有者须建立风险管理计划；义务传递给承包商 \[55\] | 业主，传递给承包商 | 集团必须通过业主对供应商和人员的审查 |
+| 国内境外投资审批 | 国家发改委（第49号令，2026年12月1日起施行）、商务部、外汇局、成都市国资委 \[17\] | 境外投资和外汇备案 | 集团 | 设立墨尔本实体及提供母公司担保时需要 |
 :::
+
+**规则正在收紧。** 议会调查（2026年8月）提出59项结论和33项建议 \[7\]。对运营方最重要的有四项：
+
+-   连续排放监测并实时公开报告（第22项建议）
+-   将国际最佳实践标准写入法规（第19项建议）
+-   灵活的市政供应合同（第12项建议）
+-   审查经济激励是否仍有利于回收（第13项建议），这可能意味着征收焚烧税
+
+政府须在六个月内回应，因此预计约2027年2月发布 \[7\]。2026年11月28日的州选举在此之前 \[8\]。
+
+**对集团的意义：** 作为承包商，集团承担的项目审批风险很小。集团需要公司层面的审批（实体的FIRB审批和国内备案），并须满足业主的SOCI风险管理义务。与此同时，集团的排放数据必须达到调查所设定的标准。
 :::
 
 ## [Sludge, water and organics]{.en}[污泥、水务与厨余]{.zh}
@@ -75,15 +99,31 @@ The government has six months to respond, so its response is due around February
 ## [Smart meters]{.en}[智能水表]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- NMI pattern approval (NMI R 49, about 12 months), AS 3565.1, AS/NZS 4020, WaterMark
+**A meter used for billing needs NMI pattern approval, which takes about 12 months. Plumbing and drinking-water standards apply on top.**
+
+::: tw
+| Approval | Body | What it covers | Time and cost |
+|---|---|---|---|
+| Pattern approval (NMI R 49) | National Measurement Institute | Any meter type used for trade, i.e. billing \[91\] | About 12 months; about A\$40,000 per meter family, less if NMI accepts China lab results \[27\] [to verify]{.verify} |
+| AS 3565.1 | Standards Australia, via certifier | Meter performance and construction | Certified alongside WaterMark \[27\] |
+| AS/NZS 4020 and WaterMark | WaterMark certifier | Products in contact with drinking water; plumbing products | About A\$25,000 in the first year, then A\$3,000–6,000 a year \[27\] |
 :::
+
+A non-billing pilot meter does not measure for trade, so it should not need pattern approval [to verify]{.verify}. That lets a pilot start before approval (Report 6.3).
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- NMI型式批准（约12个月）、AS 3565.1、AS/NZS 4020、WaterMark
+**用于计费的水表需要NMI型式批准，约需12个月。此外还须满足管道和饮用水标准。**
+
+::: tw
+| 审批 | 机构 | 适用范围 | 时间与费用 |
+|---|---|---|---|
+| 型式批准（NMI R 49） | 国家计量院（NMI） | 所有用于贸易结算（即计费）的水表型号 \[91\] | 约12个月；每个系列约4万澳元，若NMI采信国内实验室结果则更低 \[27\] [待核实]{.verify} |
+| AS 3565.1 | 澳洲标准协会，经认证机构 | 水表性能和结构 | 与WaterMark一并认证 \[27\] |
+| AS/NZS 4020及WaterMark | WaterMark认证机构 | 接触饮用水的产品；管道产品 | 首年约2.5万澳元，此后每年3,000–6,000澳元 \[27\] |
 :::
+
+非计费试点水表不用于贸易计量，因此应不需要型式批准 [待核实]{.verify}。这样可以在获批前开展试点（报告6.3）。
 :::
 
 ## [Chemicals]{.en}[水处理药剂]{.zh}

@@ -2,57 +2,80 @@
 title: "[Glossary]{.en}[术语表]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Christine</span><span class="zh">负责人：江坤彤</span></p>
+<p class="owner"><span class="en">Author: Christine (Kuntong) Jiang</span><span class="zh">作者：江坤彤</span></p>
 
 ## [Terms]{.en}[术语]{.zh}
 
 ::: {.en}
 ::: tw
-  English                            Chinese                           Meaning
-  ---------------------------------- --------------------------------- -----------------------------------------------------------------------------------
-  Waste-to-energy (WtE)              垃圾焚烧发电                      Burning residual waste to make power and heat
-  Cap licence                        配额许可                          Victorian licence for thermal WtE tonnes under the 2.5 Mt/yr cap
-  Existing-operator licence          既有运营商许可                    Licence for facilities that pre-date the cap scheme
-  Operation and maintenance (O&M)    运营管理                          Running a plant for its owner under contract
-  Gate fee / tipping fee             进场处理费 / 垃圾处理费           Fee per tonne of waste received ("gate fee" in Australia, "tipping fee" in China)
-  Lower heating value (LHV)          低位热值                          Usable heat per kilogram of waste
-  CEMS                               在线监测                          Continuous stack emissions monitoring
-  FOGO                               食物和园林有机垃圾分类            Food organics and garden organics kerbside collection
-  TEEP test                          技术、环境、经济可行性测试        Proof that commercial waste cannot practicably be recycled before it is burnt
-  Pattern approval                   计量型式批准                      NMI approval for a meter type used in trade
-  BOT / BOO                          建设-运营-移交 / 建设-拥有-运营   Concession models used in China
-  SASAC                              国资委                            State-owned assets supervisor
-  FIRB                               外国投资审查委员会                Reviews foreign investment; an SOE needs approval to start an Australian business
-  SOCI Act                           关键基础设施安全法                Security duties for owners of critical water and energy assets
-  Outbound investment filing (ODI)   境外投资备案                      China-side filings (NDRC, MOFCOM, SAFE) before investing abroad
-  TAM / SAM / SOM                    总/可服务/可获得市场              Total, serviceable and obtainable market
+| English | Chinese | Meaning |
+|---|---|---|
+| Waste-to-energy (WtE) | 垃圾焚烧发电 | Burning residual waste to make power and heat |
+| Cap licence | 配额许可 | Victorian licence for thermal WtE tonnes under the 2.5 Mt/yr cap |
+| Existing-operator licence | 既有运营商许可 | Licence for facilities that pre-date the cap scheme |
+| Operation and maintenance (O&M) | 运营管理 | Running a plant for its owner under contract |
+| Gate fee / tipping fee | 进场处理费 / 垃圾处理费 | Fee per tonne of waste received ("gate fee" in Australia, "tipping fee" in China) |
+| Lower heating value (LHV) | 低位热值 | Usable heat per kilogram of waste |
+| CEMS | 在线监测 | Continuous stack emissions monitoring |
+| FOGO | 食物和园林有机垃圾分类 | Food organics and garden organics kerbside collection |
+| TEEP test | 技术、环境、经济可行性测试 | Proof that commercial waste cannot practicably be recycled before it is burnt |
+| Pattern approval | 计量型式批准 | NMI approval for a meter type used in trade |
+| BOT / BOO | 建设-运营-移交 / 建设-拥有-运营 | Concession models used in China |
+| SASAC | 国资委 | State-owned assets supervisor |
+| FIRB | 外国投资审查委员会 | Reviews foreign investment; an SOE needs approval to start an Australian business |
+| SOCI Act | 关键基础设施安全法 | Security duties for owners of critical water and energy assets |
+| Outbound investment filing (ODI) | 境外投资备案 | China-side filings (NDRC, MOFCOM, SAFE) before investing abroad |
+| TAM / SAM / SOM | 总/可服务/可获得市场 | Total, serviceable and obtainable market |
 :::
 :::
 
 ::: {.zh}
-术语表为中英对照，见英文版。
+::: tw
+| 中文 | 英文 | 含义 |
+|---|---|---|
+| 垃圾焚烧发电 | Waste-to-energy (WtE) | 焚烧剩余垃圾以生产电力和热能 |
+| 配额许可 | Cap licence | 维州250万吨/年上限内的热处理焚烧发电许可 |
+| 既有运营商许可 | Existing-operator licence | 适用于配额制度实施前已有设施的许可 |
+| 运营管理 | Operation and maintenance (O&M) | 根据合同为业主运营电厂 |
+| 进场处理费 / 垃圾处理费 | Gate fee / tipping fee | 每吨垃圾的接收费用（澳洲称gate fee，中国称垃圾处理费） |
+| 低位热值 | Lower heating value (LHV) | 每千克垃圾的可用热量 |
+| 在线监测 | CEMS | 烟囱排放连续监测系统 |
+| 食物和园林有机垃圾分类 | FOGO | 厨余与园林有机垃圾的路边分类收集 |
+| 技术、环境、经济可行性测试 | TEEP test | 证明工商业垃圾在焚烧前无法合理回收 |
+| 计量型式批准 | Pattern approval | NMI对用于贸易结算的水表型号的批准 |
+| 建设-运营-移交 / 建设-拥有-运营 | BOT / BOO | 中国采用的特许经营模式 |
+| 国资委 | SASAC | 国有资产监督管理机构 |
+| 外国投资审查委员会 | FIRB | 审查外国投资；国企在澳洲开展新业务需获批准 |
+| 关键基础设施安全法 | SOCI Act | 关键水务和能源资产所有者的安全义务 |
+| 境外投资备案 | Outbound investment filing (ODI) | 境外投资前须向发改委、商务部、外汇局办理的国内备案 |
+| 总/可服务/可获得市场 | TAM / SAM / SOM | 总潜在市场、可服务市场和可获得市场 |
+:::
 :::
 
 ## [Evidence labels]{.en}[证据标签]{.zh}
 
 ::: {.en}
 ::: tw
-  Label            Meaning
-  ---------------- -----------------------------------------------------------------
-  \[Official\]     Government, regulator or parliament record
-  \[Industry\]     Industry report, company announcement or media
-  \[Company\]      CDEG's own material, not independently verified
-  \[Inferred\]     Our own calculation, model output or judgement from the sources
-  \[Assumption\]   A planning value chosen by the team, to be replaced with data
-  [to verify]{.verify}         Incomplete or conflicting; needs checking
+| Label | Meaning |
+|---|---|
+| \[Official\] | Government, regulator or parliament record |
+| \[Industry\] | Industry report, company announcement or media |
+| \[Company\] | CDEG's own material, not independently verified |
+| \[Inferred\] | Our own calculation, model output or judgement from the sources |
+| \[Assumption\] | A planning value chosen by the team, to be replaced with data |
+| [to verify]{.verify} | Incomplete or conflicting; needs checking |
 :::
 :::
 
 ::: {.zh}
-- 官方：政府、监管机构或议会记录
-- 行业：行业报告、公司公告或媒体
-- 企业：集团自有资料，未经独立核实
-- 推断：团队计算或判断
-- 假设：团队设定的规划值，待数据替换
-- 待核实：信息不完整或存在冲突
+::: tw
+| 标签 | 含义 |
+|---|---|
+| \[官方\] | 政府、监管机构或议会记录 |
+| \[行业\] | 行业报告、公司公告或媒体 |
+| \[企业\] | 集团自有资料，未经独立核实 |
+| \[推断\] | 团队根据资料作出的计算、模型结果或判断 |
+| \[假设\] | 团队设定的规划值，待以数据替换 |
+| [待核实]{.verify} | 信息不完整或相互矛盾，需要核查 |
+:::
 :::

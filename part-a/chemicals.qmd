@@ -2,7 +2,7 @@
 title: "[Water-treatment chemicals]{.en}[水处理药剂]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ## [How the money flows]{.en}[资金流向]{.zh}
 
@@ -24,15 +24,15 @@ title: "[Water-treatment chemicals]{.en}[水处理药剂]{.zh}"
 
 ::: {.en}
 ::: {.placeholder}
-- Incumbent suppliers and distributors [to verify]
-- Table from data/players.csv: owner, operator, technology, EPC, approvals held
+- Incumbent suppliers and distributors
+- Table of players: owner, operator, technology, EPC, approvals held
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
 - 现有供应商和代理商【待核实】
-- 表格数据来自 data/players.csv：业主、运营商、技术方、EPC、已获批文
+- 参与方表格：业主、运营商、技术方、EPC、已获批文
 :::
 :::
 
@@ -40,13 +40,13 @@ title: "[Water-treatment chemicals]{.en}[水处理药剂]{.zh}"
 
 ::: {.en}
 ::: {.placeholder}
-- Capex, opex, prices and contract terms, each linked to data/assumptions.csv with source and date
+- Capex, opex, prices and contract terms, each with source and date
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
-- 投资、运营成本、价格和合同条款，均链接至 data/assumptions.csv（含来源和日期）
+- 投资、运营成本、价格和合同条款，均注明来源和日期
 :::
 :::
 
@@ -54,13 +54,13 @@ title: "[Water-treatment chemicals]{.en}[水处理药剂]{.zh}"
 
 ::: {.en}
 ::: {.placeholder}
-- How Chinese competitors are paid and priced in this line (teammate's research)
+- How Chinese competitors are paid and priced in this line
 :::
 :::
 
 ::: {.zh}
 ::: {.placeholder}
-- 该业务在中国的收费模式和价格水平（队友调研）
+- 该业务在中国的收费模式和价格水平
 :::
 :::
 

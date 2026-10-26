@@ -2,7 +2,7 @@
 title: "[Food organics and anaerobic digestion]{.en}[厨余垃圾与厌氧消化]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ::: {.en}
 *Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
@@ -41,15 +41,19 @@ Food organics landfilled, FOGO timing and the decontamination gap are in [Table 
 ## [Major players]{.en}[主要参与方]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Repurpose It (Epping, 200,000 t/yr), Yarra Valley Water ReWaste (33,000 t/yr), Veolia, Cleanaway; 80 organics facilities and 8 digesters statewide
-:::
+Victoria has 80 organics facilities and 8 digesters \[29\]. The largest named players are:
+
+-   **Repurpose It** (Epping): about 200,000 t/yr, expanding with state support \[63\]
+-   **Yarra Valley Water ReWaste**: a water corporation that digests commercial food waste, about 33,000 t/yr [to verify]{.verify}
+-   **Veolia and Cleanaway**: both run organics processing alongside their waste businesses [to verify]{.verify}
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- Repurpose It、雅拉谷水务ReWaste、Veolia、Cleanaway；全州80家有机物设施、8座厌氧消化设施
-:::
+维州共有80家有机物处理设施和8座厌氧消化设施 \[29\]。主要参与方包括：
+
+-   **Repurpose It**（Epping）：约20万吨/年，正在州政府支持下扩产 \[63\]
+-   **雅拉谷水务ReWaste**：由水务公司运营、处理商业厨余的厌氧消化设施，约3.3万吨/年 [待核实]{.verify}
+-   **Veolia和Cleanaway**：在废物业务之外也运营有机物处理设施 [待核实]{.verify}
 :::
 
 ## [Costs and prices]{.en}[成本与价格]{.zh}
@@ -69,13 +73,9 @@ Food organics landfilled, FOGO timing and the decontamination gap are in [Table 
 ## [What it means for CDEG]{.en}[对成都环境集团的意义]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Value proposition for organics processors and councils (report 6.2, segment 3): FOGO decontamination pilot
-:::
+**FOGO is a near-term, low-capital opening, and the offer is CDEG's decontamination equipment proved in a pilot.** Every household must have FOGO by 2030 \[34\], and the state names decontamination of contaminated FOGO as an investment gap \[29\]. CDEG's food-waste equipment was built for wet, high-impurity waste \[18\] \[Inferred\]. The entry route is a pilot with a processor or council, possibly co-funded by the state's organics fund \[64\], followed by equipment sales. This is segment 3 in [Report 6.1 and 6.2](../report/go-to-market.qmd).
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 面向有机物处理企业与市政的价值主张：FOGO去杂质试点
-:::
+**FOGO是近期、低资本的切入点，集团提供的是经试点验证的去杂质设备。** 到2030年所有家庭都必须实行FOGO \[34\]，州政府将受污染FOGO的去杂质列为投资缺口 \[29\]。集团的厨余设备专为高含水、高杂质垃圾设计 \[18\] \[推断\]。进入路径是与一家处理企业或市政开展试点（可申请州政府有机物基金共同资助 \[64\]），随后销售设备。这对应[报告6.1和6.2](../report/go-to-market.qmd)中的细分市场3。
 :::

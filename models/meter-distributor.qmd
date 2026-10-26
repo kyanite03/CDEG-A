@@ -25,7 +25,7 @@ include-in-header:
     </style>
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ::: {.en}
 CDEG's subsidiary Huijin makes NB-IoT ultrasonic meters in China. In this model it builds them to Australian standards, ships them in bulk, and sells them to Australian water utilities, either through a local distributor (the route Huizhong took with Avnet) or through its own Australian office. The model runs year by year from 2027 to 2036 and answers four questions: **how big the market is, what it costs and how long it takes to get approved, what each meter earns, and what sales and profit to expect**.

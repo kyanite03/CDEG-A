@@ -2,7 +2,7 @@
 title: "[Partner ranking]{.en}[合作方排名]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ## [Model]{.en}[模型]{.zh}
 

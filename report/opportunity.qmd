@@ -2,7 +2,7 @@
 title: "[3 · Market opportunity]{.en}[三 · 市场机会]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owners: Kai (3.1 a, b, e; 3.2 WtE; 3.3; 3.4) · Janeika (3.1 c, d; 3.2 meters; 3.5)</span><span class="zh">负责人：马凯 · Janeika</span></p>
+<p class="owner"><span class="en">Authors: Kai Marsh (3.1 a, b, e; 3.2 WtE; 3.3; 3.4) · Janeika Jeyakanthan (3.1 c, d; 3.2 meters; 3.5)</span><span class="zh">作者：马凯（3.1 a、b、e；3.2焚烧；3.3；3.4）· Janeika Jeyakanthan（3.1 c、d；3.2水表；3.5）</span></p>
 
 ::: {.en}
 *Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
@@ -22,71 +22,126 @@ We look at the market in three layers, following the outline: waste treatment, e
 :::
 
 ::: {.zh}
-- 3.1（a、e）、3.2（焚烧）、3.3、3.4见[垃圾焚烧发电](../part-a/wte.qmd)页；3.1（b）见[污泥](../part-a/sludge-water.qmd)和[厨余](../part-a/organics.qmd)页。
+我们按照大纲，从三个层面分析市场：垃圾处理、能源回收和循环经济。3.1确定目标市场，3.2测算市场规模，3.3和3.4检验技术与经济适配性，3.5将结果转化为战略选项。
+
+- **（a）为许可持有方提供焚烧运营服务**：见[垃圾焚烧发电](../part-a/wte.qmd)。
+- **（b）配额外的厨余、污泥与生物固体**：见[污泥与生物固体](../part-a/sludge-water.qmd)和[厨余垃圾](../part-a/organics.qmd)。
+- **（e）燃煤电厂旧址改造与选址**：见[垃圾焚烧发电](../part-a/wte.qmd#siting)。
+- **3.2 市场规模（焚烧）**、**3.3 技术适配**和**3.4 经济性**：见[垃圾焚烧发电](../part-a/wte.qmd)。
 :::
 
 ## [3.1 (c) Water digital products]{.en}[3.1（c）水务数字产品]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Owner: Janeika. Victoria's 16 retail water businesses (3 metro, 13 regional); Melbourne Water is wholesale and owns no household meters
-- South East Water 200,000 digital meters (Jan 2026); Yarra Valley Water ~900,000 by 2032 (Sagemcom); Barwon Water on Iota Lentic
-- Opening: regional corporations ahead of the 2028 Water Price Review (submissions due 13 Sep 2027); drainage sensors as a second product
-:::
+**Victoria's 16 retail water businesses buy the meters. The big metro programs are already contracted, so the opening is the 13 regional corporations ahead of their 2028 price submissions.**
+
+-   **Who buys.** Three metro retailers (Greater Western Water, South East Water and Yarra Valley Water) and 13 regional water corporations. Melbourne Water is a wholesaler and owns no household meters \[27\].
+-   **Metro is contracted.** South East Water passed 200,000 digital meters in January 2026 \[65\], supplied by Huizhong through Avnet \[10, 11\]. Yarra Valley Water is rolling out Sagemcom meters \[66\]; its target is put at about 900,000 by 2032 in one source and over 1 million in another [to verify]{.verify}. Greater Western Water has tendered meter supply \[68\]. Barwon Water has partnered with Iota on the Lentic platform \[67, 90\], so a new meter must send data to it.
+-   **The opening.** Regional corporations set their spending through the Essential Services Commission's 2028 Water Price Review. Price submissions are due on 13 September 2027 \[12, 13\]. A corporation that budgets for digital metering in that submission can buy from 2028–29, which is about when CDEG could hold NMI approval (3.2).
+-   **A second product.** Drainage-network sensors and the digital platform are already commercial in Chengdu \[19\]. They are not used for billing, so they should not need NMI pattern approval \[Inferred\], which makes them a possible first sale.
+
+**So what for CDEG.** Brief regional corporations before September 2027, run a non-billing pilot, and enter price-led tenders only once the meter is approved.
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 负责人：Janeika。维州16家零售水务公司（3家大都市、13家地区）；Melbourne Water为批发商
-- 东南水务20万只数字水表；雅拉谷水务计划2032年前约90万只；Barwon Water采用Iota Lentic平台
-- 机会：2028年水价审查前的地区水务公司（2027年9月13日截止申报）
-:::
+**维州16家零售水务公司是水表买方。墨尔本大型项目已签约，因此机会在13家地区水务公司，时间窗口是其2028年水价申报之前。**
+
+-   **谁购买：** 墨尔本三家零售商（大西部水务、东南水务、雅拉谷水务）和13家地区水务公司。Melbourne Water是批发商，不拥有居民水表 \[27\]。
+-   **大都市项目已签约：** 东南水务2026年1月已安装20万只数字水表 \[65\]，由汇中通过Avnet供货 \[10, 11\]。雅拉谷水务正在推广Sagemcom水表 \[66\]；其目标在一个来源中为2032年前约90万只，在另一个来源中为超过100万只 [待核实]{.verify}。大西部水务已对水表供应进行招标 \[68\]。Barwon Water与Iota合作使用Lentic平台 \[67, 90\]，因此新水表必须能向该平台传输数据。
+-   **机会：** 地区水务公司通过基本服务委员会（ESC）的2028年水价审查确定支出。价格申报截止日期为2027年9月13日 \[12, 13\]。在申报中列入数字水表预算的公司可从2028–29年开始采购，这大约正是集团可能取得NMI型式批准的时间（3.2）。
+-   **第二款产品：** 排水管网传感器和数字化平台已在成都商用 \[19\]。它们不用于计费，因此应不需要NMI型式批准 \[推断\]，可能成为首个销售产品。
+
+**对集团的意义：** 在2027年9月前向地区水务公司介绍产品，开展非计费试点，待水表获批后再参与以价格为主的招标。
 :::
 
 ## [3.1 (d) R&D partners]{.en}[3.1（d）研发合作方]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Owner: Janeika. Partners for sludge reuse, CCUS and AI for water
-- Candidates: RMIT PYROCO (biosolids pyrolysis), CarbonNet (Pelican storage, Loy Yang gateway), water corporations with digesters (YVW ReWaste)
-:::
+**The best research partners match the three lines CDEG named: sludge reuse, CCUS and data for water networks.**
+
+-   **Sludge and biosolids:** RMIT's PYROCO process turns biosolids into biochar by pyrolysis \[62\]. It sits next to CDEG's sludge drying and co-firing experience, and Melbourne Water's biosolids study (Table 4).
+-   **CCUS:** CarbonNet is developing the Pelican offshore storage site with a gateway near Loy Yang in the Latrobe Valley \[69\]. That links CCUS research to the Latrobe hub option (3.1e).
+-   **Food waste and digestion:** water corporations that run digesters, such as Yarra Valley Water's ReWaste (about 33,000 t/yr of food waste) [to verify]{.verify}, are natural hosts for decontamination trials.
+
+R&D can run as a research contract from China, without an Australian entity (step 2 of the ladder in 6.3). The budget carries one research contract a year (6.6), and the target is one university MoU in the first 12 months.
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 负责人：Janeika。污泥资源化、碳捕集和水务AI的合作方
-- 候选：皇家墨尔本理工PYROCO、CarbonNet、拥有厌氧消化设施的水务公司
-:::
+**最合适的研究伙伴与集团提出的三个方向相对应：污泥资源化、碳捕集利用与封存（CCUS）以及水务管网数据。**
+
+-   **污泥与生物固体：** 皇家墨尔本理工大学（RMIT）的PYROCO工艺通过热解将生物固体转化为生物炭 \[62\]，与集团的污泥干化、掺烧经验以及Melbourne Water的生物固体研究（表4）相衔接。
+-   **CCUS：** CarbonNet正在开发Pelican海上封存场址，其陆上接入点位于拉筹伯谷Loy Yang附近 \[69\]，可将CCUS研究与拉筹伯谷枢纽方案（3.1e）联系起来。
+-   **厨余与厌氧消化：** 运营厌氧消化设施的水务公司，如雅拉谷水务的ReWaste（约3.3万吨/年厨余）[待核实]{.verify}，是开展去杂质试验的理想合作方。
+
+研发可以以研究合同形式从国内开展，无需设立澳洲实体（6.3进入阶梯第2步）。预算中每年包含一项研究合同（6.6），目标是在前12个月内与一所大学签署合作备忘录。
 :::
 
 ## [3.2 Market size: smart meters]{.en}[3.2 市场规模：智能水表]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Owner: Janeika, using Kai's meter model
-- Formula: connections × (replacement + new connections) × share open × price
-- Model defaults: ~1.1m meters/yr nationally (~A$150m); NMI approval ~Jul 2028; year 5 ~43,000 meters (A$5.8m revenue); depends on CDEG's ex-works price
-:::
+**About one million water meters are replaced or added in Australia each year, worth about A\$135m at utility prices. About half is open to a new supplier before the next round of large tenders.**
+
+**Formula.** Meters a year = metered connections × (1 ÷ replacement cycle + new-connection rate). Value = meters × utility price per meter \[27\].
+
+-   **Connections:** about 10 million, from about 27 million people served at about 2.5 people per household (range 8–12 million).
+-   **Replacement:** every 12 years (range 10–15), plus new connections of 1.6% a year.
+-   **Result:** about 1.0 million meters a year. At A\$135 per DN20 meter that is about A\$135m a year \[27\] \[Inferred\].
+-   **Open share:** about 50% before 2032, because South East Water and Yarra Valley Water are contracted until about then \[27\]. That leaves about 0.5 million meters, or about A\$67m a year.
+
+**What CDEG could win.** In the meter model's base case, NMI approval arrives about July 2028. By year 5 CDEG sells about 43,000 meters a year, for about A\$5.8m of revenue and an EBIT of about A\$0.66m \[27\]. The result depends most on CDEG's ex-works price, the price it bids and the exchange rate, so CDEG's own figures should replace the defaults first. [Open the model](../models/meter-distributor.qmd).
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 负责人：Janeika（使用马凯的水表模型）
-- 公式：用户数 ×（更换率+新增）× 开放比例 × 价格
-- 模型默认：全国每年约110万只；约2028年7月获NMI认证；第5年约4.3万只
-:::
+**澳洲每年更换或新增约100万只水表，按水务公司采购价计约1.35亿澳元。在下一轮大型招标前，约一半需求对新供应商开放。**
+
+**公式：** 每年水表需求 = 装表用户数 ×（1 ÷ 更换周期 + 新增用户比例）。市场价值 = 水表数量 × 水务公司单价 \[27\]。
+
+-   **用户数：** 约1,000万户，依据约2,700万服务人口、每户约2.5人推算（范围800–1,200万）。
+-   **更换：** 每12年更换一次（范围10–15年），另加每年1.6%的新增用户。
+-   **结果：** 每年约100万只水表。按每只DN20水表135澳元计，约1.35亿澳元/年 \[27\] \[推断\]。
+-   **开放比例：** 2032年前约50%，因为东南水务和雅拉谷水务的合同大约持续到那时 \[27\]。即每年约50万只，约6,700万澳元。
+
+**集团可以争取多少：** 在水表模型的基准情景中，约2028年7月取得NMI型式批准。到第5年，集团每年销售约4.3万只水表，收入约580万澳元，息税前利润约66万澳元 \[27\]。结果最受集团出厂价、投标价和汇率影响，因此应首先用集团自己的数据替换默认值。[打开模型](../models/meter-distributor.qmd)。
 :::
 
 ## [3.5 SWOT to TOWS]{.en}[3.5 SWOT与TOWS]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- Owner: Janeika. SWOT for CDEG in Victoria, turned into TOWS strategies that feed 6.1
+**CDEG's strengths are operating scale and sludge know-how; its weaknesses are no OECD references and Chinese state ownership. The strategies that follow lead straight to the asset-light plan in Section 6.**
+
+::: tw
+| | Helpful | Harmful |
+|---|---|---|
+| **Internal** | **Strengths:** about 12,000 t/d of grate WtE run, and a 45.6% WtE gross margin (1.1); sludge co-firing at about 10% (1.2); equipment for wet, contaminated food waste; NB-IoT meters and drainage sensors made in the group; water and waste in one group; a large balance sheet (revenue about RMB 12.9bn) | **Weaknesses:** no plant outside China, and the Lahore and Uzbekistan projects stopped (2.2); owns no furnace technology; runs no front-end sorting; meters hold no NMI or OIML approval; costs per tonne and raw emissions data not yet shared (Table D1); Chengdu staffing ratios will not transfer |
+| **External** | **Opportunities:** seven licensed plants with no named operator, worth A\$45–91m a year in O&M (3.2); biosolids and food organics outside the cap (Table 4); regional water price submissions in 2027; rising levy; Latrobe coal sites closing | **Threats:** local opposition and the November 2026 election (4.4, 6.7); owners self-operating or vendors bundling O&M (5.1); FIRB, SOCI and China-side approvals; crowded meter market (5.2); falling power prices; Australia–China relations |
 :::
+
+**TOWS strategies**
+
+-   **Strengths × opportunities (lead):** sell O&M and technical services to licence holders without a named operator; offer Melbourne Water sludge drying and co-firing.
+-   **Strengths × threats (defend):** publish independently verified live emissions data before pitching; enter beside an Australian waste company and an engineering firm.
+-   **Weaknesses × opportunities (build):** win OECD references through small services, pilots and research contracts first; partner with a local sorter for the permitted-waste step.
+-   **Weaknesses × threats (avoid):** take no control stakes in critical assets; set up an entity only when a contract needs one; price contracts in A\$.
+
+These strategies are the candidates scored in 6.1.
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 负责人：Janeika。集团在维州的SWOT分析及TOWS策略
+**集团的优势是运营规模和污泥处理经验；劣势是缺少经合组织（OECD）国家的业绩，以及国有企业身份。由此得出的战略直接指向第6节的轻资产方案。**
+
+::: tw
+| | 有利 | 不利 |
+|---|---|---|
+| **内部** | **优势：** 运营约12,000吨/日炉排炉焚烧产能，焚烧发电毛利率45.6%（1.1）；约10%污泥掺烧（1.2）；适用于高含水、高杂质厨余的设备；集团自产NB-IoT水表和排水传感器；水务与固废同属一个集团；资产负债表规模大（营收约129亿元） | **劣势：** 境外没有电厂，拉合尔和乌兹别克斯坦项目已中止（2.2）；不拥有焚烧炉技术；没有前端分拣；水表尚无NMI或OIML认证；吨成本和原始排放数据尚未提供（表D1）；成都的人员配置比例无法照搬 |
+| **外部** | **机会：** 七座已获许可但未指定运营方的电厂，运营价值每年0.45–0.91亿澳元（3.2）；配额外的生物固体和厨余（表4）；2027年地区水务价格申报；填埋税上涨；拉筹伯谷燃煤电厂关闭 | **威胁：** 当地反对和2026年11月州选举（4.4、6.7）；业主自营或设备商捆绑运营（5.1）；FIRB、SOCI和国内审批；水表市场拥挤（5.2）；电价下跌；中澳关系 |
 :::
+
+**TOWS战略**
+
+-   **优势×机会（主攻）：** 向尚未指定运营方的许可持有方出售运营与技术服务；向Melbourne Water提供污泥干化与掺烧方案。
+-   **优势×威胁（防守）：** 在推介前公开经独立核实的实时排放数据；与澳洲废物企业和工程公司共同进入。
+-   **劣势×机会（补强）：** 先通过小型服务、试点和研究合同积累OECD业绩；与本地分拣企业合作完成合规分拣环节。
+-   **劣势×威胁（规避）：** 不在关键资产中取得控股权；只在合同需要时设立实体；合同以澳元计价。
+
+这些战略即6.1中参与评分的候选方案。
 :::

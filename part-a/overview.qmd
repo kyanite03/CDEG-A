@@ -2,20 +2,42 @@
 title: "[Part A: Business models]{.en}[第一部分：商业模式]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ## [Overview]{.en}[概述]{.zh}
 
 ::: {.en}
-::: {.placeholder}
-- How the five business lines compare: revenue model, contract length, capital needed, fit with CDEG
-- Summary table + link to each line
+**CDEG can start now in sludge, organics and meters, which need no cap licence and little capital. Waste-to-energy is the largest prize, but it opens as O&M from about 2030–31.**
+
+**Table A0. The five business lines compared**
+
+::: tw
+| Line | How CDEG earns | Capital CDEG needs | When revenue starts | Fit with CDEG |
+|---|---|---|---|---|
+| [Waste-to-energy](wte.qmd) | O&M fee from a licence holder, about A\$75/t; A\$25–34m revenue and A\$2.5–5.1m margin a year per contract | Low as operator; equity is a later option | About 2030–31 (2032 downside) | High: large-scale grate operation. Needs a licence partner and a local sorter |
+| [Sludge and biosolids](sludge-water.qmd) | Service or O&M fees from water corporations, under long contracts or PPPs | Low to medium | Proposals from 2027 | Good: sludge drying and co-firing match Melbourne Water's biosolids study |
+| [Food organics](organics.qmd) | Decontamination equipment sales after a pilot | Low (pilot) | Pilot 2027 | Good: equipment built for contaminated food waste |
+| [Smart water meters](meters.qmd) | Meter sales to utilities, usually through a distributor, about A\$135 a meter | About A\$0.2m for approvals and adaptation | After NMI approval, about mid-2028 | Medium: crowded market, thin margin |
+| [Water-treatment chemicals](chemicals.qmd) | Supply through utility panels | Not yet assessed | Not yet assessed | Not yet assessed |
 :::
+
+*Sources: the line pages and Report 3.2, 6.1 and 6.6.*
 :::
 
 ::: {.zh}
-::: {.placeholder}
-- 五条业务线对比：收入模式、合同期限、资金需求、与集团契合度
-- 汇总表及各业务线链接
+**集团现在就可以在污泥、有机物和水表领域起步，这些业务不需要配额许可，资金需求也小。焚烧发电是最大的机会，但约从2030–31年起才以运营服务的形式开放。**
+
+**表A0：五条业务线对比**
+
+::: tw
+| 业务线 | 集团如何盈利 | 集团所需资金 | 收入起始时间 | 与集团的契合度 |
+|---|---|---|---|---|
+| [垃圾焚烧发电](wte.qmd) | 向许可持有方收取运营费，约75澳元/吨；每份合同年收入0.25–0.34亿澳元，利润250–510万澳元 | 作为运营方较低；股权投资为后续选项 | 约2030–31年（不利情况下2032年） | 高：大型炉排炉运营经验。需要许可合作方和本地分拣企业 |
+| [污泥与生物固体](sludge-water.qmd) | 通过长期合同或PPP向水务公司收取服务费或运营费 | 低至中 | 2027年起提交方案 | 较好：污泥干化与掺烧契合Melbourne Water的生物固体研究 |
+| [厨余有机垃圾](organics.qmd) | 试点后销售去杂质设备 | 低（试点） | 2027年试点 | 较好：设备专为受污染厨余设计 |
+| [智能水表](meters.qmd) | 向水务公司销售水表，通常经代理商，每只约135澳元 | 认证与适配约20万澳元 | 取得NMI批准后，约2028年中 | 中：市场拥挤，利润薄 |
+| [水处理药剂](chemicals.qmd) | 通过水务公司供应商名录供货 | 尚未评估 | 尚未评估 | 尚未评估 |
 :::
+
+*来源：各业务线页面及报告3.2、6.1和6.6。*
 :::

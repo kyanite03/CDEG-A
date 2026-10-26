@@ -57,44 +57,40 @@ CDEG should start now, approvals permitting, in businesses that need no WtE lice
 :::
 
 ::: {.zh}
-**结论：分两步、轻资产进入维州。**
+*报告第三稿，2026年10月25日。方括号编号[n]对应[资料来源](appendix/sources.qmd)页。*
 
-成都环境集团现在就可以开展无需焚烧配额、无需股权投资的业务：污泥与生物固体处理服务、FOGO（厨余与园林垃圾）去杂质处理，以及面向维州地区水务公司的智能水表（须先完成审批）。约2030–31年维州已获许可的焚烧厂陆续建成时，集团再以运营方身份参与。股权投资留作后续选项。
+### 结论：分两步、轻资产进入
 
-**主要发现**
+在审批允许的前提下，成都环境集团（以下简称“集团”）现在就可以开展既不需要焚烧发电（WtE）配额许可、也不需要股权投资的业务：污泥与生物固体处理服务、厨余收运垃圾的去杂质处理，以及面向维州地区水务公司的智能水表。同时，集团应逐步取得运营维州已获许可焚烧厂的资格，这些电厂预计约2030–31年建成投运。股权投资留作后续选项。
 
-- **维州缺的是运营方，而不是许可。** 维州焚烧发电总量上限为每年250万吨，94%已分配给7张许可，但没有一座电厂开工，也没有一家公开指定运营方。建成后年运营支出约1.76亿澳元，考虑政治风险和业主自营后，可竞争部分约0.45–0.91亿澳元。
-- **三家许可持有方符合集团的项目规模：** Cleanaway（76万吨/年）、HiQ（75万吨/年）、Melbourne Water（45万吨/年）。Recovered Energy Laverton（28万吨/年）低于集团“两条线、1000–1500吨/日”的项目下限，且采用气化技术，列为有条件目标。
-- **填埋价格高，但焚烧只有在高负荷下才盈利。** 墨尔本填埋成本约272澳元/吨（填埋税177.19澳元+处理费）。我们的模型显示，业主需约205澳元/吨的处理费才能盈亏平衡；可用率每提高5个百分点，对业主价值约4000–4500万澳元，这正是经验丰富的运营方能带来的价值。
-- **政治风险与社区反对同样重要。** 议会调查的537份社区意见中，86%提到健康问题，56%提到HiQ所在的Sunbury/Bulla。2026年11月28日州选举及约2027年2月的政府回应可能改变项目前景。
-- **水务起步更快，但竞争激烈。** 墨尔本两大水表项目已签约，两家中国厂商已获NMI认证，汇中通过Avnet供货。机会在地区水务公司，其价格申报截止日期为2027年9月13日。
-- **中资企业以“服务+本地伙伴”方式进入最为成功。** 北控水务旗下TRILITY由澳洲团队管理运营；对关键基础设施的控股收购曾被否决。
+### 主要发现
 
-**建议**
+-   **维州需要的是电厂运营方，而不是更多许可。** 维州焚烧发电总量上限为每年250万吨，已分配94%：七张许可共持有235万吨 \[1\]。获许可的电厂均未建成，也没有一家公开指定运营方。建成后，这些电厂的运营价值约为每年1.76亿澳元；扣除政治风险和业主自营风险后约为0.45–0.91亿澳元（3.2）。
+-   **三家许可持有方符合集团的项目规模。** 集团表示单条线500吨/日即具经济性，但一个项目需要两条线（1,000–1,500吨/日）\[2, 3\]。Cleanaway（76万吨/年）、HiQ（75万吨/年）和Melbourne Water（墨尔本水务，45万吨/年）达到这一门槛。Recovered Energy Laverton（28万吨/年）为有条件目标：低于两条线的下限，且采用气化技术 \[1\]。
+-   **填埋价格上限很高，但焚烧只有在高负荷下才能盈利。** 墨尔本大都市区填埋成本约272澳元/吨（填埋税177.19澳元加填埋场处理费）\[4, 5\]。在我们的拉筹伯谷（Latrobe Valley）电厂模型中，业主需要约205澳元/吨（2027年价格）的处理费才能盈亏平衡，价值在约240澳元/吨时达到峰值。电厂可用率每提高5个百分点，对业主约值4,000–4,500万澳元。这是经验丰富的运营方能够掌控的杠杆，但资本支出、处理费价格和填埋税走势对价值的影响更大（3.4）。
+-   **政治风险与社区反对同样重要。** 向议会调查提交的537份社区意见中，86%提到健康问题，56%点名HiQ所在的Sunbury或Bulla \[6\]。2026年11月28日的州选举，以及预计约2027年2月发布的政府对调查的回应，可能取消项目或收紧要求 \[7, 8\]。
+-   **水务可以近期起步，但竞争激烈。** 墨尔本两个最大的水表项目已经签约。两家中国厂商已取得NMI（澳洲国家计量院）型式批准，第三家通过Avnet供货 \[9–11\]。机会在地区水务公司，其价格申报截止日期为2027年9月13日 \[12, 13\]。
+-   **中资企业以“服务业务+本地伙伴”的方式进入效果最好。** 北控水务旗下的TRILITY在本地管理下运营澳洲水厂；而控股关键网络的收购曾被否决 \[14, 15\]。
 
-1. 以运营与技术服务切入三家大型许可持有方，与澳洲废物企业和工程公司组成联合体投标；运营收入预计约2030–31年开始。
-2. 现在就启动低资本举措：向Melbourne Water提交污泥方案；与有机物处理企业开展FOGO去杂质试点；为一款水表申请NMI认证并开展非计费试点；与维州大学开展联合研发（污泥、碳捕集）。
-3. 技术引进、合资投资和拉筹伯谷燃煤电厂旧址项目列为后续选项，待许可伙伴、政策和审批条件明确后再推进。
+### 建议
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
+1.  **以运营维护（O&M）和技术服务切入三家大型许可持有方**，与一家澳洲废物企业和一家工程公司组成联合体投标。运营收入预计约从2030–31年开始。
+2.  **现在就启动低资本举措**：
+    -   向Melbourne Water提交污泥与生物固体方案
+    -   与一家有机物处理企业开展厨余去杂质试点
+    -   为一款水表申请NMI型式批准，并与一家地区水务公司开展非计费试点
+    -   与一所维州大学开展联合研发（污泥、碳捕集利用与封存CCUS）
+3.  **技术引进、合资投资和拉筹伯谷燃煤电厂旧址枢纽作为后续方向**，只有在许可伙伴、政策和审批条件同时具备时才启动（6.1）。
+
+**未来12个月：** 就服务合同是否需要FIRB（外国投资审查委员会）审批取得法律意见；对照欧盟限值核实万兴和龙丰电厂的原始排放数据；准备英文技术资料；提交NMI型式批准申请；在首个投标或试点需要时设立墨尔本实体，并取得FIRB批准和国内备案 \[16, 17\]；签署两份合作备忘录（一家联合体伙伴、一所大学）。完整步骤见6.5，前90天行动清单见第7节。
 :::
-:::
 
-## [Who did what]{.en}[分工]{.zh}
+## [About this report]{.en}[关于本报告]{.zh}
 
 ::: {.en}
-| Contributor | Sections and work |
-|---|---|
-| **Kai Marsh** | 2.1, 2.3, 3.1 (a, b, e), 3.2 WtE, 3.3, 3.4, 6.5–6.7, Appendices B and E. Built the WtE payback model, council price map and smart meter model on this site; wrote the Latrobe hub briefing, market-opportunities brief and market research v2. |
-| **Christine (Kuntong Jiang)** | Executive summary, 1.0, 2.2, 4.4 (submission coding and word clouds), 5.1–5.3, 6.2, 6.3, Appendices A, C, D, F and G and their figures; CDEG liaison, Chinese-language sources and the precedent briefing. |
-| **Janeika Jeyakanthan** | Commercial-viability and government-support research (Kwinana and East Rockingham finance, support programs, emission limits, overrun risk, WtE levy scenario). Owner of 3.1 (c, d), 3.2 meters, 3.5, 4.1–4.3, 5.2 (meters, water), 5.4, 6.1, 6.4 and Model 2. |
-| **Claude (AI assistant)** | Merged the drafts and applied review corrections. Sections it drafted for owners to review are kept in the full report and shown on this site as placeholders. Re-ran Model 1 for the waste-to-energy figures. |
-
+Each page lists its authors under the title: Kai Marsh, Christine (Kuntong) Jiang and Janeika Jeyakanthan, NexStar 2026 CDEG–A team. Claude (an AI assistant) helped merge the drafts, applied review corrections, re-ran Model 1, translated the Chinese edition and drafted some sections from material elsewhere in the report for the authors to review.
 :::
 
 ::: {.zh}
-- **马凯：** 2.1、2.3、3.1（a、b、e）、3.2（焚烧）、3.3、3.4、6.5–6.7、附录B与E；网站互动模型。
-- **江坤彤：** 执行摘要、1.0、2.2、4.4、5.1–5.3、6.2、6.3、附录A、C、D、F、G；与集团的联络及中文资料。
-- **Janeika：** 商业可行性与政府支持研究；负责3.1（c、d）、3.2（水表）、3.5、4.1–4.3、5.2（水务）、5.4、6.1、6.4、模型2。
+各页标题下注明作者：马凯（Kai Marsh）、江坤彤（Christine Jiang）和Janeika Jeyakanthan，NexStar 2026 CDEG–A小组。AI助手Claude协助合并各稿、根据审阅意见修改、重新运行模型1、翻译中文版，并依据报告其他部分的材料起草了部分章节，供作者审核。
 :::

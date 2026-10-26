@@ -2,7 +2,7 @@
 title: "[Who has done it before]{.en}[谁有审批经验]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owners: Christine (licence matrix) · Kai</span><span class="zh">负责人：江坤彤（许可矩阵）· 马凯</span></p>
+<p class="owner"><span class="en">Authors: Christine (Kuntong) Jiang (licence matrix) · Kai Marsh</span><span class="zh">作者：江坤彤（许可矩阵）· 马凯</span></p>
 
 ::: {.en}
 *Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
@@ -18,37 +18,49 @@ title: "[Who has done it before]{.en}[谁有审批经验]{.zh}"
 **Table A1. Victoria's ten WtE licence holders**
 
 ::: tw
-  Holder                              Licence                          Site and status                                                                                  Technology                           EPC / O&M              CDEG entry point
-  ----------------------------------- -------------------------------- ------------------------------------------------------------------------------------------------ ------------------------------------ ---------------------- ----------------------------------------------------------
-  Cleanaway                           Cap 760,000                      Wollert MERC; EPA application to be re-filed; EQT takeover pending                               Not announced (open EOI)             Not announced          O&M if not self-operated or bundled; ask the new owner
-  HiQ EFW Victoria                    Cap 750,000                      Bulla; full operation about late 2030; no planning approval                                      Kanadevia Inova                      Not announced          O&M if the vendor does not bundle it
-  Melbourne Water                     Cap 450,000                      Plant at a treatment site (ETP or WTP) under study; feasibility 2026–31; biosolids tender 2025   Open                                 Open                   Biosolids and sludge: closest fit
-  Recovered Energy Laverton           Existing-operator; cap 280,000   Laverton North; start not confirmed                                                              Vertical rotating gasification       Not announced          Conditional: below CDEG's two-line minimum; gasification
-  Liquid Power Co                     Cap 50,000                       Early development                                                                                Gasification + Fischer-Tropsch       Not announced          Low: below 250 t/d
-  Zerogen Holdings                    Cap 45,000                       Wellington precinct                                                                              Plasma-assisted gasification         Not announced          Low: below 250 t/d
-  Knox Transfer Station               Cap 15,000                       To be confirmed                                                                                  Not announced                        Not announced          Low: small
-  Paper Australia (Opal), Maryvale    Existing-operator                Pre-construction; no financial close found; A\$48.2m federal grant                               Babcock & Wilcox; EPC Cobra \[94\]   Veolia in consortium   Low: operator in place
-  Visy Industries                     Existing-operator                Coolaroo; existing facility                                                                      Not checked                          Not checked            To research
-  Great Southern Waste Technologies   Existing-operator                Dandenong South, 100,000 t/yr                                                                    Norwegian rights                     Not announced          Check operator
+| Holder | Licence | Site and status | Technology | EPC / O&M | CDEG entry point |
+|---|---|---|---|---|---|
+| Cleanaway | Cap 760,000 | Wollert MERC; EPA application to be re-filed; EQT takeover pending | Not announced (open EOI) | Not announced | O&M if not self-operated or bundled; ask the new owner |
+| HiQ EFW Victoria | Cap 750,000 | Bulla; full operation about late 2030; no planning approval | Kanadevia Inova | Not announced | O&M if the vendor does not bundle it |
+| Melbourne Water | Cap 450,000 | Plant at a treatment site (ETP or WTP) under study; feasibility 2026–31; biosolids tender 2025 | Open | Open | Biosolids and sludge co-firing match CDEG's experience |
+| Recovered Energy Laverton | Existing-operator; cap 280,000 | Laverton North; start not confirmed | Vertical rotating gasification | Not announced | Conditional: below CDEG's two-line minimum; gasification |
+| Liquid Power Co | Cap 50,000 | Early development | Gasification + Fischer-Tropsch | Not announced | Low: below 250 t/d |
+| Zerogen Holdings | Cap 45,000 | Wellington precinct | Plasma-assisted gasification | Not announced | Low: below 250 t/d |
+| Knox Transfer Station | Cap 15,000 | To be confirmed | Not announced | Not announced | Low: small |
+| Paper Australia (Opal), Maryvale | Existing-operator | Pre-construction; no financial close found; A\$48.2m federal grant | Babcock & Wilcox; EPC Cobra \[94\] | Veolia in consortium | Low: operator in place |
+| Visy Industries | Existing-operator | Coolaroo; existing facility | Not checked | Not checked | To research |
+| Great Southern Waste Technologies | Existing-operator | Dandenong South, 100,000 t/yr | Norwegian rights | Not announced | Check operator |
 :::
 
 *Sources: EPA Victoria licence register and team precedent briefing \[1, 32, 33, 73, 94\]. "Not announced" means no public announcement was found; it does not mean the role is unfilled.*
 :::
 
 ::: {.zh}
-- 维州10家焚烧许可持有方的选址、技术、EPC/运营安排及集团切入点。
-- “未公布”表示未找到公开信息，不代表岗位空缺。
+**表A1：维州十家焚烧发电许可持有方**
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
+::: tw
+| 持有方 | 许可 | 场址与状态 | 技术 | EPC / 运营 | 集团切入点 |
+|---|---|---|---|---|---|
+| Cleanaway | 配额76万吨 | Wollert MERC；EPA申请将重新提交；EQT收购待完成 | 未公布（意向征集进行中） | 未公布 | 若不自营或捆绑，则提供运营；向新业主了解 |
+| HiQ EFW Victoria | 配额75万吨 | Bulla；约2030年底全面投运；尚无规划批准 | Kanadevia Inova | 未公布 | 若设备商不捆绑，则提供运营 |
+| Melbourne Water | 配额45万吨 | 正在研究在污水处理厂（ETP或WTP）建厂；2026–31年可行性研究；2025年生物固体招标 | 未定 | 未定 | 生物固体与污泥掺烧与集团经验吻合 |
+| Recovered Energy Laverton | 既有运营商许可；配额28万吨 | Laverton North；开工时间未确认 | 立式旋转气化 | 未公布 | 有条件：低于集团两条线下限；气化技术 |
+| Liquid Power Co | 配额5万吨 | 早期开发 | 气化+费托合成 | 未公布 | 低：不足250吨/日 |
+| Zerogen Holdings | 配额4.5万吨 | Wellington园区 | 等离子辅助气化 | 未公布 | 低：不足250吨/日 |
+| Knox Transfer Station | 配额1.5万吨 | 待确认 | 未公布 | 未公布 | 低：规模小 |
+| Paper Australia（Opal），Maryvale | 既有运营商许可 | 施工前阶段；未找到融资关闭信息；4,820万澳元联邦拨款 | Babcock & Wilcox；EPC为Cobra \[94\] | Veolia在联合体内 | 低：已有运营方 |
+| Visy Industries | 既有运营商许可 | Coolaroo；现有设施 | 未核查 | 未核查 | 待研究 |
+| Great Southern Waste Technologies | 既有运营商许可 | Dandenong South，10万吨/年 | 挪威技术授权 | 未公布 | 核实运营方 |
 :::
+
+*来源：EPA维州许可登记册及团队先例简报 \[1, 32, 33, 73, 94\]。“未公布”指未找到公开公告，并不表示该角色空缺。*
 :::
 
 ## [Approval-experience matrix]{.en}[审批经验矩阵]{.zh}
 
 ::: {.en}
 ::: {.placeholder}
-- Players × approval steps; each tick links to evidence (data/players.csv)
+- Players × approval steps; each tick links to evidence
 :::
 :::
 

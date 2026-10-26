@@ -2,7 +2,7 @@
 title: "[O&M contract model]{.en}[委托运营模型]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ## [Model]{.en}[模型]{.zh}
 

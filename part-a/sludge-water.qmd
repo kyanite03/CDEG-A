@@ -2,7 +2,7 @@
 title: "[Sludge, biosolids and wastewater O&M]{.en}[污泥与污水运营]{.zh}"
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ::: {.en}
 *Report draft 3, 25 Oct 2026. Reference numbers [n] refer to the [Sources](../appendix/sources.qmd) page.*
@@ -18,10 +18,10 @@ title: "[Sludge, biosolids and wastewater O&M]{.en}[污泥与污水运营]{.zh}"
 **Table 4. Streams outside the cap**
 
 ::: tw
-  Stream          Landfilled 2024–25   Buyers                                                                   Incumbents                                                                     Timing                                                                     What CDEG sells
-  --------------- -------------------- ------------------------------------------------------------------------ ------------------------------------------------------------------------------ -------------------------------------------------------------------------- --------------------------------------------------------
-  Biosolids       167,000 t            Melbourne Water; regional water corporations                             TRILITY (Barwon dryer, 60,000 t/yr) \[60, 61\]; RMIT PYROCO pyrolysis \[62\]   Melbourne Water feasibility 2026–31; Barwon PPP ends about 2032 [to verify]{.verify}   Sludge drying and incineration O&M, technical services
-  Food organics   437,000 t            Councils; organics processors (e.g. Repurpose It, 200,000 t/yr \[63\])   80 organics facilities and 8 digesters statewide \[29\]                        FOGO for all households by 2030 \[34\]                                     Decontamination and digestion equipment, plus a pilot
+| Stream | Landfilled 2024–25 | Buyers | Incumbents | Timing | What CDEG sells |
+|---|---|---|---|---|---|
+| Biosolids | 167,000 t | Melbourne Water; regional water corporations | TRILITY (Barwon dryer, 60,000 t/yr) \[60, 61\]; RMIT PYROCO pyrolysis \[62\] | Melbourne Water feasibility 2026–31; Barwon PPP ends about 2032 [to verify]{.verify} | Sludge drying and incineration O&M, technical services |
+| Food organics | 437,000 t | Councils; organics processors (e.g. Repurpose It, 200,000 t/yr \[63\]) | 80 organics facilities and 8 digesters statewide \[29\] | FOGO for all households by 2030 \[34\] | Decontamination and digestion equipment, plus a pilot |
 :::
 
 *Sources: \[28, 29, 34, 60–63\]. Prices per tonne are not published, so these streams are sized in tonnes only.*
@@ -30,30 +30,43 @@ Neither stream needs a cap licence or equity. A pilot or service contract may st
 :::
 
 ::: {.zh}
-- 2024–25年维州16.7万吨生物固体和43.7万吨厨余仍在填埋。
-- 单独焚烧生物固体不占用焚烧配额。
-- Melbourne Water正在研究利用焚烧余热干化污泥的方案（2026–31年可行性研究）。
-- Barwon Water的生物固体PPP由北控旗下TRILITY运营，约2032年到期。
-- 集团的污泥干化与掺烧经验高度契合。
+**表4：配额外的垃圾流**
 
-::: {.placeholder}
-完整中文译文待补充（英文版为准）。
+::: tw
+| 垃圾流 | 2024–25年填埋量 | 买方 | 现有参与者 | 时间 | 集团提供什么 |
+|---|---|---|---|---|---|
+| 生物固体 | 16.7万吨 | Melbourne Water；地区水务公司 | TRILITY（Barwon干化设施，6万吨/年）\[60, 61\]；RMIT PYROCO热解 \[62\] | Melbourne Water可行性研究2026–31年；Barwon PPP约2032年到期 [待核实]{.verify} | 污泥干化与焚烧运营、技术服务 |
+| 厨余有机垃圾 | 43.7万吨 | 市政；有机物处理企业（如Repurpose It，20万吨/年 \[63\]） | 全州80家有机物处理设施、8座厌氧消化设施 \[29\] | 2030年前所有家庭实行FOGO \[34\] | 去杂质和厌氧消化设备，以及试点 |
 :::
+
+*来源：\[28, 29, 34, 60–63\]。每吨价格未公开，因此这两类垃圾流仅按吨数测算。*
+
+这两类垃圾流都不需要配额许可或股权投资。但试点或服务合同仍可能需要设立墨尔本实体，因而需要FIRB批准（2.3）。州政府将受污染FOGO的去杂质和预处理列为投资缺口 \[29\]，其有机物基金已资助八个项目 \[64\]。
 :::
 
 ## [How the money flows]{.en}[资金流向]{.zh}
 
 ::: {.en}
+**Water corporations pay for biosolids treatment through long-term service contracts or public-private partnerships.**
+
+-   Barwon Water's biosolids project is a Partnerships Victoria PPP \[60\]. TRILITY operates its thermal dryer, which takes 60,000 t/yr \[61\].
+-   Melbourne Water tendered for a biosolids processing solution in March–June 2025 \[58\]. It is also studying a plant that burns residual waste and uses the waste heat to dry sludge, with private participation possible \[7\].
+-   Biosolids burnt on their own need no cap licence \[36\], so the buyer is the water corporation, not a cap-licence holder.
+
 ::: {.placeholder}
-- Water corporations pay O&M fees under long-term contracts or PPPs (e.g. Barwon biosolids, Partnerships Victoria)
-- Diagram: who pays whom (to draw)
+- Diagram: who pays whom
 :::
 :::
 
 ::: {.zh}
+**水务公司通过长期服务合同或公私合营（PPP）为生物固体处理付费。**
+
+-   Barwon Water的生物固体项目是维州政府合作伙伴计划（Partnerships Victoria）下的PPP项目 \[60\]。TRILITY运营其热干化设施，处理能力6万吨/年 \[61\]。
+-   Melbourne Water于2025年3–6月就生物固体处理方案进行招标 \[58\]。它还在研究一座焚烧剩余垃圾、利用余热干化污泥的电厂，并可能引入私营参与 \[7\]。
+-   单独焚烧的生物固体不需要配额许可 \[36\]，因此买方是水务公司，而不是配额许可持有方。
+
 ::: {.placeholder}
-- 水务公司通过长期运营合同或PPP付费（如Barwon污泥项目）
-- 示意图：谁向谁付费（待绘制）
+- 示意图：谁向谁付费
 :::
 :::
 
