@@ -1,5 +1,8 @@
 ---
 title: "[WtE project payback]{.en}[垃圾发电项目回收期]{.zh}"
+html-math-method:
+  method: katex
+  url: "../assets/vendor/katex/"
 include-in-header:
   text: |
     <!-- Libraries are bundled locally (no CDN) so the model works inside mainland China -->
@@ -13,11 +16,19 @@ include-in-header:
 
 <p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
-::: {.en}
+::: {.en .simple-only}
+Can a waste-to-energy plant pay its way? Pick a site, set the gate fee and the plant, and the results bar at the bottom of the screen updates. All money is nominal A\$, excluding GST. All figures are indicative.
+:::
+
+::: {.zh .simple-only}
+垃圾焚烧发电厂能否收回投资？选择厂址，设定处理费和工厂规模，屏幕底部的结果栏即时更新。所有金额为名义澳元，不含GST。所有结果仅供参考。
+:::
+
+::: {.en .dev-only}
 A waste-to-energy plant at one of three candidate sites (Latrobe Valley by default; Narromine NSW and Port Augusta SA as alternatives), modelled year by year from 2027. The model chains four steps: **the licence** (or, outside Victoria, the feedstock we can win) limits how many furnaces we can build; **our gate fee** decides how much waste councils and businesses will send us; **that waste**, spread across the furnaces, sets how full the plant runs; and **how full it runs** against fixed costs per furnace decides whether it pays back. Market share is a result, not an input. All money is nominal A\$, excluding GST. The results bar at the bottom of the screen updates as you move any control.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 垃圾焚烧发电厂，三个备选厂址（默认拉筹伯谷；备选新州Narromine和南澳Port Augusta），自2027年起逐年测算。模型由四步串联：**许可配额**（维州以外则为可争取的原料量）决定可建焚烧炉数量；**我方处理费**决定市政和企业愿意送来的垃圾量；**垃圾量**在各焚烧炉间平均分配，决定工厂负荷率；**负荷率**与每台炉的固定成本共同决定能否回本。市场份额是结果而非输入。所有金额为名义澳元，不含GST。屏幕底部的结果栏会随任何参数变化而实时更新。
 :::
 
@@ -58,8 +69,8 @@ C = ({hist: "#52514e", base: "#2a78d6", low: "#eb6834", high: "#1baf7a", grey: "
 fmtM = v => (v / 1e6).toFixed(0)
 kt = v => (v / 1e3).toFixed(0)
 // Paragraph from our own trusted strings that contain <b> tags
-rich = s => { const p = document.createElement("p"); p.className = "kpi-note"; p.innerHTML = s; return p; }
-warnBox = s => { const p = rich(s); p.style.cssText = "border:1px solid #e34948;border-left-width:4px;background:#fff1f0;color:#7a1020;padding:.6rem .8rem;border-radius:4px"; return p; }
+rich = s => { const p = document.createElement("p"); p.className = "kpi-note explain"; p.innerHTML = s; return p; }
+warnBox = s => { const p = rich(s); p.classList.remove("explain"); p.style.cssText = "border:1px solid #e34948;border-left-width:4px;background:#fff1f0;color:#7a1020;padding:.6rem .8rem;border-radius:4px"; return p; }
 startYear = 2027
 opYears = 25
 // Candidate sites (same three as the council price map). Static object: no T(), so the radio is never rebuilt.
@@ -90,6 +101,8 @@ tag = id => {
     : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
 }
 lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
+// Chart width: full content width in key-inputs mode (charts sit below the inputs), 640 beside the controls in developer mode
+PW = mode === "dev" ? 640 : Math.max(640, width)
 
 ```
 
@@ -160,11 +173,11 @@ freightRaw.length && councils.length ? document.createElement("span") : warnBox(
 
 ## [1 · Market: licence and feedstock]{.en}[1 · 市场：许可配额与原料]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 Victoria caps waste-to-energy at **2.5 Mt a year**. In August 2025 seven licences took 2.35 Mt of it (Cleanaway 760 kt, HiQ 750 kt, Melbourne Water 450 kt, Recovered Energy 280 kt and three small ones), which leaves about 150 kt unallocated. A new entrant in Victoria therefore needs either a partner that already holds a licence or a higher cap. The government said in February 2026 that it does not support an increase, so the cap slider is the "what if it is lifted" case. The Victorian cap does not apply to the NSW and SA sites; what applies there instead is shown under the site selector.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 维州垃圾焚烧发电总量上限为**每年250万吨**。2025年8月已发放7张许可，共235万吨（Cleanaway 76万吨、HiQ 75万吨、Melbourne Water 45万吨、Recovered Energy 28万吨及三家小型企业），未分配余量约15万吨。因此在维州的新进入者要么与现有许可持有方合作，要么需要上限提高。政府于2026年2月表示不支持提高上限，故上限滑块代表“若上限提高”的情景。维州上限不适用于新州和南澳厂址，这两处适用的监管要求见厂址选择下方说明。
 :::
 
@@ -191,6 +204,7 @@ compOrder = comps.map(d => d.component)
 compLabel = Object.fromEntries(comps.map(d => [d.component, T(d.label_en, d.label_zh)]))
 compColor = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
 Plot.plot({
+  width: PW,
   height: 300, marginLeft: 44, marginRight: 20,
   x: {label: null, tickFormat: d => String(d), domain: [2016, 2036]},
   y: {label: T("Victoria, Mt per year (stacked)", "维州，百万吨/年（堆叠）"), grid: true, domain: [0, Math.max(3.2, (vicSite ? capMt : 0) + 0.3)]},
@@ -232,6 +246,7 @@ Plot.plot({
 ```{ojs}
 //| echo: false
 Plot.plot({
+  width: PW,
   height: 200, marginLeft: 44,
   x: {label: null, tickFormat: d => String(d), domain: [2016, 2036]},
   y: {label: T("Average energy content (MJ/kg)", "平均热值（兆焦/千克）"), grid: true, domain: [0, 22]},
@@ -249,6 +264,7 @@ Plot.plot({
 ```{ojs}
 //| echo: false
 Plot.plot({
+  width: PW,
   height: 200, marginLeft: 44,
   x: {label: null, tickFormat: d => String(d), domain: [2016, 2036]},
   y: {label: T("Total energy in this waste (PJ/yr)", "垃圾总能量（拍焦/年）"), grid: true, domain: [0, Math.max(50, d3.max(totals, d => d.pj) * 1.1)]},
@@ -273,16 +289,28 @@ Plot.plot({
 }
 ```
 
-<p class="figure-note"><span class="en"><b>This is the furnace's feedstock, not the whole market.</b> In 2023–24 Victoria generated about 14.2 Mt of waste: 9.9 Mt was recovered (mostly rubble, metals and organics) and 4.3 Mt went to landfill. Of that, 1.0 Mt was construction rubble and 3.3 Mt was household and commercial waste, and about 2.5 Mt of the 3.3 Mt is material that can burn. Burnable household and commercial waste landfilled in Victoria, by material, 2015–16 to 2024–25 (solid), with projections (faded). The Victorian series is shown for every site because it sets the commercial (C&I) pool and the waste trend used for all councils. Energy content uses typical as-discarded values per material (food 4.7, garden 6.5, biosolids 2.0, paper 16.5, textiles 18, timber 18.6, plastics 32.6 MJ/kg). Data sources: <a href="../appendix/sources.html#ref-28">[28]</a> <a href="../appendix/sources.html#ref-77">[77]</a></span><span class="zh"><b>此图为焚烧原料，而非整个市场。</b>2023–24年度维州共产生约1420万吨垃圾：990万吨被回收（主要为建筑废料、金属和有机物），430万吨填埋；其中100万吨为建筑废料，330万吨为生活及工商业垃圾，其中约250万吨为可燃物。维州填埋的可燃生活及工商业垃圾（按成分），2015–16至2024–25年度（实色）及预测（浅色）。各厂址均显示维州数据，因为它决定工商业垃圾总量及所有市政的垃圾量趋势。热值采用各成分典型丢弃状态值（厨余4.7、园林6.5、污泥2.0、纸16.5、纺织18、木材18.6、塑料32.6兆焦/千克）。数据来源：<a href="../appendix/sources.html#ref-28">[28]</a> <a href="../appendix/sources.html#ref-77">[77]</a></span></p>
+<p class="figure-note"><span class="en"><span class="dev-only"><b>This is the furnace's feedstock, not the whole market.</b> In 2023–24 Victoria generated about 14.2 Mt of waste: 9.9 Mt was recovered (mostly rubble, metals and organics) and 4.3 Mt went to landfill. Of that, 1.0 Mt was construction rubble and 3.3 Mt was household and commercial waste, and about 2.5 Mt of the 3.3 Mt is material that can burn. Burnable household and commercial waste landfilled in Victoria, by material, 2015–16 to 2024–25 (solid), with projections (faded). The Victorian series is shown for every site because it sets the commercial (C&I) pool and the waste trend used for all councils. Energy content uses typical as-discarded values per material (food 4.7, garden 6.5, biosolids 2.0, paper 16.5, textiles 18, timber 18.6, plastics 32.6 MJ/kg). </span>Data sources: <a href="../appendix/sources.html#ref-28">[28]</a> <a href="../appendix/sources.html#ref-77">[77]</a></span><span class="zh"><span class="dev-only"><b>此图为焚烧原料，而非整个市场。</b>2023–24年度维州共产生约1420万吨垃圾：990万吨被回收（主要为建筑废料、金属和有机物），430万吨填埋；其中100万吨为建筑废料，330万吨为生活及工商业垃圾，其中约250万吨为可燃物。维州填埋的可燃生活及工商业垃圾（按成分），2015–16至2024–25年度（实色）及预测（浅色）。各厂址均显示维州数据，因为它决定工商业垃圾总量及所有市政的垃圾量趋势。热值采用各成分典型丢弃状态值（厨余4.7、园林6.5、污泥2.0、纸16.5、纺织18、木材18.6、塑料32.6兆焦/千克）。</span>数据来源：<a href="../appendix/sources.html#ref-28">[28]</a> <a href="../appendix/sources.html#ref-77">[77]</a></span></p>
 
+
+::: {.eq-box}
+$$L = (C - 2.35\ \text{Mt}) + L_p \qquad n_{\max} = \left\lfloor \frac{L}{t_d \times 365 \times a} + 0.15 \right\rfloor$$
+
+::: {.en .eq-defs}
+$L$ licence available to us · $C$ Victorian WtE cap · $L_p$ partner's licence · $n_{\max}$ most furnaces · $t_d$ furnace size (t/day) · $a$ availability. Latrobe only: NSW and SA have no cap, so there $n_{\max}$ uses the waste customers would send at A\$60/t.
+:::
+
+::: {.zh .eq-defs}
+$L$ 我方可用许可 · $C$ 维州焚烧上限 · $L_p$ 合作方许可 · $n_{\max}$ 最多焚烧炉数 · $t_d$ 单炉规模（吨/日） · $a$ 可用率。仅适用于拉筹伯：新州和南澳无上限，$n_{\max}$ 按60澳元/吨时客户愿送量计算。
+:::
+:::
 
 ## [2 · Price: who will send us their waste]{.en}[2 · 价格：谁会把垃圾交给我们]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 A customer only switches if our gate fee **plus transport to the chosen site** is cheaper than its landfill bill (gate fee + levy) by a margin worth the hassle of re-tendering a contract. There is no published figure for this threshold; 10% is a reasonable default, since council waste tenders are rarely re-run for savings smaller than that. Councils are modelled one by one with the same data and the same transport costs as the [council price map](council-map.qmd): for each council and site, the cheapest allowed option (road, rail or sea) per container, divided by the tonnes that fit in a container. Commercial waste is modelled as Melbourne-area customers (trucked or railed from Melbourne to the site) whose landfill prices vary ±25% around the Melbourne metro price.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 只有当我方处理费**加上运至所选厂址的运费**比客户的填埋成本（处理费+填埋税）低出足够幅度、值得重新招标时，客户才会转换。该门槛没有公开数据；默认取10%较为合理，因为市政通常不会为更小的节省重新招标。市政逐一测算，数据与运费算法与[市政价格地图](council-map.qmd)相同：对每个市政和厂址，按每箱取最便宜的可用方式（公路、铁路或海运），再除以每箱吨数。工商业垃圾按墨尔本地区客户计算（由墨尔本经公路或铁路运至厂址），其填埋价格在墨尔本大都市价格±25%范围内分布。
 :::
 
@@ -328,6 +356,7 @@ supplyCurve = d3.range(60, 265, 5).flatMap(gf => {
   return [{gf, type: "council", t: s.kerb}, {gf, type: "ci", t: s.ci}];
 })
 Plot.plot({
+  width: PW,
   height: 280, marginLeft: 50,
   x: {label: T(`Gate fee, 2027 A$/t (supply at ${siteInfo[site].short} in ${cod})`, `处理费，2027年澳元/吨（${cod}年运至${siteInfo[site].short}的供应量）`)},
   y: {label: T("Waste customers would send (kt/yr)", "客户愿送垃圾量（千吨/年）"), grid: true, transform: d => d / 1e3},
@@ -358,6 +387,18 @@ Plot.plot({
 ```
 :::
 ::::
+
+::: {.eq-box}
+$$g + f_c \le (1 - m)\,(G_z + \ell_z) \qquad f_c = \min_{k} \frac{B_{c,k}}{w_c}$$
+
+::: {.en .eq-defs}
+A council $c$ sends us its waste when this holds. $g$ our gate fee · $f_c$ freight per tonne · $m$ saving needed to switch · $G_z$ landfill gate fee in its zone · $\ell_z$ landfill levy · $B_{c,k}$ cost per container by road, rail or sea · $w_c$ tonnes per container. The waste we are offered, $S(g)$, is the total of councils that pass, plus commercial waste that passes the same test.
+:::
+
+::: {.zh .eq-defs}
+满足此条件时市政 $c$ 会把垃圾交给我方。$g$ 我方处理费 · $f_c$ 每吨运费 · $m$ 转换所需节省比例 · $G_z$ 所在区域填埋处理费 · $\ell_z$ 填埋税 · $B_{c,k}$ 公路、铁路或海运每箱成本 · $w_c$ 每箱吨数。我方可得垃圾量 $S(g)$ 为满足条件的市政合计，加上满足同一条件的工商业垃圾。
+:::
+:::
 
 ## [3 · Plant: furnaces and running costs]{.en}[3 · 工厂：焚烧炉与运营成本]{.zh}
 
@@ -391,6 +432,7 @@ viewof sortCost = Inputs.range([0, 40], {value: v("w_sort_cost"), step: 1, label
 ```{ojs}
 //| echo: false
 Plot.plot({
+  width: PW,
   height: 280, marginLeft: 50,
   x: {label: null, tickFormat: d => String(d)},
   y: {label: T("kt per year", "千吨/年"), grid: true, transform: d => d / 1e3, domain: [0, Math.min(Math.max(capacity, licShown) * 1.8, Math.max(capacity, licShown, d3.max(ops, d => d.supply)) * 1.1) / 1e3]},
@@ -418,15 +460,29 @@ rich(T(
 :::
 ::::
 
+::: {.eq-box}
+$$Q = \min\big(S(g),\ K,\ L\big) \qquad K = n \times t_d \times 365 \times a$$
+
+$$E = Q\,g + Q\,\frac{\mathrm{CV}\,\eta}{3.6}\,p - (n F_n + F_s) - Q\,(c_v + c_s) - \alpha\, Q\,(G + \ell)$$
+
+::: {.en .eq-defs}
+$Q$ tonnes burned · $K$ furnace capacity · $n$ furnaces · $E$ EBITDA · $\mathrm{CV}$ energy content of the intake (MJ/kg) · $\eta$ net electrical efficiency · $p$ power price (A\$/MWh) · $F_n$ fixed cost per furnace · $F_s$ site overhead · $c_v$ variable cost · $c_s$ pre-sorting · $\alpha$ ash share, landfilled at gate fee $G$ plus levy $\ell$.
+:::
+
+::: {.zh .eq-defs}
+$Q$ 处理量 · $K$ 焚烧炉产能 · $n$ 焚烧炉数量 · $E$ 息税折旧摊销前利润（EBITDA） · $\mathrm{CV}$ 进料热值（兆焦/千克） · $\eta$ 净发电效率 · $p$ 电价（澳元/兆瓦时） · $F_n$ 单炉固定成本 · $F_s$ 厂区管理费用 · $c_v$ 变动成本 · $c_s$ 预分拣成本 · $\alpha$ 灰渣比例，按处理费 $G$ 加填埋税 $\ell$ 填埋。
+:::
+:::
+
 <!-- ===== FINANCE SECTION 4 START (controls, cash-flow chart, NPV sensitivity) ===== -->
 
 ## [4 · Finance]{.en}[4 · 财务]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 Cash flows are after company tax. **Tax depreciation** follows ATO rules: plant over its effective life (30 years for thermal power plant), buildings at 2.5% a year, starting when the plant opens. **Debt** pays for part of construction. Interest is tax-deductible, so debt adds value through the **interest tax shield**, less fees. Thin-capitalisation rules can cap or delay the shield. Debt does not change the project's own NPV. It raises the equity return, but mostly by adding risk.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 现金流为企业所得税后。**税务折旧**按澳大利亚税务局（ATO）规则：设备按有效寿命（火力发电设备30年），建筑物每年2.5%，自投运起计提。**债务**为部分建设投资融资，利息可税前抵扣，因此债务通过**利息税盾**（扣除融资费用）创造价值；资本弱化规则可能限制或推迟税盾。债务不改变项目本身的净现值，它提高股东回报率，但主要是因为承担了更多风险。
 :::
 
@@ -478,6 +534,7 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
   const series = [T("Project (nominal)", "项目（名义）"), T("Project (discounted)", "项目（折现）"), T("Equity (nominal)", "股东（名义）"), T("Debt outstanding", "未偿债务")];
   const m = d => (d / 1e6).toFixed(1);
   return Plot.plot({
+  width: PW,
     height: 300, marginLeft: 56,
     x: {label: null, tickFormat: d => String(d)},
     y: {label: T("Cumulative cash (A$m)", "累计现金流（百万澳元）"), grid: true, transform: d => d / 1e6},
@@ -540,6 +597,7 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
   const best = d3.greatest(sens, d => d.npv);
   const series = [T("Project NPV", "项目净现值"), "APV"];
   return html`<div>${Plot.plot({
+  width: PW,
     height: 220, marginLeft: 56,
     x: {label: T("Gate fee, 2027 (A$/t)", "处理费，2027（澳元/吨）")},
     y: {label: T("NPV (A$m)", "净现值（百万澳元）"), grid: true, transform: d => d / 1e6},
@@ -558,6 +616,18 @@ viewof thinCapMode = Inputs.radio(["frt", "tpdt"], {value: "frt", label: L("Thin
 ```
 :::
 ::::
+
+::: {.eq-box}
+$$\text{NPV} = \sum_t \frac{E_t - I_t - X_t}{(1+r)^t} \qquad \text{APV} = \text{NPV} + \sum_t \frac{\tau\, i_t}{(1+r_d)^t} - \Phi \qquad \text{DSCR}_t = \frac{E_t - X_t}{i_t + P_t}$$
+
+::: {.en .eq-defs}
+$E_t$ EBITDA · $I_t$ capex · $X_t$ company tax after depreciation · $r$ unlevered cost of capital · $\tau$ tax rate · $i_t$ deductible interest after the thin-cap test · $r_d$ loan rate · $\Phi$ upfront loan fee · $P_t$ principal repaid. Payback counts years from opening until cumulative project cash turns positive.
+:::
+
+::: {.zh .eq-defs}
+$E_t$ EBITDA · $I_t$ 建设投资 · $X_t$ 折旧后企业所得税 · $r$ 无杠杆资本成本 · $\tau$ 税率 · $i_t$ 资本弱化测试后可抵扣利息 · $r_d$ 贷款利率 · $\Phi$ 前端贷款费用 · $P_t$ 偿还本金。回收期为自投运起至累计项目现金流转正的年数。
+:::
+:::
 
 <!-- ===== FINANCE SECTION 4 END ===== -->
 
@@ -852,7 +922,15 @@ eqPaybackYear = ops.find(d => d.eqCum >= 0)?.year
 
 ## [Method and limits]{.en}[方法与局限]{.zh}
 
-::: {.en}
+::: {.en .simple-only}
+Each chart's equation is shown under it. For the full method, data sources and limits, switch to **All inputs (developer)** at the top of the page.
+:::
+
+::: {.zh .simple-only}
+每张图下方列出其计算公式。完整的方法、数据来源和局限，请在页面顶部切换到**全部参数（开发者）**。
+:::
+
+::: {.en .dev-only}
 - **Sites.** Latrobe Valley (Hazelwood, default), Narromine (NSW) and Port Augusta (former Northern Power Station, SA), the same three as the council price map. Narromine is **not** a permitted NSW thermal EfW location (only West Lithgow, Parkes, Richmond Valley and Southern Goulburn-Mulwaree are), so it is an "as if permitted" case. Port Augusta's site was sold in 2019 for a bulk port and a battery is planned there, so land is unconfirmed.
 - **Licence and furnace limit.** At Latrobe, licence = (Victorian cap − 2.35 Mt already allocated) + the partner's licence, and the number of furnaces is limited to what that licence can fill (rounded down, with 15% tolerance), up to a ceiling of 12. The Victorian cap does not apply in NSW or SA. Neither state caps tonnes; the plant's EPA licence would be sized to it, so the licence does not bind there. Instead the furnace limit is the feedstock customers would send at the lowest gate fee on the slider (A\$60/t) in the first operating year, again up to 12. What applies instead: in NSW, the precinct rule and the proximity principle (flagged per route); in SA, EPA SA's 2020 position statement (residual waste only, R1 ≥ 0.65; a rough R1 check is shown).
 - **Tonnes burned** each year = the lowest of: what customers would send at our price, furnace capacity, and (Latrobe only) the licence. Tonnes are shared equally across furnaces.
@@ -870,7 +948,7 @@ eqPaybackYear = ops.find(d => d.eqCum >= 0)?.year
 - **Not modelled**: group ratio test, interest withholding tax on foreign lenders, refinancing, debt reserve accounts, working capital, GST timing, LGC certificate revenue, metals recovery and transfer-station capex.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 - **厂址**：拉筹伯谷（Hazelwood，默认）、Narromine（新州）和奥古斯塔港（原Northern电站，南澳），与市政价格地图相同。Narromine**不是**新州允许的焚烧发电地点（仅West Lithgow、Parkes、Richmond Valley和Southern Goulburn-Mulwaree），因此为“假设获准”情景。奥古斯塔港场地已于2019年出售用于散货港，并规划储能电站，用地未确认。
 - **许可与焚烧炉上限**：拉筹伯厂址的许可 =（维州上限 − 已分配235万吨）+ 合作方许可，焚烧炉数量受许可可支持的规模限制（向下取整，容差15%），最多12台。维州上限不适用于新州和南澳；两州均无总量上限，环保许可按工厂规模核发，故许可不构成约束，焚烧炉上限改为首个运营年在滑块最低处理费（60澳元/吨）下客户愿送量，同样最多12台。替代的监管要求：新州为区域限制和就近原则（逐条线路标注）；南澳为2020年环保局立场声明（仅限残余垃圾，R1≥0.65，页面给出R1粗算）。
 - **年处理量**取以下最小值：此价格下客户愿送量、焚烧炉产能，以及（仅拉筹伯）许可配额；处理量在各炉间平均分配。

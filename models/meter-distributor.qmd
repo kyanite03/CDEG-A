@@ -1,5 +1,8 @@
 ---
 title: "[Smart water meter profit model]{.en}[智能水表盈利模型]{.zh}"
+html-math-method:
+  method: katex
+  url: "../assets/vendor/katex/"
 include-in-header:
   text: |
     <!-- Libraries are bundled locally (no CDN) so the model works inside mainland China -->
@@ -17,7 +20,15 @@ include-in-header:
 
 <p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
-::: {.en}
+::: {.en .simple-only}
+Can CDEG's subsidiary Huijin sell its smart water meters to Australian utilities at a profit? Set the price, the route to market and the share CDEG wins, and the results bar at the bottom of the screen updates. CDEG's own ex-works price should replace the default first. Real 2027 A\$, excluding GST.
+:::
+
+::: {.zh .simple-only}
+集团下属汇锦公司的智能水表能否盈利地销售给澳洲水务公司？设定售价、销售渠道和集团获得的份额，屏幕底部的结果栏即时更新。应首先用集团自己的出厂价替换默认值。2027年不变价澳元，不含GST。
+:::
+
+::: {.en .dev-only}
 CDEG's subsidiary Huijin makes NB-IoT ultrasonic meters in China. In this model it builds them to Australian standards, ships them in bulk, and sells them to Australian water utilities, either through a local distributor (the route Huizhong took with Avnet) or through its own Australian office. The model runs year by year from 2027 to 2036 and answers four questions: **how big the market is, what it costs and how long it takes to get approved, what each meter earns, and what sales and profit to expect**.
 
 **Who buys the meters.** Melbourne Water is a wholesaler and does not own household meters. The buyers are the retail utilities: in Melbourne, Greater Western Water, South East Water and Yarra Valley Water; in regional Victoria, 13 regional water corporations; elsewhere, Sydney Water, Hunter Water, Unitywater, Urban Utilities, SA Water, Water Corporation, Icon Water and council-run utilities.
@@ -25,7 +36,7 @@ CDEG's subsidiary Huijin makes NB-IoT ultrasonic meters in China. In this model 
 Every input is a slider. **Key inputs** mode shows only the decisions and the numbers CDEG knows best; switch to **All inputs (developer)** to also adjust the market, cost and finance assumptions. Defaults come from `data/assumptions.csv`. The bar at the bottom of the screen updates as you move any control. **CDEG should replace the ex-works price and the price it is willing to bid with its own figures first**: the sensitivity chart in section 5 shows that, with a thin margin per meter, these two and the exchange rate move profit far more than volume does. All money is in real 2027 A\$ excluding GST.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 集团下属汇锦公司在国内生产NB-IoT超声波水表。本模型假设其按澳洲标准生产、批量海运至澳洲，并销售给澳洲水务公司：可通过本地代理商（汇中与Avnet的模式），也可自建澳洲团队直销。模型逐年测算2027–2036年，回答四个问题：**市场有多大、获批需要多少钱和多长时间、每只水表赚多少、预期销量和利润是多少**。
 
 **谁购买水表。** 墨尔本水务（Melbourne Water）是批发商，不拥有居民水表。买方是零售水务公司：墨尔本为大西部水务、东南水务和雅拉谷水务；维州乡村有13家区域水务公司；其他州有悉尼水务、亨特水务、Unitywater、Urban Utilities、南澳水务、西澳水务公司、首都领地Icon Water及市政自营水务。
@@ -73,6 +84,8 @@ tag = id => {
     : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
 }
 lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
+// Chart width: full content width in key-inputs mode (charts sit below the inputs), 640 beside the controls in developer mode
+PW = mode === "dev" ? 640 : Math.max(640, width)
 C = ({base: "#2a78d6", optimal: "#1baf7a", recession: "#eb6834", ink: "#52514e", grey: "#b5b3ab"})
 fmtA = x => {
   const s = x < 0 ? "−" : "", a = Math.abs(x);
@@ -123,11 +136,11 @@ viewof mode = {
 
 ## [1 · The market: how many meters Australia buys each year]{.en}[1 · 市场：澳洲每年采购多少只水表]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 Every metered property needs a new meter roughly every 10–15 years, because mechanical meters lose accuracy and smart meters run out of battery. New homes add more. Utilities are also replacing old meters early with digital ones to find leaks: South East Water passed 200,000 digital meters in January 2026, Yarra Valley Water is installing about 9,000 a month toward more than 1 million, and Sydney Water plans a meter in every property. Those big programs are already contracted (Huizhong through Avnet at South East Water; Sagemcom at Yarra Valley Water), so only part of the demand is open to a new supplier before the next round of tenders.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 每个装表用户大约每10–15年需要更换一次水表：机械表精度下降，智能表电池耗尽。新建住宅带来新增需求。水务公司还在提前把旧表换成数字水表以发现漏损：东南水务2026年1月已安装20万只数字水表，雅拉谷水务每月安装约9,000只、目标超过100万只，悉尼水务计划为每户安装智能水表。这些大型项目已签约（东南水务为汇中经Avnet供货，雅拉谷水务为Sagemcom），因此在下一轮招标前，新供应商只能争取部分需求。
 :::
 
@@ -170,7 +183,8 @@ mNow = mkt.filter(d => d.scenario === scen)
 ```{ojs}
 //| echo: false
 Plot.plot({
-  height: 280, marginLeft: 55, marginRight: 110,
+  width: PW,
+  height: 280, marginLeft: 55, marginRight: 140,
   x: {label: null, tickFormat: d => String(d)},
   y: {label: T("Meters per year (thousand)", "每年水表数（千只）"), grid: true, transform: d => d / 1e3, domain: [0, d3.max(mkt, d => d.total) / 1e3 * 1.05]},
   color: {domain: ["base", "optimal", "recession"], range: [C.base, C.optimal, C.recession]},
@@ -186,7 +200,7 @@ Plot.plot({
 })
 ```
 
-<p class="figure-note"><span class="en">Solid lines: all meters bought nationally under each scenario. Base = worn-out replacements plus steady digital upgrades; Optimal = a national digital push, more new homes and more tenders open; Recession = a two-year downturn (fewer new homes, upgrades deferred, weaker A$). Dashed: the part open to a new supplier under the selected scenario (it steps up in 2032 when Melbourne's metro contracts roll over). Data sources: <a href="../appendix/sources.html#ref-135">[135]</a> <a href="../appendix/sources.html#ref-65">[65]</a> <a href="../appendix/sources.html#ref-134">[134]</a> <a href="../appendix/sources.html#ref-138">[138]</a> <a href="../appendix/sources.html#ref-136">[136]</a></span><span class="zh">实线：各情景下全国水表采购总量。基准=到期更换加稳步数字化；最优=全国加速数字化、新房增加、更多招标开放；衰退=两年下行（新房减少、升级推迟、澳元走弱）。虚线：所选情景下新供应商可争取的部分（2032年墨尔本大都市合同到期后上升）。数据来源：<a href="../appendix/sources.html#ref-135">[135]</a> <a href="../appendix/sources.html#ref-65">[65]</a> <a href="../appendix/sources.html#ref-134">[134]</a> <a href="../appendix/sources.html#ref-138">[138]</a> <a href="../appendix/sources.html#ref-136">[136]</a></span></p>
+<p class="figure-note"><span class="en"><span class="dev-only">Solid lines: all meters bought nationally under each scenario. Base = worn-out replacements plus steady digital upgrades; Optimal = a national digital push, more new homes and more tenders open; Recession = a two-year downturn (fewer new homes, upgrades deferred, weaker A$). Dashed: the part open to a new supplier under the selected scenario (it steps up in 2032 when Melbourne's metro contracts roll over). </span>Data sources: <a href="../appendix/sources.html#ref-135">[135]</a> <a href="../appendix/sources.html#ref-65">[65]</a> <a href="../appendix/sources.html#ref-134">[134]</a> <a href="../appendix/sources.html#ref-138">[138]</a> <a href="../appendix/sources.html#ref-136">[136]</a></span><span class="zh"><span class="dev-only">实线：各情景下全国水表采购总量。基准=到期更换加稳步数字化；最优=全国加速数字化、新房增加、更多招标开放；衰退=两年下行（新房减少、升级推迟、澳元走弱）。虚线：所选情景下新供应商可争取的部分（2032年墨尔本大都市合同到期后上升）。</span>数据来源：<a href="../appendix/sources.html#ref-135">[135]</a> <a href="../appendix/sources.html#ref-65">[65]</a> <a href="../appendix/sources.html#ref-134">[134]</a> <a href="../appendix/sources.html#ref-138">[138]</a> <a href="../appendix/sources.html#ref-136">[136]</a></span></p>
 ::::
 :::::
 
@@ -200,15 +214,27 @@ html`<div class="kpi-row">
 </div>`
 ```
 
+::: {.eq-box}
+$$D_y = \frac{N_y}{L}\,k + g\,N_y \qquad N_y = N_{2027}\,(1+g)^{\,y-2027} \qquad O_y = o_y\,D_y$$
+
+::: {.en .eq-defs}
+$D_y$ meters bought nationally in year $y$ · $N_y$ metered connections · $L$ replacement cycle (years) · $k$ digital-upgrade factor (1.15 base, 1.5 optimal, 1.0 in a recession) · $g$ new connections a year · $O_y$ meters open to a new supplier · $o_y$ open share, 20 points higher from 2032.
+:::
+
+::: {.zh .eq-defs}
+$D_y$ 第 $y$ 年全国水表采购量 · $N_y$ 装表用户数 · $L$ 更换周期（年） · $k$ 数字化升级系数（基准1.15、最优1.5、衰退1.0） · $g$ 每年新增用户比例 · $O_y$ 新供应商可争取的水表数 · $o_y$ 可争取比例，2032年起提高20个百分点。
+:::
+:::
+
 ## [2 · Getting approved: time and start-up cost]{.en}[2 · 获批：时间与启动投资]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 A meter cannot be used for billing in Australia until the National Measurement Institute (NMI) approves its pattern under NMI R 49, which takes about 12 months. It also needs AS 3565.1, WaterMark and AS/NZS 4020 (drinking-water contact) certification, and it must work on the utility's NB-IoT network and data platform. NMI can accept test results from ISO 17025-accredited labs or OIML-system countries, so a Chinese lab report could shorten the process. Huijin's meters do not yet hold OIML certification, and CDEG has said it will pay for NMI approval.
 
 **Is R&D needed?** Probably some. Huijin quotes a battery life of more than 6 years; Australian utilities replace meters on a 10–15-year cycle, so they will expect a battery that lasts that long. Fittings, units, firmware, data hosting in Australia and network certification also need checking. Set the cost and months below.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 水表须经国家计量院（NMI）按NMI R 49完成型式批准后才能用于贸易结算，约需12个月。还需取得AS 3565.1、WaterMark和AS/NZS 4020（饮用水接触材料）认证，并须兼容水务公司的NB-IoT网络和数据平台。NMI可采信ISO 17025认可实验室或OIML体系国家的检测结果，因此国内检测报告可能缩短流程。汇锦水表尚未取得OIML认证，集团已表示愿意承担NMI型式批准费用。
 
 **是否需要研发？** 可能需要一部分。汇锦标称电池寿命大于6年，而澳洲水务公司按10–15年周期换表，会要求电池寿命与之匹配。接口规格、计量单位、固件、数据在澳存储和网络认证也需核查。请在下方设定费用和月数。
@@ -251,6 +277,7 @@ phases = [
 ```{ojs}
 //| echo: false
 Plot.plot({
+  width: PW,
   height: 190, marginLeft: 170, clip: true,
   x: {label: null, domain: [2027, 2031], tickFormat: d => Number.isInteger(d) ? String(d) : ""},
   y: {label: null, domain: phases.map(d => d.k)},
@@ -276,15 +303,27 @@ html`<div class="kpi-row">
 </div>`
 ```
 
-<p class="figure-note"><span class="en">The Victorian regional water corporations set their spending for 1 July 2028 onward in submissions to the Essential Services Commission due 13 September 2027, so a meter approved by mid-2028 can be in those budgets. NMI fees, network certification (A$40k) and legal set-up (A$50k) are team estimates, to verify. Data sources: <a href="../appendix/sources.html#ref-91">[91]</a> <a href="../appendix/sources.html#ref-24">[24]</a> <a href="../appendix/sources.html#ref-137">[137]</a></span><span class="zh">维州区域水务公司须于2027年9月13日前向基本服务委员会（ESC）提交2028年7月1日起的支出计划，因此2028年中前获批的水表可纳入其预算。NMI费用、网络认证（4万澳元）和法务设立（5万澳元）为团队估算，待核实。数据来源：<a href="../appendix/sources.html#ref-91">[91]</a> <a href="../appendix/sources.html#ref-24">[24]</a> <a href="../appendix/sources.html#ref-137">[137]</a></span></p>
+<p class="figure-note"><span class="en"><span class="dev-only">The Victorian regional water corporations set their spending for 1 July 2028 onward in submissions to the Essential Services Commission due 13 September 2027, so a meter approved by mid-2028 can be in those budgets. NMI fees, network certification (A$40k) and legal set-up (A$50k) are team estimates, to verify. </span>Data sources: <a href="../appendix/sources.html#ref-91">[91]</a> <a href="../appendix/sources.html#ref-24">[24]</a> <a href="../appendix/sources.html#ref-137">[137]</a></span><span class="zh"><span class="dev-only">维州区域水务公司须于2027年9月13日前向基本服务委员会（ESC）提交2028年7月1日起的支出计划，因此2028年中前获批的水表可纳入其预算。NMI费用、网络认证（4万澳元）和法务设立（5万澳元）为团队估算，待核实。</span>数据来源：<a href="../appendix/sources.html#ref-91">[91]</a> <a href="../appendix/sources.html#ref-24">[24]</a> <a href="../appendix/sources.html#ref-137">[137]</a></span></p>
+
+::: {.eq-box}
+$$t_{\text{sale}} = 2027 + \frac{m_a + m_N + m_t}{12} \qquad U = \frac{R_{\text{CN}}}{FX} + C_{\text{R\&D}} + C_N + C_W + 90\text{k}$$
+
+::: {.en .eq-defs}
+$t_{\text{sale}}$ first commercial sale · $m_a$ adaptation and China tests (months) · $m_N$ NMI approval, 12 months (6, at half the fee, if NMI accepts the China lab report) · $m_t$ approval to first order · $U$ up-front cost (A\$) · $R_{\text{CN}}$ China test report, RMB 200,000 · $FX$ RMB per A\$ · $C_{\text{R\&D}}$ adaptation · $C_N$ NMI fees · $C_W$ WaterMark and AS/NZS 4020 · 90k network certification and legal set-up.
+:::
+
+::: {.zh .eq-defs}
+$t_{\text{sale}}$ 首个商业订单时间 · $m_a$ 适配及国内检测（月） · $m_N$ NMI型式批准，12个月（若NMI采信国内检测报告则为6个月、费用减半） · $m_t$ 获批至首单 · $U$ 启动投资（澳元） · $R_{\text{CN}}$ 国内检测报告，20万元人民币 · $FX$ 人民币/澳元汇率 · $C_{\text{R\&D}}$ 适配研发 · $C_N$ NMI费用 · $C_W$ WaterMark及AS/NZS 4020 · 90k为网络认证和法务设立。
+:::
+:::
 
 ## [3 · What each meter earns]{.en}[3 · 每只水表的利润]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 Huizhong's 2023 NSW contract works out to about A\$150 a meter, and that price already includes Avnet's margin, so CDEG must be able to sell below it. The bar shows where each dollar of the utility's price goes. The **contribution** is what is left per meter to pay for overheads and approvals. Turn on the group view to add the factory's own margin on the ex-works price, which stays with CDEG in China.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 汇中2023年新州合同折合每只约150澳元，且已包含Avnet的代理利润，因此集团的售价必须低于这一水平。下图显示水务公司支付的每一澳元的去向。**边际贡献**是每只水表扣除可变成本后用于覆盖固定费用和审批费用的部分。开启集团视角后，会加上工厂出厂价中的利润，这部分留在国内归集团所有。
 :::
 
@@ -336,6 +375,7 @@ wfStack = (() => { let x = 0; return wf.map(d => { const r = {...d, x1: x, x2: x
 ```{ojs}
 //| echo: false
 Plot.plot({
+  width: PW,
   height: 110, marginLeft: 10, marginRight: 10,
   x: {label: T("A$ per meter", "每只水表（澳元）"), domain: [Math.min(0, d3.min(wfStack, d => d.x2)), Math.max(price, d3.max(wfStack, d => d.x2))]},
   marks: [
@@ -361,15 +401,27 @@ html`<div class="map-legend">${wf.map(d => html`<span><span class="sw" style="ba
 ::::
 :::::
 
-<p class="figure-note"><span class="en">Ex-works price, FX and warranty are assumptions until CDEG gives a unit price. Duty-free entry under ChAFTA is to verify. Data sources: <a href="../appendix/sources.html#ref-11">[11]</a></span><span class="zh">在集团提供单价前，出厂价、汇率和质保均为假设。ChAFTA零关税待核实。数据来源：<a href="../appendix/sources.html#ref-11">[11]</a></span></p>
+<p class="figure-note"><span class="en"><span class="dev-only">Ex-works price, FX and warranty are assumptions until CDEG gives a unit price. Duty-free entry under ChAFTA is to verify. </span>Data sources: <a href="../appendix/sources.html#ref-11">[11]</a></span><span class="zh"><span class="dev-only">在集团提供单价前，出厂价、汇率和质保均为假设。ChAFTA零关税待核实。</span>数据来源：<a href="../appendix/sources.html#ref-11">[11]</a></span></p>
+
+::: {.eq-box}
+$$u = P - \frac{X}{FX}\,(1 + d) - f - q - w P - \delta P$$
+
+::: {.en .eq-defs}
+$u$ contribution per meter · $P$ price to the utility · $X$ ex-works price (RMB) · $d$ import duty · $f$ freight · $q$ verification and QA · $w$ warranty share · $\delta$ distributor margin. The group view adds the factory's margin, $\mu_f X / FX$.
+:::
+
+::: {.zh .eq-defs}
+$u$ 每只水表边际贡献 · $P$ 对水务公司售价 · $X$ 出厂价（人民币） · $d$ 进口关税 · $f$ 运费 · $q$ 检定与质检 · $w$ 质保比例 · $\delta$ 代理利润率。集团视角另加工厂利润 $\mu_f X / FX$。
+:::
+:::
 
 ## [4 · Sales and profit, 2027–2036]{.en}[4 · 销量与利润，2027–2036年]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 Sales = the demand open to a new supplier × the share CDEG wins. The share ramps up from the first commercial order. For scale: Huizhong's two Australian contracts (about 1 million meters at South East Water over 2024–2032, plus 191,000 in NSW) mean it sells over 100,000 meters a year here, which is roughly 10–15% of the national market. That is a realistic ceiling for an incumbent-level winner; a new entrant should plan for less.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 销量=新供应商可争取的需求×集团获得的份额。份额从首个商业订单开始逐步爬升。作为参照：汇中在澳两份合同（东南水务2024–2032年约100万只，加新州19.1万只）意味着其在澳年销量超过10万只，约占全国市场的10–15%。这是行业领先者的现实上限；新进入者应按更低水平规划。
 :::
 
@@ -433,6 +485,7 @@ y5 = rows.find(d => d.year === Math.floor(firstSaleT) + 4) ?? rows[rows.length -
 ```{ojs}
 //| echo: false
 Plot.plot({
+  width: PW,
   height: 260, marginLeft: 55, marginRight: 110,
   x: {label: null, tickFormat: d => String(d)},
   y: {label: T("CDEG meters sold per year (thousand)", "集团年销量（千只）"), grid: true, transform: d => d / 1e3},
@@ -465,6 +518,7 @@ html`<div class="kpi-row">
 ```{ojs}
 //| echo: false
 Plot.plot({
+  width: PW,
   height: 240, marginLeft: 60,
   x: {label: null, tickFormat: d => String(d)},
   y: {label: T("Cumulative cash (A$m)", "累计现金流（百万澳元）"), grid: true, transform: d => d / 1e6},
@@ -538,13 +592,25 @@ resetAdv = () => {
 }
 ```
 
+::: {.eq-box}
+$$Q_y = O_y\, s\, \min\!\left(1, \frac{t_y}{R}\right) \qquad \text{EBIT}_y = Q_y\,u - F_y \qquad \text{NPV} = \sum_y \frac{C_y}{(1+r)^{\,y-2027+0.5}}$$
+
+::: {.en .eq-defs}
+$Q_y$ meters sold · $s$ share CDEG wins · $t_y$ years since first sale · $R$ ramp-up years · $F_y$ overhead once selling (bid costs before; one-off costs in 2027, free pilot meters in the approval year) · $C_y$ cash after tax and stock · $r$ discount rate.
+:::
+
+::: {.zh .eq-defs}
+$Q_y$ 销量 · $s$ 集团获得的份额 · $t_y$ 首单后年数 · $R$ 爬坡年数 · $F_y$ 销售后年度固定费用（此前为投标费用；一次性费用计入2027年，免费试点水表计入获批当年） · $C_y$ 税后及扣除库存后的现金流 · $r$ 折现率。
+:::
+:::
+
 ## [5 · Which inputs matter most]{.en}[5 · 哪些参数影响最大]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 Each bar moves one input 20% up and down from its current setting and shows how the 10-year NPV changes. The longest bars are the numbers CDEG should replace with its own data first.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 每根横条将一个参数在当前值基础上上下浮动20%，显示10年净现值的变化。横条最长的参数，是集团最应优先用自有数据替换的。
 :::
 
@@ -567,6 +633,7 @@ sens = sensKeys.map(([k, label, base]) => {
 }).sort((a, b) => b.span - a.span)
 sensLong = sens.flatMap(d => [{label: d.label, dir: "−20%", x: d.lo}, {label: d.label, dir: "+20%", x: d.hi}])
 Plot.plot({
+  width: PW,
   height: 300, marginLeft: 190,
   x: {label: T("Change in NPV (A$m)", "净现值变化（百万澳元）"), grid: true, transform: d => d / 1e6},
   y: {label: null, domain: sens.map(d => d.label)},
@@ -579,9 +646,29 @@ Plot.plot({
 })
 ```
 
+::: {.eq-box}
+$$\Delta_x = \text{NPV}(1.2\,x) - \text{NPV}(0.8\,x)$$
+
+::: {.en .eq-defs}
+Each bar moves one input $x$ 20% up and down from its current setting.
+:::
+
+::: {.zh .eq-defs}
+每根横条将一个参数 $x$ 在当前值基础上上下浮动20%。
+:::
+:::
+
 ## [Method and limits]{.en}[方法与局限]{.zh}
 
-::: {.en}
+::: {.en .simple-only}
+Each chart's equation is shown under it. For the full method, data sources and limits, switch to **All inputs (developer)** at the top of the page.
+:::
+
+::: {.zh .simple-only}
+每张图下方列出其计算公式。完整的方法、数据来源和局限，请在页面顶部切换到**全部参数（开发者）**。
+:::
+
+::: {.en .dev-only}
 - **Demand** = connections ÷ replacement cycle (times a digital-upgrade factor: 1.15 base, 1.5 optimal, 1.0 during a recession) + new connections. Connections grow at the new-connection rate.
 - **Open demand** steps up by 20 percentage points from 2032, when Melbourne's metro contracts are due to roll over. The optimal scenario adds 10 points.
 - **Recession** lasts two years from the chosen start: new connections −30%, early upgrades paused, tender prices −5%, and the A\$ buys 12% less RMB. Replacement of worn meters continues, because utilities must keep meters accurate and their budgets are fixed in five-year price determinations. A recession mainly squeezes margin through the exchange rate, not volume.
@@ -591,7 +678,7 @@ Plot.plot({
 - **Biggest unknowns**: Huijin's ex-works price for an Australian-spec meter, whether the battery meets utility specifications without redesign, and whether NMI accepts Chinese test results. All three are questions for CDEG.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 - **需求**=用户数÷更换周期（乘以数字化升级系数：基准1.15、最优1.5、衰退期间1.0）+新增用户。用户数按新增率增长。
 - **可争取需求**自2032年起提高20个百分点（墨尔本大都市合同届时到期），最优情景再加10个百分点。
 - **衰退**自所选年份起持续两年：新增用户−30%、提前升级暂停、招标价格−5%、澳元兑人民币贬值12%。磨损水表的更换不会停止，因为水务公司必须保证计量准确，且预算由五年水价核定锁定。衰退主要通过汇率压缩利润，而非减少销量。

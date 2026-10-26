@@ -9,7 +9,7 @@ title: "[Interactive models]{.en}[互动模型]{.zh}"
 ::: {.en}
 Each model is a page of sliders. Move any input and the charts and results update at once. Every page works in English and Chinese and loads inside mainland China.
 
--   **Key inputs or developer.** A switch at the top of each model shows only the key inputs by default. Choose **All inputs (developer)** to adjust every assumption. The choice carries across the model pages.
+-   **Key inputs or developer.** A switch at the top of each model starts on **Key inputs**: the main sliders across the top, larger charts and one equation under each. Choose **All inputs (developer)** to adjust every assumption and read the full explanations, method and limits. The choice carries across the model pages.
 -   **Defaults** come from the [Assumptions register](../appendix/assumptions.qmd), with a source and status for each. CDEG's own figures should replace them first, especially costs per tonne and the meter ex-works price.
 -   **All figures are indicative.** They are planning estimates to test, not forecasts.
 
@@ -24,7 +24,7 @@ Each model is a page of sliders. Move any input and the charts and results updat
 ::: {.zh}
 每个模型都是一个由滑块组成的页面。调整任何参数，图表和结果都会立即更新。所有页面均支持中英文，并可在中国大陆正常访问。
 
--   **关键参数或开发者模式。** 每个模型顶部的开关默认只显示关键参数；选择**全部参数（开发者）**可调整所有假设。该选择在各模型页面间保持一致。
+-   **关键参数或开发者模式。** 每个模型顶部的开关默认为**关键参数**：主要滑块排在顶部，图表更大，每张图下方列出一个公式。选择**全部参数（开发者）**可调整所有假设，并查看完整说明、方法和局限。该选择在各模型页面间保持一致。
 -   **默认值**来自[假设参数](../appendix/assumptions.qmd)页，每项都注明来源和状态。应首先用集团自己的数据替换，尤其是吨成本和水表出厂价。
 -   **所有结果仅供参考。** 它们是有待检验的规划估算，而不是预测。
 

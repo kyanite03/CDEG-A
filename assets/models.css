@@ -67,3 +67,17 @@ body.dev-mode .adv-input { border-left: 3px solid #c9c7bf; padding-left: .4rem; 
 /* Data sources line under a chart: report reference numbers, each linked to the Sources page */
 .data-src { font-size: .8rem; color: #77756e; margin: -.25rem 0 .75rem; }
 .data-src a { color: inherit; text-decoration: underline dotted; margin-right: .2rem; }
+/* Key-inputs (simple) mode: inputs in a grid across the top, charts full width below; long explanations only in developer mode */
+body:not(.dev-mode) .dev-only, body:not(.dev-mode) .kpi-note.explain { display: none !important; }
+body.dev-mode .simple-only { display: none !important; }
+body:not(.dev-mode) .model-row, body:not(.dev-mode) .chart-pair { flex-direction: column; gap: .5rem; }
+body:not(.dev-mode) .model-row > .column, body:not(.dev-mode) .chart-pair > .column { width: 100% !important; }
+body:not(.dev-mode) .model-row > .column:first-child > .cell { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .1rem 1.25rem; align-items: start; }
+body:not(.dev-mode) .model-row > .column:first-child form[class*="inputs-"] { --label-width: 100%; --input-width: 100%; flex-wrap: wrap; margin: .2rem 0; }
+body:not(.dev-mode) .model-row > .column:first-child form[class*="inputs-"] > label { margin-bottom: .1rem; }
+/* Equation under each model */
+.eq-box { border-left: 3px solid #2a78d6; background: #f7f9fc; border-radius: 0 6px 6px 0; padding: .35rem .9rem .5rem; margin: .5rem 0 1.25rem; }
+.eq-box .katex-display { margin: .35rem 0; overflow-x: auto; overflow-y: hidden; padding: .1rem 0; }
+.eq-box .eq-defs, .eq-box .eq-defs p { font-size: .8rem; color: #52514e; line-height: 1.45; margin: .2rem 0 0; }
+body:not(.dev-mode) .model-row > .column:first-child > .cell > .code-copy-outer-scaffold { display: none; }
+body:not(.dev-mode) .model-row > .column:first-child > .cell > .cell-output-display:not(:has(form)) { grid-column: 1 / -1; }

@@ -1,5 +1,8 @@
 ---
 title: "[O&M contract model]{.en}[委托运营模型]{.zh}"
+html-math-method:
+  method: katex
+  url: "../assets/vendor/katex/"
 include-in-header:
   text: |
     <!-- Libraries are bundled locally (no CDN) so the model works inside mainland China -->
@@ -13,11 +16,19 @@ include-in-header:
 
 <p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
-::: {.en}
+::: {.en .simple-only}
+What would an operating and maintenance (O&M) contract at a Victorian waste-to-energy plant earn CDEG, and how fast would it repay the entry budget? The defaults are Model 1's benchmarks until CDEG gives its own operating cost. A\$ at today's prices, excluding GST.
+:::
+
+::: {.zh .simple-only}
+维州垃圾焚烧发电厂的委托运营（O&M）合同能为集团带来多少收益，多快能收回进入预算？在集团提供自己的运营成本前，默认值采用模型1的基准。当前价格澳元，不含GST。
+:::
+
+::: {.en .dev-only}
 What an operating and maintenance (O&M) contract at a Victorian waste-to-energy plant would earn CDEG. The model starts from the running costs in [Model 1](wte-payback.qmd) (the WtE payback model) and chains four steps: **the plant's running costs** that an operator controls give a cost per tonne; **a margin** on top gives the O&M fee; **that fee times licensed tonnes** gives the size of the market; and **one contract's margin** against the entry budget gives CDEG's payback. CDEG has not yet given us its own operating cost, so the defaults are Model 1's benchmark settings. All money is A\$ at today's prices, excluding GST. The results bar at the bottom of the screen updates as you move any control.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 测算维州一座垃圾焚烧发电厂的委托运营（O&M）合同能为集团带来多少收益。模型以[模型1](wte-payback.qmd)（垃圾发电项目回收期模型）的运营成本为起点，分四步串联：运营方可控的**工厂运营成本**得出每吨成本；加上**利润率**得出运营费；**运营费乘以许可吨数**得出市场规模；**一份合同的利润**与进入预算相比得出集团的回收期。集团尚未提供自己的运营成本，因此默认值采用模型1的基准设定。所有金额为当前价格澳元，不含GST。屏幕底部的结果栏会随任何参数变化而实时更新。
 :::
 
@@ -71,6 +82,8 @@ tag = id => {
     : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
 }
 lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
+// Chart width: full content width in key-inputs mode (charts sit below the inputs), 640 beside the controls in developer mode
+PW = mode === "dev" ? 640 : Math.max(640, width)
 
 ```
 
@@ -128,11 +141,11 @@ resetAdv = () => {
 
 ## [1 · Running cost the operator controls]{.en}[1 · 运营方可控的运营成本]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 The operator pays for staff, maintenance and consumables. We assume the owner pays for pre-sorting, ash disposal and reagents directly, so they are left out. Fixed costs are paid whatever the load, so the cost per tonne falls as availability rises.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 运营方承担人员、维护和耗材费用。假设预分拣、灰渣处置和药剂由业主直接支付，因此不计入。固定成本与负荷无关，因此可用率越高，每吨成本越低。
 :::
 
@@ -171,6 +184,7 @@ costT = plant.fixedT + varOpex * (1 - ownerShare)
 {
   const curve = d3.range(0.75, 0.951, 0.01).map(a => ({a, fixed: costAt(furnaces, a).fixedT, total: costAt(furnaces, a).fixedT + varOpex * (1 - ownerShare)}));
   return Plot.plot({
+  width: PW,
     height: 260, marginLeft: 50,
     x: {label: T("Availability", "可用率"), tickFormat: d => `${Math.round(d * 100)}%`},
     y: {label: T("A$ per tonne", "澳元/吨"), grid: true, domain: [0, d3.max(curve, d => d.total) * 1.1]},
@@ -199,13 +213,25 @@ html`<div class="kpi-row">
 :::
 ::::
 
+::: {.eq-box}
+$$c = \frac{n F_n + F_s}{Q} + c_v\,(1 - s_o) \qquad Q = n \times t_d \times 365 \times a$$
+
+::: {.en .eq-defs}
+$c$ operator cost per tonne · $n$ furnaces · $F_n$ fixed cost per furnace · $F_s$ site overhead · $Q$ tonnes a year · $c_v$ variable cost · $s_o$ share of spares and consumables the owner buys (section 2) · $t_d$ furnace size (t/day) · $a$ availability.
+:::
+
+::: {.zh .eq-defs}
+$c$ 运营方每吨成本 · $n$ 焚烧炉数量 · $F_n$ 单炉固定成本 · $F_s$ 厂区管理费用 · $Q$ 年处理量 · $c_v$ 变动成本 · $s_o$ 业主直接采购的备件与耗材比例（第2节） · $t_d$ 单炉规模（吨/日） · $a$ 可用率。
+:::
+:::
+
 ## [2 · The O&M fee: cost plus margin]{.en}[2 · 运营费：成本加利润]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 The operator's fee is its cost per tonne plus a margin. The chart sets the result against our A\$60–110/t range and against Metro Vancouver's contractor-run plant, which costs about C\$93–112/t (roughly A\$100–125/t) to operate, excluding ash and debt service \[74\]. Vancouver's is an older plant, so it sits at the top of our range.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 运营费等于运营方每吨成本加利润。图表将结果与我们的60–110澳元/吨区间以及温哥华都会区（Metro Vancouver）委托运营的焚烧厂对比：后者运营成本约93–112加元/吨（约100–125澳元/吨），不含灰渣处置和偿债 \[74\]。该厂较老，因此位于我们区间的上端。
 :::
 
@@ -244,6 +270,7 @@ netMargin = fee > 0 ? profitT / fee : 0
   ];
   const ours = T("This model", "本模型");
   return Plot.plot({
+  width: PW,
     height: 170, marginLeft: 110,
     x: {label: T("A$ per tonne", "澳元/吨"), grid: true, domain: [0, Math.max(150, fee * 1.1)]},
     y: {label: null, domain: [ours, ...rows.map(d => d.k)]},
@@ -271,13 +298,25 @@ html`<div class="kpi-row">
 :::
 ::::
 
+::: {.eq-box}
+$$\phi = c\,(1 + \mu)$$
+
+::: {.en .eq-defs}
+$\phi$ O&M fee per tonne, rounded to the nearest A\$5 by default · $\mu$ margin.
+:::
+
+::: {.zh .eq-defs}
+$\phi$ 每吨运营费，默认取整至5澳元 · $\mu$ 利润率。
+:::
+:::
+
 ## [3 · Market size: tonnes × fee]{.en}[3 · 市场规模：吨数 × 运营费]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 Seven Victorian licences cover 2.35 Mt a year. Three large holders (Cleanaway 760 kt, HiQ 750 kt and Melbourne Water 450 kt) have not named an operator. HiQ's furnace vendor, Kanadevia Inova, can offer O&M with its grates, so it may never go to tender. Some owners will run their plants themselves.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 维州七张许可证合计每年235万吨。三家大型持证方（Cleanaway 76万吨、HiQ 75万吨、Melbourne Water 45万吨）尚未确定运营方。HiQ的炉排供应商Kanadevia Inova可随设备提供运营服务，因此HiQ可能不会招标。部分业主会自行运营电厂。
 :::
 
@@ -303,6 +342,7 @@ market = [
   {k: T(`After ${Math.round(selfOp * 100)}% self-operate`, `扣除${Math.round(selfOp * 100)}%自行运营后`), t: reachable, sel: true}
 ].map(d => ({...d, v: d.t * fee}))
 Plot.plot({
+  width: PW,
   height: 40 + market.length * 38, marginLeft: 250,
   x: {label: T("A$m a year", "百万澳元/年"), grid: true, transform: d => d / 1e6},
   y: {label: null, domain: market.map(d => d.k)},
@@ -324,13 +364,25 @@ html`<table class="site-compare">
 :::
 ::::
 
+::: {.eq-box}
+$$M = \phi \times (Q_{\text{CW}} + Q_{\text{HiQ}} + Q_{\text{MW}}) \times (1 - s)$$
+
+::: {.en .eq-defs}
+$M$ reachable market (A\$ a year) · $Q_{\text{CW}}$, $Q_{\text{HiQ}}$, $Q_{\text{MW}}$ the Cleanaway, HiQ and Melbourne Water licences ($Q_{\text{HiQ}} = 0$ if HiQ is left out) · $s$ share owners run themselves.
+:::
+
+::: {.zh .eq-defs}
+$M$ 可争取市场（澳元/年） · $Q_{\text{CW}}$、$Q_{\text{HiQ}}$、$Q_{\text{MW}}$ 分别为Cleanaway、HiQ和Melbourne Water的许可量（剔除HiQ时 $Q_{\text{HiQ}} = 0$） · $s$ 业主自行运营比例。
+:::
+:::
+
 ## [4 · CDEG's profit and payback]{.en}[4 · 集团利润与回收期]{.zh}
 
-::: {.en}
+::: {.en .dev-only}
 CDEG's profit on one contract is the margin per tonne times the contract's tonnes. The entry budget is A\$9.6m over 2027–29 (Table 15 in the go-to-market section). Payback counts years of O&M profit needed to repay it, which starts about 2030–31.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 集团在一份合同上的利润等于每吨利润乘以合同吨数。进入预算为2027–29年共960万澳元（进入市场章节表15）。回收期为收回该预算所需的运营利润年数，运营收入约从2030–31年开始。
 :::
 
@@ -366,6 +418,7 @@ payback = profit > 0 ? budgetA / profit : null
 npv = d3.sum(d3.range(1, term + 1), y => profit / (1 + discount) ** y) - budgetA
 cum = [{y: 0, c: -budgetA}, ...d3.range(1, term + 1).map(y => ({y, c: -budgetA + profit * y}))]
 Plot.plot({
+  width: PW,
   height: 260, marginLeft: 50,
   x: {label: T("Contract year", "合同年份"), tickFormat: d => String(d)},
   y: {label: T("Cumulative A$m", "累计百万澳元"), grid: true, transform: d => d / 1e6},
@@ -397,6 +450,7 @@ breakEven = costT + budgetA / (contractT * annuity)
 {
   const sens = d3.range(40, 141, 1).map(f => ({f, npv: npvAt(f)}));
   return Plot.plot({
+  width: PW,
     height: 260, marginLeft: 50,
     x: {label: T("O&M fee (A$/t)", "运营费（澳元/吨）"), grid: true},
     y: {label: T("NPV (A$m)", "净现值（百万澳元）"), grid: true, transform: d => d / 1e6},
@@ -413,7 +467,7 @@ breakEven = costT + budgetA / (contractT * annuity)
 }
 ```
 
-<p class="figure-note"><span class="en">NPV of the selected contract over its length, less the entry budget, at each O&M fee. Dot = current fee; dashed line = fee at which NPV is zero; grey band = our A$60–110/t range.</span><span class="zh">所选合同在合同期内的净现值（扣除进入预算）随运营费的变化。圆点 = 当前运营费；虚线 = 净现值为零时的运营费；灰色带 = 我方60–110澳元/吨区间。</span></p>
+<p class="figure-note dev-only"><span class="en">NPV of the selected contract over its length, less the entry budget, at each O&M fee. Dot = current fee; dashed line = fee at which NPV is zero; grey band = our A$60–110/t range.</span><span class="zh">所选合同在合同期内的净现值（扣除进入预算）随运营费的变化。圆点 = 当前运营费；虚线 = 净现值为零时的运营费；灰色带 = 我方60–110澳元/吨区间。</span></p>
 :::
 ::::
 
@@ -435,9 +489,29 @@ breakEven = costT + budgetA / (contractT * annuity)
 }
 ```
 
+::: {.eq-box}
+$$\Pi = Q_k\,(\phi - c) \qquad Y = \frac{B}{\Pi} \qquad \text{NPV} = \sum_{t=1}^{T} \frac{\Pi}{(1+r)^t} - B$$
+
+::: {.en .eq-defs}
+$\Pi$ CDEG's profit a year · $Q_k$ the contract's tonnes · $Y$ payback (years) · $B$ entry budget · $T$ contract length · $r$ discount rate.
+:::
+
+::: {.zh .eq-defs}
+$\Pi$ 集团年利润 · $Q_k$ 合同吨数 · $Y$ 回收期（年） · $B$ 进入预算 · $T$ 合同期限 · $r$ 折现率。
+:::
+:::
+
 ## [Method and limits]{.en}[方法与局限]{.zh}
 
-::: {.en}
+::: {.en .simple-only}
+Each chart's equation is shown under it. For the full method, data sources and limits, switch to **All inputs (developer)** at the top of the page.
+:::
+
+::: {.zh .simple-only}
+每张图下方列出其计算公式。完整的方法、数据来源和局限，请在页面顶部切换到**全部参数（开发者）**。
+:::
+
+::: {.en .dev-only}
 - **Operator-controlled cost** = (fixed cost per furnace × furnaces + site overhead) ÷ tonnes a year + variable cost. Tonnes a year = furnaces × furnace size × 365 × availability. At the defaults (3 × 500 t/d at 90%), fixed costs of A\$18m a year over 492,750 t are about A\$37/t, plus A\$30/t variable, about A\$67/t in all \[26\].
 - **Left out**: pre-sorting (A\$15/t in Model 1), ash disposal and reagents, which we assume the owner pays directly.
 - **O&M fee** = operator cost × (1 + margin), rounded to the nearest A\$5 by default. A 10–15% margin gives about A\$74–77/t; the default 12.5% rounds to A\$75/t \[Assumption\].
@@ -450,7 +524,7 @@ breakEven = costT + budgetA / (contractT * annuity)
 **What would change these numbers.** The A\$5m per furnace and A\$30/t inputs are benchmark settings in Model 1, not quotes from operators. The 10–15% margin is an assumption. A\$75/t is a whole-plant running cost: the operator's fee alone could be lower if the owner pays for spares and consumables directly (the owner-share slider in section 2 tests this). CDEG's real operating cost per tonne should replace these defaults [to verify]{.verify}.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 - **运营方可控成本** =（单炉固定成本 × 炉数 + 厂区管理费用）÷ 年处理量 + 变动成本。年处理量 = 炉数 × 单炉规模 × 365 × 可用率。按默认值（3台500吨/日、可用率90%），每年1,800万澳元固定成本分摊到492,750吨，约37澳元/吨，加上30澳元/吨变动成本，合计约67澳元/吨 \[26\]。
 - **不计入**：预分拣（模型1中为15澳元/吨）、灰渣处置和药剂，假设由业主直接支付。
 - **运营费** = 运营方成本 ×（1 + 利润率），默认取整至5澳元。10–15%的利润率对应约74–77澳元/吨；默认12.5%取整为75澳元/吨 \[假设\]。

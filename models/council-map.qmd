@@ -1,5 +1,8 @@
 ---
 title: "[Council price map]{.en}[市政价格地图]{.zh}"
+html-math-method:
+  method: katex
+  url: "../assets/vendor/katex/"
 include-in-header:
   text: |
     <!-- Libraries are bundled locally (no CDN) so the model works inside mainland China -->
@@ -13,7 +16,15 @@ include-in-header:
 
 <p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
-::: {.en}
+::: {.en .simple-only}
+Which councils would send their red-bin waste to our plant? Pick a site and a gate fee. **Blue** councils switch to us, **yellow** ones are on the fence, and **grey** ones stay with landfill. Prices are 2026–27 A\$ per tonne, excluding GST.
+:::
+
+::: {.zh .simple-only}
+哪些市政会把红桶垃圾送到我方工厂？选择厂址和处理费。**蓝色**市政会转向我方，**黄色**为观望中，**灰色**仍选择填埋。价格为2026–27年度澳元/吨，不含GST。
+:::
+
+::: {.en .dev-only}
 Each council already pays a price to get rid of a tonne of garbage: the landfill gate fee plus the state levy. That is the benchmark we have to beat. Our price to them is our gate fee **plus** transport to the plant. Pick a plant site, move the gate fee, and each council turns one of three colours:
 
 - **Blue: sends us its waste.** Our price is at least the switching margin (default 10%) below its landfill cost.
@@ -23,7 +34,7 @@ Each council already pays a price to get rid of a tonne of garbage: the landfill
 Hatched areas have no council kerbside data or are out of scope (unincorporated areas, the APY and Maralinga Tjarutja lands, Jervis Bay Territory). The map covers every council in Victoria, NSW, the ACT, South Australia and Tasmania: 311 areas, 305 of them priced. Each priced council has a red-bin tonnage and an average energy content (MJ/kg), so the page shows how much energy a given price wins, not just how many tonnes. The council's waste does not change between sites; the transport cost does. Prices are 2026–27 A\$ per tonne, excluding GST.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 每个市政目前处理一吨垃圾都要支付填埋处理费加州填埋税，这是我方需要击败的基准价。我方对其报价 = 我方处理费 **加上** 运至工厂的运费。选择厂址并调整处理费后，每个市政显示三种颜色之一：
 
 - **蓝色：会把垃圾交给我方**：我方价格比其填埋成本低至少设定的转换门槛（默认10%）。
@@ -98,7 +109,7 @@ statusColor = ({win: "#2a78d6", fence: "#eda100", lose: "#c9c7c0", nodata: "#f1f
 fmt = v => Number.isFinite(v) ? `A$${v.toFixed(0)}` : "—"
 fmt1 = (v, d = 1) => Number.isFinite(v) ? v.toFixed(d) : "—"
 esc = s => String(s ?? "").replace(/[&<>"]/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[ch])
-rich = s => { const p = document.createElement("p"); p.className = "kpi-note"; p.innerHTML = s; return p; }
+rich = s => { const p = document.createElement("p"); p.className = "kpi-note explain"; p.innerHTML = s; return p; }
 // ----- Assumptions register: defaults and sources for every input (data/assumptions.csv + data/sources.csv) -----
 // A failed fetch falls back to DEFAULTS (with a warning) instead of blanking the page
 csvStrict = path => fetch(path).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(t => d3.csvParse(t, d3.autoType))
@@ -121,6 +132,8 @@ tag = id => {
     : html`<a class="src-tag" href="../appendix/assumptions.html#a-${id}">${L("[Assumption]", "[假设]")}</a>`;
 }
 lab = (id, en, zh) => html`${L(en, zh)} ${tag(id)}`
+// Chart width: full content width in key-inputs mode (charts sit below the inputs), 640 beside the controls in developer mode
+PW = mode === "dev" ? 640 : Math.max(640, width)
 
 ```
 
@@ -323,7 +336,7 @@ viewof view = {
       (ch ? `<br><span class="tip-dim">${esc(String(ch.route_note).slice(0, 170))}</span>` : "") +
       (ch && ch.legal_flag === "cl71_risk" ? `<br><span class="tip-risk">${T("Legal risk: NSW proximity principle (POEO Waste Reg cl. 71, >150 km) – relies on the energy-recovery defence; legal check needed.", "法律风险：新州就近原则（POEO废物条例第71条，>150公里）——依赖能源回收抗辩，需法律核实。")}</span>` : "");
   };
-  const W = 640;
+  const W = PW;
   const chart = Plot.plot({
     width: W, height: view === "full" ? 560 : view === "melgipps" ? 400 : 500, inset: 4,
     projection: {type: "mercator", domain},
@@ -381,7 +394,7 @@ viewof view = {
   return wrap;
 }
 ```
-<p class="figure-note"><span class="en">Hover a council for details. In "Vic + interstate metro" the other councils are shown faint and are not interactive. ★ = selected plant site; open circles = the other candidate sites. Network: Geoscience Australia operational rail lines (closed lines removed) and principal road corridors routed on OpenStreetMap; sea lanes are coastal waypoint estimates. Boundaries: geoBoundaries ADM2 (ABS 2021 LGAs, simplified).</span><span class="zh">悬停查看详情。“维州+州外都市区”视图中其他市政以浅色显示，不可交互。★ = 所选厂址；空心圆 = 其他候选厂址。网络：澳大利亚地球科学局运营铁路（已剔除停运线路）及基于OpenStreetMap的主要公路走廊；海运航线为沿岸航点估算。边界：geoBoundaries ADM2（ABS 2021地方政府区，已简化）。</span></p>
+<p class="figure-note dev-only"><span class="en">Hover a council for details. In "Vic + interstate metro" the other councils are shown faint and are not interactive. ★ = selected plant site; open circles = the other candidate sites. Network: Geoscience Australia operational rail lines (closed lines removed) and principal road corridors routed on OpenStreetMap; sea lanes are coastal waypoint estimates. Boundaries: geoBoundaries ADM2 (ABS 2021 LGAs, simplified).</span><span class="zh">悬停查看详情。“维州+州外都市区”视图中其他市政以浅色显示，不可交互。★ = 所选厂址；空心圆 = 其他候选厂址。网络：澳大利亚地球科学局运营铁路（已剔除停运线路）及基于OpenStreetMap的主要公路走廊；海运航线为沿岸航点估算。边界：geoBoundaries ADM2（ABS 2021地方政府区，已简化）。</span></p>
 :::
 ::::
 
@@ -477,6 +490,20 @@ html`<div class="kpi-row">
 }
 ```
 
+::: {.eq-box}
+$$P_c = g + \min_{k} \frac{B_{c,k}}{w_c} \qquad w_c = \min\big(W_{\max},\ V \rho_c\big) \qquad \rho_c = \rho_{11} + 0.05\,(11 - \mathrm{CV}_c)$$
+
+$$\text{blue: } P_c \le (1-m)(G_z + \ell_z) \qquad \text{yellow: } P_c \le G_z + \ell_z \qquad \text{grey: otherwise}$$
+
+::: {.en .eq-defs}
+$P_c$ our delivered price to council $c$ · $g$ our gate fee · $B_{c,k}$ cost per container by road, rail or sea (road = loading + A\$/km beyond the first 30 truck km; rail and sea add terminal, port and line-haul charges) · $w_c$ tonnes per container · $W_{\max}$ max payload · $V$ container volume · $\rho_c$ compacted density · $\mathrm{CV}_c$ red-bin energy content (MJ/kg) · $m$ saving needed to switch · $G_z$, $\ell_z$ landfill gate fee and levy in the council's zone.
+:::
+
+::: {.zh .eq-defs}
+$P_c$ 我方对市政 $c$ 的到厂价格 · $g$ 我方处理费 · $B_{c,k}$ 公路、铁路或海运每箱成本（公路 = 装箱费 + 超出前30公里卡车里程的每公里费用；铁路和海运另加站场、港口和干线运费） · $w_c$ 每箱吨数 · $W_{\max}$ 最大载重 · $V$ 箱容积 · $\rho_c$ 压实密度 · $\mathrm{CV}_c$ 红桶垃圾热值（兆焦/千克） · $m$ 转换所需节省比例 · $G_z$、$\ell_z$ 所在区域填埋处理费和填埋税。图中 blue/yellow/grey 即蓝色/黄色/灰色。
+:::
+:::
+
 ### [Tonnes and energy won at each gate fee]{.en}[各处理费可争取的吨数与能量]{.zh}
 
 :::: {.columns .chart-pair}
@@ -489,6 +516,7 @@ html`<div class="kpi-row">
     return ["win", "fence"].map(s => ({g, s, kt: sumT(priced.filter(c => st(c) === s)) / 1e3}));
   });
   return Plot.plot({
+  width: PW,
     height: 240, marginLeft: 50,
     x: {label: T("Gate fee (A$/t)", "处理费（澳元/吨）")},
     y: {label: T(`Red-bin garbage to ${siteById.get(site).short} (kt/yr)`, `运至${siteById.get(site).shortZh}的红桶垃圾（千吨/年）`), grid: true},
@@ -510,6 +538,7 @@ html`<div class="kpi-row">
   const order = priced.filter(d => d.status !== "lose").sort((a, b) => b.garbage_t - a.garbage_t).slice(0, 15);
   if (!order.length) return html`<p class="figure-note">${T("No council is won or on the fence at this price.", "此价格下无已争取或观望中的市政。")}</p>`;
   return Plot.plot({
+  width: PW,
     height: 240, marginLeft: 130, marginRight: 50,
     x: {label: T("Red-bin garbage (kt/yr)", "红桶垃圾（千吨/年）"), grid: true},
     y: {label: null, domain: order.map(d => d.name)},
@@ -533,6 +562,18 @@ rich(T(
   `设有厨余+园林（FOGO）服务的市政红桶中厨余较少，因此量小但热值高：全面FOGO约<b>12.4兆焦/千克</b>，仅园林服务的为<b>10.9</b>，无有机垃圾桶的为<b>9.6</b>。地图内市政红桶垃圾平均热值${fmt1(mixCV(priced), 2)}兆焦/千克；此价格下我方可得混合垃圾平均${K.wonT ? K.cv.toFixed(2) : "—"}兆焦/千克。`))
 ```
 
+::: {.eq-box}
+$$T(g) = \sum_{c \in W(g)} T_c \qquad \overline{\mathrm{CV}}(g) = \frac{\sum_{c \in W(g)} T_c\, \mathrm{CV}_c}{T(g)}$$
+
+::: {.en .eq-defs}
+$W(g)$ councils won at gate fee $g$ · $T_c$ council's red-bin tonnes · $\overline{\mathrm{CV}}$ tonne-weighted energy content of the waste won.
+:::
+
+::: {.zh .eq-defs}
+$W(g)$ 处理费为 $g$ 时争取到的市政 · $T_c$ 市政红桶吨数 · $\overline{\mathrm{CV}}$ 争取到垃圾的吨数加权热值。
+:::
+:::
+
 ### [All councils]{.en}[全部市政]{.zh}
 
 ```{ojs}
@@ -553,7 +594,15 @@ Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.index
 
 ## [Method and limits]{.en}[方法与局限]{.zh}
 
-::: {.en}
+::: {.en .simple-only}
+Each chart's equation is shown under it. For the full method, data sources and limits, switch to **All inputs (developer)** at the top of the page.
+:::
+
+::: {.zh .simple-only}
+每张图下方列出其计算公式。完整的方法、数据来源和局限，请在页面顶部切换到**全部参数（开发者）**。
+:::
+
+::: {.en .dev-only}
 - **Sites.** *Latrobe Valley*: former Hazelwood power station (146.393, −38.271). *Narromine*: rail-adjacent land by Narromine station; **not permitted** for thermal EfW under the NSW EfW Regulation 2022 (only West Lithgow, Parkes, Richmond Valley and Southern Goulburn-Mulwaree; NSW EPA EfW FAQ). *Port Augusta*: former Northern Power Station, Port Paterson (−32.543, 137.787); closed 2016; the site was sold to Cu-River Mining for a bulk port (InDaily, 10 May 2019) and a 270 MW battery is planned, so land is not confirmed; SA policy per EPA SA's April 2020 thermal EfW position statement (as summarised by WMRR, 6 July 2021).
 - **Landfill price today** = landfill gate fee (excluding levy) + the 2026–27 levy for the council's zone: Victoria metro A\$177.19 (35 councils, EP Regulations 2021 reg 52) and rural A\$88.42; NSW metro levy area A\$180.20, regional levy area A\$103.80, and no levy elsewhere in NSW (POEO (Waste) Regulation 2014; Kyogle is outside the regional levy area from March 2024); metro Adelaide A\$171 and SA non-metro A\$85.50; Tasmania A\$70.56. The ACT has no levy and uses the Mugga Lane domestic price (A\$121.75/t incl. GST). **Adelaide Hills** is in the metro zone because 59.5% of its residents live inside the Metropolitan Adelaide boundary (ABS 2021 Census by SA1); a population-blended levy would be about A\$136/t. Victorian levy really depends on where the landfill is, so council → zone is an approximation.
 - **Gate fees excluding levy** are set by contract and are not published per council. The defaults are adjustable benchmarks. City of Geelong reports that levy plus GST is 61% of its landfill cost, which implies a gate fee of about A\$100–110/t. The NSW regional levy area defaults to the NSW metro value.
@@ -571,7 +620,7 @@ Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.index
 - **Not priced** (hatched): Unincorporated NSW, SA and Victoria, the APY and Maralinga Tjarutja lands, and Jervis Bay Territory. They have no council kerbside service or data.
 :::
 
-::: {.zh}
+::: {.zh .dev-only}
 - **厂址。**拉筹伯谷：原Hazelwood电站（146.393, −38.271）。纳罗迈恩：纳罗迈恩车站旁临铁路用地；根据新州2022年垃圾能源化条例**不许可**建设热能垃圾发电厂（仅限West Lithgow、Parkes、Richmond Valley和Southern Goulburn-Mulwaree；新州环保局常见问题）。奥古斯塔港：原北方电站（Port Paterson，−32.543, 137.787），2016年关闭；厂址已售予Cu-River Mining建散货港（InDaily，2019年5月10日），并计划建设270兆瓦储能电池，用地未确定；南澳政策依据南澳环保局2020年4月热能垃圾发电立场声明（WMRR 2021年7月6日概述）。
 - **当前填埋价格** = 填埋处理费（不含税）+ 所在税区2026–27年度填埋税：维州大都市177.19澳元（35个市政，2021年环保条例第52条）、乡村88.42澳元；新州大都市征税区180.20澳元、区域征税区103.80澳元，新州其他地区无税（2014年POEO废物条例；Kyogle自2024年3月起不属区域征税区）；阿德莱德大都市171澳元、南澳非大都市85.50澳元；塔州70.56澳元；首都领地无税，采用Mugga Lane生活垃圾价格（121.75澳元/吨，含GST）。**Adelaide Hills**归入大都市税区，因59.5%居民位于阿德莱德大都市边界内（ABS 2021年人口普查SA1）；按人口加权的税率约为136澳元/吨。维州填埋税实际取决于填埋场所在地，市政对应税区为近似。
 - **不含税处理费**由合同确定，各市政未公开；默认值为可调整的基准。吉朗市称填埋税加GST占其填埋成本的61%，推算处理费约100–110澳元/吨。新州区域征税区默认值与新州大都市相同。
