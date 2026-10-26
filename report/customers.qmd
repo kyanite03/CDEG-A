@@ -13,7 +13,7 @@ title: "[4 · Customer insights]{.en}[四 · 客户洞察]{.zh}"
 :::
 
 ::: {.en}
-We have no interviews yet, so each persona is built from what the customer has published: inquiry submissions, ASX and EPA records, and price submissions. Each one is a hypothesis to test in the first 90 days (7.0).
+We have no interviews yet, so each persona is built from what the customer has published: inquiry submissions, ASX and EPA records, and price submissions. Each one is a hypothesis to test in the first 90 days (7).
 :::
 
 ::: {.zh}
@@ -73,7 +73,7 @@ We coded 565 readable submissions to the inquiry \[6\]: 537 from individuals and
 
 ![](../assets/img/christine-fig5.jpg){fig-alt="Themes in WtE inquiry submissions, community vs industry"}
 
-*Figure 6. Themes in WtE inquiry submissions, community vs industry. Source: \[6\], team coding (method in Appendix E).*
+*Figure 6. Themes in WtE inquiry submissions, community vs industry. Source: \[6\], team coding (method above).*
 
 Opposition is local. 56% of community submissions name Sunbury or Bulla (HiQ), and 14% name Wollert, Epping or Donnybrook (Cleanaway). Chinese involvement is rarely raised: 4 of 537 community submissions express concern about foreign ownership, 3 cite Chinese plants as emissions evidence, 2 cite China as a positive example, and 3 mention it in other ways. No Chinese operator has yet been named at any licensed site, so the low count does not show how residents would react to one. Lara, the one Victorian proposal linked to a Chinese WtE firm, drew strong local opposition \[92, 93\].
 
@@ -102,7 +102,7 @@ The barrier for meters is utility procurement and approval, not public acceptanc
 
 ![](../assets/img/christine-fig5.jpg){fig-alt="焚烧发电调查意见主题：社区与行业对比"}
 
-*图6：焚烧发电调查意见主题，社区与行业对比。来源：\[6\]，团队编码（方法见附录E）。*
+*图6：焚烧发电调查意见主题，社区与行业对比。来源：\[6\]，团队编码（方法见上文）。*
 
 反对是地方性的。56%的社区意见点名Sunbury或Bulla（HiQ），14%点名Wollert、Epping或Donnybrook（Cleanaway）。中资参与很少被提及：537份社区意见中，4份表达对外国所有权的担忧，3份以中国电厂作为排放问题的证据，2份以中国为正面例子，另有3份以其他方式提及。由于目前没有任何获许可场址点名中资运营方，这一低数字并不能说明居民对中资运营方会作何反应。Lara是维州唯一一个与中国焚烧企业有关的项目，曾遭到当地强烈反对 \[92, 93\]。
 

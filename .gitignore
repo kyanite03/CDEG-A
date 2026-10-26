@@ -29,3 +29,8 @@ desktop.ini
 # Local working copies (not published)
 report/*.pdf
 *:Zone.Identifier
+
+# DeepSeek review (local only)
+DEEPSEEK_REVIEW.md
+deepseek-review-findings.md
+.deepcode/

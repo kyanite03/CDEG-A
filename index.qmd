@@ -36,9 +36,9 @@ CDEG should start now, approvals permitting, in businesses that need no WtE lice
 
 ### Key findings
 
--   **Victoria will need plant operators, not more licences.** The 2.5 Mt/yr thermal WtE cap is 94% allocated, with 2.35 Mt held by seven licences \[1\]. None of the licensed plants is built, and none has publicly named an operator. Once built, their operation is worth about A\$176m a year, or A\$45–91m after political and self-operation risk (3.2).
+-   **Victoria will need plant operators, not more licences.** The 2.5 Mt/yr thermal WtE cap is 94% allocated, with 2.35 Mt held by seven licences \[1\]. None of the licensed plants is built, and none has publicly named an operator. Once built, their operation is worth about A\$176m a year, or A\$45–91m after political and self-operation risk ([WtE market size](part-a/wte.qmd#wte-market)).
 -   **Three licence holders fit CDEG's project size.** CDEG says a single line is economic from 500 t/d, but a project needs two lines (1,000–1,500 t/d) \[2, 3\]. Cleanaway (760,000 t/yr), HiQ (750,000 t/yr) and Melbourne Water (450,000 t/yr) clear that bar. Recovered Energy Laverton (280,000 t/yr) is a conditional target: below the two-line minimum, and it uses gasification \[1\].
--   **Landfill sets a high price ceiling, but WtE only pays at high load.** Metro landfill costs about A\$272/t (the levy of A\$177.19 plus a gate fee) \[4, 5\]. In our Latrobe plant model, an owner needs a gate fee of about A\$205/t (2027 dollars) to break even. Value peaks near A\$240/t. Every 5 points of plant availability is worth about A\$40–45m to an owner. That is the lever an experienced operator controls, although capex, price and the levy path swing value more (3.4).
+-   **Landfill sets a high price ceiling, but WtE only pays at high load.** Metro landfill costs about A\$272/t (the levy of A\$177.19 plus a gate fee) \[4, 5\]. In our Latrobe plant model, an owner needs a gate fee of about A\$205/t (2027 dollars) to break even. Value peaks near A\$240/t. Every 5 points of plant availability is worth about A\$40–45m to an owner. That is the lever an experienced operator controls, although capex, price and the levy path swing value more ([WtE economics](part-a/wte.qmd#wte-economics)).
 -   **Politics is as big a risk as the community.** 86% of 537 community submissions to the parliamentary inquiry raise health, and 56% name Sunbury or Bulla, HiQ's site \[6\]. The state election on 28 November 2026 and the government's response to the inquiry, due around February 2027, could cancel or tighten projects \[7, 8\].
 -   **Water is a near-term start, but crowded.** Melbourne's two largest meter programs are contracted. Two Chinese makers hold NMI approvals and a third supplies through Avnet \[9–11\]. Regional water corporations, whose price submissions are due 13 September 2027, are the opening \[12, 13\].
 -   **Chinese entry has worked best as a service business with local partners.** BEWG's TRILITY runs Australian water plants under local management. Control of critical networks has been refused \[14, 15\].
@@ -53,7 +53,7 @@ CDEG should start now, approvals permitting, in businesses that need no WtE lice
     -   joint R&D (sludge, CCUS) with a Victorian university
 3.  **Keep technology introduction, co-investment and a Latrobe coal-site hub as a later track**, opened only when a licence partner, policy and approvals line up (6.1).
 
-**Next 12 months:** get legal advice on FIRB for service contracts; verify raw Wanxing and Longfeng emissions data against EU limits; prepare an English technical dossier; lodge NMI pattern approval; set up a Melbourne entity once the first bid or pilot needs one, with FIRB approval and China-side filing \[16, 17\]; sign two MoUs (a consortium partner and a university). The full sequence is in 6.5 and the 90-day list in 7.0.
+**Next 12 months:** get legal advice on FIRB for service contracts; verify raw Wanxing and Longfeng emissions data against EU limits; prepare an English technical dossier; lodge NMI pattern approval; set up a Melbourne entity once the first bid or pilot needs one, with FIRB approval and China-side filing \[16, 17\]; sign two MoUs (a consortium partner and a university). The full sequence is in 6.5 and the 90-day list in 7.
 :::
 
 ::: {.zh}
@@ -65,9 +65,9 @@ CDEG should start now, approvals permitting, in businesses that need no WtE lice
 
 ### 主要发现
 
--   **维州需要的是电厂运营方，而不是更多许可。** 维州焚烧发电总量上限为每年250万吨，已分配94%：七张许可共持有235万吨 \[1\]。获许可的电厂均未建成，也没有一家公开指定运营方。建成后，这些电厂的运营价值约为每年1.76亿澳元；扣除政治风险和业主自营风险后约为4,500–9,100万澳元（3.2）。
+-   **维州需要的是电厂运营方，而不是更多许可。** 维州焚烧发电总量上限为每年250万吨，已分配94%：七张许可共持有235万吨 \[1\]。获许可的电厂均未建成，也没有一家公开指定运营方。建成后，这些电厂的运营价值约为每年1.76亿澳元；扣除政治风险和业主自营风险后约为4,500–9,100万澳元（[焚烧市场规模](part-a/wte.qmd#wte-market)）。
 -   **三家许可持有方符合集团的项目规模。** 集团表示单条线500吨/日即具经济性，但一个项目需要两条线（1,000–1,500吨/日）\[2, 3\]。Cleanaway（76万吨/年）、HiQ（75万吨/年）和Melbourne Water（墨尔本水务，45万吨/年）达到这一门槛。Recovered Energy Laverton（28万吨/年）为有条件目标：低于两条线的下限，且采用气化技术 \[1\]。
--   **填埋价格上限很高，但焚烧只有在高负荷下才能盈利。** 墨尔本大都市区填埋成本约272澳元/吨（填埋税177.19澳元加填埋场处理费）\[4, 5\]。在我们的拉筹伯谷（Latrobe Valley）电厂模型中，业主需要约205澳元/吨（2027年价格）的处理费才能盈亏平衡，价值在约240澳元/吨时达到峰值。电厂可用率每提高5个百分点，对业主约值4,000–4,500万澳元。这是经验丰富的运营方能够掌控的杠杆，但资本支出、处理费价格和填埋税走势对价值的影响更大（3.4）。
+-   **填埋价格上限很高，但焚烧只有在高负荷下才能盈利。** 墨尔本大都市区填埋成本约272澳元/吨（填埋税177.19澳元加填埋场处理费）\[4, 5\]。在我们的拉筹伯谷（Latrobe Valley）电厂模型中，业主需要约205澳元/吨（2027年价格）的处理费才能盈亏平衡，价值在约240澳元/吨时达到峰值。电厂可用率每提高5个百分点，对业主约值4,000–4,500万澳元。这是经验丰富的运营方能够掌控的杠杆，但资本支出、处理费价格和填埋税走势对价值的影响更大（[焚烧经济性](part-a/wte.qmd#wte-economics)）。
 -   **政治风险与社区反对同样重要。** 向议会调查提交的537份社区意见中，86%提到健康问题，56%点名HiQ所在的Sunbury或Bulla \[6\]。2026年11月28日的州选举，以及预计约2027年2月发布的政府对调查的回应，可能取消项目或收紧要求 \[7, 8\]。
 -   **水务可以近期起步，但竞争激烈。** 墨尔本两个最大的水表项目已经签约。两家中国厂商已取得NMI（澳洲国家计量院）型式批准，第三家通过Avnet供货 \[9–11\]。机会在区域水务公司，其价格申报截止日期为2027年9月13日 \[12, 13\]。
 -   **中资企业以“服务业务+本地伙伴”的方式进入效果最好。** 北控水务旗下的TRILITY在本地管理下运营澳洲水厂；而收购关键基础设施网络控股权的交易曾被否决 \[14, 15\]。

@@ -54,7 +54,7 @@ Three things do not travel:
 
 -   China's concession-plus-subsidised-power model has no equivalent in Victoria.
 -   CDEG does not own furnace technology: it buys its equipment \[25\]. It is willing to offer technology plus O&M and to license technology \[2\], but in WtE what it can sell is operating know-how.
--   CDEG runs no general-waste sorting plant ahead of its furnaces \[2\], which Victoria's rules on recyclables require (2.3, 3.3). A local partner has to supply that step.
+-   CDEG runs no general-waste sorting plant ahead of its furnaces \[2\], which Victoria's rules on recyclables require (2.3, [waste fit](../part-a/wte.qmd#waste-fit)). A local partner has to supply that step.
 :::
 
 ::: {.zh}
@@ -71,7 +71,7 @@ Three things do not travel:
 
 -   中国的“特许经营+电价补贴”模式在维州没有对应机制。
 -   集团不拥有焚烧炉技术，设备系外购 \[25\]。集团愿意提供“技术+运营”并进行技术许可 \[2\]，但在焚烧发电领域，集团能出售的是运营诀窍。
--   集团的焚烧厂前端没有一般垃圾分拣设施 \[2\]，而维州关于可回收物的规定要求进行分拣（2.3、3.3）。这一环节须由本地伙伴提供。
+-   集团的焚烧厂前端没有一般垃圾分拣设施 \[2\]，而维州关于可回收物的规定要求进行分拣（2.3、[垃圾成分与技术适配](../part-a/wte.qmd#waste-fit)）。这一环节须由本地伙伴提供。
 :::
 
 ## [1.3 Questions this report answers]{.en}[1.3 本报告回答的问题]{.zh}
@@ -79,31 +79,31 @@ Three things do not travel:
 ::: {.en}
 These questions are drawn from CDEG's brochure and registration form \[18, 19\] and from our calls of 14 and 15 October \[2, 25\]:
 
-1.  Which rules govern market access, emissions and grid connection? (2.3; Appendix C)
-2.  What waste does Australia have, and does it suit CDEG's grates and co-processing? (3.3)
+1.  Which rules govern market access, emissions and grid connection? (2.3; [emission standards](../part-b/china-comparison.qmd#emission-standards))
+2.  What waste does Australia have, and does it suit CDEG's grates and co-processing? ([waste fit](../part-a/wte.qmd#waste-fit))
 3.  Where are the WtE projects to operate, upgrade or invest in? (3.1; 4.1; 6.1)
 4.  Who buys smart water meters, and through which channels? (3.1c; 4.3; 6.4)
 5.  Which research partners suit joint R&D on sludge, CCUS and AI for water? (3.1d; 6.4)
-6.  Who pays, and how big is the market? (3.2; 3.4)
-7.  Who are the competitors, and how have Chinese firms fared in Australia? (5.0)
+6.  Who pays, and how big is the market? (3.2; [WtE economics](../part-a/wte.qmd#wte-economics))
+7.  Who are the competitors, and how have Chinese firms fared in Australia? (5)
 :::
 
 ::: {.zh}
 以下问题来自集团的宣传册和报名表 \[18, 19\]，以及我们10月14日和15日的通话 \[2, 25\]：
 
-1.  哪些规则管辖市场准入、排放和并网？（2.3；附录C）
-2.  澳洲有哪些垃圾，是否适合集团的炉排炉和协同处置？（3.3）
+1.  哪些规则管辖市场准入、排放和并网？（2.3；[排放标准](../part-b/china-comparison.qmd#emission-standards)）
+2.  澳洲有哪些垃圾，是否适合集团的炉排炉和协同处置？（[垃圾成分与技术适配](../part-a/wte.qmd#waste-fit)）
 3.  可以运营、改造或投资哪些焚烧发电项目？（3.1；4.1；6.1）
 4.  谁购买智能水表，通过哪些渠道？（3.1c；4.3；6.4）
 5.  哪些研究伙伴适合在污泥、CCUS和水务AI方面联合研发？（3.1d；6.4）
-6.  谁付费，市场有多大？（3.2；3.4）
+6.  谁付费，市场有多大？（3.2；[焚烧经济性](../part-a/wte.qmd#wte-economics)）
 7.  竞争对手有哪些，中国企业在澳洲的经历如何？（第5节）
 :::
 
 ## [1.4 Method]{.en}[1.4 研究方法]{.zh}
 
 ::: {.en}
-We cover Victoria first and compare NSW, WA, QLD and SA (Appendix B). We use three kinds of evidence:
+We cover Victoria first and compare NSW, WA, QLD and SA ([state comparison](../part-b/overview.qmd#state-comparison)). We use three kinds of evidence:
 
 -   CDEG's own materials, calls and written answers
 -   public sources: government, regulator and parliament records, company filings and industry reports
@@ -112,11 +112,11 @@ We cover Victoria first and compare NSW, WA, QLD and SA (Appendix B). We use thr
     -   Model 2: a waste-fit check
     -   Model 3: a council price map
 
-Victoria comes first because it has the most licensed WtE tonnage, a high and rising levy, a state push on organics, and the NexStar network in Melbourne. WA, which has built plants, and NSW, which has designated WtE precincts, are compared in Appendix B. We have not yet interviewed Australian licence holders, utilities or regulators. Key figures carry a reference and, where useful, a label: \[Official\] \[Industry\] \[Company\] \[Inferred\] \[Assumption\] [to verify]{.verify} (Appendix G).
+Victoria comes first because it has the most licensed WtE tonnage, a high and rising levy, a state push on organics, and the NexStar network in Melbourne. WA, which has built plants, and NSW, which has designated WtE precincts, are compared in the [state comparison](../part-b/overview.qmd#state-comparison). We have not yet interviewed Australian licence holders, utilities or regulators. Key figures carry a reference and, where useful, a label: \[Official\] \[Industry\] \[Company\] \[Inferred\] \[Assumption\] [to verify]{.verify} ([evidence labels](../appendix/glossary.qmd#evidence-labels)).
 :::
 
 ::: {.zh}
-我们以维州为重点，并与新南威尔士州（新州）、西澳、昆士兰州（昆州）和南澳进行对比（附录B）。我们使用三类证据：
+我们以维州为重点，并与新南威尔士州（新州）、西澳、昆士兰州（昆州）和南澳进行对比（[各州对比](../part-b/overview.qmd#state-comparison)）。我们使用三类证据：
 
 -   集团自身的资料、通话和书面答复
 -   公开资料：政府、监管机构和议会记录，公司公告和行业报告
@@ -125,7 +125,7 @@ Victoria comes first because it has the most licensed WtE tonnage, a high and ri
     -   模型2：垃圾适配性检验
     -   模型3：市政价格地图
 
-以维州为先，是因为维州的焚烧许可量最大、填埋税高且持续上涨、州政府大力推动有机垃圾分类，而且NexStar的网络在墨尔本。已建成电厂的西澳和设有指定焚烧区域的新州在附录B中对比。我们尚未访谈澳洲的许可持有方、水务公司或监管机构。关键数据均注明来源，必要时加注标签：\[官方\] \[行业\] \[企业\] \[推断\] \[假设\] [待核实]{.verify}（附录G）。
+以维州为先，是因为维州的焚烧许可量最大、填埋税高且持续上涨、州政府大力推动有机垃圾分类，而且NexStar的网络在墨尔本。已建成电厂的西澳和设有指定焚烧区域的新州在[各州对比](../part-b/overview.qmd#state-comparison)中对比。我们尚未访谈澳洲的许可持有方、水务公司或监管机构。关键数据均注明来源，必要时加注标签：\[官方\] \[行业\] \[企业\] \[推断\] \[假设\] [待核实]{.verify}（[证据标签](../appendix/glossary.qmd#evidence-labels)）。
 :::
 
 ## [CDEG asset and KPI sheet]{.en}[集团资产与关键指标]{.zh}

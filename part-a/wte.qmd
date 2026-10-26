@@ -12,7 +12,7 @@ title: "[Waste-to-energy]{.en}[垃圾焚烧发电]{.zh}"
 *报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
 :::
 
-## [Target licence holders]{.en}[目标许可持有方]{.zh}
+## [Target licence holders]{.en}[目标许可持有方]{.zh} {#licence-holders}
 
 ::: {.en}
 **Three licence holders are large enough for a two-line CDEG project. None is built, so the O&M opening is from about 2030–31.**
@@ -25,12 +25,12 @@ CDEG's minimum economic line is 500 t/d, and below 250 t/d is too small \[2\]. I
 | Holder (site) | Cap t/yr | ≈ t/d | Technology | Status | Size test |
 |---|---|---|---|---|---|
 | Cleanaway (Wollert) | 760,000 | 2,080 | Not announced; open technology EOI \[56\] | EPA application to be re-filed; EQT takeover by Mar 2027 \[32, 33\] | Passes |
-| HiQ (Bulla, near Sunbury) | 750,000 | 2,050 | Grate, Kanadevia Inova (Appendix A) | No planning approval; the Opposition pledged to scrap it \[57\] | Passes |
+| HiQ (Bulla, near Sunbury) | 750,000 | 2,050 | Grate, Kanadevia Inova ([licence-holder matrix](../part-b/approval-experience.qmd#licence-matrix)) | No planning approval; the Opposition pledged to scrap it \[57\] | Passes |
 | Melbourne Water (ETP or WTP) | 450,000 | 1,230 | Open; plant burning residual waste with waste heat drying sludge under study \[7\] | Feasibility 2026–31; private participation possible \[7\]; biosolids tender Mar–Jun 2025 \[58\] | Passes |
-| Recovered Energy Laverton | 280,000 | 770 | Gasification (Appendix A) | Holds both licences; no start date or operator \[59\] | Below the two-line minimum |
+| Recovered Energy Laverton | 280,000 | 770 | Gasification ([licence-holder matrix](../part-b/approval-experience.qmd#licence-matrix)) | Holds both licences; no start date or operator \[59\] | Below the two-line minimum |
 :::
 
-*Sources as cited; t/d = cap ÷ 365 \[Inferred\]. Liquid Power (50,000), Zerogen (45,000) and Knox (15,000) are each below one 250 t/d line \[1\]. Maryvale is not a target because Veolia operates it inside the consortium (Appendix A).*
+*Sources as cited; t/d = cap ÷ 365 \[Inferred\]. Liquid Power (50,000), Zerogen (45,000) and Knox (15,000) are each below one 250 t/d line \[1\]. Maryvale is not a target because Veolia operates it inside the consortium ([licence-holder matrix](../part-b/approval-experience.qmd#licence-matrix)).*
 
 **Table 3a. Pros and cons of each licence holder for CDEG**
 
@@ -57,12 +57,12 @@ CDEG's minimum economic line is 500 t/d, and below 250 t/d is too small \[2\]. I
 | 持有方（场址） | 配额（吨/年） | 约合吨/日 | 技术 | 状态 | 规模要求 |
 |---|---|---|---|---|---|
 | Cleanaway（Wollert） | 760,000 | 2,080 | 未公布；技术意向征集进行中 \[56\] | EPA申请将重新提交；EQT收购预计2027年3月前完成 \[32, 33\] | 符合 |
-| HiQ（Bulla，近Sunbury） | 750,000 | 2,050 | 炉排炉，Kanadevia Inova（附录A） | 尚无规划批准；反对党承诺取消该项目 \[57\] | 符合 |
+| HiQ（Bulla，近Sunbury） | 750,000 | 2,050 | 炉排炉，Kanadevia Inova（[许可持有方矩阵](../part-b/approval-experience.qmd#licence-matrix)） | 尚无规划批准；反对党承诺取消该项目 \[57\] | 符合 |
 | Melbourne Water（ETP或WTP） | 450,000 | 1,230 | 未定；正在研究焚烧剩余垃圾并以余热干化污泥的电厂 \[7\] | 2026–31年可行性研究；可能引入私营参与 \[7\]；2025年3–6月生物固体招标 \[58\] | 符合 |
-| Recovered Energy Laverton | 280,000 | 770 | 气化（附录A） | 持有两类许可；无开工日期或运营方 \[59\] | 低于两条线下限 |
+| Recovered Energy Laverton | 280,000 | 770 | 气化（[许可持有方矩阵](../part-b/approval-experience.qmd#licence-matrix)） | 持有两类许可；无开工日期或运营方 \[59\] | 低于两条线下限 |
 :::
 
-*来源如注；吨/日 = 配额 ÷ 365 \[推断\]。Liquid Power（5万吨）、Zerogen（4.5万吨）和Knox（1.5万吨）均不足一条250吨/日的生产线 \[1\]。Maryvale不是目标，因为Veolia在联合体内负责运营（附录A）。*
+*来源如注；吨/日 = 配额 ÷ 365 \[推断\]。Liquid Power（5万吨）、Zerogen（4.5万吨）和Knox（1.5万吨）均不足一条250吨/日的生产线 \[1\]。Maryvale不是目标，因为Veolia在联合体内负责运营（[许可持有方矩阵](../part-b/approval-experience.qmd#licence-matrix)）。*
 
 **表3a：各许可持有方对集团的利弊**
 
@@ -78,7 +78,7 @@ CDEG's minimum economic line is 500 t/d, and below 250 t/d is too small \[2\]. I
 *本报告不对许可持有方进行排序。哪一家更适合集团，取决于集团对政治风险的承受度以及各持有方选择的运营模式。*
 :::
 
-## [Market size]{.en}[市场规模]{.zh}
+## [Market size]{.en}[市场规模]{.zh} {#wte-market}
 
 ::: {.en}
 **Once built, Victoria's licensed plants would spend about A\$176m a year on operations. Allowing for political risk and owners who run their own plants, A\$45–91m is contestable. One contract would earn CDEG about A\$25–34m a year in revenue.**
@@ -104,7 +104,7 @@ The SOM is a scenario of winning one contract, and it is revenue, not profit. At
 :::
 
 ::: {.zh}
-**维州获许可电厂建成后，每年运营支出约1.76亿澳元。考虑政治风险和业主自营后，可竞争部分为0.45–0.91亿澳元。一份合同每年可为集团带来约0.25–0.34亿澳元收入。**
+**维州获许可电厂建成后，每年运营支出约1.76亿澳元。考虑政治风险和业主自营后，可竞争部分为4,500–9,100万澳元。一份合同每年可为集团带来约0.25–0.34亿澳元收入。**
 
 **公式：** 市场价值 = 处理吨数 × 每吨运营价值。
 
@@ -117,7 +117,7 @@ The SOM is a scenario of winning one contract, and it is revenue, not profit. At
 |---|---|---|---|---|
 | 总潜在市场（TAM） | 全部配额许可吨数 | 2.35 | 1.76亿澳元 | 1.41–2.59亿澳元 |
 | 可服务市场（SAM） | 符合集团规模要求的许可：Cleanaway、HiQ、Melbourne Water | 1.96 | 1.47亿澳元 | 1.18–2.16亿澳元 |
-| 风险调整后的可服务市场 | 不含HiQ（政治风险）= 121万吨；若业主自营或采用设备商捆绑运营，则减半 | 0.60–1.21 | 0.45–0.91亿澳元 | 0.36–1.33亿澳元 |
+| 风险调整后的可服务市场 | 不含HiQ（政治风险）= 121万吨；若业主自营或采用设备商捆绑运营，则减半 | 0.60–1.21 | 4,500–9,100万澳元 | 0.36–1.33亿澳元 |
 | 可获得市场（SOM，情景） | 约2031年前赢得一份合同：两条线电厂（2 × 500吨/日，90%可用率 = 33万吨）或Melbourne Water（45万吨） | 0.33–0.45 | 0.25–0.34亿澳元 | 0.20–0.50亿澳元 |
 :::
 
@@ -126,7 +126,7 @@ The SOM is a scenario of winning one contract, and it is revenue, not profit. At
 可获得市场是赢得一份合同的情景，指的是收入而非利润。按10–15%的运营利润率计，集团每年约可获得250–510万澳元（6.6）。在全国范围内，约有15个项目、合计约400万吨/年处于开发阶段 \[45\]，若全部建成，按相同费率每年约值3亿澳元。这是上行空间，而非基准情形。
 :::
 
-## [Waste composition and technical fit]{.en}[垃圾成分与技术适配]{.zh}
+## [Waste composition and technical fit]{.en}[垃圾成分与技术适配]{.zh} {#waste-fit}
 
 ::: {.en}
 **Victorian red-bin waste carries 9.6–12.4 MJ/kg, above Wanxing III's 9.0 MJ/kg design point but inside its 4.6–14 MJ/kg window. It is getting richer as FOGO takes food out.**
@@ -153,7 +153,7 @@ Across all burnable waste landfilled, food fell 35% between 2015–16 and 2024�
 -   **More plastic means more acid gas**, at the moment real-time public emissions reporting is coming (2.3).
 -   **Fewer tonnes, but not less fuel.** Falling tonnes do not mean falling energy, which supports the power case. Shrinking tonnes still raise utilisation risk for owners (6.7).
 
-CDEG says it needs no front-end sorting in China \[3\]. Victoria's permitted-waste rules make a sorting step necessary here, which is why the partner matters. Model 2 (waste-fit check, in progress) will turn these inputs into a per-plant check against the grate window (Appendix E).
+CDEG says it needs no front-end sorting in China \[3\]. Victoria's permitted-waste rules make a sorting step necessary here, which is why the partner matters. Model 2 (waste-fit check, in progress) will turn these inputs into a per-plant check against the grate window.
 :::
 
 ::: {.zh}
@@ -181,10 +181,10 @@ CDEG says it needs no front-end sorting in China \[3\]. Victoria's permitted-was
 -   **塑料增加意味着酸性气体增加**，而此时正值实时公开排放报告即将推行（2.3）。
 -   **吨数减少，但燃料并未减少：** 吨数下降并不意味着能量下降，这支持售电方面的论证。但吨数缩减仍会提高业主的产能利用率风险（6.7）。
 
-集团表示其在国内不需要前端分拣 \[3\]。维州的准入垃圾规则使分拣环节成为必需，这正是合作伙伴的重要性所在。模型2（垃圾适配性检验，开发中）将把这些输入转化为针对每座电厂、对照炉排适应范围的检验（附录E）。
+集团表示其在国内不需要前端分拣 \[3\]。维州的准入垃圾规则使分拣环节成为必需，这正是合作伙伴的重要性所在。模型2（垃圾适配性检验，开发中）将把这些输入转化为针对每座电厂、对照炉排适应范围的检验。
 :::
 
-## [How the money flows and what it costs]{.en}[资金流向与成本]{.zh}
+## [How the money flows and what it costs]{.en}[资金流向与成本]{.zh} {#wte-economics}
 
 ::: {.en}
 **A Latrobe plant pays its way only at a gate fee of about A\$205–240/t and high load. Availability is the biggest lever an operator controls, although capex, price and the levy path swing value more.**
@@ -314,7 +314,7 @@ At a gate fee of A\$150/t (2026–27 prices), 82 of 184 councils in Victoria, so
 
 The levy, not distance, sets the reach. Councils in the 35-council metro levy zone (including Geelong, Ballarat and Bendigo) are reachable. Southern NSW councils outside the NSW levy area are not \[26, 31\]. Rail beats sea for every interstate council at current estimates.
 
-So CDEG's 50 km rule of thumb gives way to "within the levy zone". A Latrobe hub is still a later-stage option. It needs a licence partner (the cap is the limit, not haul) and a gate fee above A\$205/t to pay its way (3.4).
+So CDEG's 50 km rule of thumb gives way to "within the levy zone". A Latrobe hub is still a later-stage option. It needs a licence partner (the cap is the limit, not haul) and a gate fee above A\$205/t to pay its way ([WtE economics](../part-a/wte.qmd#wte-economics)).
 :::
 
 ::: {.zh}
@@ -333,7 +333,7 @@ So CDEG's 50 km rule of thumb gives way to "within the levy zone". A Latrobe hub
 
 决定覆盖范围的是填埋税，而不是距离。位于35个市政组成的大都市填埋税区内的市政（包括吉朗、巴拉瑞特和本迪戈）都可以覆盖；位于新州填埋税区以外的新州南部市政则无法覆盖 \[26, 31\]。按目前的估算，对所有跨州市政而言，铁路运输都优于海运。
 
-因此，集团“50公里”的经验法则让位于“在填埋税区内”。拉筹伯谷枢纽仍是后期选项：它需要许可合作方（限制因素是配额，而不是运输），并且处理费需要高于205澳元/吨才能收回投资（3.4）。
+因此，集团“50公里”的经验法则让位于“在填埋税区内”。拉筹伯谷枢纽仍是后期选项：它需要许可合作方（限制因素是配额，而不是运输），并且处理费需要高于205澳元/吨才能收回投资（[焚烧经济性](../part-a/wte.qmd#wte-economics)）。
 :::
 
 ## [China vs Australia]{.en}[中澳对比]{.zh}

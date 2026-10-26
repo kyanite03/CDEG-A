@@ -90,12 +90,12 @@ In China, local government makes the decisions.
 -   **Waste supply:** It grants a 25–30-year BOT or BOO concession, now generally up to 40 years \[20, 38\], and pays a tipping fee per tonne \[20, 39\].
 -   **Main revenue:** Electricity earns about two-thirds of revenue. The first 280 kWh per tonne earns a benchmark RMB 0.65/kWh, about RMB 182/t, and the rest earns the local coal-power price \[39, 40\]. The tipping fee, about RMB 100/t, provides the other third \[39\] \[Industry\]. Plants connected since September 2020 share this subsidy with local government, and the central share is being phased out \[41\].
 -   **Emissions:** Since 2020, automatic monitoring data can be used as evidence of violations \[42\], and plants publish their data on the MEE's WtE plant monitoring disclosure platform \[23\].
--   **Feedstock and siting:** CDEG's plants do no front-end sorting \[2\]. CDEG's rule of thumb is that a plant should generally be no more than about 50 km from the city it serves \[2\]. In Victoria that is a starting point, not a rule (3.1e).
+-   **Feedstock and siting:** CDEG's plants do no front-end sorting \[2\]. CDEG's rule of thumb is that a plant should generally be no more than about 50 km from the city it serves \[2\]. In Victoria that is a starting point, not a rule ([WtE siting](../part-a/wte.qmd#siting)).
 
 In Victoria, a private developer must win a cap licence, EPA development and operating licences, and planning approval \[43\] (2.3).
 
 -   **Waste supply:** Council consortia sign long supply contracts. For example, nine south-east metropolitan councils agreed a 25-year waste supply agreement in 2024 \[44\].
--   **Main revenue:** Gate fees carry about 60% of revenue and power about 25% \[45\]. The full revenue stack and our plant model are in 3.4.
+-   **Main revenue:** Gate fees carry about 60% of revenue and power about 25% \[45\]. The full revenue stack and our plant model are in [WtE economics](../part-a/wte.qmd#wte-economics).
 -   **Emissions:** EPA expects best practice in siting, design and emission control \[46\]. The Maryvale approval ties mercury monitoring to EU best available techniques \[47\].
 -   **Feedstock and siting:** Only waste that cannot practicably be recycled may be burnt \[48\]. Sites are decided through planning and are strongly contested (4.4).
 
@@ -110,7 +110,7 @@ In Victoria, a private developer must win a cap licence, EPA development and ope
 -   Power subsidies end after 82,500 hours or 15 years \[52\], and tipping fees have risen from about RMB 60–70/t to about RMB 100/t \[39\].
 -   Chinese firms had 79 overseas WtE projects by May 2025 \[39\] and joined 12 more in the first half of 2026 \[53\].
 
-CDEG's own Lahore (Pakistan) and Uzbekistan projects stopped for policy reasons \[2, 54\], which is why this report weighs policy risk heavily (6.7). The other difference is the waste itself. Victorian residual waste is drier and richer, so the question for CDEG is high-heating-value fit, not dewatering (3.3).
+CDEG's own Lahore (Pakistan) and Uzbekistan projects stopped for policy reasons \[2, 54\], which is why this report weighs policy risk heavily (6.7). The other difference is the waste itself. Victorian residual waste is drier and richer, so the question for CDEG is high-heating-value fit, not dewatering ([waste fit](../part-a/wte.qmd#waste-fit)).
 :::
 
 ::: {.zh}
@@ -121,12 +121,12 @@ CDEG's own Lahore (Pakistan) and Uzbekistan projects stopped for policy reasons 
 -   **垃圾供应：** 地方政府授予25–30年的BOT或BOO特许经营权，目前一般可达40年 \[20, 38\]，并按吨支付垃圾处理费 \[20, 39\]。
 -   **主要收入：** 售电约占收入的三分之二。每吨垃圾前280千瓦时上网电量享受0.65元/千瓦时的标杆电价，约合182元/吨，其余电量按当地燃煤标杆电价结算 \[39, 40\]。垃圾处理费约100元/吨，占另外三分之一 \[39\] \[行业\]。2020年9月以后并网的项目，补贴由地方政府分担，中央补贴逐步退出 \[41\]。
 -   **排放：** 自2020年起，自动监测数据可作为认定违法行为的证据 \[42\]，电厂在生态环境部“生活垃圾焚烧发电厂自动监测数据公开平台”发布数据 \[23\]。
--   **原料与选址：** 集团电厂不做前端分拣 \[2\]。集团的经验是，电厂一般不应距服务城市超过约50公里 \[2\]。在维州，这只是起点，而非规则（3.1e）。
+-   **原料与选址：** 集团电厂不做前端分拣 \[2\]。集团的经验是，电厂一般不应距服务城市超过约50公里 \[2\]。在维州，这只是起点，而非规则（[焚烧选址](../part-a/wte.qmd#siting)）。
 
 在维州，私营开发商必须取得配额许可、EPA开发许可和运营许可，以及规划批准 \[43\]（2.3）。
 
 -   **垃圾供应：** 市政联合体签订长期供应合同。例如，墨尔本东南部九个市政于2024年签订了25年的垃圾供应协议 \[44\]。
--   **主要收入：** 处理费约占收入60%，售电约占25% \[45\]。完整的收入构成和我们的电厂模型见3.4。
+-   **主要收入：** 处理费约占收入60%，售电约占25% \[45\]。完整的收入构成和我们的电厂模型见[焚烧经济性](../part-a/wte.qmd#wte-economics)。
 -   **排放：** EPA要求在选址、设计和排放控制方面采用最佳实践 \[46\]。Maryvale项目的批准将汞监测与欧盟最佳可行技术挂钩 \[47\]。
 -   **原料与选址：** 只有无法合理回收的垃圾才能焚烧 \[48\]。选址通过规划程序决定，争议很大（4.4）。
 
@@ -141,7 +141,7 @@ CDEG's own Lahore (Pakistan) and Uzbekistan projects stopped for policy reasons 
 -   电价补贴在82,500小时或15年后结束 \[52\]，垃圾处理费已从约60–70元/吨升至约100元/吨 \[39\]。
 -   截至2025年5月，中国企业已有79个海外焚烧项目 \[39\]，2026年上半年又参与了12个 \[53\]。
 
-集团自己在拉合尔（巴基斯坦）和乌兹别克斯坦的项目都因政策原因中止 \[2, 54\]，因此本报告对政策风险给予较高权重（6.7）。另一个差别在于垃圾本身。维州剩余垃圾更干、热值更高，因此集团面临的是高热值适配问题，而不是脱水问题（3.3）。
+集团自己在拉合尔（巴基斯坦）和乌兹别克斯坦的项目都因政策原因中止 \[2, 54\]，因此本报告对政策风险给予较高权重（6.7）。另一个差别在于垃圾本身。维州剩余垃圾更干、热值更高，因此集团面临的是高热值适配问题，而不是脱水问题（[垃圾成分与技术适配](../part-a/wte.qmd#waste-fit)）。
 :::
 
 ## [2.3 Rules a project must meet]{.en}[2.3 项目须满足的规则]{.zh}

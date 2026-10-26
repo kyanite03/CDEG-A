@@ -22,7 +22,7 @@ The approvals for a waste-to-energy plant, and CDEG's own corporate approvals, a
 焚烧项目审批及集团自身审批见[审批路径](pathways.qmd)；排放标准见[中澳监管对比](china-comparison.qmd)。下表为各州对比。
 :::
 
-## [How the states compare]{.en}[各州对比]{.zh}
+## [How the states compare]{.en}[各州对比]{.zh} {#state-comparison}
 
 ::: {.en}
 **Table B1. Victoria against NSW, WA, QLD and SA (levies 2026–27 unless stated)**
@@ -35,11 +35,11 @@ The approvals for a waste-to-energy plant, and CDEG's own corporate approvals, a
 | Household sorting | Four bins; deadline 1 Jul 2027 (not yet legislated); FOGO for all households by 2030 \[34, 35\] | FOGO for households by 2030; large food-waste generators from July 2026 \[114\] | FOGO rollout in Perth and Peel [to verify]{.verify} | Council-led [to verify]{.verify} | Three bins common [to verify]{.verify} |
 | Red-bin energy (assumed service) | 9.6–12.4 MJ/kg by council \[26\] | About 10.9 MJ/kg (garden bin assumed) \[26, 76\] | — | — | About 10.9 MJ/kg (garden bin assumed) |
 | Waste generated | 15.7 Mt (2024–25) \[28\] | 21.4 Mt (2023–24), 66% recycled \[117\] | 7.4 Mt (2023–24), 65% recycled \[117\] | 9.81 Mt (2023–24), 57.1% recovered \[117\] | — |
-| Projects | 7 cap licences; Maryvale approved (Appendix A) | Parkes (Cleanaway, Tadweer, Tribe) \[96\]; Woodlawn under assessment \[99\] | Kwinana operating; East Rockingham in receivership (Table 6) | Swanbank withdrawn in 2022 \[100\] | — |
+| Projects | 7 cap licences; Maryvale approved ([licence-holder matrix](../part-b/approval-experience.qmd#licence-matrix)) | Parkes (Cleanaway, Tadweer, Tribe) \[96\]; Woodlawn under assessment \[99\] | Kwinana operating; East Rockingham in receivership (Table 6) | Swanbank withdrawn in 2022 \[100\] | — |
 | Read for CDEG | **Lead market** | Second market; Sydney waste can reach a Latrobe site only by rail, at about A\$103/t \[26\] | Commissioning or O&M for distressed assets | Fastest-rising levy | Small; Adelaide reachable by rail (Model 3) |
 :::
 
-**Why sorting matters for the furnace.** The more food a state takes out of the red bin, the richer and smaller its residual stream becomes (3.3). Victoria and NSW both mandate FOGO by 2030, so residual waste in the two largest markets will move towards the top of CDEG's grate window over a plant's life.
+**Why sorting matters for the furnace.** The more food a state takes out of the red bin, the richer and smaller its residual stream becomes ([waste fit](../part-a/wte.qmd#waste-fit)). Victoria and NSW both mandate FOGO by 2030, so residual waste in the two largest markets will move towards the top of CDEG's grate window over a plant's life.
 :::
 
 ::: {.zh}
@@ -53,9 +53,9 @@ The approvals for a waste-to-energy plant, and CDEG's own corporate approvals, a
 | 家庭垃圾分类 | 四桶分类；截止日期2027年7月1日（尚未立法）；2030年前所有家庭实行FOGO \[34, 35\] | 2030年前家庭实行FOGO；大型厨余产生单位自2026年7月起 \[114\] | 珀斯和皮尔地区推行FOGO [待核实]{.verify} | 由市政主导 [待核实]{.verify} | 三桶分类较普遍 [待核实]{.verify} |
 | 红桶垃圾（家庭一般垃圾）热值（假设的服务类型） | 各市政9.6–12.4兆焦/千克 \[26\] | 约10.9兆焦/千克（假设有园林垃圾桶）\[26, 76\] | — | — | 约10.9兆焦/千克（假设有园林垃圾桶） |
 | 废物产生量 | 1,570万吨（2024–25年）\[28\] | 2,140万吨（2023–24年），回收66% \[117\] | 740万吨（2023–24年），回收65% \[117\] | 981万吨（2023–24年），资源化57.1% \[117\] | — |
-| 项目 | 7张配额许可；Maryvale已获批（附录A） | Parkes（Cleanaway、Tadweer、Tribe）\[96\]；Woodlawn审批中 \[99\] | Kwinana运营中；East Rockingham破产接管（表6） | Swanbank于2022年撤回 \[100\] | — |
+| 项目 | 7张配额许可；Maryvale已获批（[许可持有方矩阵](../part-b/approval-experience.qmd#licence-matrix)） | Parkes（Cleanaway、Tadweer、Tribe）\[96\]；Woodlawn审批中 \[99\] | Kwinana运营中；East Rockingham破产接管（表6） | Swanbank于2022年撤回 \[100\] | — |
 | 对集团的含义 | **首选市场** | 第二市场；悉尼垃圾只能通过铁路运至拉筹伯谷场址，约103澳元/吨 \[26\] | 为困境资产提供调试或运营服务 | 填埋税上涨最快 | 规模小；阿德莱德可通过铁路覆盖（模型3） |
 :::
 
-**分类为何影响焚烧炉：** 一个州从红桶中分出的厨余越多，其剩余垃圾的热值就越高、量就越少（3.3）。维州和新州都要求在2030年前实行FOGO，因此在两个最大的市场，剩余垃圾的热值在电厂寿命期内将逐步移向集团炉排适应范围的上端。
+**分类为何影响焚烧炉：** 一个州从红桶中分出的厨余越多，其剩余垃圾的热值就越高、量就越少（[垃圾成分与技术适配](../part-a/wte.qmd#waste-fit)）。维州和新州都要求在2030年前实行FOGO，因此在两个最大的市场，剩余垃圾的热值在电厂寿命期内将逐步移向集团炉排适应范围的上端。
 :::

@@ -19,14 +19,14 @@ title: "[5 · Competitor analysis]{.en}[五 · 竞争分析]{.zh}"
 
 ![](../assets/img/christine-fig7.jpg){fig-alt="Victorian WtE value chain and roles open to CDEG"}
 
-*Figure 8. Victorian WtE value chain and the roles open to CDEG. Sources: \[1, 88, 94\]; Appendix A.*
+*Figure 8. Victorian WtE value chain and the roles open to CDEG. Sources: \[1, 88, 94\]; [licence-holder matrix](../part-b/approval-experience.qmd#licence-matrix).*
 
 Waste supply, ownership and technology are closed to CDEG or a weak fit. EPC is open only inside a consortium. The operator role is unannounced at most licensed plants. That is an opening, not proof the role is open:
 
 -   Where an operator has been named, it sits inside the ownership group. Veolia is a partner in the Maryvale consortium \[94\], and ACCIONA runs its own Kwinana plant (Table 6).
 -   Furnace vendors can offer O&M with their grates \[Inferred\].
 
-Who decides O&M, and when, is the first question to put to each licence holder (7.0). The full matrix is in Appendix A.
+Who decides O&M, and when, is the first question to put to each licence holder (7). The full matrix is in the [licence-holder matrix](../part-b/approval-experience.qmd#licence-matrix).
 :::
 
 ::: {.zh}
@@ -34,14 +34,14 @@ Who decides O&M, and when, is the first question to put to each licence holder (
 
 ![](../assets/img/christine-fig7.jpg){fig-alt="维州焚烧发电价值链及集团可参与的角色"}
 
-*图8：维州焚烧发电价值链及集团可参与的角色。来源：\[1, 88, 94\]；附录A。*
+*图8：维州焚烧发电价值链及集团可参与的角色。来源：\[1, 88, 94\]；[许可持有方矩阵](../part-b/approval-experience.qmd#licence-matrix)。*
 
 垃圾供应、所有权和技术环节对集团关闭或不适合集团。EPC只能在联合体内参与。多数获许可电厂尚未公布运营方。这是一个机会，但并不证明该角色空缺：
 
 -   已公布运营方的项目，运营方都在业主联合体内部。Veolia是Maryvale联合体的合作方 \[94\]，ACCIONA自己运营Kwinana电厂（表6）。
 -   焚烧炉供应商可以随炉排一起提供运营服务 \[推断\]。
 
-谁决定运营安排、何时决定，是需要向每家许可持有方提出的第一个问题（第7节）。完整矩阵见附录A。
+谁决定运营安排、何时决定，是需要向每家许可持有方提出的第一个问题（第7节）。完整矩阵见[许可持有方矩阵](../part-b/approval-experience.qmd#licence-matrix)。
 :::
 
 ## [5.2 Incumbents: waste-to-energy]{.en}[5.2 现有参与者：垃圾焚烧]{.zh}

@@ -18,10 +18,10 @@ Each model is a page of sliders. Move any input and the charts and results updat
 
 | Model | Question it answers | Report sections |
 |---|---|---|
-| [WtE project payback](wte-payback.qmd) (Model 1) | What gate fee, load and licence does a Latrobe Valley plant need to pay its way? | 3.4; Waste-to-energy page |
-| [Council price map](council-map.qmd) (Model 3) | Which councils would send waste to a Latrobe site, at what gate fee? | 3.1e; siting |
+| [WtE project payback](wte-payback.qmd) (Model 1) | What gate fee, load and licence does a Latrobe Valley plant need to pay its way? | [WtE economics](../part-a/wte.qmd#wte-economics) |
+| [Council price map](council-map.qmd) (Model 3) | Which councils would send waste to a Latrobe site, at what gate fee? | [WtE siting](../part-a/wte.qmd#siting) |
 | [Smart water meter profit model](meter-distributor.qmd) | How big is the meter market, what do approvals cost, and what profit can CDEG expect? | 3.2; 6.6 |
-| [O&M contract model](om-contract.qmd) | What does an O&M contract earn CDEG, and how fast does it repay the entry budget? | 3.2; Table 16 |
+| [O&M contract model](om-contract.qmd) | What does an O&M contract earn CDEG, and how fast does it repay the entry budget? | [WtE market size](../part-a/wte.qmd#wte-market); [Table 16](../report/go-to-market.qmd#budget-and-feasibility) |
 :::
 
 ::: {.zh}
@@ -36,8 +36,8 @@ Each model is a page of sliders. Move any input and the charts and results updat
 
 | 模型 | 回答的问题 | 对应报告章节 |
 |---|---|---|
-| [垃圾发电项目回收期](wte-payback.qmd)（模型1） | 拉筹伯谷电厂需要多高的处理费、负荷和许可量才能收回投资？ | 3.4；垃圾焚烧发电章节 |
-| [市政价格地图](council-map.qmd)（模型3） | 在什么处理费下，哪些市政会把垃圾送往拉筹伯谷场址？ | 3.1e；选址 |
+| [垃圾发电项目回收期](wte-payback.qmd)（模型1） | 拉筹伯谷电厂需要多高的处理费、负荷和许可量才能收回投资？ | [焚烧经济性](../part-a/wte.qmd#wte-economics) |
+| [市政价格地图](council-map.qmd)（模型3） | 在什么处理费下，哪些市政会把垃圾送往拉筹伯谷场址？ | [焚烧选址](../part-a/wte.qmd#siting) |
 | [智能水表盈利模型](meter-distributor.qmd) | 水表市场有多大，认证需要多少费用，集团可以预期多少利润？ | 3.2；6.6 |
-| [委托运营模型](om-contract.qmd) | 一份运营合同能为集团带来多少收益，多快能收回进入预算？ | 3.2；表16 |
+| [委托运营模型](om-contract.qmd) | 一份运营合同能为集团带来多少收益，多快能收回进入预算？ | [焚烧市场规模](../part-a/wte.qmd#wte-market)；[表16](../report/go-to-market.qmd#budget-and-feasibility) |
 :::

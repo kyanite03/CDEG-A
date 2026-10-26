@@ -60,7 +60,7 @@ We look at the market in three layers, following the outline: waste treatment, e
 **The best research partners match the three lines CDEG named: sludge reuse, CCUS and data for water networks.**
 
 -   **Sludge and biosolids:** RMIT's PYROCO process turns biosolids into biochar by pyrolysis \[62\]. It sits next to CDEG's sludge drying and co-firing experience, and Melbourne Water's biosolids study (Table 4).
--   **CCUS:** CarbonNet is developing the Pelican offshore storage site with a gateway near Loy Yang in the Latrobe Valley \[69\]. That links CCUS research to the Latrobe hub option (3.1e).
+-   **CCUS:** CarbonNet is developing the Pelican offshore storage site with a gateway near Loy Yang in the Latrobe Valley \[69\]. That links CCUS research to the Latrobe hub option ([WtE siting](../part-a/wte.qmd#siting)).
 -   **Food waste and digestion:** water corporations that run digesters, such as Yarra Valley Water's ReWaste (about 33,000 t/yr of food waste) [to verify]{.verify}, are natural hosts for decontamination trials.
 
 R&D can run as a research contract from China, without an Australian entity (step 2 of the ladder in 6.3). The budget carries one research contract a year (6.6), and the target is one university MoU in the first 12 months.
@@ -70,7 +70,7 @@ R&D can run as a research contract from China, without an Australian entity (ste
 **最合适的研究伙伴与集团提出的三个方向相对应：污泥资源化、碳捕集利用与封存（CCUS）以及水务管网数据。**
 
 -   **污泥与生物固体：** 皇家墨尔本理工大学（RMIT）的PYROCO工艺通过热解将生物固体转化为生物炭 \[62\]，与集团的污泥干化、掺烧经验以及Melbourne Water的生物固体研究（表4）相衔接。
--   **CCUS：** CarbonNet正在开发Pelican海上封存场址，其陆上接入点位于拉筹伯谷Loy Yang附近 \[69\]，可将CCUS研究与拉筹伯谷枢纽方案（3.1e）联系起来。
+-   **CCUS：** CarbonNet正在开发Pelican海上封存场址，其陆上接入点位于拉筹伯谷Loy Yang附近 \[69\]，可将CCUS研究与拉筹伯谷枢纽方案（[焚烧选址](../part-a/wte.qmd#siting)）联系起来。
 -   **厨余与厌氧消化：** 运营厌氧消化设施的水务公司，如雅拉谷水务的ReWaste（约3.3万吨/年厨余）[待核实]{.verify}，是开展去杂质试验的理想合作方。
 
 研发可以以研究合同形式从国内开展，无需设立澳洲实体（6.3进入阶梯第2步）。预算中每年包含一项研究合同（6.6），目标是在前12个月内与一所大学签署合作备忘录。
@@ -113,7 +113,7 @@ R&D can run as a research contract from China, without an Australian entity (ste
 | | Helpful | Harmful |
 |---|---|---|
 | **Internal** | **Strengths:** about 12,000 t/d of grate WtE run, and a 45.6% WtE gross margin (1.1); sludge co-firing at about 10% (1.2); equipment for wet, contaminated food waste; NB-IoT meters and drainage sensors made in the group; water and waste in one group; a large balance sheet (revenue about RMB 12.9bn) | **Weaknesses:** no plant outside China, and the Lahore and Uzbekistan projects stopped (2.2); owns no furnace technology; runs no front-end sorting; meters hold no NMI or OIML approval; costs per tonne and raw emissions data not yet shared (Table D1); Chengdu staffing ratios will not transfer |
-| **External** | **Opportunities:** seven licensed plants with no named operator, worth A\$45–91m a year in O&M (3.2); biosolids and food organics outside the cap (Table 4); regional water price submissions in 2027; rising levy; Latrobe coal sites closing | **Threats:** local opposition and the November 2026 election (4.4, 6.7); owners self-operating or vendors bundling O&M (5.1); FIRB, SOCI and China-side approvals; crowded meter market (5.2); falling power prices; Australia–China relations |
+| **External** | **Opportunities:** seven licensed plants with no named operator, worth A\$45–91m a year in O&M ([WtE market size](../part-a/wte.qmd#wte-market)); biosolids and food organics outside the cap (Table 4); regional water price submissions in 2027; rising levy; Latrobe coal sites closing | **Threats:** local opposition and the November 2026 election (4.4, 6.7); owners self-operating or vendors bundling O&M (5.1); FIRB, SOCI and China-side approvals; crowded meter market (5.2); falling power prices; Australia–China relations |
 :::
 
 **TOWS strategies**
@@ -133,7 +133,7 @@ These strategies are the candidates scored in 6.1.
 | | 有利 | 不利 |
 |---|---|---|
 | **内部** | **优势：** 运营约12,000吨/日炉排炉焚烧产能，焚烧发电毛利率45.6%（1.1）；约10%污泥掺烧（1.2）；适用于高含水、高杂质厨余的设备；集团自产NB-IoT水表和排水传感器；水务与固废同属一个集团；资产负债表规模大（营收约129亿元） | **劣势：** 境外没有电厂，拉合尔和乌兹别克斯坦项目已中止（2.2）；不拥有焚烧炉技术；没有前端分拣；水表尚无NMI或OIML认证；吨成本和原始排放数据尚未提供（表D1）；成都的人员配置比例无法照搬 |
-| **外部** | **机会：** 七座已获许可但未指定运营方的电厂，运营价值每年0.45–0.91亿澳元（3.2）；配额外的生物固体和厨余（表4）；2027年区域水务价格申报；填埋税上涨；拉筹伯谷燃煤电厂关闭 | **威胁：** 当地反对和2026年11月州选举（4.4、6.7）；业主自营或设备商捆绑运营（5.1）；FIRB、SOCI和国内审批；水表市场拥挤（5.2）；电价下跌；中澳关系 |
+| **外部** | **机会：** 七座已获许可但未指定运营方的电厂，运营价值每年4,500–9,100万澳元（[焚烧市场规模](../part-a/wte.qmd#wte-market)）；配额外的生物固体和厨余（表4）；2027年区域水务价格申报；填埋税上涨；拉筹伯谷燃煤电厂关闭 | **威胁：** 当地反对和2026年11月州选举（4.4、6.7）；业主自营或设备商捆绑运营（5.1）；FIRB、SOCI和国内审批；水表市场拥挤（5.2）；电价下跌；中澳关系 |
 :::
 
 **TOWS战略**

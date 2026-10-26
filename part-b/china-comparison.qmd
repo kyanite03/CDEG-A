@@ -12,7 +12,7 @@ title: "[Australia vs China regulation]{.en}[中澳监管对比]{.zh}"
 *报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
 :::
 
-## [Emission standards]{.en}[排放标准]{.zh}
+## [Emission standards]{.en}[排放标准]{.zh} {#emission-standards}
 
 ::: {.en}
 **Table C1. Daily emission limits and Wanxing readings (mg/Nm³, 11% O₂, dry)**
@@ -35,7 +35,7 @@ title: "[Australia vs China regulation]{.en}[中澳监管对比]{.zh}"
 
 *Figure C1. Wanxing daily averages as a share of EU daily limits (one day, furnace 1).*
 
-**Why moisture and heating value matter.** Wet food waste lowers the usable heat per kilogram, because energy is spent evaporating water. A furnace is designed to burn waste steadily and completely, recover heat, limit pollutants, and avoid corrosion and slagging. Heating value is a key design input, but not the only one. In Victoria the issue reverses: drier, richer residual waste (3.3) can push a grate towards its thermal limit.
+**Why moisture and heating value matter.** Wet food waste lowers the usable heat per kilogram, because energy is spent evaporating water. A furnace is designed to burn waste steadily and completely, recover heat, limit pollutants, and avoid corrosion and slagging. Heating value is a key design input, but not the only one. In Victoria the issue reverses: drier, richer residual waste ([waste fit](../part-a/wte.qmd#waste-fit)) can push a grate towards its thermal limit.
 :::
 
 ::: {.zh}
@@ -59,7 +59,7 @@ title: "[Australia vs China regulation]{.en}[中澳监管对比]{.zh}"
 
 *图C1：万兴日均排放占欧盟日均限值的比例（单日，1号炉）。*
 
-**为什么含水率和热值很重要：** 潮湿的厨余会降低每千克垃圾的可用热量，因为能量被用于蒸发水分。焚烧炉的设计目标是稳定、完全地燃烧垃圾，回收热量，控制污染物，并避免腐蚀和结渣。热值是关键设计参数，但不是唯一参数。在维州情况正好相反：更干、热值更高的剩余垃圾（3.3）可能把炉排推向其热负荷上限。
+**为什么含水率和热值很重要：** 潮湿的厨余会降低每千克垃圾的可用热量，因为能量被用于蒸发水分。焚烧炉的设计目标是稳定、完全地燃烧垃圾，回收热量，控制污染物，并避免腐蚀和结渣。热值是关键设计参数，但不是唯一参数。在维州情况正好相反：更干、热值更高的剩余垃圾（[垃圾成分与技术适配](../part-a/wte.qmd#waste-fit)）可能把炉排推向其热负荷上限。
 :::
 
 ## [Payment model and approvals]{.en}[收费模式与审批]{.zh}

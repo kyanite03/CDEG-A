@@ -12,7 +12,7 @@ title: "[Who has done it before]{.en}[谁有审批经验]{.zh}"
 *报告第三稿，2026年10月25日。方括号编号对应[资料来源](../appendix/sources.qmd)页。*
 :::
 
-## [Licence-holder matrix]{.en}[许可持有方矩阵]{.zh}
+## [Licence-holder matrix]{.en}[许可持有方矩阵]{.zh} {#licence-matrix}
 
 ::: {.en}
 **Table A1. Victoria's ten WtE licence holders**

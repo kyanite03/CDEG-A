@@ -54,7 +54,7 @@ title: "[Glossary]{.en}[术语表]{.zh}"
 :::
 :::
 
-## [Evidence labels]{.en}[证据标签]{.zh}
+## [Evidence labels]{.en}[证据标签]{.zh} {#evidence-labels}
 
 ::: {.en}
 ::: tw

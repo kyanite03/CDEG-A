@@ -20,12 +20,12 @@ title: "[6 · Go-to-market plan]{.en}[六 · 进入市场计划]{.zh}"
 ::: tw
 | Segment | Who | What CDEG sells | Revenue starts | Why |
 |---|---|---|---|---|
-| **1. WtE licence holders** | Cleanaway, HiQ, Melbourne Water; Recovered Energy Laverton conditional (pros and cons in Table 3a) | O&M in a consortium; operations-readiness and commissioning advice | Services 2028–29; O&M about 2030–31, 2032 downside (6.5) | Largest value: A\$45–91m a year contestable (3.2). Slowest and most political (4.4) |
+| **1. WtE licence holders** | Cleanaway, HiQ, Melbourne Water; Recovered Energy Laverton conditional (pros and cons in Table 3a) | O&M in a consortium; operations-readiness and commissioning advice | Services 2028–29; O&M about 2030–31, 2032 downside (6.5) | Largest value: A\$45–91m a year contestable ([WtE market size](../part-a/wte.qmd#wte-market)). Slowest and most political (4.4) |
 | **2. Water corporations** | Melbourne Water (biosolids); 13 regional corporations (meters, sensors) | Sludge drying and co-firing services; NB-IoT meters, leak analytics and drainage sensors | Proposals 2027; meter sales after NMI approval, about mid-2028 (3.2) | No cap licence needed; 167,000 t of biosolids landfilled (Table 4); price submissions due 13 Sep 2027 \[13\] |
 | **3. Organics processors and councils** | Processors such as Repurpose It; councils rolling out FOGO | Decontamination equipment and a pilot | Pilot 2027 | 437,000 t of food landfilled; the state names decontamination as an investment gap \[29\] |
 :::
 
-**Later-stage options, not yet segments:** technology introduction, minority co-investment and a Latrobe coal-site hub. Each opens only when a licence partner, policy and approvals line up. The hub also needs a gate fee above about A\$205/t (3.4).
+**Later-stage options, not yet segments:** technology introduction, minority co-investment and a Latrobe coal-site hub. Each opens only when a licence partner, policy and approvals line up. The hub also needs a gate fee above about A\$205/t ([WtE economics](../part-a/wte.qmd#wte-economics)).
 
 ::: {.placeholder}
 - Weighted scoring of entry options (demand 25%, fit 25%, economics 25%, partners 15%, speed 10%) with a policy check for investment options; GE-McKinsey matrix; robustness check
@@ -38,12 +38,12 @@ title: "[6 · Go-to-market plan]{.en}[六 · 进入市场计划]{.zh}"
 ::: tw
 | 细分市场 | 客户 | 集团提供什么 | 收入起始时间 | 理由 |
 |---|---|---|---|---|
-| **1. 焚烧许可持有方** | Cleanaway、HiQ、Melbourne Water；Recovered Energy Laverton为有条件目标（利弊见表3a） | 联合体内的运营维护；运营准备和调试咨询 | 服务2028–29年；运营约2030–31年，不利情况下2032年（6.5） | 价值最大：每年0.45–0.91亿澳元可竞争（3.2）。周期最长、政治性最强（4.4） |
+| **1. 焚烧许可持有方** | Cleanaway、HiQ、Melbourne Water；Recovered Energy Laverton为有条件目标（利弊见表3a） | 联合体内的运营维护；运营准备和调试咨询 | 服务2028–29年；运营约2030–31年，不利情况下2032年（6.5） | 价值最大：每年4,500–9,100万澳元可竞争（[焚烧市场规模](../part-a/wte.qmd#wte-market)）。周期最长、政治性最强（4.4） |
 | **2. 水务公司** | Melbourne Water（生物固体）；13家区域水务公司（水表、传感器） | 污泥干化与掺烧服务；NB-IoT水表、漏损分析和排水传感器 | 2027年提交方案；取得NMI批准后（约2028年中）销售水表（3.2） | 不需要配额许可；16.7万吨生物固体仍在填埋（表4）；价格申报于2027年9月13日截止 \[13\] |
 | **3. 有机物处理企业与市政** | Repurpose It等处理企业；推行FOGO的市政 | 去杂质设备及试点 | 2027年试点 | 43.7万吨厨余仍在填埋；州政府将去杂质列为投资缺口 \[29\] |
 :::
 
-**后续选项（暂不作为细分市场）：** 技术引进、少数股权投资和拉筹伯谷燃煤电厂旧址枢纽。只有在许可伙伴、政策和审批同时具备时才启动。枢纽方案还需要处理费高于约205澳元/吨（3.4）。
+**后续选项（暂不作为细分市场）：** 技术引进、少数股权投资和拉筹伯谷燃煤电厂旧址枢纽。只有在许可伙伴、政策和审批同时具备时才启动。枢纽方案还需要处理费高于约205澳元/吨（[焚烧经济性](../part-a/wte.qmd#wte-economics)）。
 
 ::: {.placeholder}
 - 进入方案加权评分（需求25%、契合度25%、经济性25%、合作方15%、速度10%），投资类方案另加政策检验；GE–麦肯锡矩阵；稳健性检验
@@ -57,7 +57,7 @@ title: "[6 · Go-to-market plan]{.en}[六 · 进入市场计划]{.zh}"
 
 The canvas turns Sections 4 and 5 into CDEG's offer for segment 1. The fit rests on three matches:
 
--   **An operator that lifts availability**, backed by a parent guarantee and an Australian-managed team. This answers the owner's fear of overruns and of an unproven operator. Model 1 puts a price on it: five points of availability are worth about A\$40–45m to an owner (3.4).
+-   **An operator that lifts availability**, backed by a parent guarantee and an Australian-managed team. This answers the owner's fear of overruns and of an unproven operator. Model 1 puts a price on it: five points of availability are worth about A\$40–45m to an owner ([WtE economics](../part-a/wte.qmd#wte-economics)).
 -   **A live public emissions dashboard**, independently verified first, answers local opposition (4.4).
 -   **Biosolids co-processing** adds feedstock for Melbourne Water.
 
@@ -65,7 +65,7 @@ The weak links are CDEG's cost per tonne and its lack of OECD references. Both s
 
 ![](../assets/img/christine-fig9.jpg){fig-alt="Value Proposition Canvas for licence holders"}
 
-*Figure 12. Value Proposition Canvas for licence holders (segment 1). Note: the figure still lists REL, which is now a conditional target (3.1a).*
+*Figure 12. Value Proposition Canvas for licence holders (segment 1). Note: the figure still lists REL, which is now a conditional target ([WtE licence holders](../part-a/wte.qmd#licence-holders)).*
 
 **Segment 2: water corporations.**
 
@@ -80,7 +80,7 @@ The weak links are CDEG's cost per tonne and its lack of OECD references. Both s
 
 价值主张画布把第4节和第5节的分析转化为集团面向细分市场1的方案。契合点有三个：
 
--   **能提升可用率的运营方**，有母公司担保和澳洲本地管理团队支持。这回应了业主对超支和运营方无业绩的担忧。模型1对此进行了量化：可用率提高5个百分点，对业主约值4,000–4,500万澳元（3.4）。
+-   **能提升可用率的运营方**，有母公司担保和澳洲本地管理团队支持。这回应了业主对超支和运营方无业绩的担忧。模型1对此进行了量化：可用率提高5个百分点，对业主约值4,000–4,500万澳元（[焚烧经济性](../part-a/wte.qmd#wte-economics)）。
 -   **实时公开排放数据看板**（先经独立核实），回应当地反对意见（4.4）。
 -   **生物固体协同处置**，为Melbourne Water增加原料。
 
@@ -88,7 +88,7 @@ The weak links are CDEG's cost per tonne and its lack of OECD references. Both s
 
 ![](../assets/img/christine-fig9.jpg){fig-alt="面向许可持有方的价值主张画布"}
 
-*图12：面向许可持有方的价值主张画布（细分市场1）。注：图中仍列有REL，该公司现为有条件目标（3.1a）。*
+*图12：面向许可持有方的价值主张画布（细分市场1）。注：图中仍列有REL，该公司现为有条件目标（[焚烧许可持有方](../part-a/wte.qmd#licence-holders)）。*
 
 **细分市场2：水务公司。**
 
@@ -146,7 +146,7 @@ CDEG moves up the ladder only where the risks allow.
 
 **Government support**
 
--   Federal finance has backed WA plants. Kwinana received CEFC debt and a A\$23m ARENA grant \[45, 84\], and Maryvale has a A\$48.2m federal grant (Appendix A).
+-   Federal finance has backed WA plants. Kwinana received CEFC debt and a A\$23m ARENA grant \[45, 84\], and Maryvale has a A\$48.2m federal grant ([licence-holder matrix](../part-b/approval-experience.qmd#licence-matrix)).
 -   Victoria's main grant programs exclude thermal WtE. The Recycling Modernisation Fund covers material recovery only, and a proposal to open the Sustainability Fund to WtE was voted down 3–4. The A\$10m Bioenergy Fund may suit food-waste digestion \[7, 64\] [to verify]{.verify}.
 -   For CDEG, support mostly flows to owners, not operators. Its practical use is the organics fund for a FOGO pilot host, plus Invest Victoria and Austrade for introductions (6.4).
 
@@ -175,7 +175,7 @@ CDEG moves up the ladder only where the risks allow.
 
 **政府支持**
 
--   联邦资金曾支持西澳电厂。Kwinana获得CEFC贷款和2,300万澳元ARENA拨款 \[45, 84\]，Maryvale获得4,820万澳元联邦拨款（附录A）。
+-   联邦资金曾支持西澳电厂。Kwinana获得CEFC贷款和2,300万澳元ARENA拨款 \[45, 84\]，Maryvale获得4,820万澳元联邦拨款（[许可持有方矩阵](../part-b/approval-experience.qmd#licence-matrix)）。
 -   维州主要拨款项目不包括热处理焚烧发电。回收现代化基金只覆盖材料回收，将可持续发展基金向焚烧发电开放的提案以3比4被否决。1,000万澳元的生物能源基金可能适用于厨余厌氧消化 \[7, 64\] [待核实]{.verify}。
 -   对集团而言，支持资金主要流向业主而非运营方。实际可用的是为FOGO试点方申请有机物基金，以及通过维州投资局和澳大利亚贸易投资委员会获得引荐（6.4）。
 
@@ -232,7 +232,7 @@ CDEG moves up the ladder only where the risks allow.
 ::: tw
 | Phase (ladder step) | Main actions | Gate to move on | KPIs: lead → result |
 |---|---|---|---|
-| **0 Prepare**<br>Nov 2026–Mar 2027 (step 1) | Get raw Wanxing and Longfeng CEMS data, with a third-party check against EU limits (Appendix C). Prepare an English dossier. Talk to a local waste company and an engineering firm. Watch the election and the inquiry response. | Emissions data meet EU daily limits. No moratorium after the election. | Dossier to 3 licence holders → 2 MoUs (consortium partner, university) |
+| **0 Prepare**<br>Nov 2026–Mar 2027 (step 1) | Get raw Wanxing and Longfeng CEMS data, with a third-party check against EU limits ([emission standards](../part-b/china-comparison.qmd#emission-standards)). Prepare an English dossier. Talk to a local waste company and an engineering firm. Watch the election and the inquiry response. | Emissions data meet EU daily limits. No moratorium after the election. | Dossier to 3 licence holders → 2 MoUs (consortium partner, university) |
 | **1 Low-capital entry**<br>2027 (steps 1–3) | Biosolids proposal to Melbourne Water. Join a consortium response to Cleanaway's EOI as operator. FOGO pilot. Lodge NMI approval for one meter; brief regional corporations before 13 Sep 2027 \[13, 91\]. Set up the Melbourne entity when the first bid needs it. | At least one consortium agreement; shortlisted on one bid | 3 proposals submitted; 2 corporations briefed → 1 pilot running; NMI application lodged |
 | **2 Technical services**<br>2028–29 (step 3) | Paid operations-readiness and commissioning advice while licence holders design and seek EPA licences. First meter sales after NMI approval (mid-2028) \[27\]. Build a local team. | O&M term sheet or preferred-operator status on one plant | 2 advisory contracts → services revenue covers local overhead; 8+ local staff |
 | **3 O&M**<br>about 2030–31 (step 4) | Mobilise as the plant commissions. Live public emissions dashboard. Report against contract KPIs. | 12 months meeting availability and emissions guarantees | Availability ≥ 90%; 100% of days within licence limits; zero lost-time injuries |
@@ -245,7 +245,7 @@ CDEG moves up the ladder only where the risks allow.
 
 -   emissions data cannot be verified against EU daily limits
 -   no local consortium partner signs by the end of 2027
--   the government freezes WtE approvals or imposes a levy that makes plants unviable (3.4)
+-   the government freezes WtE approvals or imposes a levy that makes plants unviable ([WtE economics](../part-a/wte.qmd#wte-economics))
 -   no licence holder will outsource O&M by the end of phase 2
 :::
 
@@ -261,7 +261,7 @@ CDEG moves up the ladder only where the risks allow.
 ::: tw
 | 阶段（阶梯步骤） | 主要行动 | 进入下一阶段的门槛 | 关键指标：先行指标 → 结果 |
 |---|---|---|---|
-| **0 准备**<br>2026年11月–2027年3月（第1步） | 取得万兴和隆丰原始烟气在线监测（CEMS）数据，并由第三方对照欧盟限值核查（附录C）。准备英文资料。与本地废物企业和工程公司接洽。关注选举和政府对调查的回应。 | 排放数据满足欧盟日均限值；选举后未暂停焚烧项目 | 向3家许可持有方提交资料 → 签署2份合作备忘录（联合体伙伴、大学） |
+| **0 准备**<br>2026年11月–2027年3月（第1步） | 取得万兴和隆丰原始烟气在线监测（CEMS）数据，并由第三方对照欧盟限值核查（[排放标准](../part-b/china-comparison.qmd#emission-standards)）。准备英文资料。与本地废物企业和工程公司接洽。关注选举和政府对调查的回应。 | 排放数据满足欧盟日均限值；选举后未暂停焚烧项目 | 向3家许可持有方提交资料 → 签署2份合作备忘录（联合体伙伴、大学） |
 | **1 低资本进入**<br>2027年（第1–3步） | 向Melbourne Water提交生物固体方案。以运营方身份加入联合体，响应Cleanaway的意向征集（EOI）。FOGO试点。为一款水表申请NMI批准；在2027年9月13日前向区域水务公司介绍 \[13, 91\]。首个投标需要时设立墨尔本实体。 | 至少一份联合体协议；至少一个投标入围 | 提交3份方案；向2家水务公司介绍 → 1个试点运行；提交NMI申请 |
 | **2 技术服务**<br>2028–29年（第3步） | 在许可持有方设计电厂、申请EPA许可期间，提供付费的运营准备和调试咨询。NMI获批后（2028年中）首批水表销售 \[27\]。组建本地团队。 | 在一座电厂取得运营条款清单或优先运营方地位 | 2份咨询合同 → 服务收入覆盖本地管理费用；本地员工8人以上 |
 | **3 运营**<br>约2030–31年（第4步） | 随电厂调试进场。实时公开排放看板。按合同关键指标报告。 | 连续12个月满足可用率和排放保证 | 可用率≥90%；100%的天数满足许可限值；零工伤停工事故 |
@@ -274,11 +274,11 @@ CDEG moves up the ladder only where the risks allow.
 
 -   排放数据无法对照欧盟日均限值得到核实
 -   2027年底前没有本地联合体伙伴签约
--   政府冻结焚烧审批，或征收使电厂无法盈利的税费（3.4）
+-   政府冻结焚烧审批，或征收使电厂无法盈利的税费（[焚烧经济性](../part-a/wte.qmd#wte-economics)）
 -   第2阶段结束时没有许可持有方愿意外包运营
 :::
 
-## [6.6 Budget and feasibility]{.en}[6.6 预算与可行性]{.zh}
+## [6.6 Budget and feasibility]{.en}[6.6 预算与可行性]{.zh} {#budget-and-feasibility}
 
 ::: {.en}
 **Entry costs about A\$9–10m over three years. One O&M contract repays that in about three to four years of operation, so pilots and services must carry the team until then.**
@@ -310,7 +310,7 @@ CDEG moves up the ladder only where the risks allow.
 | Melbourne Water scale | 450,000 | A\$34m | A\$3.4–5.1m |
 :::
 
-*Source: 3.2 and Model 1 \[26\]. Availability bonuses and penalties, and liability under guarantees, are not included (6.7, risk 12).*
+*Source: [WtE market size](../part-a/wte.qmd#wte-market) and Model 1 \[26\]. Availability bonuses and penalties, and liability under guarantees, are not included (6.7, risk 12).*
 
 **Feasibility.** CDEG group revenue is about RMB 12.9bn \[18\], so a A\$9–10m entry budget is small for it. The real constraint is time. Until about 2030, the meter business (EBIT about A\$0.66m by its fifth year \[27\]), the pilots and technical services keep the team funded and visible. That is why the plan has two speeds.
 :::
@@ -345,7 +345,7 @@ CDEG moves up the ladder only where the risks allow.
 | Melbourne Water规模 | 450,000 | 3,400万澳元 | 340–510万澳元 |
 :::
 
-*来源：3.2和模型1 \[26\]。不含可用率奖惩及担保责任（6.7，风险12）。*
+*来源：[焚烧市场规模](../part-a/wte.qmd#wte-market)和模型1 \[26\]。不含可用率奖惩及担保责任（6.7，风险12）。*
 
 **可行性：** 集团营收约129亿元 \[18\]，900–1,000万澳元的进入预算对集团而言规模很小。真正的约束是时间。在约2030年之前，水表业务（第5年息税前利润约66万澳元 \[27\]）、试点和技术服务维持团队的资金和市场存在感。这就是方案分两步走的原因。
 :::
@@ -369,10 +369,10 @@ CDEG moves up the ladder only where the risks allow.
 | 3 | Plants slip past 2031, or are delayed and over budget | None in construction; Kwinana took about 7 years and cost more than budget \[45\] | 4 × 4 | Bridge revenue from biosolids, organics, meters and services |
 | 4 | Owners self-operate or vendors bundle O&M | ACCIONA at Kwinana; Veolia at Maryvale (5.1) | 4 × 4 | Partner with a vendor; offer availability guarantees |
 | 5 | Lenders want references outside China | No plant outside China (1.2) | 3 × 4 | Australian consortium partner; parent guarantee; verified KPIs |
-| 6 | Waste moves away from the plant | Supply depends on a 10% switching margin and the levy path (3.4) | 3 × 4 | Fee per available line, not per tonne; test thresholds with councils (4.2) |
-| 7 | Public emissions data are questioned | Inquiry doubts proponent-supplied data \[7\]; raw CEMS data still to come (Appendix C) | 2 × 5 | Raw data and a third-party audit before any pitch |
+| 6 | Waste moves away from the plant | Supply depends on a 10% switching margin and the levy path ([WtE economics](../part-a/wte.qmd#wte-economics)) | 3 × 4 | Fee per available line, not per tonne; test thresholds with councils (4.2) |
+| 7 | Public emissions data are questioned | Inquiry doubts proponent-supplied data \[7\]; raw CEMS data still to come ([emission standards](../part-b/china-comparison.qmd#emission-standards)) | 2 × 5 | Raw data and a third-party audit before any pitch |
 | 8 | FIRB, SOCI or China approvals are slow | \$0 threshold for SOEs; new NDRC rules from 1 Dec 2026 \[16, 17\] | 3 × 3 | Apply early; entity only when needed (6.3) |
-| 9 | Waste heating value runs above design | 9.6–12.4 MJ/kg against a 14 MJ/kg ceiling (3.3) | 3 × 3 | Design-stage advice; blend with biosolids |
+| 9 | Waste heating value runs above design | 9.6–12.4 MJ/kg against a 14 MJ/kg ceiling ([waste fit](../part-a/wte.qmd#waste-fit)) | 3 × 3 | Design-stage advice; blend with biosolids |
 | 10 | Australian labour cost and skills | Chengdu staffing ratios will not transfer \[Inferred\] | 4 × 3 | Local management; small expatriate core; remote monitoring |
 | 11 | Grid queue, low power prices | Wholesale prices fell in 2026 \[83\] | 3 × 2 | The owner's risk under O&M; fee independent of power price |
 | 12 | Liability under availability and emissions guarantees | Owners and lenders will ask for guarantees | 3 × 3 | Cap liability at a share of the annual fee; size the parent guarantee to the contract |
@@ -407,10 +407,10 @@ CDEG moves up the ladder only where the risks allow.
 | 3 | 电厂推迟到2031年以后，或延期超支 | 均未开工；Kwinana用了约7年，成本超出预算 \[45\] | 4 × 4 | 以生物固体、有机物、水表和服务收入过渡 |
 | 4 | 业主自营或设备商捆绑运营 | ACCIONA运营Kwinana；Veolia参与Maryvale（5.1） | 4 × 4 | 与设备商合作；提供可用率保证 |
 | 5 | 贷款方要求中国以外的业绩 | 中国境外没有电厂（1.2） | 3 × 4 | 澳洲联合体伙伴；母公司担保；经核实的关键指标 |
-| 6 | 垃圾流向其他去处 | 供应取决于10%的转换门槛和填埋税走势（3.4） | 3 × 4 | 按可用产线收费而非按吨收费；与市政检验门槛（4.2） |
-| 7 | 公开排放数据受到质疑 | 调查质疑业主自报数据 \[7\]；原始CEMS数据尚未提供（附录C） | 2 × 5 | 推介前提供原始数据并完成第三方审计 |
+| 6 | 垃圾流向其他去处 | 供应取决于10%的转换门槛和填埋税走势（[焚烧经济性](../part-a/wte.qmd#wte-economics)） | 3 × 4 | 按可用产线收费而非按吨收费；与市政检验门槛（4.2） |
+| 7 | 公开排放数据受到质疑 | 调查质疑业主自报数据 \[7\]；原始CEMS数据尚未提供（[排放标准](../part-b/china-comparison.qmd#emission-standards)） | 2 × 5 | 推介前提供原始数据并完成第三方审计 |
 | 8 | FIRB、SOCI或国内审批缓慢 | 国企门槛为0澳元；发改委新规2026年12月1日起施行 \[16, 17\] | 3 × 3 | 尽早申请；只在需要时设立实体（6.3） |
-| 9 | 垃圾热值高于设计值 | 9.6–12.4兆焦/千克，上限14兆焦/千克（3.3） | 3 × 3 | 设计阶段提供咨询；掺混生物固体 |
+| 9 | 垃圾热值高于设计值 | 9.6–12.4兆焦/千克，上限14兆焦/千克（[垃圾成分与技术适配](../part-a/wte.qmd#waste-fit)） | 3 × 3 | 设计阶段提供咨询；掺混生物固体 |
 | 10 | 澳洲人工成本与技能 | 成都的人员配置比例无法照搬 \[推断\] | 4 × 3 | 本地管理；小规模外派核心团队；远程监控 |
 | 11 | 并网排队，电价低 | 2026年批发电价下跌 \[83\] | 3 × 2 | 运营合同下由业主承担；收费与电价脱钩 |
 | 12 | 可用率和排放保证下的责任 | 业主和贷款方会要求担保 | 3 × 3 | 责任上限设为年服务费的一定比例；母公司担保规模与合同匹配 |
@@ -449,7 +449,7 @@ CDEG should pause if any stop condition in 6.5 is met: emissions data cannot be 
 | 1 | Get Australian legal advice on FIRB for a service contract signed from China, and for a Melbourne entity | Decides when the entity and FIRB are needed (6.3) |
 | 2 | Send raw Wanxing and Longfeng CEMS data (hourly and annual, plus dioxin tests) and commission a third-party check against EU limits | Gate for phase 0; answers the main community concern (4.4) |
 | 3 | Ask Cleanaway, HiQ and Melbourne Water who decides O&M, and when | Tests whether the operator role is really open (5.1) |
-| 4 | Test the 10% switching threshold with two or three councils | The model's supply and value depend on it (3.4) |
+| 4 | Test the 10% switching threshold with two or three councils | The model's supply and value depend on it ([WtE economics](../part-a/wte.qmd#wte-economics)) |
 | 5 | Shortlist consortium partners: a waste company, an engineering firm and a sorting operator | Needed for every WtE bid (5.3) |
 | 6 | Set the meter ex-works price and NMI plan, including which China test reports NMI will accept | Drives the meter business case (3.2) |
 | 7 | Find a FOGO pilot host and check organics-fund timing | Starts segment 3 (6.2) |
@@ -484,7 +484,7 @@ CDEG should pause if any stop condition in 6.5 is met: emissions data cannot be 
 | 1 | 就从国内签订服务合同、以及设立墨尔本实体是否需要FIRB批准，取得澳洲法律意见 | 决定何时需要设立实体和申请FIRB（6.3） |
 | 2 | 提供万兴和隆丰的原始CEMS数据（小时值、年均值及二噁英检测），并委托第三方对照欧盟限值核查 | 第0阶段门槛；回应社区最主要的关切（4.4） |
 | 3 | 询问Cleanaway、HiQ和Melbourne Water由谁决定运营安排、何时决定 | 检验运营方角色是否真正开放（5.1） |
-| 4 | 与两三个市政检验10%的转换门槛 | 模型的供应量和价值取决于此（3.4） |
+| 4 | 与两三个市政检验10%的转换门槛 | 模型的供应量和价值取决于此（[焚烧经济性](../part-a/wte.qmd#wte-economics)） |
 | 5 | 确定联合体伙伴候选名单：一家废物企业、一家工程公司和一家分拣企业 | 每个焚烧项目投标都需要（5.3） |
 | 6 | 确定水表出厂价和NMI认证计划，包括NMI会采信哪些国内检测报告 | 决定水表业务的经济性（3.2） |
 | 7 | 寻找FOGO试点方，确认有机物基金的时间安排 | 启动细分市场3（6.2） |
