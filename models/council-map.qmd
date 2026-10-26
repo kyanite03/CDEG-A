@@ -11,26 +11,26 @@ include-in-header:
     <script src="../assets/vendor/inputs.min.js"></script>
 ---
 
-<p class="owner"><span class="en">Owner: Kai</span><span class="zh">负责人：马凯</span></p>
+<p class="owner"><span class="en">Author: Kai Marsh</span><span class="zh">作者：马凯</span></p>
 
 ::: {.en}
-Each council already pays a price to get rid of a tonne of garbage: the landfill gate fee plus the state levy. That is the benchmark we have to beat. Our price to them is our gate fee **plus** transport to the Latrobe Valley (Morwell). Move the gate fee and each council turns one of three colours:
+Each council already pays a price to get rid of a tonne of garbage: the landfill gate fee plus the state levy. That is the benchmark we have to beat. Our price to them is our gate fee **plus** transport to the plant. Pick a plant site, move the gate fee, and each council turns one of three colours:
 
 - **Blue: sends us its waste.** Our price is at least the switching margin (default 10%) below its landfill cost.
 - **Yellow: on the fence.** We're cheaper, but by less than the margin, so it doesn't switch yet. These are the councils a small price cut would win.
 - **Grey: too expensive.** Landfill is still cheaper.
 
-Every council also has a tonnage and an average energy content (MJ/kg) for its red-bin garbage, so the page shows how much energy, not just how many tonnes, a given price wins. It covers all 79 Victorian councils, nearby councils in southern NSW, the ACT and south-east SA, and the big interstate markets: the Sydney, Hunter and Illawarra councils in the NSW metro levy area, and metropolitan Adelaide. Prices are 2026–27 A\$ per tonne, excluding GST.
+Hatched areas have no council kerbside data or are out of scope (unincorporated areas, the APY and Maralinga Tjarutja lands, Jervis Bay Territory). The map covers every council in Victoria, NSW, the ACT, South Australia and Tasmania: 311 areas, 305 of them priced. Each priced council has a red-bin tonnage and an average energy content (MJ/kg), so the page shows how much energy a given price wins, not just how many tonnes. The council's waste does not change between sites; the transport cost does. Prices are 2026–27 A\$ per tonne, excluding GST.
 :::
 
 ::: {.zh}
-每个市政目前处理一吨垃圾都要支付填埋处理费加州填埋税，这是我方需要击败的基准价。我方对其报价 = 我方处理费 **加上** 运至拉筹伯谷（Morwell）的运费。调整处理费后，每个市政显示三种颜色之一：
+每个市政目前处理一吨垃圾都要支付填埋处理费加州填埋税，这是我方需要击败的基准价。我方对其报价 = 我方处理费 **加上** 运至工厂的运费。选择厂址并调整处理费后，每个市政显示三种颜色之一：
 
 - **蓝色：会把垃圾交给我方**：我方价格比其填埋成本低至少设定的转换门槛（默认10%）。
 - **黄色：观望中**：我方更便宜，但幅度不足门槛，暂不转换；小幅降价即可争取。
 - **灰色：太贵**：填埋仍更便宜。
 
-每个市政都有红桶垃圾吨数和平均热值（兆焦/千克），因此本页显示某一价格能争取到的能量，而不仅是吨数。范围包括维州全部79个市政、新州南部、首都领地和南澳东南部的邻近市政，以及州外大市场：新州大都市征税区（悉尼、猎人谷、伊拉瓦拉）各市政和阿德莱德大都市。价格为2026–27年度澳元/吨，不含GST。
+斜线区域无市政路边垃圾数据或不在范围内（非建制区、APY及Maralinga Tjarutja原住民土地、杰维斯湾领地）。地图覆盖维州、新州、首都领地、南澳和塔州全部市政：共311个区域，其中305个参与定价。每个定价市政都有红桶垃圾吨数和平均热值（兆焦/千克），因此本页显示某一价格能争取到的能量，而不仅是吨数。各市政垃圾量不随厂址变化，变化的是运费。价格为2026–27年度澳元/吨，不含GST。
 :::
 
 ```{ojs}
@@ -51,46 +51,80 @@ lang = Generators.observe(notify => {
 T = (en, zh) => lang === "zh" ? zh : en
 // Cache-busting: Cloudflare caches data files for hours; the page's Last-Modified changes on every deploy
 V = "?v=" + encodeURIComponent(document.lastModified)
-councilsRaw = fetch("../data/councils.csv" + V).then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
-// Guard against an out-of-date councils.csv: fill safe defaults and report what is missing
-NEEDED = ["cv_mj_kg", "organics_service", "organics_coverage", "rail_only", "port_km", "sea_km"]
-missingCols = NEEDED.filter(k => !councilsRaw.columns.includes(k))
-councils = councilsRaw.map(c => ({...c,
-  cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : 10.9,
-  organics_service: c.organics_service ?? "go", organics_coverage: c.organics_coverage ?? 1,
-  rail_only: c.rail_only ?? 0, bass_strait: c.bass_strait ?? 0, port_km: c.port_km ?? null, sea_km: c.sea_km ?? null}))
+// d3.autoType, but text columns that look like dates or numbers (e.g. garbage_year "2023-24") stay text
+KEEP_TEXT = new Set(["garbage_year", "lga_code", "port", "route_note", "notes", "waste_notes", "tonnage_source", "cv_source"])
+csv = path => fetch(path + V).then(r => r.ok ? r.text() : "").then(t => d3.csvParse(t, d => { const keep = Object.fromEntries(Object.entries(d).filter(([k]) => KEEP_TEXT.has(k)).map(([k, v]) => [k, v === "" ? null : v])); return Object.assign(d3.autoType(d), keep); }))
+councilsRaw = csv("../data/councils.csv")
+freightRaw = csv("../data/council_freight.csv")
 geo = fetch("../data/councils.geojson" + V).then(r => r.json())
-levyHist = fetch("../data/levy_history.csv" + V).then(r => r.text()).then(t => d3.csvParse(t, d3.autoType))
+net = fetch("../data/freight_network.geojson" + V).then(r => r.ok ? r.json() : ({type: "FeatureCollection", features: []})).catch(() => ({type: "FeatureCollection", features: []}))
+levyHist = csv("../data/levy_history.csv")
+// Data contract with work/scripts/merge.py (W4). The banner below lists anything missing.
+NEED_C = ["name", "state", "zone", "in_scope", "lon", "lat", "levy_2027", "garbage_t", "tonnage_status", "cv_mj_kg", "organics_service", "organics_coverage"]
+NEED_F = ["name", "site", "mode", "road_km", "rail_km", "sea_km", "port", "transfers", "feasible", "legal_flag", "route_note", "bass_strait"]
+missingCols = [...NEED_C.filter(k => !councilsRaw.columns.includes(k)).map(k => "councils.csv:" + k), ...NEED_F.filter(k => !freightRaw.columns.includes(k)).map(k => "council_freight.csv:" + k)]
 levy2027 = Object.fromEntries(levyHist.filter(d => d.year === 2027).map(d => [d.zone, d.levy]))
-HUB = ({name: "Morwell", lon: 146.395, lat: -38.235})
-routes = fetch("../data/freight_routes.geojson" + V).then(r => r.json())
-PORTS = [{name: "Devonport", lon: 146.36, lat: -41.18}, {name: "Burnie", lon: 145.91, lat: -41.05}, {name: "Port Botany", lon: 151.215, lat: -33.97}, {name: "Port Kembla", lon: 150.905, lat: -34.465}, {name: "Port of Newcastle", lon: 151.785, lat: -32.92},
-         {name: "Port Adelaide (Outer Harbor)", lon: 138.49, lat: -34.78}, {name: "Port of Melbourne", lon: 144.91, lat: -37.84}]
-routeColor = ({rail_interstate: "#6250d6", rail_gippsland: "#0b0b0b", rail_regional: "#9a9890", sea: "#1baf7a"})
+// Fallback levies (2026-27, A$/t ex GST) if councils.csv has no levy_2027 column
+LEVY_FALLBACK = ({...levy2027, NSW_NOLEVY: 0, ACT: 0, TAS: 70.56})
+// A council is priced only if it is in scope and has a tonnage; everything else is drawn hatched ("no data / out of scope")
+councils = councilsRaw.map(c => {
+  const priced = c.in_scope === 1 && c.tonnage_status !== "none" && Number.isFinite(c.garbage_t) && c.garbage_t > 0;
+  return {...c, priced, cv_mj_kg: Number.isFinite(c.cv_mj_kg) ? c.cv_mj_kg : null,
+          levy: Number.isFinite(c.levy_2027) ? c.levy_2027 : (LEVY_FALLBACK[c.zone] ?? null)};
+})
+// Feasible freight options, by council then site
+legsBy = d3.group(freightRaw.filter(r => r.feasible === 1), r => r.name, r => r.site)
+SITES = [
+  {id: "LATROBE", lon: 146.393, lat: -38.271, en: "Latrobe Valley, Vic", zh: "拉筹伯谷（维州）", short: "Latrobe", shortZh: "拉筹伯谷", flag: "ok"},
+  {id: "NARROMINE", lon: 148.240, lat: -32.230, en: "Narromine, NSW (not permitted)", zh: "纳罗迈恩（新州，不许可）", short: "Narromine", shortZh: "纳罗迈恩", flag: "blocked"},
+  {id: "PORT_AUGUSTA", lon: 137.7874, lat: -32.5429, en: "Port Augusta, SA", zh: "奥古斯塔港（南澳）", short: "Port Augusta", shortZh: "奥古斯塔港", flag: "caution"}
+]
+siteById = new Map(SITES.map(s => [s.id, s]))
+PORTS = [{name: "Port of Melbourne", lon: 144.910, lat: -37.815}, {name: "Port Botany", lon: 151.220, lat: -33.970}, {name: "Port Kembla", lon: 150.900, lat: -34.462},
+         {name: "Port of Newcastle", lon: 151.770, lat: -32.910}, {name: "Port Adelaide (Outer Harbor)", lon: 138.485, lat: -34.780}, {name: "Devonport", lon: 146.365, lat: -41.180},
+         {name: "Burnie", lon: 145.915, lat: -41.050}, {name: "Grassy (King Island)", lon: 144.060, lat: -40.060}, {name: "Lady Barron (Flinders Island)", lon: 148.250, lat: -40.210}]
+routeColor = ({rail_interstate: "#6250d6", rail_gippsland: "#0b0b0b", rail_regional: "#8a8880", road_principal: "#eb6834", sea: "#1baf7a"})
 modeLabel = ({road: T("Road", "公路"), rail: T("Rail", "铁路"), sea: T("Sea", "海运")})
 zoneLabel = ({
   VIC_METRO: T("Vic metro levy zone", "维州大都市税区"), VIC_RURAL: T("Vic rural levy zone", "维州乡村税区"),
-  NSW_MLA: T("NSW metro levy area (Sydney, Hunter, Illawarra)", "新州大都市征税区（悉尼、猎人谷、伊拉瓦拉）"), SA_METRO: T("Metro Adelaide", "阿德莱德大都市"), NSW_NOLEVY: T("NSW, outside levy area", "新州非征税区"), SA_NONMETRO: T("SA non-metro", "南澳非大都市"), ACT: T("ACT (Mugga Lane)", "首都领地"), TAS: T("Tasmania (state levy A$70.56)", "塔斯马尼亚（州税70.56澳元）")
+  NSW_MLA: T("NSW metro levy area (Sydney, Hunter, Illawarra)", "新州大都市征税区（悉尼、猎人谷、伊拉瓦拉）"), NSW_RLA: T("NSW regional levy area", "新州区域征税区"),
+  NSW_NOLEVY: T("NSW, outside levy areas", "新州非征税区"), SA_METRO: T("Metro Adelaide levy area", "阿德莱德大都市税区"), SA_NONMETRO: T("SA non-metro", "南澳非大都市"),
+  ACT: T("ACT (Mugga Lane all-in price)", "首都领地（Mugga Lane全包价）"), TAS: T("Tasmania", "塔斯马尼亚")
 })
 serviceLabel = ({fogo: T("food + garden (FOGO)", "厨余+园林（FOGO）"), go: T("garden only", "仅园林"), none: T("no organics bin", "无有机垃圾桶")})
-STATUS = ["win", "fence", "lose"]
-statusColor = ({win: "#2a78d6", fence: "#eda100", lose: "#c9c7c0"})
-statusLabel = ({win: T("Sends us its waste", "会交给我方"), fence: T("On the fence", "观望中"), lose: T("Too expensive", "太贵")})
-fmt = v => `A$${v.toFixed(0)}`
+statusLabel = ({win: T("Sends us its waste", "会交给我方"), fence: T("On the fence", "观望中"), lose: T("Too expensive", "太贵"), nodata: T("No data / out of scope", "无数据/不在范围内")})
+STATUS = ["win", "fence", "lose", "nodata"]
+statusColor = ({win: "#2a78d6", fence: "#eda100", lose: "#c9c7c0", nodata: "#f1f0ec"})
+fmt = v => Number.isFinite(v) ? `A$${v.toFixed(0)}` : "—"
+fmt1 = (v, d = 1) => Number.isFinite(v) ? v.toFixed(d) : "—"
+esc = s => String(s ?? "").replace(/[&<>"]/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[ch])
 rich = s => { const p = document.createElement("p"); p.className = "kpi-note"; p.innerHTML = s; return p; }
 ```
 
 ```{ojs}
 //| echo: false
-missingCols.length || geoOnly.length ? html`<div class="placeholder" style="border-color:#e34948;background:#fff1f0;color:#a40e26">${T(
-  `Data check: data/councils.csv is out of date${missingCols.length ? ` (missing columns: ${missingCols.join(", ")})` : ""}${geoOnly.length ? `; ${geoOnly.length} map areas have no matching row (e.g. ${geoOnly.slice(0, 3).join(", ")})` : ""}. Copy the latest data/councils.csv and data/councils.geojson together.`,
-  `数据检查：data/councils.csv 不是最新版本${missingCols.length ? `（缺少列：${missingCols.join("、")}）` : ""}${geoOnly.length ? `；${geoOnly.length}个地图区域无对应数据（如${geoOnly.slice(0, 3).join("、")}）` : ""}。请同时复制最新的 data/councils.csv 和 data/councils.geojson。`)}</div>` : html``
+{
+  const geoNames = new Set(geo.features.map(f => f.properties.name));
+  const csvNames = new Set(councils.map(c => c.name));
+  const geoOnly = [...geoNames].filter(n => !csvNames.has(n));
+  const csvOnly = [...csvNames].filter(n => !geoNames.has(n));
+  const noFreight = councils.filter(c => c.priced).flatMap(c => SITES.filter(s => !legsBy.get(c.name)?.get(s.id)?.length).map(s => `${c.name}→${s.id}`));
+  const unknownZone = councils.filter(c => c.priced && !Number.isFinite(c.levy)).map(c => `${c.name} (${c.zone})`);
+  const probs = [];
+  if (missingCols.length) probs.push(T(`missing columns ${missingCols.join(", ")}`, `缺少列 ${missingCols.join("、")}`));
+  if (geoOnly.length) probs.push(T(`${geoOnly.length} map areas have no data row (e.g. ${geoOnly.slice(0, 3).join(", ")})`, `${geoOnly.length}个地图区域无数据行（如${geoOnly.slice(0, 3).join("、")}）`));
+  if (csvOnly.length) probs.push(T(`${csvOnly.length} councils have no map area (e.g. ${csvOnly.slice(0, 3).join(", ")})`, `${csvOnly.length}个市政无地图区域（如${csvOnly.slice(0, 3).join("、")}）`));
+  if (noFreight.length) probs.push(T(`${noFreight.length} council–site pairs have no feasible freight option (e.g. ${noFreight.slice(0, 3).join(", ")})`, `${noFreight.length}个市政–厂址组合无可行运输方式（如${noFreight.slice(0, 3).join("、")}）`));
+  if (unknownZone.length) probs.push(T(`no levy for ${unknownZone.slice(0, 3).join(", ")}`, `无填埋税：${unknownZone.slice(0, 3).join("、")}`));
+  return probs.length ? html`<div class="placeholder data-check">${T("Data check: ", "数据检查：")}${probs.join("; ")}. ${T("Re-run work/scripts/merge.py and copy data/councils.csv, data/council_freight.csv and data/councils.geojson together.", "请重新运行 work/scripts/merge.py，并同时复制 data/councils.csv、data/council_freight.csv 和 data/councils.geojson。")}</div>` : document.createElement("span");
+}
 ```
 
 :::: {.columns .model-row}
 ::: {.column width="36%"}
 ```{ojs}
 //| echo: false
+viewof site = { const i = Inputs.radio(SITES.map(s => s.id), {value: "LATROBE", label: L("Plant site", "厂址"), format: k => { const s = siteById.get(k); return L(s.en, s.zh); }}); i.classList.add("site-radio"); return i; }
 viewof gateFee = Inputs.range([60, 260], {value: 150, step: 5, label: L("Our gate fee (A$/t)", "我方处理费（澳元/吨）")})
 viewof threshold = Inputs.range([0, 0.25], {value: 0.10, step: 0.01, label: L("Saving needed to switch", "转换所需节省比例")})
 viewof modes = Inputs.checkbox(["road", "rail", "sea"], {value: ["road", "rail", "sea"], label: L("Transport allowed", "可用运输方式"), format: m => ({road: L("Road", "公路"), rail: L("Rail", "铁路"), sea: L("Sea", "海运")})[m]})
@@ -105,22 +139,28 @@ viewof maxPayload = Inputs.range([18, 28], {value: 24, step: 1, label: L("Max pa
 viewof rho11 = Inputs.range([0.40, 0.80], {value: 0.60, step: 0.01, label: L("Compacted density at 11 MJ/kg (t/m³)", "11兆焦/千克时压实密度（吨/立方米）")})
 viewof roadPerKm = Inputs.range([2, 6], {value: 3.5, step: 0.1, label: L("Road A$ per container-km", "公路 澳元/箱公里")})
 viewof roadFix = Inputs.range([0, 400], {value: 150, step: 10, label: L("Road loading A$/container", "公路装箱 澳元/箱")})
-viewof localKm = Inputs.range([0, 60], {value: 30, step: 5, label: L("Haul already paid (km)", "现有运距（公里）")})
+viewof localKm = Inputs.range([0, 60], {value: 30, step: 5, label: L("Truck km already paid (km)", "现有卡车运距（公里）")})
 viewof railPerKm = Inputs.range([0.6, 3], {value: 1.4, step: 0.1, label: L("Rail A$ per container-km", "铁路 澳元/箱公里")})
-viewof railFix = Inputs.range([200, 900], {value: 400, step: 25, label: L("Rail first mile + lifts A$/container", "铁路短驳及装卸 澳元/箱")})
-viewof melbLift = Inputs.range([0, 400], {value: 150, step: 10, label: L("Melbourne transfer lift A$/container", "墨尔本换装 澳元/箱")})
-viewof seaPerKm = Inputs.range([0.3, 2.5], {value: 1.1, step: 0.05, label: L("Sea A$ per container-km", "海运 澳元/箱公里")})
+viewof railFix = Inputs.range([200, 900], {value: 400, step: 25, label: L("Rail terminal lifts (on + off) A$/container", "铁路站场装卸（上下）澳元/箱")})
+viewof liftExtra = Inputs.range([0, 400], {value: 150, step: 10, label: L("Extra lift (gauge change, TasRail) A$/container", "额外换装（换轨、塔州铁路）澳元/箱")})
+viewof seaPerKm = Inputs.range([0.3, 2.5], {value: 1.1, step: 0.05, label: L("Coastal sea A$ per container-km (notional)", "沿海海运 澳元/箱公里（示意）")})
 viewof bassRate = Inputs.range([300, 2000], {value: 1000, step: 50, label: L("Bass Strait sea freight A$/container", "巴斯海峡海运 澳元/箱")})
 viewof portFix = Inputs.range([100, 800], {value: 350, step: 25, label: L("Port charges per end A$/container", "每端港口费 澳元/箱")})
-viewof seaLast = Inputs.radio(["rail", "road"], {value: "rail", format: k => k === "rail" ? L("Rail", "铁路") : L("Truck", "卡车"), label: L("Port of Melbourne → Morwell", "墨尔本港→Morwell")})
-viewof gVicMetro = Inputs.range([40, 180], {value: 95, step: 5, label: L("Landfill fee excl. levy: Vic metro", "填埋费（不含税）：维州大都市")})
-viewof gVicRural = Inputs.range([40, 180], {value: 110, step: 5, label: L("… Vic rural", "……维州乡村")})
-viewof gNSW = Inputs.range([40, 200], {value: 130, step: 5, label: L("… southern NSW", "……新州南部")})
-viewof gNSWm = Inputs.range([40, 200], {value: 120, step: 5, label: L("… Sydney/Hunter/Illawarra", "……悉尼/猎人谷/伊拉瓦拉")})
-viewof gSAm = Inputs.range([40, 180], {value: 90, step: 5, label: L("… metro Adelaide", "……阿德莱德大都市")})
-viewof gSA = Inputs.range([40, 180], {value: 110, step: 5, label: L("… SA non-metro", "……南澳非大都市")})
-viewof gACT = Inputs.range([60, 220], {value: 111, step: 1, label: L("… ACT all-in", "……首都领地（全包）")})
-viewof gTAS = Inputs.range([60, 220], {value: 135, step: 5, label: L("… Tasmania", "……塔斯马尼亚")})
+```
+
+<p class="figure-note"><span class="en">Landfill gate fee excluding levy, A$/t:</span><span class="zh">填埋处理费（不含税），澳元/吨：</span></p>
+
+```{ojs}
+//| echo: false
+viewof gVicMetro = Inputs.range([40, 180], {value: 95, step: 5, label: L("Vic metro", "维州大都市")})
+viewof gVicRural = Inputs.range([40, 180], {value: 110, step: 5, label: L("Vic rural", "维州乡村")})
+viewof gNSWm = Inputs.range([40, 200], {value: 120, step: 5, label: L("NSW metro levy area", "新州大都市征税区")})
+viewof gNSWr = Inputs.range([40, 200], {value: 120, step: 5, label: L("NSW regional levy area", "新州区域征税区")})
+viewof gNSW = Inputs.range([40, 200], {value: 130, step: 5, label: L("NSW outside levy areas", "新州非征税区")})
+viewof gSAm = Inputs.range([40, 180], {value: 90, step: 5, label: L("Metro Adelaide", "阿德莱德大都市")})
+viewof gSA = Inputs.range([40, 180], {value: 110, step: 5, label: L("SA non-metro", "南澳非大都市")})
+viewof gACT = Inputs.range([60, 220], {value: 111, step: 1, label: L("ACT all-in (no levy)", "首都领地全包（无税）")})
+viewof gTAS = Inputs.range([60, 220], {value: 135, step: 5, label: L("Tasmania", "塔斯马尼亚")})
 ```
 
 </details>
@@ -129,142 +169,232 @@ viewof gTAS = Inputs.range([60, 220], {value: 135, step: 5, label: L("… Tasman
 ::: {.column width="64%"}
 ```{ojs}
 //| echo: false
+{
+  const mk = (cls, en, zh) => { const d = document.createElement("div"); d.className = "site-note " + cls; d.innerHTML = `<span class="en">${en}</span><span class="zh">${zh}</span>`; return d; };
+  if (site === "NARROMINE") return mk("site-blocked",
+    "<b>Not a permitted site.</b> Under the NSW <i>Protection of the Environment Operations (General) Amendment (Thermal Energy from Waste) Regulation 2022</i>, new thermal energy-from-waste plants may only operate in four precincts: West Lithgow, Parkes, Richmond Valley and Southern Goulburn-Mulwaree (NSW EPA, <i>Energy from waste: frequently asked questions</i>). Narromine is not one of them. It is shown for comparison only, as an inland NSW site on the standard-gauge Main Western line.",
+    "<b>非许可厂址。</b>根据新州《2022年环境保护运营（一般）修订（垃圾热能利用）条例》，新建垃圾焚烧发电厂只能在四个指定区域运营：West Lithgow、Parkes、Richmond Valley和Southern Goulburn-Mulwaree（新州环保局《垃圾能源化常见问题》）。纳罗迈恩不在其中，此处仅作比较：位于标准轨Main Western线上的新州内陆厂址。");
+  if (site === "PORT_AUGUSTA") return mk("site-caution",
+    "<b>Land not confirmed.</b> The former Northern Power Station site (coal, closed 2016, demolished and rehabilitated) was sold to Cu-River Mining in 2019 for a bulk export port, and a 270 MW battery is planned there, so an EfW plant would have to lease or share land. South Australia has no precinct rule: EPA SA's thermal EfW position statement (April 2020) allows residual waste only, with an R1 energy-efficiency of at least 0.65 and real-time emissions reporting (as summarised by WMRR, 6 July 2021). Rail: standard gauge at Port Augusta, 6.7 km by truck to the site.",
+    "<b>用地未确定。</b>原北方电站（燃煤，2016年关闭，已拆除并复垦）厂址于2019年出售给Cu-River Mining用于散货出口港，并计划建设270兆瓦储能电池，垃圾发电厂需租用或共用土地。南澳无指定区域规定：南澳环保局2020年4月热能垃圾发电立场声明仅允许处理残余垃圾，R1能效不低于0.65，并实时公布排放（据WMRR 2021年7月6日概述）。铁路：奥古斯塔港有标准轨，卡车至厂址6.7公里。");
+  return mk("site-ok",
+    "<b>Latrobe Valley</b>, at the former Hazelwood power station. The Gippsland broad-gauge line passes Morwell, 5.3 km by truck from the site, so interstate (standard-gauge) containers change trains in Melbourne. Victoria has no precinct rule; the plant needs an allocation under the state's waste-to-energy cap (see the payback page).",
+    "<b>拉筹伯谷</b>，位于原Hazelwood电站。吉普斯兰宽轨铁路经过Morwell，距厂址卡车5.3公里，因此州际（标准轨）集装箱需在墨尔本换车。维州无指定区域规定；工厂需获得州垃圾发电上限内的配额（见回收期页面）。");
+}
+```
+
+```{ojs}
+//| echo: false
 viewof colourBy = Inputs.radio(["status", "cv"], {value: "status", format: k => k === "status" ? L("Offer status", "报价状态") : L("Energy content", "热值"), label: L("Colour by", "着色依据")})
 ```
 
 ```{ojs}
 //| echo: false
-viewof showRoutes = Inputs.toggle({label: L("Show freight routes", "显示货运线路"), value: false})
+viewof showRoutes = Inputs.toggle({label: L("Show freight network", "显示货运网络"), value: false})
 ```
 
 ```{ojs}
 //| echo: false
-viewof view = Inputs.radio(["all", "vic", "metro"], {value: "all", format: k => ({all: L("South-east Australia", "澳洲东南部"), vic: L("Victoria + borders", "维州及周边"), metro: L("Melbourne + Gippsland", "墨尔本+吉普斯兰")})[k], label: L("Map view", "地图范围")})
+// Map views: "full" (incl. Tasmania), "mainland", "vicmetro" (Vic + NSW metro levy area + ACT + metro Adelaide),
+// "melgipps" only for the Latrobe site. Rebuilt when the site changes; keeps the previous choice when it is still offered.
+VIEW_FORMAT = ({full: L("Full map (incl. Tasmania)", "全图（含塔斯马尼亚）"), mainland: L("Full mainland map", "大陆全图"),
+  vicmetro: L("Vic + interstate metro", "维州+州外都市区"), melgipps: L("Melbourne + Gippsland", "墨尔本+吉普斯兰")})
+// Remembers the user's last view choice across rebuilds of the selector (plain object, not reactive)
+viewMemory = ({last: "full"})
+viewof view = {
+  const opts = site === "LATROBE" ? ["full", "mainland", "vicmetro", "melgipps"] : ["full", "mainland", "vicmetro"];
+  const value = opts.includes(viewMemory.last) ? viewMemory.last : "full";
+  const input = Inputs.radio(opts, {value, format: k => VIEW_FORMAT[k], label: L("Map view", "地图范围")});
+  input.addEventListener("input", () => { viewMemory.last = input.value; });
+  return input;
+}
 ```
 
 ```{ojs}
 //| echo: false
 {
-  const feats = geo.features.filter(f => byName.has(f.properties.name)).map(f => ({...f, properties: {...f.properties, ...byName.get(f.properties.name)}}));
-  const domainFeats = view === "all" ? feats : view === "vic" ? feats.filter(f => !["NSW_MLA", "SA_METRO", "TAS"].includes(f.properties.zone)) : feats.filter(f => f.properties.zone === "VIC_METRO" && f.properties.lon > 144.4 && f.properties.lat < -37.4 || ["Latrobe", "Baw Baw", "Cardinia", "Casey", "South Gippsland", "Bass Coast"].includes(f.properties.name));
-  const color = colourBy === "status"
-    ? {type: "ordinal", domain: STATUS, range: STATUS.map(s => statusColor[s]), legend: true, tickFormat: s => statusLabel[s]}
-    : {type: "linear", domain: [9.5, 12.5], range: ["#cde2fb", "#104281"], clamp: true, legend: true, label: T("Red-bin energy content (MJ/kg)", "红桶垃圾热值（兆焦/千克）"), width: 320};
-  const info = d =>
-    `<b>${d.name}</b> · ${statusLabel[d.status]}<br>` +
-    `${zoneLabel[d.zone]}<br>` +
-    `${T("Red-bin garbage", "红桶垃圾")}: ${(d.garbage_t/1e3).toFixed(1)} kt${d.state === "VIC" ? "" : T(" (est.)", "（估算）")} · ${d.cv_mj_kg.toFixed(1)} MJ/kg<br>` +
-    `${T("Organics bin", "有机垃圾桶")}: ${serviceLabel[d.organics_service]}${d.state === "VIC" ? ` (${(d.organics_coverage*100).toFixed(0)}% ${T("of homes", "住户")})` : T(" (assumed)", "（假设）")}<br>` +
-    `${T("Pays landfill today", "当前填埋成本")}: ${fmt(d.current)}/t (${T("levy", "税")} ${fmt(d.levy)})<br>` +
-    `${T("Container", "集装箱")}: ${d.tpc.toFixed(1)} t (${d.density.toFixed(2)} t/m³) · ` + Object.entries(d.perT).map(([m, v]) => `${modeLabel[m]} ${fmt(v)}/t`).join(", ") + `<br>` +
-    `${T("Our price", "我方价格")}: ${fmt(gateFee)} + ${d.how ? modeLabel[d.how] : "—"} ${isFinite(d.delivery) ? fmt(d.delivery) : "—"} = ${isFinite(d.offer) ? fmt(d.offer) : "—"}/t<br>` +
-    `${T("Saving", "节省")}: ${((d.current - d.offer)/d.current*100).toFixed(0)}% (${T("needs", "需")} ${(threshold*100).toFixed(0)}%)<br>` +
-    `${T("Highest gate fee that wins it", "可争取的最高处理费")}: ${fmt(d.maxGate)}`;
+  const feats = geo.features.map(f => ({...f, properties: {...f.properties, ...(byName.get(f.properties.name) ?? {name: f.properties.name, status: "nodata"})}}));
+  const S = siteById.get(site);
+  // View windows. vicmetro draws only Vic, NSW metro levy area, ACT and metro Adelaide (others shown faint, no hover).
+  const inVicMetro = p => p.state === "VIC" || p.zone === "NSW_MLA" || p.state === "ACT" || p.zone === "SA_METRO";
+  const main = view === "vicmetro" ? feats.filter(f => inVicMetro(f.properties)) : feats;
+  const context = view === "vicmetro" ? feats.filter(f => !inVicMetro(f.properties)) : [];
+  // pad around the plant so the star and its label stay inside the frame
+  const sitePt = {type: "Feature", properties: {}, geometry: {type: "MultiPoint", coordinates: [[S.lon - 0.6, S.lat - 0.5], [S.lon + 0.6, S.lat + 0.5]]}};
+  const domain = view === "mainland" ? {type: "MultiPoint", coordinates: [[128.9, -39.2], [153.7, -25.9]]}
+    : view === "melgipps" ? {type: "MultiPoint", coordinates: [[144.3, -38.95], [147.9, -37.35]]}
+    : view === "vicmetro" ? {type: "FeatureCollection", features: [...main, sitePt]}
+    : {type: "FeatureCollection", features: feats};
+  const cvScale = d3.scaleLinear([9.5, 12.5], ["#cde2fb", "#104281"]).clamp(true);
+  const fillOf = p => p.status === "nodata" ? statusColor.nodata : colourBy === "status" ? statusColor[p.status] : cvScale(p.cv_mj_kg);
+  const info = d => {
+    if (d.status === "nodata") return `<b>${esc(d.name)}</b> · ${statusLabel.nodata}<br>` +
+      `${d.state ?? ""}${d.zone ? " · " + (zoneLabel[d.zone] ?? d.zone) : ""}<br>` +
+      `<span class="tip-dim">${esc(String(d.notes ?? T("No council kerbside tonnage.", "无市政路边垃圾吨数。")).slice(0, 180))}</span>`;
+    const opts = Object.entries(d.perT).map(([m, o]) => `${modeLabel[m]} ${fmt(o.perT)}/t${o.notional ? T(" (notional)", "（示意）") : ""}`).join(", ");
+    const ch = d.chosen;
+    return `<b>${esc(d.name)}</b> · ${statusLabel[d.status]}<br>` +
+      `${zoneLabel[d.zone] ?? d.zone} · ${T("levy", "税")} ${fmt(d.levy)}/t<br>` +
+      `${T("Red-bin garbage", "红桶垃圾")}: ${fmt1(d.garbage_t / 1e3)} kt (${d.tonnage_status === "actual" ? T("actual", "实际") : T("estimate", "估算")}, ${esc(d.garbage_year ?? "")}) · ${fmt1(d.cv_mj_kg)} MJ/kg<br>` +
+      `${T("Organics bin", "有机垃圾桶")}: ${serviceLabel[d.organics_service] ?? "—"}${d.organics_service !== "none" && Number.isFinite(d.organics_coverage) ? ` (${(d.organics_coverage * 100).toFixed(0)}% ${T("coverage", "覆盖")})` : ""}<br>` +
+      `${T("Pays landfill today", "当前填埋成本")}: ${fmt(d.current)}/t (${T("gate", "处理费")} ${fmt(d.current - d.levy)} + ${T("levy", "税")} ${fmt(d.levy)})<br>` +
+      `${T("To", "运至")} ${T(S.short, S.shortZh)}: ${d.tpc.toFixed(1)} t/${T("container", "箱")} · ${opts || T("no allowed option", "无可用方式")}<br>` +
+      `${T("Our price", "我方价格")}: ${fmt(gateFee)} + ${d.how ? modeLabel[d.how] : "—"} ${fmt(d.delivery)} = ${fmt(d.offer)}/t · ${T("saving", "节省")} ${Number.isFinite(d.offer) ? ((d.current - d.offer) / d.current * 100).toFixed(0) + "%" : "—"} (${T("needs", "需")} ${(threshold * 100).toFixed(0)}%)<br>` +
+      `${T("Highest gate fee that wins it", "可争取的最高处理费")}: ${fmt(d.maxGate)}` +
+      (ch ? `<br><span class="tip-dim">${esc(String(ch.route_note).slice(0, 170))}</span>` : "") +
+      (ch && ch.legal_flag === "cl71_risk" ? `<br><span class="tip-risk">${T("Legal risk: NSW proximity principle (POEO Waste Reg cl. 71, >150 km) – relies on the energy-recovery defence; legal check needed.", "法律风险：新州就近原则（POEO废物条例第71条，>150公里）——依赖能源回收抗辩，需法律核实。")}</span>` : "");
+  };
+  const W = 640;
   const chart = Plot.plot({
-    width: 640, height: view === "metro" ? 480 : 440, inset: 6,
-    projection: {type: "mercator", domain: {type: "FeatureCollection", features: domainFeats}},
-    color,
+    width: W, height: view === "full" ? 560 : view === "melgipps" ? 400 : 500, inset: 4,
+    projection: {type: "mercator", domain},
     marks: [
-      Plot.geo(feats, {fill: d => colourBy === "status" ? d.properties.status : d.properties.cv_mj_kg, stroke: "white", strokeWidth: 0.6}),
-      showRoutes ? Plot.geo(routes.features, {stroke: d => routeColor[d.properties.mode], strokeWidth: d => d.properties.mode === "rail_regional" ? 1.5 : 2.5, strokeDasharray: d => d.properties.mode === "sea" ? "6,4" : null, strokeLinecap: "round", fill: "none", title: d => T(d.properties.name, d.properties.name_zh)}) : null,
-      showRoutes ? Plot.dot(PORTS, {x: "lon", y: "lat", r: 4, fill: "white", stroke: routeColor.sea, strokeWidth: 2, title: "name"}) : null,
-      Plot.dot([HUB], {x: "lon", y: "lat", r: 7, fill: "#0b0b0b", stroke: "white", strokeWidth: 2, symbol: "star"}),
-      Plot.text([HUB], {x: "lon", y: "lat", text: () => T("Plant (Morwell)", "工厂（Morwell）"), dx: 10, dy: -8, textAnchor: "start", fontWeight: 600, fill: "#0b0b0b", stroke: "white", strokeWidth: 3}),
+      Plot.geo(main, {fill: d => fillOf(d.properties), stroke: "white", strokeWidth: 0.5, clip: "frame"}),
+      context.length ? Plot.geo(context, {fill: "#f7f6f3", stroke: "#e3e2de", strokeWidth: 0.4, clip: "frame"}) : null,
+      showRoutes ? Plot.geo(net.features, {stroke: d => routeColor[d.properties.mode] ?? "#888", strokeWidth: d => ({rail_interstate: 2.4, rail_gippsland: 2.4, rail_regional: 1.2, road_principal: 1.4, sea: 1.8})[d.properties.mode] ?? 1,
+        strokeDasharray: d => d.properties.mode === "sea" ? (/notional/i.test(d.properties.name) ? "2,4" : "7,4") : d.properties.mode === "road_principal" ? "4,2" : null,
+        strokeOpacity: d => d.properties.mode === "sea" && /notional/i.test(d.properties.name) ? 0.6 : 0.95, strokeLinecap: "round", fill: "none", clip: "frame"}) : null,
+      showRoutes ? Plot.dot(PORTS, {x: "lon", y: "lat", r: 3.5, fill: "white", stroke: routeColor.sea, strokeWidth: 2, clip: "frame"}) : null,
+      Plot.dot(SITES.filter(s => s.id !== site), {x: "lon", y: "lat", r: 4, fill: "white", stroke: "#52514e", strokeWidth: 1.5, clip: "frame"}),
+      Plot.text(SITES.filter(s => s.id !== site), {x: "lon", y: "lat", text: s => T(s.short, s.shortZh), dx: 7, dy: 0, textAnchor: "start", fontSize: 10, fill: "#52514e", stroke: "white", strokeWidth: 3, clip: "frame"}),
+      Plot.dot([S], {x: "lon", y: "lat", r: 8, fill: S.flag === "blocked" ? "#e34948" : "#0b0b0b", stroke: "white", strokeWidth: 2, symbol: "star"}),
+      Plot.text([S], {x: "lon", y: "lat", text: () => T(`Plant: ${S.short}`, `工厂：${S.shortZh}`) + (S.flag === "blocked" ? T(" (not permitted)", "（不许可）") : S.flag === "caution" ? T(" (land not confirmed)", "（用地未定）") : ""), dx: S.id === "NARROMINE" ? -11 : 11, dy: -9, textAnchor: S.id === "NARROMINE" ? "end" : "start", fontWeight: 600, fill: "#0b0b0b", stroke: "white", strokeWidth: 3}),
     ]
   });
-  // Tooltip tied to the exact council polygon under the cursor
+  // Hatch the "no data / out of scope" areas so they don't read as "too expensive"
+  const svg = chart.tagName.toLowerCase() === "svg" ? chart : chart.querySelector("svg");
+  svg.insertAdjacentHTML("afterbegin", `<defs><pattern id="nodata-hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><rect width="6" height="6" fill="${statusColor.nodata}"/><line x1="0" y1="0" x2="0" y2="6" stroke="#b8b6ae" stroke-width="1.4"/></pattern></defs>`);
+  // Tooltip tied to the exact council polygon under the cursor: listeners on the FIRST geo group only
   const wrap = html`<div class="map-wrap"></div>`;
   const tip = html`<div class="map-tip" style="display:none"></div>`;
   wrap.append(chart, tip);
-  const paths = chart.querySelector('g[aria-label="geo"]').querySelectorAll('path');
-  chart.querySelectorAll('g[aria-label="geo"]').forEach((g, i) => { if (i > 0) g.style.pointerEvents = "none"; });
+  const groups = chart.querySelectorAll('g[aria-label="geo"]');
+  groups.forEach((g, i) => { if (i > 0) g.style.pointerEvents = "none"; });
+  chart.querySelectorAll('g[aria-label="dot"], g[aria-label="text"]').forEach(g => g.style.pointerEvents = "none");
+  const paths = groups[0].querySelectorAll("path");
+  if (paths.length !== main.length) wrap.append(html`<div class="placeholder data-check">${T(`Map check: ${paths.length} shapes drawn for ${main.length} areas.`, `地图检查：${main.length}个区域只绘制了${paths.length}个。`)}</div>`);
   paths.forEach((path, i) => {
-    const d = feats[i].properties;
+    const d = main[i].properties;
+    path.setAttribute("data-name", d.name); path.setAttribute("data-status", d.status);
+    if (d.status === "nodata") path.setAttribute("fill", "url(#nodata-hatch)");
     path.style.cursor = "pointer";
     path.addEventListener("mousemove", e => {
       const r = wrap.getBoundingClientRect();
       tip.innerHTML = info(d); tip.style.display = "block";
       const x = e.clientX - r.left, y = e.clientY - r.top;
-      tip.style.left = `${Math.min(x + 14, r.width - 270)}px`; tip.style.top = `${y + 14}px`;
+      tip.style.left = `${Math.max(0, Math.min(x + 14, r.width - 290))}px`; tip.style.top = `${y + 14}px`;
       path.setAttribute("stroke", "#0b0b0b"); path.setAttribute("stroke-width", 1.5);
     });
-    path.addEventListener("mouseleave", () => { tip.style.display = "none"; path.setAttribute("stroke", "white"); path.setAttribute("stroke-width", 0.6); });
+    path.addEventListener("mouseleave", () => { tip.style.display = "none"; path.setAttribute("stroke", "white"); path.setAttribute("stroke-width", 0.5); });
   });
-  if (showRoutes) wrap.append(html`<div class="map-legend">
-    <span><span class="sw" style="background:${routeColor.rail_interstate}"></span>${T("Interstate rail (standard gauge)", "州际铁路（标准轨）")}</span>
-    <span><span class="sw" style="background:${routeColor.rail_gippsland}"></span>${T("Gippsland line to Morwell (broad gauge)", "至Morwell的吉普斯兰线（宽轨）")}</span>
-    <span><span class="sw" style="background:${routeColor.rail_regional}"></span>${T("Victorian regional rail", "维州区域铁路")}</span>
-    <span><span class="sw" style="background:${routeColor.sea}"></span>${T("Coastal shipping (dashed) and ports", "沿海航运（虚线）及港口")}</span></div>`);
+  const sw = (c, t, extra = "") => `<span><span class="sw" style="background:${c};${extra}"></span>${t}</span>`;
+  const hatch = `repeating-linear-gradient(45deg, ${statusColor.nodata} 0 3px, #b8b6ae 3px 4.5px)`;
+  const legend = document.createElement("div"); legend.className = "map-legend";
+  if (colourBy === "status") legend.innerHTML = ["win", "fence", "lose"].map(s => sw(statusColor[s], statusLabel[s])).join("") + sw(statusColor.nodata, statusLabel.nodata, `background:${hatch}`);
+  else { legend.append(Plot.legend({color: {type: "linear", domain: [9.5, 12.5], range: ["#cde2fb", "#104281"], label: T("Red-bin energy content (MJ/kg)", "红桶垃圾热值（兆焦/千克）")}, width: 300}));
+         legend.insertAdjacentHTML("beforeend", sw(statusColor.nodata, statusLabel.nodata, `background:${hatch}`)); }
+  wrap.prepend(legend);
+  if (showRoutes) { const l2 = document.createElement("div"); l2.className = "map-legend"; l2.innerHTML =
+    sw(routeColor.rail_interstate, T("Interstate rail (standard gauge)", "州际铁路（标准轨）")) + sw(routeColor.rail_gippsland, T("Gippsland line (broad gauge)", "吉普斯兰线（宽轨）")) +
+    sw(routeColor.rail_regional, T("Regional rail", "区域铁路")) + sw(routeColor.road_principal, T("Principal road corridors", "主要公路走廊")) +
+    sw(routeColor.sea, T("Bass Strait shipping (dashed); mainland coastal lanes dotted = notional, no regular domestic container service", "巴斯海峡航运（虚线）；大陆沿海航线点线 = 示意，无定期国内集装箱航班")) +
+    `<span><span class="sw" style="background:white;border:2px solid ${routeColor.sea};border-radius:50%"></span>${T("Ports", "港口")}</span>`; wrap.append(l2); }
   return wrap;
 }
 ```
-<p class="figure-note"><span class="en">Hover a council for details. Routes are simplified lines through the main towns, not surveyed track or shipping lanes. Boundaries: geoBoundaries ADM2 (simplified).</span><span class="zh">悬停查看详情。线路为经主要城镇的简化示意，并非实际轨道或航道。边界：geoBoundaries ADM2（已简化）。</span></p>
+<p class="figure-note"><span class="en">Hover a council for details. In "Vic + interstate metro" the other councils are shown faint and are not interactive. ★ = selected plant site; open circles = the other candidate sites. Network: Geoscience Australia operational rail lines (closed lines removed) and principal road corridors routed on OpenStreetMap; sea lanes are coastal waypoint estimates. Boundaries: geoBoundaries ADM2 (ABS 2021 LGAs, simplified).</span><span class="zh">悬停查看详情。“维州+州外都市区”视图中其他市政以浅色显示，不可交互。★ = 所选厂址；空心圆 = 其他候选厂址。网络：澳大利亚地球科学局运营铁路（已剔除停运线路）及基于OpenStreetMap的主要公路走廊；海运航线为沿岸航点估算。边界：geoBoundaries ADM2（ABS 2021地方政府区，已简化）。</span></p>
 :::
 ::::
 
 ```{ojs}
 //| echo: false
 //| output: false
-gateLF = ({VIC_METRO: gVicMetro, VIC_RURAL: gVicRural, NSW_MLA: gNSWm, SA_METRO: gSAm, NSW_NOLEVY: gNSW, SA_NONMETRO: gSA, ACT: gACT, TAS: gTAS})
-levyZ = ({VIC_METRO: levy2027.VIC_METRO, VIC_RURAL: levy2027.VIC_RURAL, NSW_MLA: levy2027.NSW_MLA, SA_METRO: levy2027.SA_METRO, NSW_NOLEVY: 0, SA_NONMETRO: levy2027.SA_NONMETRO, ACT: 0, TAS: 70.56})
-rows = councils.map(c => {
-  const current = gateLF[c.zone] + levyZ[c.zone];
+gateLF = ({VIC_METRO: gVicMetro, VIC_RURAL: gVicRural, NSW_MLA: gNSWm, NSW_RLA: gNSWr, NSW_NOLEVY: gNSW, SA_METRO: gSAm, SA_NONMETRO: gSA, ACT: gACT, TAS: gTAS})
+BASS = new Set(["Burnie", "Devonport", "Grassy (King Island)", "Lady Barron (Flinders Island)"])
+// Cost per 20 ft container (A$) for one freight option: W3's cost_row(), plus the truck km already paid by the council
+boxCost = r => {
+  const truck = roadPerKm * Math.max(0, (r.road_km ?? 0) - localKm) + roadFix;
+  const rail = railPerKm * (r.rail_km ?? 0);
+  if (r.mode === "road") return truck;
+  if (r.mode === "rail") return truck + rail + railFix + liftExtra * Math.max(0, r.transfers - 2);
+  const bass = r.bass_strait === 1 || BASS.has(r.port);
+  return truck + rail + railFix + 2 * portFix + liftExtra * Math.max(0, r.transfers - 4) + (bass ? bassRate : seaPerKm * (r.sea_km ?? 0));
+}
+priceFor = siteId => councils.map(c => {
+  if (!c.priced) return {...c, site: siteId, status: "nodata", perT: {}, how: null, chosen: null, delivery: NaN, offer: NaN, current: NaN, maxGate: NaN, tpc: NaN};
+  const current = gateLF[c.zone] + c.levy;
   // Tonnes per 20 ft container: wetter, low-energy waste compacts denser
   const density = Math.max(0.35, Math.min(0.8, rho11 + 0.05 * (11 - c.cv_mj_kg)));
   const tpc = Math.min(maxPayload, contM3 * density);
-  // Cost per container by mode (A$), then per tonne
-  const lastRail = melbLift + railPerKm * 150 + 100;
-  const box = {
-    road: (c.rail_only || c.bass_strait) ? null : roadFix + roadPerKm * Math.max(0, c.road_km - localKm),   // NSW proximity principle: no long road haul from Sydney region
-    rail: c.rail_km ? railFix + railPerKm * c.rail_km + (c.rail_km > 200 ? melbLift : 0) : null,
-    sea: c.sea_km ? roadFix + roadPerKm * c.port_km + 2 * portFix + (c.bass_strait ? bassRate : seaPerKm * c.sea_km) + (seaLast === "rail" ? lastRail : roadPerKm * 150) : null
-  };
-  const options = modes.filter(m => box[m] !== null).map(m => ({m, perT: box[m] / tpc}));
-  const best = options.length ? options.reduce((a, b) => b.perT < a.perT ? b : a) : {m: null, perT: Infinity};
-  const delivery = best.perT;
+  const legs = (legsBy.get(c.name)?.get(siteId) ?? []).filter(r => modes.includes(r.mode));
+  const options = legs.map(r => ({m: r.mode, r, perT: boxCost(r) / tpc, notional: /^NOTIONAL/i.test(r.route_note ?? "")}));
+  const best = options.length ? options.reduce((a, b) => b.perT < a.perT ? b : a) : null;
+  const delivery = best ? best.perT : Infinity;
   const offer = gateFee + delivery;
   const status = offer <= current * (1 - threshold) ? "win" : offer <= current ? "fence" : "lose";
-  return {...c, current, levy: levyZ[c.zone], density, tpc, box, perT: Object.fromEntries(options.map(o => [o.m, o.perT])), how: best.m, delivery, offer, status, maxGate: current * (1 - threshold) - delivery};
+  return {...c, site: siteId, current, density, tpc, perT: Object.fromEntries(options.map(o => [o.m, o])), how: best?.m ?? null, chosen: best?.r ?? null,
+          legal: best?.r.legal_flag ?? null, delivery, offer, status, maxGate: current * (1 - threshold) - delivery};
 })
+rows = priceFor(site)
+allSites = SITES.map(s => ({s, rows: s.id === site ? rows : priceFor(s.id)}))
 byName = new Map(rows.map(d => [d.name, d]))
-geoOnly = geo.features.map(f => f.properties.name).filter(n => !byName.has(n))
+priced = rows.filter(d => d.status !== "nodata")
 sumT = list => d3.sum(list, d => d.garbage_t)
-mixCV = list => sumT(list) ? d3.sum(list, d => d.garbage_t * d.cv_mj_kg) / sumT(list) : 0
-won = rows.filter(d => d.status === "win")
-fence = rows.filter(d => d.status === "fence")
-wonT = sumT(won)
-fenceT = sumT(fence)
-totT = sumT(rows)
-fenceGate = fence.length ? d3.min(fence, d => d.maxGate) : null
+mixCV = list => sumT(list) ? d3.sum(list, d => d.garbage_t * d.cv_mj_kg) / sumT(list) : NaN
+summary = list => { const won = list.filter(d => d.status === "win"), fence = list.filter(d => d.status === "fence");
+  return {won, fence, wonT: sumT(won), fenceT: sumT(fence), totT: sumT(list.filter(d => d.status !== "nodata")), cv: mixCV(won), riskT: sumT(won.filter(d => d.legal === "cl71_risk")),
+          byMode: Object.fromEntries(["road", "rail", "sea"].map(m => [m, sumT(won.filter(d => d.how === m))])),
+          fenceGate: fence.length ? d3.min(fence, d => d.maxGate) : null}; }
+K = summary(rows)
 ```
 
 ```{ojs}
 //| echo: false
 tile = (label, value, sub) => html`<div class="kpi"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-sub">${sub ?? ""}</div></div>`
 html`<div class="kpi-row">
-  ${tile(T("Councils that send us waste", "会交给我方的市政"), `${won.length} / ${rows.length}`, T(`at A$${gateFee}/t; ${fence.length} more on the fence`, `处理费${gateFee}澳元/吨；另有${fence.length}个观望`))}
-  ${tile(T("Tonnes won", "可得吨数"), `${(wonT/1e3).toFixed(0)} kt/yr`, T(`${(wonT/totT*100).toFixed(0)}% of ${(totT/1e6).toFixed(2)} Mt on the map`, `占地图内${(totT/1e6).toFixed(2)}百万吨的${(wonT/totT*100).toFixed(0)}%`))}
-  ${tile(T("Weighted energy of intake", "进料加权热值"), wonT ? `${mixCV(won).toFixed(1)} MJ/kg` : "—", T(`tonnage-weighted across ${won.length} councils; ${(wonT * mixCV(won) / 1e6).toFixed(1)} PJ/yr`, `按${won.length}个市政吨数加权；合计${(wonT * mixCV(won) / 1e6).toFixed(1)}拍焦/年`))}
-  ${tile(T("On the fence", "观望中"), `${(fenceT/1e3).toFixed(0)} kt/yr`, fence.length ? T(`all won at A$${Math.floor(fenceGate / 5) * 5}/t or less`, `处理费降至${Math.floor(fenceGate / 5) * 5}澳元/吨即可全部争取`) : T("none at this price", "此价格下无"))}
+  ${tile(T("Councils that send us waste", "会交给我方的市政"), `${K.won.length} / ${priced.length}`, T(`at A$${gateFee}/t to ${siteById.get(site).short}; ${K.fence.length} more on the fence`, `处理费${gateFee}澳元/吨，运至${siteById.get(site).shortZh}；另有${K.fence.length}个观望`))}
+  ${tile(T("Tonnes won", "可得吨数"), `${(K.wonT / 1e3).toFixed(0)} kt/yr`, T(`${(K.wonT / K.totT * 100).toFixed(0)}% of ${(K.totT / 1e6).toFixed(2)} Mt priced on the map`, `占地图内定价总量${(K.totT / 1e6).toFixed(2)}百万吨的${(K.wonT / K.totT * 100).toFixed(0)}%`))}
+  ${tile(T("Weighted energy of intake", "进料加权热值"), K.wonT ? `${K.cv.toFixed(2)} MJ/kg` : "—", T(`tonnage-weighted across ${K.won.length} councils; ${K.wonT ? (K.wonT * K.cv / 1e6).toFixed(1) : 0} PJ/yr`, `按${K.won.length}个市政吨数加权；合计${K.wonT ? (K.wonT * K.cv / 1e6).toFixed(1) : 0}拍焦/年`))}
+  ${tile(T("On the fence", "观望中"), `${(K.fenceT / 1e3).toFixed(0)} kt/yr`, K.fence.length ? T(`all won at A$${Math.floor(K.fenceGate / 5) * 5}/t or less`, `处理费降至${Math.floor(K.fenceGate / 5) * 5}澳元/吨即可全部争取`) : T("none at this price", "此价格下无"))}
+  ${tile(T("Won tonnes with NSW legal risk", "存在新州法律风险的可得吨数"), `${(K.riskT / 1e3).toFixed(0)} kt/yr`, T("cheapest route breaches the 150 km proximity rule unless the energy-recovery defence applies", "最便宜路线超出150公里就近原则，除非适用能源回收抗辩"))}
 </div>`
 ```
 
 ```{ojs}
 //| echo: false
 {
-  const be = name => { const d = byName.get(name); if (!d || d.box.rail === null || d.box.sea === null) return null;
-    const lastRail = melbLift + railPerKm * 150 + 100;
-    const nonSea = roadFix + roadPerKm * d.port_km + 2 * portFix + (seaLast === "rail" ? lastRail : roadPerKm * 150);
-    return {d, rate: (d.box.rail - nonSea) / d.sea_km}; };
+  const cell = (v, d = 0) => Number.isFinite(v) ? v.toFixed(d) : "—";
+  const flagTxt = {ok: T("no precinct rule", "无区域限制"), blocked: T("not permitted (NSW EfW precincts)", "不许可（新州指定区域）"), caution: T("land not confirmed", "用地未确定")};
+  const t = html`<table class="council-table site-compare"><thead><tr>
+    <th>${T("Site", "厂址")}</th><th>${T("Status", "状态")}</th><th class="num">${T("Councils won", "争取市政")}</th><th class="num">${T("Tonnes won (kt/yr)", "可得吨数（千吨/年）")}</th>
+    <th class="num">MJ/kg</th><th class="num">${T("On the fence (kt)", "观望（千吨）")}</th><th class="num">${T("Legal-risk kt", "法律风险千吨")}</th><th>${T("Won by mode (kt): road / rail / sea", "按方式（千吨）：公路/铁路/海运")}</th></tr></thead>
+    <tbody>${allSites.map(({s, rows: r}) => { const k = summary(r); return html`<tr class=${s.id === site ? "sel" : ""}>
+      <td>${T(s.short, s.shortZh)}</td><td>${flagTxt[s.flag]}</td><td class="num">${k.won.length}</td><td class="num">${cell(k.wonT / 1e3)}</td><td class="num">${k.wonT ? cell(k.cv, 2) : "—"}</td>
+      <td class="num">${cell(k.fenceT / 1e3)}</td><td class="num">${cell(k.riskT / 1e3)}</td><td>${["road", "rail", "sea"].map(m => cell(k.byMode[m] / 1e3)).join(" / ")}</td></tr>`; })}</tbody></table>`;
+  return html`<div><p class="kpi-note"><b>${T("All three sites at the current settings", "当前设置下三个厂址对比")}</b></p>${t}</div>`;
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const S = siteById.get(site);
+  // Break-even coastal rate: sea beats rail when seaPerKm < (rail box - sea box without the sea leg) / sea_km
+  const be = name => { const d = byName.get(name); if (!d || d.status === "nodata") return null;
+    const r = (legsBy.get(name)?.get(site) ?? []), rl = r.find(x => x.mode === "rail"), se = r.find(x => x.mode === "sea" && !(x.bass_strait === 1));
+    if (!rl || !se || !se.sea_km) return null;
+    const railBox = boxCost(rl), seaBox = boxCost(se), seaLeg = seaPerKm * se.sea_km;
+    return {d, railBox, seaBox, rate: (railBox - (seaBox - seaLeg)) / se.sea_km}; };
   const syd = be("Sydney"), adl = be("Adelaide");
-  const inter = rows.filter(d => d.sea_km && !d.bass_strait);
-  if (!syd || !adl) return rich(T("<b>Sea or rail?</b> Tick both rail and sea (and make sure councils.csv includes the Sydney and Adelaide councils) to compare them.",
-                                  "<b>海运还是铁路？</b>请同时勾选铁路和海运（并确保 councils.csv 含悉尼和阿德莱德市政）以进行比较。"));
-  const seaWins = inter.filter(d => d.box.sea !== null && d.box.rail !== null && d.box.sea < d.box.rail);
-  const f = x => `A$${x.rate.toFixed(2)}`;
+  const mainlandSea = priced.filter(d => d.perT.sea && !(d.perT.sea.r.bass_strait === 1));
+  const seaWins = mainlandSea.filter(d => d.how === "sea");
+  if (!syd && !adl) return rich(T(`<b>Sea or rail?</b> To ${S.short} there is no mainland sea option (no container port at the site), so only Tasmania and the Bass Strait islands ship: by Bass Strait to the Port of Melbourne, then by rail.`,
+                                 `<b>海运还是铁路？</b>运往${S.shortZh}无大陆海运选项（厂址无集装箱港口），只有塔州及巴斯海峡岛屿经海运至墨尔本港后转铁路。`));
+  const f = x => x ? `A$${x.rate.toFixed(2)}` : "—";
+  const part = (x, en) => x ? `${en} a container costs about A$${x.railBox.toFixed(0)} by rail against A$${x.seaBox.toFixed(0)} by sea` : "";
   return rich(T(
-    `<b>Sea or rail?</b> From Sydney a container costs about A$${syd.d.box.rail.toFixed(0)} by rail against A$${syd.d.box.sea.toFixed(0)} by sea (A$${(syd.d.box.rail/syd.d.tpc).toFixed(0)} vs A$${(syd.d.box.sea/syd.d.tpc).toFixed(0)} per tonne); from Adelaide A$${adl.d.box.rail.toFixed(0)} vs A$${adl.d.box.sea.toFixed(0)}. Shipping pays port charges at both ends plus the leg from the Port of Melbourne to Morwell, so at A$${seaPerKm.toFixed(2)} per container-km it is cheapest for ${seaWins.length} of ${inter.length} interstate councils. Sea beats rail once coastal freight falls below about <b>${f(syd)}</b> per container-km from Sydney and <b>${f(adl)}</b> from Adelaide.`,
-    `<b>海运还是铁路？</b>悉尼每箱铁路约${syd.d.box.rail.toFixed(0)}澳元，海运约${syd.d.box.sea.toFixed(0)}澳元（每吨${(syd.d.box.rail/syd.d.tpc).toFixed(0)}对${(syd.d.box.sea/syd.d.tpc).toFixed(0)}澳元）；阿德莱德${adl.d.box.rail.toFixed(0)}对${adl.d.box.sea.toFixed(0)}澳元。海运需支付两端港口费及墨尔本港至Morwell的运输，因此在每箱公里${seaPerKm.toFixed(2)}澳元时，${inter.length}个州外市政中有${seaWins.length}个海运最便宜。当沿海运费低于悉尼约<b>${f(syd)}</b>、阿德莱德约<b>${f(adl)}</b>每箱公里时，海运才优于铁路。`));
+    `<b>Sea or rail?</b> To ${S.short}: ${[part(syd, "from Sydney"), part(adl, "from Adelaide")].filter(Boolean).join("; ")}. Shipping pays port charges at both ends plus rail from the Port of Melbourne, so at A$${seaPerKm.toFixed(2)} per container-km sea is cheapest for ${seaWins.length} of ${mainlandSea.length} mainland councils with a sea option. Sea beats rail once coastal freight falls below about <b>${f(syd)}</b> per container-km from Sydney${adl ? ` and <b>${f(adl)}</b> from Adelaide` : ""}. Mainland coastal lanes are notional: there is no regular domestic container service on them.`,
+    `<b>海运还是铁路？</b>运往${S.shortZh}：${[syd ? `悉尼每箱铁路约${syd.railBox.toFixed(0)}澳元，海运约${syd.seaBox.toFixed(0)}澳元` : "", adl ? `阿德莱德铁路约${adl.railBox.toFixed(0)}澳元，海运约${adl.seaBox.toFixed(0)}澳元` : ""].filter(Boolean).join("；")}。海运需支付两端港口费及墨尔本港起的铁路运输，因此在每箱公里${seaPerKm.toFixed(2)}澳元时，${mainlandSea.length}个有海运选项的大陆市政中有${seaWins.length}个海运最便宜。当沿海运费低于悉尼约<b>${f(syd)}</b>${adl ? `、阿德莱德约<b>${f(adl)}</b>` : ""}每箱公里时，海运才优于铁路。大陆沿海航线为示意：目前无定期国内集装箱航班。`));
 }
 ```
 
@@ -277,12 +407,12 @@ html`<div class="kpi-row">
 {
   const curve = d3.range(60, 265, 5).flatMap(g => {
     const st = c => { const offer = g + c.delivery; return offer <= c.current * (1 - threshold) ? "win" : offer <= c.current ? "fence" : "lose"; };
-    return ["win", "fence"].map(s => ({g, s, kt: sumT(rows.filter(c => st(c) === s)) / 1e3}));
+    return ["win", "fence"].map(s => ({g, s, kt: sumT(priced.filter(c => st(c) === s)) / 1e3}));
   });
   return Plot.plot({
     height: 240, marginLeft: 50,
     x: {label: T("Gate fee (A$/t)", "处理费（澳元/吨）")},
-    y: {label: T("Red-bin garbage (kt/yr)", "红桶垃圾（千吨/年）"), grid: true},
+    y: {label: T(`Red-bin garbage to ${siteById.get(site).short} (kt/yr)`, `运至${siteById.get(site).shortZh}的红桶垃圾（千吨/年）`), grid: true},
     color: {domain: ["win", "fence"], range: [statusColor.win, statusColor.fence], legend: true, tickFormat: s => statusLabel[s]},
     marks: [
       Plot.areaY(curve, {x: "g", y: "kt", fill: "s", order: ["win", "fence"], curve: "step-after"}),
@@ -298,42 +428,46 @@ html`<div class="kpi-row">
 ```{ojs}
 //| echo: false
 {
-  const order = rows.filter(d => d.status !== "lose").sort((a, b) => b.garbage_t - a.garbage_t).slice(0, 15);
+  const order = priced.filter(d => d.status !== "lose").sort((a, b) => b.garbage_t - a.garbage_t).slice(0, 15);
+  if (!order.length) return html`<p class="figure-note">${T("No council is won or on the fence at this price.", "此价格下无已争取或观望中的市政。")}</p>`;
   return Plot.plot({
-    height: 240, marginLeft: 120, marginRight: 40,
+    height: 240, marginLeft: 130, marginRight: 50,
     x: {label: T("Red-bin garbage (kt/yr)", "红桶垃圾（千吨/年）"), grid: true},
     y: {label: null, domain: order.map(d => d.name)},
     color: {domain: ["win", "fence"], range: [statusColor.win, statusColor.fence]},
     marks: [
       Plot.barX(order, {y: "name", x: d => d.garbage_t / 1e3, fill: "status", rx: 2}),
-      Plot.text(order, {y: "name", x: d => d.garbage_t / 1e3, text: d => `${d.cv_mj_kg.toFixed(1)} MJ/kg`, dx: 4, textAnchor: "start", fontSize: 10, fill: "#52514e"}),
-      Plot.tip(order, Plot.pointerY({y: "name", x: d => d.garbage_t / 1e3, title: d => `${d.name}: ${(d.garbage_t/1e3).toFixed(1)} kt · ${d.cv_mj_kg.toFixed(1)} MJ/kg · ${statusLabel[d.status]}`}))
+      Plot.text(order, {y: "name", x: d => d.garbage_t / 1e3, text: d => `${fmt1(d.cv_mj_kg)} MJ/kg`, dx: 4, textAnchor: "start", fontSize: 10, fill: "#52514e"}),
+      Plot.tip(order, Plot.pointerY({y: "name", x: d => d.garbage_t / 1e3, title: d => `${d.name}: ${fmt1(d.garbage_t / 1e3)} kt · ${fmt1(d.cv_mj_kg)} MJ/kg · ${statusLabel[d.status]} · ${d.how ? modeLabel[d.how] : "—"}`}))
     ]
   });
 }
 ```
-<p class="figure-note"><span class="en">The 15 largest councils that are won or on the fence, with each red bin's energy content.</span><span class="zh">已争取或观望中的前15大市政及其红桶垃圾热值。</span></p>
+<p class="figure-note"><span class="en">The 15 largest councils that are won or on the fence for the selected site, with each red bin's energy content.</span><span class="zh">所选厂址下已争取或观望中的前15大市政及其红桶垃圾热值。</span></p>
 :::
 ::::
 
 ```{ojs}
 //| echo: false
 rich(T(
-  `Red bins in councils with a food-and-garden (FOGO) service hold less food, so they are smaller but richer: about <b>12.4 MJ/kg</b>, against <b>10.9</b> for garden-only councils and <b>9.6</b> for councils with no organics bin. Council red-bin waste on the map averages ${mixCV(rows).toFixed(1)} MJ/kg; at this price the mix we win averages ${wonT ? mixCV(won).toFixed(1) : "—"} MJ/kg.`,
-  `设有厨余+园林（FOGO）服务的市政红桶中厨余较少，因此量小但热值高：约<b>12.4兆焦/千克</b>，仅园林服务的为<b>10.9</b>，无有机垃圾桶的为<b>9.6</b>。地图内市政红桶垃圾平均热值${mixCV(rows).toFixed(1)}兆焦/千克；此价格下我方可得混合垃圾平均${wonT ? mixCV(won).toFixed(1) : "—"}兆焦/千克。`))
+  `Red bins in councils with a food-and-garden (FOGO) service hold less food, so they are smaller but richer: about <b>12.4 MJ/kg</b> with full FOGO, against <b>10.9</b> for garden-only councils and <b>9.6</b> for councils with no organics bin. Council red-bin waste on the map averages ${fmt1(mixCV(priced), 2)} MJ/kg; at this price the mix we win averages ${K.wonT ? K.cv.toFixed(2) : "—"} MJ/kg.`,
+  `设有厨余+园林（FOGO）服务的市政红桶中厨余较少，因此量小但热值高：全面FOGO约<b>12.4兆焦/千克</b>，仅园林服务的为<b>10.9</b>，无有机垃圾桶的为<b>9.6</b>。地图内市政红桶垃圾平均热值${fmt1(mixCV(priced), 2)}兆焦/千克；此价格下我方可得混合垃圾平均${K.wonT ? K.cv.toFixed(2) : "—"}兆焦/千克。`))
 ```
 
 ### [All councils]{.en}[全部市政]{.zh}
 
 ```{ojs}
 //| echo: false
-Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.indexOf(b.status) || b.garbage_t - a.garbage_t), {
-  columns: ["name", "status", "garbage_t", "cv_mj_kg", "tpc", "how", "current", "delivery", "offer", "maxGate"],
-  header: {name: T("Council", "市政"), status: T("Status", "状态"), garbage_t: T("Garbage (t)", "垃圾（吨）"), cv_mj_kg: "MJ/kg", tpc: T("t/container", "吨/箱"), how: T("Mode", "方式"),
+Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.indexOf(b.status) || (b.garbage_t ?? 0) - (a.garbage_t ?? 0)), {
+  columns: ["name", "state", "status", "garbage_t", "cv_mj_kg", "tpc", "site", "how", "legal", "current", "delivery", "offer", "maxGate"],
+  header: {name: T("Council", "市政"), state: T("State", "州"), status: T("Status", "状态"), garbage_t: T("Garbage (t)", "垃圾（吨）"), cv_mj_kg: "MJ/kg", tpc: T("t/container", "吨/箱"),
+           site: T("Site", "厂址"), how: T("Mode", "方式"), legal: T("NSW cl.71", "新州第71条"),
            current: T("Landfill today A$/t", "当前填埋 澳元/吨"), delivery: T("Transport A$/t", "运费 澳元/吨"), offer: T("Our price A$/t", "我方价格"),
            maxGate: T("Max gate fee to win", "可争取最高处理费")},
-  format: {status: s => statusLabel[s], garbage_t: v => d3.format(",")(v), cv_mj_kg: v => v.toFixed(1), tpc: v => v.toFixed(1), how: m => m ? modeLabel[m] : "—", current: v => v.toFixed(0), delivery: v => isFinite(v) ? v.toFixed(0) : "—",
-           offer: v => isFinite(v) ? v.toFixed(0) : "—", maxGate: v => isFinite(v) ? v.toFixed(0) : "—"},
+  format: {status: s => statusLabel[s], garbage_t: v => Number.isFinite(v) ? d3.format(",")(Math.round(v)) : "—", cv_mj_kg: v => fmt1(v), tpc: v => fmt1(v),
+           site: s => { const x = siteById.get(s); return x ? T(x.short, x.shortZh) : "—"; }, how: m => m ? modeLabel[m] : "—",
+           legal: f => f === "cl71_risk" ? T("risk", "风险") : f === "cl71_ok" ? T("ok", "符合") : "—",
+           current: v => fmt1(v, 0), delivery: v => fmt1(v, 0), offer: v => fmt1(v, 0), maxGate: v => fmt1(v, 0)},
   rows: 15, layout: "auto"
 })
 ```
@@ -341,25 +475,32 @@ Inputs.table(rows.slice().sort((a, b) => STATUS.indexOf(a.status) - STATUS.index
 ## [Method and limits]{.en}[方法与局限]{.zh}
 
 ::: {.en}
-- **Landfill price today** = landfill gate fee (excluding levy) + the 2026–27 levy for the council's zone. Victoria: A\$177.19/t in the 35 "metro" levy councils (Melbourne plus Geelong, Ballarat, Bendigo and Golden Plains) and A\$88.42/t elsewhere. SA non-metro: A\$85.50/t. Southern NSW councils sit outside the NSW levy area and pay no levy. ACT uses the Mugga Lane domestic rate (A\$121.75/t incl. GST).
-- **Gate fees excluding levy** are set by contract and are not published per council. The defaults are benchmarks you can adjust: City of Geelong reports that levy plus GST is 61% of its landfill cost, which implies a gate fee of about A\$100–110/t excluding levy and GST.
-- **Transport is costed per container, then converted to per tonne for each council.** A sealed 20 ft waste container holds about 33 m³, up to 24 t. Compacted density is tied to energy content: wetter, food-rich waste is denser, at about 0.60 t/m³ at 11 MJ/kg and 0.05 t/m³ more for each MJ/kg less. So a council with no organics bin fills about 22 t per box and a FOGO council about 17.5 t. Per-container costs are adjustable estimates, not quotes: road A\$3.50/km plus A\$150 loading; rail A\$1.40/km plus A\$400 for first mile and lifts, plus A\$150 to change trains in Melbourne (interstate lines are standard gauge, the Gippsland line to Morwell is broad gauge); sea A\$1.10/km plus A\$350 port charges at each end, a truck to the origin port, and rail (default) or truck from the Port of Melbourne to Morwell. Each council uses the cheapest allowed mode. Road distance is straight-line × 1.3 near Melbourne and Gippsland and routed via Melbourne elsewhere; councils already pay to haul about 30 km to their local landfill, so only the extra road distance counts. Rail and sea distances are approximate; check against real rates and routes before quoting.
-- **Tonnage** counts council kerbside garbage (red bin) only: EPA Victoria 2023–24 for Victoria, and population × 0.162 t per person for NSW, SA and the ACT. It excludes C&I waste, hard waste and transfer-station drop-offs.
-- **Energy content** of each council's red bin = typical bin composition × energy per material. Composition comes from the NSW EPA red-bin audits 2011–19, which give separate profiles for councils with a food-and-garden (FOGO), garden-only or no organics service. Each Victorian council's profile is blended by the share of homes that have its organics bin (EPA Victoria 2023–24). NSW councils use the NSW EPA's FOGO services list (October 2026; councils only planning FOGO count as garden-only). Holdfast Bay runs weekly FOGO for 73% of homes. Other SA councils and the ACT (where FOGO is still a pilot) are treated as garden-only. Energy per material is the typical as-discarded value (Tchobanoglous et al. 1993): food 4.7, garden 6.5, paper incl. nappies 15, other organics 16, plastics 32.6 MJ/kg; glass and metal 0; other 3.
-- **On the fence** = cheaper than landfill but by less than the switching margin.
-- **Tasmania** can only reach Morwell by sea: truck to Devonport or Burnie, Bass Strait shipping (about A\$1,000 per 20 ft container, in line with the A\$600–1,200 range in the Tasmanian Government's freight paper, adjustable), then rail from the Port of Melbourne. Its landfill price is the 2026–27 state levy (A\$70.56/t) plus a gate fee of about A\$135/t, consistent with Hobart's and Launceston's published tip prices (A\$223 and A\$240/t incl. GST and levy).
-- **Where tonnages come from:** Victoria – EPA Victoria council data 2023–24 (actual). NSW – NSW EPA Local Government Waste Data Survey 2023–24, red bins collected (actual; Kiama's reported 212 t looked incomplete and is replaced by an estimate). ACT – the ACT's 2022 kerbside audit estimate (64,462 t). Metro Adelaide – the Green Industries SA 2023–24 metro total (253,500 t) shared out by population. Regional SA and Tasmania – population × Victoria's 0.162 t per person (estimate).
-- **Interstate capitals**: Sydney, Hunter and Illawarra councils pay the NSW metro levy (A\$180.20/t) and metro Adelaide pays A\$171/t, so landfill is dear there. NSW's proximity principle stops waste being trucked more than 150 km from where it was made unless it goes to one of the two nearest lawful facilities, so these councils are modelled as **rail only**: about 1,000–1,200 km via Melbourne. Sydney already railed putrescible waste 250 km to Veolia's Woodlawn bioreactor, so long-haul rail of rubbish has a local precedent. Before quoting, check whether NSW levy liability, interstate waste-tracking rules or Victoria's waste-to-energy licence conditions restrict interstate waste.
+- **Sites.** *Latrobe Valley*: former Hazelwood power station (146.393, −38.271). *Narromine*: rail-adjacent land by Narromine station; **not permitted** for thermal EfW under the NSW EfW Regulation 2022 (only West Lithgow, Parkes, Richmond Valley and Southern Goulburn-Mulwaree; NSW EPA EfW FAQ). *Port Augusta*: former Northern Power Station, Port Paterson (−32.543, 137.787); closed 2016; the site was sold to Cu-River Mining for a bulk port (InDaily, 10 May 2019) and a 270 MW battery is planned, so land is not confirmed; SA policy per EPA SA's April 2020 thermal EfW position statement (as summarised by WMRR, 6 July 2021).
+- **Landfill price today** = landfill gate fee (excluding levy) + the 2026–27 levy for the council's zone: Victoria metro A\$177.19 (35 councils, EP Regulations 2021 reg 52) and rural A\$88.42; NSW metro levy area A\$180.20, regional levy area A\$103.80, and no levy elsewhere in NSW (POEO (Waste) Regulation 2014; Kyogle is outside the regional levy area from March 2024); metro Adelaide A\$171 and SA non-metro A\$85.50; Tasmania A\$70.56. The ACT has no levy and uses the Mugga Lane domestic price (A\$121.75/t incl. GST). **Adelaide Hills** is in the metro zone because 59.5% of its residents live inside the Metropolitan Adelaide boundary (ABS 2021 Census by SA1); a population-blended levy would be about A\$136/t. Victorian levy really depends on where the landfill is, so council → zone is an approximation.
+- **Gate fees excluding levy** are set by contract and are not published per council. The defaults are adjustable benchmarks. City of Geelong reports that levy plus GST is 61% of its landfill cost, which implies a gate fee of about A\$100–110/t. The NSW regional levy area defaults to the NSW metro value.
+- **Tonnage** is council kerbside garbage (red bin) only. It excludes C&I waste, hard waste and transfer-station drop-offs. Sources: Victoria, EPA Victoria council data 2023–24 (actual). NSW, NSW EPA Local Government Waste Data Survey 2023–24, red bin collected, matched on ABS LGA code. Kiama uses the council's own 2022–23 figure; six councils with implausibly high reported tonnes per household are estimated at 0.543 t per household with a red bin. ACT, TCCS household waste 2023–24 (80,461 t; ACT Assembly QON 055). SA, Green Industries SA sub-region residual tonnes 2022–23 split by population (estimate; GISA does not publish council tonnes). Tasmania, Launceston, Meander Valley and Glenorchy actuals; the other 26 councils use population × 0.170 t per person pooled from those three (estimate). Years differ (2021–22 to 2023–24) and are shown in each tooltip.
+- **Energy content** of each red bin = typical bin composition × energy per material. Composition comes from the NSW EPA red-bin audits 2011–19, which give separate profiles for councils with a food-and-garden (FOGO), garden-only or no organics service. Each profile is blended by the share of homes with that service *in the tonnage year*. Where a council's organics yield per serviced home is well below the state median, the coverage is scaled down, because a new or partial service leaves food in the red bin. Dense inner-city councils are exempt. The ACT uses its own 2022 kerbside audit (11.51 MJ/kg). Energy per material is the typical as-discarded value (Tchobanoglous et al. 1993): food 4.7, garden 6.5, paper incl. nappies 15, other organics 16, plastics 32.6 MJ/kg; glass and metal 0; other 3.
+- **Transport is costed per 20 ft container, then converted to per tonne for each council.** A sealed waste container holds about 33 m³, up to 24 t. Compacted density is tied to energy content: about 0.60 t/m³ at 11 MJ/kg and 0.05 t/m³ more for each MJ/kg less. So a council with no organics bin fills about 22 t per box and a FOGO council about 17.5 t.
+- **Freight distances** come from a network model, not straight lines. Road: OpenStreetMap routes (Valhalla and OSRM) from each council's main town. Rail: Geoscience Australia operational lines, gauge-aware, with closed lines removed; containers change trains at Dynon (Melbourne) when the gauges differ. Sea: Tasmania via Burnie or Devonport to the Port of Melbourne, then rail. Mainland coastal lanes are notional. For each site, every council has up to three options (road, rail, sea). The page costs each one and uses the cheapest allowed option:
+  - road = A\$3.50/km × truck km + A\$150 loading;
+  - rail adds A\$1.40/km × rail km + A\$400 for the two terminal lifts + A\$150 per extra lift (gauge change, TasRail);
+  - sea adds A\$350 port charges at each end, plus A\$1.10/km at sea or a flat Bass Strait rate (about A\$1,000 per container, the middle of the Tasmanian Government's A\$600–1,200 range, c. 2013 prices).
+  - Councils already pay to haul about 30 km to their local landfill, so the first 30 truck km are not counted. Set that slider to 0 to get exactly the freight team's cost formula.
+  - All unit costs are adjustable estimates, not quotes.
+- **NSW proximity principle.** Clause 71 of the POEO (Waste) Regulation 2014 bars transporting NSW waste by road more than 150 km (straight line) from where it was generated, unless it goes to one of the two nearest lawful facilities; there is a defence for genuine energy recovery. Routes that break the 150 km test are **flagged, not blocked**: see the tooltip, the table and the "legal risk" tile. A lawyer should check them before we rely on the defence.
+- **On the fence** = cheaper than landfill, but by less than the switching margin.
+- **Not priced** (hatched): Unincorporated NSW, SA and Victoria, the APY and Maralinga Tjarutja lands, and Jervis Bay Territory. They have no council kerbside service or data.
 :::
 
 ::: {.zh}
-- **当前填埋价格** = 填埋处理费（不含税）+ 所在税区2026–27年度填埋税。维州35个“大都市”税区市政（墨尔本及吉朗、巴拉瑞特、本迪戈、Golden Plains）为177.19澳元/吨，其他为88.42澳元/吨；南澳非大都市为85.50澳元/吨；新州南部市政位于征税区外，无需缴税；首都领地采用Mugga Lane生活垃圾价格（121.75澳元/吨，含GST）。
-- **不含税处理费**由合同确定，各市政未公开；默认值为可调整的基准。吉朗市称填埋税加GST占其填埋成本的61%，推算不含税和GST的处理费约为100–110澳元/吨。
-- **运费按集装箱计算，再按各市政折算为每吨。**20英尺密封垃圾箱约33立方米，最大载重24吨。压实密度与热值挂钩：含水多、厨余多的垃圾更密实，11兆焦/千克时约0.60吨/立方米，每低1兆焦/千克增加0.05。因此无有机桶市政每箱约22吨，FOGO市政约17.5吨。每箱费用为可调整估算值（非报价）：公路每公里3.50澳元加装箱150澳元；铁路每公里1.40澳元加短驳及装卸400澳元，另加墨尔本换装150澳元（州际线为标准轨，至Morwell的吉普斯兰线为宽轨）；海运每公里1.10澳元，两端港口费各350澳元，加至起运港卡车费及墨尔本港至Morwell的铁路（默认）或卡车。各市政采用可用方式中最便宜者。公路距离在墨尔本及吉普斯兰按直线×1.3，其余经墨尔本绕行；各市政已承担约30公里本地运距，只计额外公路距离。铁路和海运距离为近似值，报价前需按实际费率和线路核实。
-- **吨位**仅为市政路边红桶垃圾：维州为环保局2023–24年度数据，新州、南澳和首都领地按人口×0.162吨估算；不含工商业垃圾、大件垃圾及转运站自送垃圾。
-- **热值**：各市政红桶垃圾热值 = 典型成分 × 各成分热值。成分来自新州环保局2011–19年红桶审计，分别给出FOGO、仅园林及无有机桶三类市政的数据；维州各市政按其有机垃圾桶覆盖住户比例加权（维州环保局2023–24）；新州市政采用新州环保局FOGO服务名单（2026年10月，仅计划实施的按仅园林计）；Holdfast Bay每周FOGO覆盖73%住户；其他南澳市政及首都领地（FOGO仍为试点）按仅园林计。各成分热值取典型丢弃状态值（Tchobanoglous等，1993）：厨余4.7、园林6.5、纸（含尿布）15、其他有机物16、塑料32.6兆焦/千克，玻璃金属0，其他3。
+- **厂址。**拉筹伯谷：原Hazelwood电站（146.393, −38.271）。纳罗迈恩：纳罗迈恩车站旁临铁路用地；根据新州2022年垃圾能源化条例**不许可**建设热能垃圾发电厂（仅限West Lithgow、Parkes、Richmond Valley和Southern Goulburn-Mulwaree；新州环保局常见问题）。奥古斯塔港：原北方电站（Port Paterson，−32.543, 137.787），2016年关闭；厂址已售予Cu-River Mining建散货港（InDaily，2019年5月10日），并计划建设270兆瓦储能电池，用地未确定；南澳政策依据南澳环保局2020年4月热能垃圾发电立场声明（WMRR 2021年7月6日概述）。
+- **当前填埋价格** = 填埋处理费（不含税）+ 所在税区2026–27年度填埋税：维州大都市177.19澳元（35个市政，2021年环保条例第52条）、乡村88.42澳元；新州大都市征税区180.20澳元、区域征税区103.80澳元，新州其他地区无税（2014年POEO废物条例；Kyogle自2024年3月起不属区域征税区）；阿德莱德大都市171澳元、南澳非大都市85.50澳元；塔州70.56澳元；首都领地无税，采用Mugga Lane生活垃圾价格（121.75澳元/吨，含GST）。**Adelaide Hills**归入大都市税区，因59.5%居民位于阿德莱德大都市边界内（ABS 2021年人口普查SA1）；按人口加权的税率约为136澳元/吨。维州填埋税实际取决于填埋场所在地，市政对应税区为近似。
+- **不含税处理费**由合同确定，各市政未公开；默认值为可调整的基准。吉朗市称填埋税加GST占其填埋成本的61%，推算处理费约100–110澳元/吨。新州区域征税区默认值与新州大都市相同。
+- **吨位**仅为市政路边红桶垃圾，不含工商业垃圾、大件垃圾及转运站自送垃圾。来源：维州为维州环保局2023–24市政数据（实际）；新州为新州环保局2023–24地方政府垃圾数据调查红桶收运量（实际，按ABS地方政府代码匹配；Kiama采用市政自报2022–23数据；6个每户吨数明显偏高的市政按每户0.543吨估算）；首都领地为2023–24 TCCS生活垃圾（80,461吨；议会质询055）；南澳为绿色产业局2022–23分区残余垃圾按人口分摊（估算，该局未公布各市政吨数）；塔州为Launceston、Meander Valley和Glenorchy实际数据，其余26个市政按人口×0.170吨估算。数据年份不同（2021–22至2023–24），悬停提示中显示。
+- **热值**：各市政红桶热值 = 典型成分 × 各成分热值。成分来自新州环保局2011–19年红桶审计（FOGO、仅园林、无有机桶三类），按吨位年度的服务覆盖率加权；有机垃圾户均收集量明显低于州中位数的市政（新开或部分年度服务）按比例下调覆盖率，高密度市中心市政除外。首都领地采用其2022年路边垃圾审计（11.51兆焦/千克）。各成分热值（Tchobanoglous等，1993）：厨余4.7、园林6.5、纸（含尿布）15、其他有机物16、塑料32.6兆焦/千克，玻璃金属0，其他3。
+- **运费按20英尺集装箱计算，再折算为每吨。**密封垃圾箱约33立方米，最大载重24吨；压实密度与热值挂钩：11兆焦/千克时约0.60吨/立方米，每低1兆焦/千克增加0.05。无有机桶市政每箱约22吨，FOGO市政约17.5吨。
+- **运距**来自网络模型而非直线距离：公路为OpenStreetMap路线（Valhalla及OSRM，自各市政主要城镇出发）；铁路为澳大利亚地球科学局运营线路（区分轨距，已剔除停运线路，轨距不同时在墨尔本Dynon换车）；海运为塔州经伯尼或德文波特至墨尔本港再转铁路，大陆沿海航线为示意。每个厂址每个市政最多三种方式（公路、铁路、海运），页面逐一计算成本并取可用方式中最便宜者：公路 = 每公里3.50澳元 × 卡车公里 + 装箱150澳元；铁路另加每公里1.40澳元 × 铁路公里 + 两次站场装卸400澳元 + 每次额外换装150澳元（换轨、塔州铁路）；海运另加两端港口费各350澳元，以及每公里1.10澳元或巴斯海峡统一运价（约每箱1000澳元，塔州政府600–1200澳元区间中值，约2013年价格）。各市政已承担约30公里本地运距，前30卡车公里不计；将该滑块设为0即与货运组公式完全一致。所有单价均为可调整估算值，并非报价。
+- **新州就近原则**：2014年POEO废物条例第71条禁止将新州垃圾经公路运至产生地150公里（直线）以外，除非运往最近的两处合法设施；真正的能源回收可作抗辩。超出150公里的路线**仅标记、不排除**（见悬停提示、表格及“法律风险”指标），依赖抗辩前需律师核实。
 - **观望中**：比填埋便宜但幅度不足转换门槛。
-- **塔斯马尼亚**只能经海运到达Morwell：卡车运至德文港或伯尼港，巴斯海峡海运（每20英尺箱约1000澳元，与塔州政府货运文件中600–1200澳元区间一致，可调整），再由墨尔本港铁路转运。其填埋价格为2026–27年度州税70.56澳元/吨加约135澳元/吨处理费，与霍巴特和朗塞斯顿公布的价格（含GST及税223和240澳元/吨）一致。
-- **吨位来源**：维州为维州环保局2023–24市政数据（实际）；新州为新州环保局2023–24地方政府垃圾数据调查红桶收运量（实际；Kiama报告的212吨明显不完整，改用估算）；首都领地为2022年路边垃圾审计估算（64,462吨）；阿德莱德大都市按南澳绿色产业局2023–24总量（253,500吨）按人口分摊；南澳其他地区及塔州按人口×维州人均0.162吨估算。
-- **州外首府**：悉尼、猎人谷和伊拉瓦拉市政缴纳新州大都市填埋税（180.20澳元/吨），阿德莱德大都市为171澳元/吨，填埋成本高。新州“就近原则”禁止将垃圾通过公路运至产生地150公里以外（除非运往最近的两处合法设施），因此这些市政按**仅铁路**计算：经墨尔本约1000–1200公里。悉尼已有通过铁路将生活垃圾运往250公里外Veolia Woodlawn生物反应器的先例。报价前需核实新州填埋税责任、跨州垃圾追踪规定及维州焚烧许可条件是否限制州外垃圾。
+- **不定价**（斜线）：新州、南澳及维州非建制区，APY及Maralinga Tjarutja原住民土地，杰维斯湾领地：无市政路边收运服务或数据。
 :::

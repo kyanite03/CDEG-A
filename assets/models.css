@@ -34,3 +34,21 @@ body:has(.results-bar) { padding-bottom: 4.5rem; }
 .model-row .column:last-child form[class*="inputs-"] { --label-width: 80px; --input-width: 420px; margin: 0 0 .2rem; }
 .map-wrap { position: relative; }
 .map-tip { position: absolute; z-index: 10; width: 260px; pointer-events: none; background: #fff; border: 1px solid #d6d5d0; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,.12); padding: .45rem .6rem; font-size: .78rem; line-height: 1.35; color: #0b0b0b; }
+/* Council map (W4): site notes, data check, tooltip extras, site comparison */
+.site-note { border: 1px solid #d6d5d0; border-left-width: 4px; border-radius: 6px; padding: .45rem .7rem; margin: 0 0 .5rem; font-size: .82rem; line-height: 1.4; background: #fcfcfb; color: #33322f; }
+.site-note.site-ok { border-left-color: #2a78d6; }
+.site-note.site-caution { border-left-color: #eda100; background: #fff9ec; }
+.site-note.site-blocked { border-left-color: #e34948; background: #fff1f0; color: #7a0b1d; }
+.placeholder.data-check { border: 1px solid #e34948; background: #fff1f0; color: #a40e26; border-radius: 6px; padding: .5rem .75rem; font-size: .85rem; }
+.map-tip .tip-dim { color: #77756e; font-size: .72rem; }
+.map-tip .tip-risk { color: #a40e26; font-weight: 600; font-size: .74rem; }
+.map-tip { width: 280px; }
+table.site-compare { width: 100%; border-collapse: collapse; margin: .25rem 0 1rem; }
+table.site-compare th, table.site-compare td { padding: .25rem .4rem; border-bottom: 1px solid #e3e2de; text-align: left; }
+table.site-compare th.num, table.site-compare td.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.site-compare tr.sel td { background: #eef5fd; font-weight: 600; }
+form.site-radio > div { flex-direction: column; align-items: flex-start; }
+form.site-radio > div > label { display: block; margin: 0 0 .2rem; }
+
+/* R4: let map tooltips extend below the map instead of being clipped */
+.cell-output-display:has(> .map-wrap), .cell-output-display:has(.map-wrap) { overflow: visible !important; }
