@@ -13,8 +13,8 @@ title: "[Glossary]{.en}[术语表]{.zh}"
 | Waste-to-energy (WtE) | 垃圾焚烧发电 | Burning residual waste to make power and heat |
 | Cap licence | 配额许可 | Victorian licence for thermal WtE tonnes under the 2.5 Mt/yr cap |
 | Existing-operator licence | 既有运营商许可 | Licence for facilities that pre-date the cap scheme |
-| Operation and maintenance (O&M) | 运营管理 | Running a plant for its owner under contract |
-| Gate fee / tipping fee | 进场处理费 / 垃圾处理费 | Fee per tonne of waste received ("gate fee" in Australia, "tipping fee" in China) |
+| Operation and maintenance (O&M) | 运营维护（运维） | Running a plant for its owner under contract |
+| Gate fee / tipping fee | 处理费 / 垃圾处理费 | Fee per tonne of waste received ("gate fee" in Australia, "tipping fee" in China) |
 | Lower heating value (LHV) | 低位热值 | Usable heat per kilogram of waste |
 | CEMS | 烟气在线监测系统 | Continuous stack emissions monitoring |
 | FOGO | 食物和园林有机垃圾分类 | Food organics and garden organics kerbside collection |
@@ -37,8 +37,8 @@ title: "[Glossary]{.en}[术语表]{.zh}"
 | 垃圾焚烧发电 | Waste-to-energy (WtE) | 焚烧剩余垃圾以生产电力和热能 |
 | 配额许可 | Cap licence | 维州250万吨/年上限内的热处理焚烧发电许可 |
 | 既有运营商许可 | Existing-operator licence | 适用于配额制度实施前已有设施的许可 |
-| 运营管理 | Operation and maintenance (O&M) | 根据合同为业主运营电厂 |
-| 进场处理费 / 垃圾处理费 | Gate fee / tipping fee | 每吨垃圾的接收费用（澳洲称gate fee，中国称垃圾处理费） |
+| 运营维护（运维） | Operation and maintenance (O&M) | 根据合同为业主运营电厂 |
+| 处理费 / 垃圾处理费 | Gate fee / tipping fee | 每吨垃圾的接收费用（澳洲称gate fee，中国称垃圾处理费） |
 | 低位热值 | Lower heating value (LHV) | 每千克垃圾的可用热量 |
 | 烟气在线监测系统 | CEMS | 烟囱排放连续监测系统 |
 | 食物和园林有机垃圾分类 | FOGO | 厨余与园林有机垃圾的路边分类收集 |

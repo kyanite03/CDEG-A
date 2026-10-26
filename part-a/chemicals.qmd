@@ -31,7 +31,7 @@ title: "[Water-treatment chemicals]{.en}[水处理药剂]{.zh}"
 
 ::: {.zh}
 ::: {.placeholder}
-- 现有供应商和代理商【待核实】
+- 现有供应商和代理商
 - 参与方表格：业主、运营商、技术方、EPC、已获批文
 :::
 :::
