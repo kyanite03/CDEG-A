@@ -193,7 +193,7 @@ resetAdv = () => {
 }
 ```
 
-::: {.own-data}
+::: {.own-data .dev-only}
 
 <p class="own-title"><span class="en">CDEG's own running costs</span><span class="zh">集团自己的运营成本</span></p>
 
@@ -256,6 +256,13 @@ varOpex = ownOn ? own.varOpex : varOpexIn
     el.querySelectorAll("input").forEach(i => { i.disabled = ownOn; });
   }
 }
+```
+
+
+```{ojs}
+//| echo: false
+// Key-inputs mode: say when CDEG's own figures (set in developer mode) are in use
+ownOn ? html`<p class="own-active simple-only">${L("Using CDEG's own running costs, set in developer mode.", "正在使用集团自己的运营成本（在开发者模式中设置）。")}</p>` : html`<span hidden></span>`
 ```
 
 ## [1 · Running cost the operator controls]{.en}[1 · 运营方可控的运营成本]{.zh}

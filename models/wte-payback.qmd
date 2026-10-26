@@ -240,7 +240,7 @@ freightRaw.length && councils.length ? document.createElement("span") : warnBox(
   `数据检查：data/councils.csv 与 data/council_freight.csv 必须同时存在且为同一版本（运行 work/scripts/merge.py）。缺少 council_freight.csv 时无法计算任何市政。`))
 ```
 
-::: {.own-data}
+::: {.own-data .dev-only}
 
 <p class="own-title"><span class="en">CDEG's own running costs</span><span class="zh">集团自己的运营成本</span></p>
 
@@ -303,6 +303,13 @@ varOpex = ownOn ? own.varOpex : varOpexIn
     el.querySelectorAll("input").forEach(i => { i.disabled = ownOn; });
   }
 }
+```
+
+
+```{ojs}
+//| echo: false
+// Key-inputs mode: say when CDEG's own figures (set in developer mode) are in use
+ownOn ? html`<p class="own-active simple-only">${L("Using CDEG's own running costs, set in developer mode.", "正在使用集团自己的运营成本（在开发者模式中设置）。")}</p>` : html`<span hidden></span>`
 ```
 
 ## [1 · Market: licence and feedstock]{.en}[1 · 市场：许可配额与原料]{.zh}

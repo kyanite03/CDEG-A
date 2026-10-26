@@ -62,14 +62,15 @@ website:
         menu:
           - href: models/overview.qmd
             text: "Interactive models · 互动模型"
-          - href: models/wte-payback.qmd
-            text: "WtE project payback · 垃圾发电项目回收期"
-          - href: models/council-map.qmd
-            text: "Council price map · 市政价格地图"
-          - href: models/om-contract.qmd
-            text: "O&M contract model · 委托运营模型"
           - href: models/meter-distributor.qmd
             text: "Smart water meter profit model · 智能水表盈利模型"
+          - href: models/wte-payback.qmd
+            text: "WtE project payback · 垃圾发电项目回收期"
+          # O&M and the council map are parts of the WtE model; indented in the menu by assets/lang.css
+          - href: models/om-contract.qmd
+            text: "O&M contract model · 委托运营模型"
+          - href: models/council-map.qmd
+            text: "Council price map · 市政价格地图"
       - text: "Appendix · 附录"
         menu:
           - href: appendix/sources.qmd

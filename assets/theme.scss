@@ -1,4 +1,5 @@
 /*-- scss:defaults --*/
 // No Google Fonts: they are blocked in mainland China and stall page loads
 $web-font-path: false;
-$font-family-sans-serif: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Roboto, "Helvetica Neue", Arial, sans-serif;
+// Latin fonts first so English quotes and apostrophes are not drawn full-width; Chinese text falls through to the CJK fonts
+$font-family-sans-serif: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "DejaVu Sans", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;

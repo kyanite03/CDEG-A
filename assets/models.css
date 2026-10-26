@@ -102,3 +102,6 @@ body:not(.own-on) .own-data .own-fields { display: none; }
 .scen-bar input[type=text], .scen-bar select { font-size: .85rem; padding: .15rem .35rem; min-width: 12rem; }
 .scen-bar button { font-size: .8rem; }
 .scen-bar .scen-note { font-size: .75rem; color: #77756e; margin: .2rem 0 0; }
+/* The on/off tickbox sits on one line with its label */
+.own-data form:has(input[type=checkbox]) { --label-width: auto; flex-wrap: nowrap; gap: .5rem; align-items: center; }
+.own-active { font-size: .85rem; color: #1d5fa8; background: #f5f9fe; border: 1px solid #b9d3f2; border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }

@@ -196,7 +196,7 @@ scenarioBar = {
 }
 ```
 
-::: {.own-data}
+::: {.own-data .dev-only}
 
 <p class="own-title"><span class="en">CDEG's own factory cost</span><span class="zh">集团自己的工厂成本</span></p>
 
@@ -251,6 +251,13 @@ factoryMargin = ownBom ? (exRMB - bom) / exRMB : factoryMarginIn
 }
 ```
 
+
+
+```{ojs}
+//| echo: false
+// Key-inputs mode: say when CDEG's own figures (set in developer mode) are in use
+ownBom ? html`<p class="own-active simple-only">${L("Using CDEG's own factory cost, set in developer mode.", "正在使用集团自己的工厂成本（在开发者模式中设置）。")}</p>` : html`<span hidden></span>`
+```
 
 ## [1 · The market: how many meters Australia buys each year]{.en}[1 · 市场：澳洲每年采购多少只水表]{.zh}
 

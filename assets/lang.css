@@ -12,3 +12,6 @@ form[class*="oi-"] { --label-width: 260px; --input-width: 320px; }
 html[data-lang="zh"] .placeholder::before { content: "待补充"; }
 html[data-lang="en"] .placeholder::before { content: "PLACEHOLDER"; }
 .navbar .nav-link { white-space: nowrap; }
+/* Models menu: the O&M and council-map models sit under the WtE payback model */
+.dropdown-item[href$="models/om-contract.html"], .dropdown-item[href$="models/council-map.html"] { padding-left: 2.25rem; }
+.dropdown-item[href$="models/om-contract.html"]::before, .dropdown-item[href$="models/council-map.html"]::before { content: "↳ "; color: #77756e; }
